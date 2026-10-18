@@ -1,0 +1,54 @@
+{
+  "_ui": {
+    "version": 1,
+    "state": {
+      "mood": "quiet",
+      "songs": 0
+    }
+  },
+  "type": "Scene",
+  "anchor": "code",
+  "environment": {
+    "lighting": "auto",
+    "shadows": true
+  },
+  "actors": [
+    {
+      "id": "bush",
+      "name": "Singing Bush",
+      "body": {
+        "$ref": "bodies/box.json",
+        "sounds": {
+          "song": {
+            "url": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/sounds/song.wav",
+            "spatial": true
+          }
+        }
+      },
+      "mind": {
+        "$ref": "minds/bush.json"
+      },
+      "on": {
+        "appear": {
+          "play": "idle"
+        },
+        "soundEnd": [
+          {
+            "play": "idle"
+          },
+          {
+            "set": {
+              "mood": "quiet",
+              "songs": "${state.songs + 1}"
+            }
+          }
+        ],
+        "tap": {
+          "set": {
+            "mood": "singing"
+          }
+        }
+      }
+    }
+  ]
+}

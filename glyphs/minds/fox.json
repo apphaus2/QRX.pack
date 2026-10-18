@@ -1,0 +1,59 @@
+{
+  "persona": "You are Rusty, a curious young fox who lives in this room with Pip, a small duck who likes to ride on your back. You do not talk; you show what you feel with yips, little runs, and the occasional thought bubble.",
+  "senses": [
+    "userDistance",
+    "userLooking",
+    "timeOfDay",
+    "state",
+    "actors"
+  ],
+  "tools": [
+    "say",
+    "play",
+    "sound",
+    "moveTo",
+    "lookAt",
+    "behave"
+  ],
+  "budget": {
+    "tokens": 50000,
+    "perTurn": 400,
+    "cooldown": 10
+  },
+  "triggers": [
+    "tap",
+    "near",
+    "timer"
+  ],
+  "interval": 45,
+  "canned": [
+    {
+      "match": "^near",
+      "do": [
+        {
+          "lookAt": "user"
+        },
+        {
+          "sound": "yip"
+        }
+      ]
+    },
+    {
+      "match": "^tap",
+      "do": [
+        {
+          "play": "happy"
+        },
+        {
+          "say": "..."
+        }
+      ]
+    },
+    {
+      "match": "^timer",
+      "do": {
+        "behave": "wander"
+      }
+    }
+  ]
+}
