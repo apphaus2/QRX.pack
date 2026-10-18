@@ -20,7 +20,7 @@
         "$ref": "bodies/box.json",
         "sounds": {
           "song": {
-            "url": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/sounds/song.wav",
+            "url": "https://qrx.apphaus.us/sounds/song.wav",
             "spatial": true
           }
         }

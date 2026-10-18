@@ -5,19 +5,19 @@ bodies, minds, sounds and images they use. QRX bundles `glyphs/` (to share over 
 button), and anything here can be fetched by URL, so a printed code works for anyone.
 
 Encode a *payload* below into a QR code (any generator works) and point QRX at it. Each payload is the
-document's raw URL, with an optional `size:` line first ([GLYPH.md](https://github.com/apphaus2/QRX/blob/master/docs/GLYPH.md)
+document's URL on qrx.apphaus.us, with an optional `size:` line first ([GLYPH.md](https://github.com/apphaus2/QRX/blob/master/docs/GLYPH.md)
 in QRX describes the format).
 
 | glyph | what it shows | payload |
 | --- | --- | --- |
-| [image.json](glyphs/image.json) | the test card | `https://raw.githubusercontent.com/apphaus2/QRX.pack/master/glyphs/image.json` |
-| [video.json](glyphs/video.json) | a looping sample video | `size: *2`<br>`https://raw.githubusercontent.com/apphaus2/QRX.pack/master/glyphs/video.json` |
-| [web.json](glyphs/web.json) | a web page | `size: 10l10x20b10`<br>`https://raw.githubusercontent.com/apphaus2/QRX.pack/master/glyphs/web.json` |
-| [button.json](glyphs/button.json) | a button that shows a toast | `https://raw.githubusercontent.com/apphaus2/QRX.pack/master/glyphs/button.json` |
-| [ui-login.json](glyphs/ui-login.json) | a JsonUI form, fields from `shared/fields.json` | `size: *3`<br>`https://raw.githubusercontent.com/apphaus2/QRX.pack/master/glyphs/ui-login.json` |
-| [ui-survey.json](glyphs/ui-survey.json) | a JsonUI survey | `https://raw.githubusercontent.com/apphaus2/QRX.pack/master/glyphs/ui-survey.json` |
-| [scene-bush.json](glyphs/scene-bush.json) | a singing bush that stands on the code and sings when tapped | `size: *4`<br>`https://raw.githubusercontent.com/apphaus2/QRX.pack/master/glyphs/scene-bush.json` |
-| [scene-fox-duck.json](glyphs/scene-fox-duck.json) | Rusty the fox and Pip the duck on the floor: Rusty wanders and comes when tapped, Pip rides on his back | `size: *4`<br>`https://raw.githubusercontent.com/apphaus2/QRX.pack/master/glyphs/scene-fox-duck.json` |
+| [image.json](glyphs/image.json) | the test card | `https://qrx.apphaus.us/glyphs/image.json` |
+| [video.json](glyphs/video.json) | a looping sample video | `size: *2`<br>`https://qrx.apphaus.us/glyphs/video.json` |
+| [web.json](glyphs/web.json) | a web page | `size: 10l10x20b10`<br>`https://qrx.apphaus.us/glyphs/web.json` |
+| [button.json](glyphs/button.json) | a button that shows a toast | `https://qrx.apphaus.us/glyphs/button.json` |
+| [ui-login.json](glyphs/ui-login.json) | a JsonUI form, fields from `shared/fields.json` | `size: *3`<br>`https://qrx.apphaus.us/glyphs/ui-login.json` |
+| [ui-survey.json](glyphs/ui-survey.json) | a JsonUI survey | `https://qrx.apphaus.us/glyphs/ui-survey.json` |
+| [scene-bush.json](glyphs/scene-bush.json) | a singing bush that stands on the code and sings when tapped | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-bush.json` |
+| [scene-fox-duck.json](glyphs/scene-fox-duck.json) | Rusty the fox and Pip the duck on the floor: Rusty wanders and comes when tapped, Pip rides on his back | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-fox-duck.json` |
 
 The scenes are [JsonScene](https://github.com/apphaus2/JsonScene) documents; their minds are
 [JsonMind](https://github.com/apphaus2/JsonMind) fragments.
@@ -33,7 +33,18 @@ images/, sounds/ media the documents use by URL
 ```
 
 References inside `glyphs/` are relative (`bodies/fox.json`), so the folder works from any host. Media URLs
-are absolute raw URLs of this repository.
+are absolute: `https://qrx.apphaus.us/images/...` and `.../sounds/...`.
+
+## Hosting
+
+https://qrx.apphaus.us, QRX's website (`site/` in QRX), serves this repository's `glyphs/`, `images/` and
+`sounds/` at the same paths (`/glyphs/image.json`), from the commit QRX pins as `third_party/QRX.pack`. So a
+push here goes live once QRX bumps the pin and deploys its site; check with
+`curl -sI https://qrx.apphaus.us/glyphs/image.json`.
+
+The domain is what printed codes carry, so it outlives a rename of this repository. Codes printed with the
+older `raw.githubusercontent.com/apphaus2/QRX.pack/master/...` URLs keep working while the repository stays
+public and the files stay where they are.
 
 ## Rules
 
