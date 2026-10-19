@@ -30,16 +30,18 @@ glyphs/shared/   JsonUI fragments the forms reference
 glyphs/bodies/   actor bodies: a model URL, scale, animation clips, sockets
 glyphs/minds/    actor minds: persona, senses, canned replies, token budget
 images/, sounds/ media the documents use by URL
+models/          our own glTF models (CC0), written by the scripts
+scripts/         assets.py makes the test card and the sounds; bush.py the bush's model: `python3 scripts/bush.py .`
 ```
 
 References inside `glyphs/` are relative (`bodies/fox.json`), so the folder works from any host. Media URLs
-are absolute: `https://qrx.apphaus.us/images/...` and `.../sounds/...`.
+are absolute: `https://qrx.apphaus.us/images/...`, `.../sounds/...` and `.../models/...`.
 
 ## Hosting
 
-https://qrx.apphaus.us, QRX's website (`site/` in QRX), serves this repository's `glyphs/`, `images/` and
-`sounds/` at the same paths (`/glyphs/image.json`), from the commit QRX pins as `third_party/QRX.pack`. So a
-push here goes live once QRX bumps the pin and deploys its site; check with
+https://qrx.apphaus.us, QRX's website ([QRX.site](https://github.com/apphaus2/QRX.site)), serves this repository's
+`glyphs/`, `images/`, `sounds/` and `models/` at the same paths (`/glyphs/image.json`), from the commit it pins as
+`third_party/QRX.pack`. So a push here goes live once QRX.site bumps the pin and deploys; check with
 `curl -sI https://qrx.apphaus.us/glyphs/image.json`.
 
 The domain is what printed codes carry, so it outlives a rename of this repository. Codes printed with the
@@ -50,7 +52,8 @@ public and the files stay where they are.
 
 - Everything here is public and released with QRX. Keep out anything that can't be: other people's
   characters, music or artwork, and anything internal. Internal development content lives elsewhere.
-- New original content is CC0 (see [LICENSE](LICENSE)). Third-party assets are referenced by URL, not
-  copied, and are credited in [ATTRIBUTION.md](ATTRIBUTION.md).
+- New original content is CC0 (see [LICENSE](LICENSE)); generated assets keep their script here, so nothing is
+  sampled. Third-party assets are referenced by URL, not copied (unless CC0, then under `models/` with their source),
+  and are credited in [ATTRIBUTION.md](ATTRIBUTION.md).
 - Changing a document changes what printed codes show. Rename only with a new file; keep the old one
   working.

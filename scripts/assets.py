@@ -35,10 +35,28 @@ def tone(freq, dur, vib=0.0, harmonics=(1, 0.35, 0.15)):
         f = freq * (1 + vib * math.sin(2 * math.pi * 5.5 * t))
         yield env * sum(a * math.sin(2 * math.pi * f * (k + 1) * t) for k, a in enumerate(harmonics)) / 1.5
 
-# The bush's song: a short pentatonic tune with a little vibrato.
-notes = [(392, .4), (440, .4), (523, .6), (440, .3), (392, .3), (330, .8), (392, .4), (523, .4), (587, .9)]
-song = [s for f, d in notes for s in tone(f, d, vib=0.006)]
-wav(f"{out}/sounds/song.wav", [s * 0.8 for s in song])
+def voice(freq, dur, vib=0.012, swell=0.0):
+    """A sung note: a vowel-like timbre (a few strong harmonics with a formant bump), vibrato that sets in after the
+    attack, and a swell on long notes."""
+    n = int(RATE * dur)
+    harmonics = (1.0, 0.7, 0.55, 0.35, 0.5, 0.2, 0.1)
+    for i in range(n):
+        t = i / RATE
+        env = min(1, t / 0.06) * min(1, (dur - t) / 0.15)
+        if swell: env *= 1 - swell + swell * math.sin(math.pi * t / dur)
+        depth = vib * min(1, max(0, (t - 0.12) / 0.2))
+        f = freq * (1 + depth * math.sin(2 * math.pi * 5.8 * t))
+        yield env * sum(a * math.sin(2 * math.pi * f * (k + 1) * t) for k, a in enumerate(harmonics)) / 2.6
+
+# The bush's song: two phrases of a jaunty pentatonic tune, belted with vibrato, ending on a held high note.
+# G4 A4 C5 D5 E5 G5, with a breath between the phrases; about eight seconds.
+G, A, C, D, E, G5 = 392, 440, 523.25, 587.33, 659.25, 784
+notes = [(G, .3), (A, .3), (C, .45), (A, .3), (G, .3), (E, .45), (D, .3), (C, .6), (0, .25),
+         (C, .3), (D, .3), (E, .45), (D, .3), (C, .3), (A, .45), (C, .3), (D, .3), (G5, 1.6)]
+song = []
+for f, d in notes:
+    song += [0.0] * int(RATE * d) if f == 0 else list(voice(f, d, swell=0.5 if d > 1 else 0.0))
+wav(f"{out}/sounds/song.wav", [s * 0.85 for s in song])
 
 # The fox's yip: two quick rising chirps with a breathy edge.
 random.seed(7)

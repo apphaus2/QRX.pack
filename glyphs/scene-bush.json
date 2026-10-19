@@ -17,7 +17,7 @@
       "id": "bush",
       "name": "Singing Bush",
       "body": {
-        "$ref": "bodies/box.json",
+        "$ref": "bodies/bush.json",
         "sounds": {
           "song": {
             "url": "https://qrx.apphaus.us/sounds/song.wav",

@@ -1,0 +1,8 @@
+{
+  "model": "https://qrx.apphaus.us/models/bush.glb",
+  "scale": 1,
+  "animations": {
+    "idle": { "clip": "sway", "loop": true },
+    "sing": { "clip": "shake", "loop": true, "speed": 1.1 }
+  }
+}
