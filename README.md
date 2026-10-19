@@ -17,7 +17,7 @@ in QRX describes the format).
 | [ui-login.json](glyphs/ui-login.json) | a JsonUI form, fields from `shared/fields.json` | `size: *3`<br>`https://qrx.apphaus.us/glyphs/ui-login.json` |
 | [ui-survey.json](glyphs/ui-survey.json) | a JsonUI survey | `https://qrx.apphaus.us/glyphs/ui-survey.json` |
 | [scene-bush.json](glyphs/scene-bush.json) | a singing bush that stands on the code and sings when tapped | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-bush.json` |
-| [scene-fox-duck.json](glyphs/scene-fox-duck.json) | Rusty the fox and Pip the duck on the floor: Rusty wanders and comes when tapped, Pip rides on his back | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-fox-duck.json` |
+| [scene-fox-butterfly.json](glyphs/scene-fox-butterfly.json) | Rusty the fox and Flit the butterfly on the floor: Rusty wanders and comes when tapped, Flit flutters about and rests on his back now and then | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-fox-butterfly.json` |
 
 The scenes are [JsonScene](https://github.com/apphaus2/JsonScene) documents; their minds are
 [JsonMind](https://github.com/apphaus2/JsonMind) fragments.
@@ -31,7 +31,8 @@ glyphs/bodies/   actor bodies: a model URL, scale, animation clips, sockets
 glyphs/minds/    actor minds: persona, senses, canned replies, token budget
 images/, sounds/ media the documents use by URL
 models/          our own glTF models (CC0), written by the scripts
-scripts/         assets.py makes the test card and the sounds; bush.py the bush's model: `python3 scripts/bush.py .`
+scripts/         assets.py makes the test card and the sounds; bush.py and butterfly.py the bush's and the butterfly's
+                 models: `python3 scripts/bush.py .`, `python3 scripts/butterfly.py .`
 ```
 
 References inside `glyphs/` are relative (`bodies/fox.json`), so the folder works from any host. Media URLs
@@ -56,4 +57,5 @@ public and the files stay where they are.
   sampled. Third-party assets are referenced by URL, not copied (unless CC0, then under `models/` with their source),
   and are credited in [ATTRIBUTION.md](ATTRIBUTION.md).
 - Changing a document changes what printed codes show. Rename only with a new file; keep the old one
-  working.
+  working. `scene-fox-duck.json` (Rusty and Pip the duck, replaced by `scene-fox-butterfly.json`) and
+  `bodies/duck.json` stay for the codes printed with them.

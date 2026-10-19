@@ -1,0 +1,9 @@
+{
+  "model": "https://qrx.apphaus.us/models/butterfly.glb",
+  "scale": 1,
+  "animations": {
+    "idle": { "clip": "idle", "loop": true },
+    "fly": { "clip": "fly", "loop": true }
+  },
+  "sockets": { "mouth": "Head" }
+}
