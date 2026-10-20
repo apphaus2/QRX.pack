@@ -1,0 +1,443 @@
+{
+  "_ui": {
+    "version": 1,
+    "state": {
+      "feeding": false,
+      "scared_sunny": false,
+      "scared_coral": false,
+      "scared_ember": false,
+      "scared_indigo": false,
+      "scared_dory": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.52,
+      0.08,
+      -0.18
+    ],
+    "max": [
+      0.52,
+      0.5,
+      0.18
+    ]
+  },
+  "actors": [
+    {
+      "id": "tank",
+      "name": "The tank",
+      "body": {
+        "$ref": "bodies/tank.json"
+      },
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "feeding": true
+            }
+          },
+          {
+            "wait": 8
+          },
+          {
+            "set": {
+              "feeding": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "sunny",
+      "name": "Sunny",
+      "transform": {
+        "position": [
+          -0.3,
+          0.3,
+          0.05
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "$ref": "bodies/fish.json"
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.3,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 1.6,
+          "priority": 10,
+          "when": "$scared_sunny"
+        },
+        {
+          "type": "flyTo",
+          "point": [
+            -0.35,
+            0.48,
+            0.0
+          ],
+          "priority": 5,
+          "when": "$feeding"
+        },
+        {
+          "type": "lookAt",
+          "target": "user",
+          "priority": 1
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "scared_sunny": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "scared_sunny": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "coral",
+      "name": "Coral",
+      "transform": {
+        "position": [
+          0.25,
+          0.2,
+          -0.1
+        ],
+        "rotation": [
+          0,
+          -90,
+          0
+        ]
+      },
+      "body": {
+        "$ref": "bodies/fish.json"
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.35,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 1.6,
+          "priority": 10,
+          "when": "$scared_coral"
+        },
+        {
+          "type": "flyTo",
+          "point": [
+            -0.12,
+            0.48,
+            -0.08
+          ],
+          "priority": 5,
+          "when": "$feeding"
+        },
+        {
+          "type": "lookAt",
+          "target": "user",
+          "priority": 1
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "scared_coral": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "scared_coral": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "ember",
+      "name": "Ember",
+      "transform": {
+        "position": [
+          0.0,
+          0.4,
+          0.1
+        ],
+        "rotation": [
+          0,
+          120,
+          0
+        ]
+      },
+      "body": {
+        "$ref": "bodies/fish.json"
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.28,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 1.6,
+          "priority": 10,
+          "when": "$scared_ember"
+        },
+        {
+          "type": "flyTo",
+          "point": [
+            0.1,
+            0.48,
+            0.06
+          ],
+          "priority": 5,
+          "when": "$feeding"
+        },
+        {
+          "type": "lookAt",
+          "target": "user",
+          "priority": 1
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "scared_ember": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "scared_ember": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "indigo",
+      "name": "Indigo",
+      "transform": {
+        "position": [
+          -0.1,
+          0.15,
+          -0.05
+        ],
+        "rotation": [
+          0,
+          60,
+          0
+        ]
+      },
+      "body": {
+        "$ref": "bodies/fish-blue.json"
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.4,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 1.6,
+          "priority": 10,
+          "when": "$scared_indigo"
+        },
+        {
+          "type": "flyTo",
+          "point": [
+            0.3,
+            0.48,
+            -0.04
+          ],
+          "priority": 5,
+          "when": "$feeding"
+        },
+        {
+          "type": "lookAt",
+          "target": "user",
+          "priority": 1
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "scared_indigo": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "scared_indigo": false
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "dory",
+      "name": "Dot",
+      "transform": {
+        "position": [
+          0.4,
+          0.35,
+          0.0
+        ],
+        "rotation": [
+          0,
+          200,
+          0
+        ]
+      },
+      "body": {
+        "$ref": "bodies/fish-blue.json"
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.32,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 1.6,
+          "priority": 10,
+          "when": "$scared_dory"
+        },
+        {
+          "type": "flyTo",
+          "point": [
+            0.0,
+            0.48,
+            0.12
+          ],
+          "priority": 5,
+          "when": "$feeding"
+        },
+        {
+          "type": "lookAt",
+          "target": "user",
+          "priority": 1
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "scared_dory": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "scared_dory": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

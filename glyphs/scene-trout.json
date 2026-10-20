@@ -1,0 +1,102 @@
+{
+  "_ui": {
+    "version": 1,
+    "state": {
+      "called": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "floor",
+  "bounds": {
+    "radius": 4
+  },
+  "actors": [
+    {
+      "id": "trout",
+      "name": "Speckle",
+      "transform": {
+        "position": [
+          0.6,
+          1.1,
+          0.8
+        ],
+        "rotation": [
+          0,
+          150,
+          0
+        ]
+      },
+      "body": {
+        "$ref": "bodies/trout.json"
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.35,
+        "turnRate": 120,
+        "altitude": [
+          0.8,
+          1.6
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "approach",
+          "target": "user",
+          "stopAt": 0.8,
+          "priority": 5,
+          "when": "$called"
+        },
+        {
+          "type": "lookAt",
+          "target": "user",
+          "priority": 1
+        },
+        {
+          "type": "wander",
+          "radius": 4,
+          "pause": [
+            0.5,
+            3
+          ]
+        }
+      ],
+      "on": {
+        "tap": {
+          "set": {
+            "called": true
+          }
+        },
+        "arrived": [
+          {
+            "set": {
+              "called": false
+            }
+          }
+        ],
+        "appear": [
+          {
+            "wait": 20
+          },
+          {
+            "emit": "drift"
+          }
+        ],
+        "drift": [
+          {
+            "set": {
+              "called": false
+            }
+          },
+          {
+            "wait": 20
+          },
+          {
+            "emit": "drift"
+          }
+        ]
+      }
+    }
+  ]
+}

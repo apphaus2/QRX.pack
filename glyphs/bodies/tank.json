@@ -1,0 +1,10 @@
+{
+  "model": "https://qrx.apphaus.us/models/tank.glb",
+  "scale": 1,
+  "animations": {
+    "idle": {
+      "clip": "idle",
+      "loop": true
+    }
+  }
+}

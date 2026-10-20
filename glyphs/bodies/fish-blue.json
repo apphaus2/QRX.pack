@@ -1,0 +1,17 @@
+{
+  "model": "https://qrx.apphaus.us/models/fish-blue.glb",
+  "scale": 1,
+  "animations": {
+    "idle": {
+      "clip": "idle",
+      "loop": true
+    },
+    "swim": {
+      "clip": "swim",
+      "loop": true
+    }
+  },
+  "sockets": {
+    "mouth": "Body"
+  }
+}

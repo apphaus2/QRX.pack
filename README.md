@@ -19,6 +19,8 @@ in QRX describes the format).
 | [scene-bush.json](glyphs/scene-bush.json) | a singing bush that stands on the code and sings when tapped | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-bush.json` |
 | [scene-fox-butterfly.json](glyphs/scene-fox-butterfly.json) | Rusty the fox and Flit the butterfly on the floor: Rusty wanders and comes when tapped, Flit flutters about and rests on his back now and then | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-fox-butterfly.json` |
 | [scene-pet.json](glyphs/scene-pet.json) | Rusty as a house pet: he wanders the floor, gets hungry, sleepy and bored as the minutes pass, eats from his bowl, sleeps on his bed (or by the couch, where a headset knows one), and comes when tapped or spoken to | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-pet.json` |
+| [scene-aquarium.json](glyphs/scene-aquarium.json) | an aquarium: five reef fish in a glass tank with sand and plants; tap a fish and it darts away, tap the tank and they come up to feed. On a TV the tank fills the screen | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-aquarium.json` |
+| [scene-trout.json](glyphs/scene-trout.json) | Speckle the trout, half a metre long, swimming slowly through the room at head height; tap and she swims over | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-trout.json` |
 
 The scenes are [JsonScene](https://github.com/apphaus2/JsonScene) documents; their minds are
 [JsonMind](https://github.com/apphaus2/JsonMind) fragments.
@@ -32,9 +34,9 @@ glyphs/bodies/   actor bodies: a model URL, scale, animation clips, sockets
 glyphs/minds/    actor minds: persona, senses, canned replies, token budget
 images/, sounds/ media the documents use by URL
 models/          our own glTF models (CC0), written by the scripts
-scripts/         assets.py makes the test card and the sounds; bush.py and butterfly.py the bush's and the butterfly's
-                 models, pet.py the pet's bowl and bed: `python3 scripts/bush.py .`, `python3 scripts/butterfly.py .`,
-                 `python3 scripts/pet.py .`
+scripts/         assets.py makes the test card and the sounds; bush.py, butterfly.py, pet.py, fish.py and tank.py the models
+                 (the bush, the butterfly, the pet's bowl and bed, the reef fish and the trout, the aquarium's tank):
+                 `python3 scripts/bush.py .`, `python3 scripts/pet.py .`, `python3 scripts/fish.py .`
 ```
 
 References inside `glyphs/` are relative (`bodies/fox.json`), so the folder works from any host. Media URLs
