@@ -18,6 +18,7 @@ in QRX describes the format).
 | [ui-survey.json](glyphs/ui-survey.json) | a JsonUI survey | `https://qrx.apphaus.us/glyphs/ui-survey.json` |
 | [scene-bush.json](glyphs/scene-bush.json) | a singing bush that stands on the code and sings when tapped | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-bush.json` |
 | [scene-fox-butterfly.json](glyphs/scene-fox-butterfly.json) | Rusty the fox and Flit the butterfly on the floor: Rusty wanders and comes when tapped, Flit flutters about and rests on his back now and then | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-fox-butterfly.json` |
+| [scene-pet.json](glyphs/scene-pet.json) | Rusty as a house pet: he wanders the floor, gets hungry, sleepy and bored as the minutes pass, eats from his bowl, sleeps on his bed (or by the couch, where a headset knows one), and comes when tapped or spoken to | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-pet.json` |
 
 The scenes are [JsonScene](https://github.com/apphaus2/JsonScene) documents; their minds are
 [JsonMind](https://github.com/apphaus2/JsonMind) fragments.
@@ -32,7 +33,8 @@ glyphs/minds/    actor minds: persona, senses, canned replies, token budget
 images/, sounds/ media the documents use by URL
 models/          our own glTF models (CC0), written by the scripts
 scripts/         assets.py makes the test card and the sounds; bush.py and butterfly.py the bush's and the butterfly's
-                 models: `python3 scripts/bush.py .`, `python3 scripts/butterfly.py .`
+                 models, pet.py the pet's bowl and bed: `python3 scripts/bush.py .`, `python3 scripts/butterfly.py .`,
+                 `python3 scripts/pet.py .`
 ```
 
 References inside `glyphs/` are relative (`bodies/fox.json`), so the folder works from any host. Media URLs

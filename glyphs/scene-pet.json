@@ -1,0 +1,122 @@
+{
+  "_ui": {
+    "version": 1,
+    "state": {
+      "called": false,
+      "hunger": 0.3,
+      "sleepiness": 0.1,
+      "boredom": 0.2,
+      "hungry": false,
+      "sleepy": false,
+      "bored": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "floor",
+  "bounds": {
+    "radius": 2.5
+  },
+  "drift": {
+    "hunger": { "rate": 0.011, "flag": "hungry", "above": 0.7, "below": 0.2 },
+    "sleepiness": { "rate": 0.0067, "flag": "sleepy", "above": 0.8, "below": 0.2 },
+    "boredom": { "rate": 0.0083, "flag": "bored", "above": 0.75, "below": 0.3 }
+  },
+  "places": {
+    "couch": { "labels": ["COUCH", "BED", "INNER_SITTING_AREA"] }
+  },
+  "actors": [
+    {
+      "id": "bowl",
+      "name": "Bowl",
+      "transform": {
+        "position": [1.2, 0, 0.6]
+      },
+      "body": {
+        "$ref": "bodies/bowl.json"
+      }
+    },
+    {
+      "id": "bed",
+      "name": "Bed",
+      "transform": {
+        "position": [-1.3, 0, -0.8],
+        "rotation": [0, 30, 0]
+      },
+      "body": {
+        "$ref": "bodies/bed.json"
+      }
+    },
+    {
+      "id": "fox",
+      "name": "Rusty",
+      "transform": {
+        "position": [0, 0, 0.3],
+        "rotation": [0, 180, 0]
+      },
+      "body": {
+        "$ref": "bodies/fox.json",
+        "sounds": {
+          "yip": "https://qrx.apphaus.us/sounds/yip.wav"
+        }
+      },
+      "mobility": {
+        "mode": "ground",
+        "speed": 0.6,
+        "turnRate": 240,
+        "idle": "idle",
+        "move": "walk"
+      },
+      "behaviors": [
+        { "type": "goTo", "target": "user", "stopAt": 0.6, "then": "greet", "priority": 20, "when": "$called" },
+        { "type": "goTo", "target": "bowl", "stopAt": 0.3, "then": "eat", "priority": 10, "when": "$hungry" },
+        { "type": "goTo", "target": "couch", "stopAt": 0.3, "then": "lieDown", "priority": 9, "when": "$sleepy" },
+        { "type": "goTo", "target": "bed", "stopAt": 0.25, "then": "lieDown", "priority": 8, "when": "$sleepy" },
+        { "type": "goTo", "target": "user", "stopAt": 0.8, "then": "nudge", "priority": 4, "when": "$bored" },
+        { "type": "lookAt", "target": "user", "priority": 1 },
+        { "type": "wander", "radius": 2.0, "pause": [1, 4] }
+      ],
+      "mind": {
+        "$ref": "minds/pet.json"
+      },
+      "on": {
+        "tap": [
+          { "set": { "called": true } },
+          { "sound": "yip" }
+        ],
+        "spoken": [
+          { "set": { "called": true } },
+          { "sound": "yip" }
+        ],
+        "greet": [
+          { "set": { "called": false, "boredom": 0 } },
+          { "play": "happy" }
+        ],
+        "eat": [
+          { "play": "eat" },
+          { "say": "nom nom" },
+          { "wait": 5 },
+          { "set": { "hunger": 0 } },
+          { "play": "idle" }
+        ],
+        "lieDown": [
+          { "play": "sleep" },
+          { "say": "zzz" },
+          { "wait": 25 },
+          { "set": { "sleepiness": 0 } },
+          { "play": "happy" }
+        ],
+        "nudge": [
+          { "sound": "yip" },
+          { "say": "..." },
+          { "set": { "boredom": 0 } }
+        ],
+        "animationEnd": {
+          "emit": "settle"
+        },
+        "settle": {
+          "play": "idle"
+        }
+      }
+    }
+  ]
+}
