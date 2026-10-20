@@ -1,6 +1,7 @@
 {
   "_ui": {
     "version": 1,
+    "habitat": "water",
     "state": {
       "scared": false
     }

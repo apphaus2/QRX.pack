@@ -20,12 +20,17 @@ in QRX describes the format).
 | [scene-fox-butterfly.json](glyphs/scene-fox-butterfly.json) | Rusty the fox and Flit the butterfly on the floor: Rusty wanders and comes when tapped, Flit flutters about and rests on his back now and then | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-fox-butterfly.json` |
 | [scene-pet.json](glyphs/scene-pet.json) | Rusty as a house pet: he wanders the floor, gets hungry, sleepy and bored as the minutes pass, eats from his bowl, sleeps on his bed (or by the couch, where a headset knows one), and comes when tapped or spoken to | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-pet.json` |
 | [scene-aquarium.json](glyphs/scene-aquarium.json) | an aquarium: five reef fish in a glass tank with sand and plants; tap a fish and it darts away, tap the tank and they come up to feed. On a TV the tank fills the screen | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-aquarium.json` |
-| [scene-tank.json](glyphs/scene-tank.json) | the aquarium's tank with nobody in it: tap it to feed whatever a TV drops in | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-tank.json` |
-| [creature-fish.json](glyphs/creature-fish.json), [creature-fish-blue.json](glyphs/creature-fish-blue.json) | one reef fish on its own, swimming in the tank's volume by the code: a creature to find out in the world and keep | `size: *4`<br>`https://qrx.apphaus.us/glyphs/creature-fish.json` |
+| [scene-tank.json](glyphs/scene-tank.json) | the aquarium's tank with nobody in it: tap it to feed whatever a TV drops in. A TV looks it up once and puts every creature its phones captured in it | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-tank.json` |
+| [creature-fish.json](glyphs/creature-fish.json), [creature-fish-blue.json](glyphs/creature-fish-blue.json) | one reef fish on its own, swimming in the tank's volume by the code: a creature to find out in the world and keep. Its header says `"habitat": "water"`, so a QRX phone that scans it keeps it in its storage and a paired TV drops it into the tank (`scene-tank.json`) it keeps rather than onto its shelf | `size: *4`<br>`https://qrx.apphaus.us/glyphs/creature-fish.json` |
 | [scene-trout.json](glyphs/scene-trout.json) | Speckle the trout, half a metre long, swimming slowly through the room at head height; tap and she swims over | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-trout.json` |
 
 The scenes are [JsonScene](https://github.com/apphaus2/JsonScene) documents; their minds are
 [JsonMind](https://github.com/apphaus2/JsonMind) fragments.
+
+A *creature* is a scene whose `_ui` header has a `habitat` (`"water"` now; `"ground"` for a terrarium later) and whose
+actors are all mobile: QRX keeps it when a phone scans it and a TV merges its actors into the habitat's own scene
+(`scene-tank.json` for water). Its `bounds` are replaced by the habitat scene's, and its `_ui.state` keys are its own
+(each copy of a creature on a TV gets its own); `drift` and `places` are not carried over.
 
 ## Layout
 
