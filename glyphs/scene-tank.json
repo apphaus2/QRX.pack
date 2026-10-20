@@ -1,0 +1,48 @@
+{
+  "_ui": {
+    "version": 1,
+    "state": {
+      "feeding": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.52,
+      0.08,
+      -0.18
+    ],
+    "max": [
+      0.52,
+      0.5,
+      0.18
+    ]
+  },
+  "actors": [
+    {
+      "id": "tank",
+      "name": "The tank",
+      "body": {
+        "$ref": "bodies/tank.json"
+      },
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "feeding": true
+            }
+          },
+          {
+            "wait": 8
+          },
+          {
+            "set": {
+              "feeding": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

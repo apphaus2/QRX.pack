@@ -1,0 +1,92 @@
+{
+  "_ui": {
+    "version": 1,
+    "state": {
+      "scared": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.52,
+      0.08,
+      -0.18
+    ],
+    "max": [
+      0.52,
+      0.5,
+      0.18
+    ]
+  },
+  "actors": [
+    {
+      "id": "sunny",
+      "name": "Sunny",
+      "transform": {
+        "position": [
+          0,
+          0.3,
+          0
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "$ref": "bodies/fish.json"
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.3,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 1.6,
+          "priority": 10,
+          "when": "$scared"
+        },
+        {
+          "type": "lookAt",
+          "target": "user",
+          "priority": 1
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "scared": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "scared": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
