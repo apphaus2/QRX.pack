@@ -3,7 +3,7 @@
     "version": 1,
     "state": {
       "called": false,
-      "hunger": 0.3,
+      "hunger": 0.45,
       "sleepiness": 0.1,
       "boredom": 0.2,
       "hungry": false,
@@ -17,9 +17,9 @@
     "radius": 2.5
   },
   "drift": {
-    "hunger": { "rate": 0.011, "flag": "hungry", "above": 0.7, "below": 0.2 },
+    "hunger": { "rate": 0.0065, "flag": "hungry", "above": 0.7, "below": 0.2 },
     "sleepiness": { "rate": 0.0067, "flag": "sleepy", "above": 0.8, "below": 0.2 },
-    "boredom": { "rate": 0.0083, "flag": "bored", "above": 0.75, "below": 0.3 }
+    "boredom": { "rate": 0.006, "flag": "bored", "above": 0.75, "below": 0.3 }
   },
   "places": {
     "couch": { "labels": ["COUCH", "BED", "INNER_SITTING_AREA"] }
