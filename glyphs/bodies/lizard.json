@@ -1,0 +1,18 @@
+{
+  "model": "https://qrx.apphaus.us/models/lizard.glb",
+  "scale": 1,
+  "animations": {
+    "idle": {
+      "clip": "idle",
+      "loop": true
+    },
+    "walk": {
+      "clip": "walk",
+      "loop": true
+    }
+  },
+  "sockets": {
+    "mouth": "Body",
+    "back": "Body"
+  }
+}

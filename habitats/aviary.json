@@ -1,0 +1,48 @@
+{
+  "_ui": {
+    "version": 1
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.8,
+      0.22,
+      -0.55
+    ],
+    "max": [
+      0.8,
+      1.05,
+      0.15
+    ]
+  },
+  "camera": {
+    "position": [
+      0,
+      0.62,
+      1.35
+    ],
+    "target": [
+      0,
+      0.62,
+      0
+    ],
+    "fov": 45
+  },
+  "actors": [
+    {
+      "id": "scenery",
+      "name": "The aviary",
+      "body": {
+        "model": "bundle:habitat-aviary.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          }
+        }
+      }
+    }
+  ]
+}

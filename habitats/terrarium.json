@@ -1,0 +1,48 @@
+{
+  "_ui": {
+    "version": 1
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.75,
+      0,
+      -0.8
+    ],
+    "max": [
+      0.75,
+      0.3,
+      0.1
+    ]
+  },
+  "camera": {
+    "position": [
+      0,
+      0.42,
+      1.25
+    ],
+    "target": [
+      0,
+      0.12,
+      -0.3
+    ],
+    "fov": 40
+  },
+  "actors": [
+    {
+      "id": "scenery",
+      "name": "The terrarium",
+      "body": {
+        "model": "bundle:habitat-terrarium.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          }
+        }
+      }
+    }
+  ]
+}

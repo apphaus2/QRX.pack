@@ -1,0 +1,48 @@
+{
+  "_ui": {
+    "version": 1
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.72,
+      0.12,
+      -0.45
+    ],
+    "max": [
+      0.72,
+      0.84,
+      0.1
+    ]
+  },
+  "camera": {
+    "position": [
+      0,
+      0.48,
+      1.3
+    ],
+    "target": [
+      0,
+      0.48,
+      0
+    ],
+    "fov": 40
+  },
+  "actors": [
+    {
+      "id": "scenery",
+      "name": "The tank",
+      "body": {
+        "model": "bundle:habitat-tank.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          }
+        }
+      }
+    }
+  ]
+}

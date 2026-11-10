@@ -22,15 +22,29 @@ in QRX describes the format).
 | [scene-aquarium.json](glyphs/scene-aquarium.json) | an aquarium: five reef fish in a glass tank with sand and plants; tap a fish and it darts away, tap the tank and they come up to feed. On a TV the tank fills the screen | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-aquarium.json` |
 | [scene-tank.json](glyphs/scene-tank.json) | the aquarium's tank with nobody in it: tap it to feed whatever a TV drops in. A TV looks it up once and puts every creature its phones captured in it | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-tank.json` |
 | [creature-fish.json](glyphs/creature-fish.json), [creature-fish-blue.json](glyphs/creature-fish-blue.json) | one reef fish on its own, swimming in the tank's volume by the code: a creature to find out in the world and keep. Its header says `"habitat": "water"`, so a QRX phone that scans it keeps it in its storage and a paired TV drops it into the tank (`scene-tank.json`) it keeps rather than onto its shelf | `size: *4`<br>`https://qrx.apphaus.us/glyphs/creature-fish.json` |
+| [creature-lizard.json](glyphs/creature-lizard.json) | Biscuit the lizard, walking about by the code; tap and it runs from you. A creature: `"habitat": "ground"`, so a TV puts it in its terrarium | `size: *4`<br>`https://qrx.apphaus.us/glyphs/creature-lizard.json` |
+| [creature-butterfly.json](glyphs/creature-butterfly.json) | Clover the butterfly, fluttering over the code; tap and she flies off. A creature: `"habitat": "air"`, so a TV puts her in its aviary | `size: *4`<br>`https://qrx.apphaus.us/glyphs/creature-butterfly.json` |
 | [scene-trout.json](glyphs/scene-trout.json) | Speckle the trout, half a metre long, swimming slowly through the room at head height; tap and she swims over | `size: *4`<br>`https://qrx.apphaus.us/glyphs/scene-trout.json` |
 
 The scenes are [JsonScene](https://github.com/apphaus2/JsonScene) documents; their minds are
 [JsonMind](https://github.com/apphaus2/JsonMind) fragments.
 
-A *creature* is a scene whose `_ui` header has a `habitat` (`"water"` now; `"ground"` for a terrarium later) and whose
-actors are all mobile: QRX keeps it when a phone scans it and a TV merges its actors into the habitat's own scene
-(`scene-tank.json` for water). Its `bounds` are replaced by the habitat scene's, and its `_ui.state` keys are its own
+A *creature* is a scene whose `_ui` header has a `habitat` (`"water"`, `"ground"` or `"air"`) and whose
+actors are all mobile: a QRX phone can catch it and a TV merges its actors into the habitat's own scene
+(`habitats/tank.json`, `terrarium.json`, `aviary.json`; `scene-tank.json` is the older tank in a glass box). Its `bounds` are replaced by the habitat scene's, and its `_ui.state` keys are its own
 (each copy of a creature on a TV gets its own); `drift` and `places` are not carried over.
+
+The *habitats* are what a TV shows edge to edge: a scene with a fixed `camera` standing where the front glass would
+be, the `bounds` its creatures keep to, and one `scenery` actor whose model has the floor, the plants (swaying on
+`idle`) and a backdrop quad with the habitat's gradient, all running past every side of the camera's view. They are
+not glyphs and nothing fetches them: the TV apps bundle `habitats/*.json` and `models/habitat-*.glb`, and the model
+reference is `bundle:habitat-tank.glb`.
+
+| habitat | `habitat` | camera (position, target, vertical field of view) | creatures keep to |
+| --- | --- | --- | --- |
+| [tank.json](habitats/tank.json) | `water` | (0, 0.48, 1.30) to (0, 0.48, 0), 40 | x ±0.72, y 0.12 to 0.84, z -0.45 to 0.10 |
+| [terrarium.json](habitats/terrarium.json) | `ground` | (0, 0.42, 1.25) to (0, 0.12, -0.30), 40 | x ±0.75, y 0 to 0.30, z -0.80 to 0.10 |
+| [aviary.json](habitats/aviary.json) | `air` | (0, 0.62, 1.35) to (0, 0.62, 0), 45 | x ±0.80, y 0.22 to 1.05, z -0.55 to 0.15 |
 
 ## Layout
 
@@ -39,11 +53,13 @@ glyphs/          the documents a code points at; QRX bundles this folder
 glyphs/shared/   JsonUI fragments the forms reference
 glyphs/bodies/   actor bodies: a model URL, scale, animation clips, sockets
 glyphs/minds/    actor minds: persona, senses, canned replies, token budget
+habitats/        the TV's three habitats (tank, terrarium, aviary): self-contained scenes the TV apps bundle
 images/, sounds/ media the documents use by URL
 models/          our own glTF models (CC0), written by the scripts
-scripts/         assets.py makes the test card and the sounds; bush.py, butterfly.py, pet.py, fish.py and tank.py the models
-                 (the bush, the butterfly, the pet's bowl and bed, the reef fish and the trout, the aquarium's tank):
-                 `python3 scripts/bush.py .`, `python3 scripts/pet.py .`, `python3 scripts/fish.py .`
+scripts/         assets.py makes the test card and the sounds; bush.py, butterfly.py, pet.py, fish.py, tank.py, habitats.py
+                 and lizard.py the models (the bush, the butterfly, the pet's bowl and bed, the reef fish and the trout,
+                 the aquarium's tank, the three habitats' scenery, the lizard; lizard.py builds with habitats.py's helpers):
+                 `python3 scripts/bush.py .`, `python3 scripts/habitats.py .`, `python3 scripts/lizard.py .`
 ```
 
 References inside `glyphs/` are relative (`bodies/fox.json`), so the folder works from any host. Media URLs

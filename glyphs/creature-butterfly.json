@@ -1,0 +1,84 @@
+{
+  "_ui": {
+    "version": 1,
+    "habitat": "air",
+    "state": {
+      "startled": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "code",
+  "bounds": {
+    "min": [
+      -0.7,
+      0.25,
+      -0.5
+    ],
+    "max": [
+      0.7,
+      1.0,
+      0.5
+    ]
+  },
+  "actors": [
+    {
+      "id": "clover",
+      "name": "Clover",
+      "transform": {
+        "position": [
+          0,
+          0.6,
+          -0.2
+        ]
+      },
+      "body": {
+        "$ref": "bodies/butterfly.json",
+        "scale": 1.5
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.35,
+        "turnRate": 540,
+        "altitude": [
+          0.25,
+          1.0
+        ],
+        "idle": "idle",
+        "move": "fly"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 2.5,
+          "priority": 10,
+          "when": "$startled"
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            3
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "startled": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "startled": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
