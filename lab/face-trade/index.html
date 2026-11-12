@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Face-to-face trade test</title>
+<!--
+  An experiment for QRay's face-to-face trade: can two phones held screen to screen read each other's QR
+  codes with their FRONT cameras, and how fast do the codes toggle? Open this page on both phones, press Start on
+  both, hold them facing each other. Each phone shows a code carrying its step and the last step it saw from the
+  other; a phone moves on when the other has seen its current step. Nothing is sent anywhere: the camera is read in
+  the page, and the two phones only talk through their screens.
+  It needs https (or localhost) for the camera. Not part of any app.
+-->
+<style>
+  :root { --bg: #10141a; --panel: #1a212b; --line: #2b3542; --fg: #eef2f6; --dim: #9aa7b5; --amber: #f5a623; --ok: #4cd08a; --bad: #ff6b5e; color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { background: var(--bg); color: var(--fg); font: 15px/1.45 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+         padding: max(10px, env(safe-area-inset-top)) max(14px, env(safe-area-inset-right)) max(14px, env(safe-area-inset-bottom)) max(14px, env(safe-area-inset-left)); }
+  main { max-width: 520px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+  h1 { font-size: 20px; margin: 4px 0 0; letter-spacing: -0.01em; }
+  p { margin: 0; color: var(--dim); }
+  ol { margin: 0; padding-left: 20px; color: var(--dim); }
+  .panel { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 12px; }
+  label { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  select { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-width: 150px; }
+  button { font: inherit; font-weight: 600; border: 0; border-radius: 10px; padding: 14px 16px; background: var(--amber); color: #1a1205; }
+  button.quiet { background: transparent; color: var(--dim); border: 1px solid var(--line); font-weight: 500; padding: 10px 14px; }
+  button:focus-visible, select:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+  #run { align-items: center; gap: 10px; }
+  #code { background: #fff; border-radius: 6px; width: min(94vw, 56vh, 500px); height: min(94vw, 56vh, 500px); display: block; }
+  #status { font-size: 22px; font-weight: 650; text-align: center; font-variant-numeric: tabular-nums; }
+  #sub { text-align: center; font-variant-numeric: tabular-nums; }
+  #row { display: flex; align-items: center; gap: 12px; width: 100%; }
+  #preview { width: 96px; height: 128px; object-fit: cover; border-radius: 8px; background: #000; transform: scaleX(-1); flex: none; }
+  #row p { flex: 1; min-width: 0; }
+  .ok { color: var(--ok); } .bad { color: var(--bad); }
+  #outcome { font-size: 24px; font-weight: 700; }
+  pre { margin: 0; white-space: pre-wrap; word-break: break-word; font: 13px/1.5 ui-monospace, Menlo, Consolas, monospace; color: var(--fg); user-select: all; -webkit-user-select: all; }
+  [hidden] { display: none !important; }
+</style>
+</head>
+<body>
+<main>
+  <section id="setup">
+    <div class="panel">
+      <h1>Face-to-face trade test</h1>
+      <p>Checks whether two phones held screen to screen can read each other's codes with their front cameras.</p>
+      <ol>
+        <li>Open this page on both phones and turn the screen brightness up.</li>
+        <li>Pick the same settings, then press Start on both.</li>
+        <li>Hold the phones facing each other, 20 to 30 cm apart, tops together. You will hear a beep per step and three at the end.</li>
+      </ol>
+      <label for="size">Code size <select id="size">
+        <option value="90">Small (90 bytes)</option>
+        <option value="170" selected>Medium (170 bytes)</option>
+        <option value="260">Large (260 bytes)</option>
+        <option value="380">Very large (380 bytes)</option>
+      </select></label>
+      <label for="steps">Steps each <select id="steps">
+        <option value="3" selected>3 (like a swap)</option>
+        <option value="6">6</option>
+        <option value="12">12</option>
+      </select></label>
+      <label for="camera">Camera <select id="camera">
+        <option value="user" selected>Front</option>
+        <option value="environment">Back (for comparison)</option>
+      </select></label>
+      <button id="start">Start</button>
+      <p id="setupNote">Nothing leaves the phone: the camera is read in this page only.</p>
+    </div>
+  </section>
+
+  <section id="run" class="panel" hidden>
+    <canvas id="code" width="600" height="600" aria-label="The code this phone is showing"></canvas>
+    <div id="status">Looking for the other phone</div>
+    <p id="sub">&nbsp;</p>
+    <div id="row">
+      <video id="preview" playsinline muted autoplay></video>
+      <p id="hint">This is what the camera sees. Line it up with the other phone's code, then hold still.</p>
+      <button id="stop" class="quiet">Stop</button>
+    </div>
+  </section>
+
+  <section id="result" class="panel" hidden>
+    <div id="outcome"></div>
+    <pre id="report"></pre>
+    <button id="copy">Copy results</button>
+    <button id="again" class="quiet">Run again</button>
+  </section>
+</main>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script>
+(function () {
+  "use strict";
+  var $ = function (id) { return document.getElementById(id); };
+  var LIMIT_MS = 60000, DONE_WAIT_MS = 4000;
+  var S, stream, detector, audio, wake, raf, timer, busy = false;
+  var scratch = document.createElement("canvas");
+
+  function rand(n) { var a = "abcdefghjkmnpqrstuvwxyz23456789", s = ""; for (var i = 0; i < n; i++) s += a[Math.floor(Math.random() * a.length)]; return s; }
+  function now() { return performance.now(); }
+
+  // The card this phone shows: its step, the highest step it has seen from the other, padded to the chosen size.
+  function cardText() {
+    var card = { _app: { v: 1, do: S.done ? "done" : "x" }, s: S.me, n: S.n, a: S.ack, p: "" };
+    var bare = JSON.stringify(card).length;
+    if (S.pad.length !== Math.max(0, S.size - bare)) S.pad = rand(Math.max(0, S.size - bare));
+    card.p = S.pad;
+    return JSON.stringify(card);
+  }
+
+  function draw() {
+    var text = cardText(), qr = qrcode(0, "M");
+    qr.addData(text, "Byte"); qr.make();
+    var count = qr.getModuleCount(), quiet = 4, canvas = $("code"), ctx = canvas.getContext("2d");
+    var px = Math.max(2, Math.floor(canvas.width / (count + quiet * 2))), off = Math.floor((canvas.width - px * count) / 2);
+    ctx.fillStyle = "#fff"; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = "#000";
+    for (var r = 0; r < count; r++) for (var c = 0; c < count; c++) if (qr.isDark(r, c)) ctx.fillRect(off + c * px, off + r * px, px, px);
+    S.version = (count - 17) / 4; S.bytes = text.length;
+    $("status").textContent = S.done ? "Completed card showing" : (S.peer ? "Step " + S.n + " of " + S.steps : "Looking for the other phone");
+    $("sub").textContent = "this phone " + S.me + (S.peer ? "  ·  other " + S.peer + "  ·  saw its step " + S.ack : "") + "  ·  QR version " + S.version;
+  }
+
+  function beep(freq, ms, at) {
+    if (!audio) return;
+    var o = audio.createOscillator(), g = audio.createGain(), t = audio.currentTime + (at || 0);
+    o.frequency.value = freq; g.gain.setValueAtTime(0.25, t); g.gain.exponentialRampToValueAtTime(0.001, t + ms / 1000);
+    o.connect(g); g.connect(audio.destination); o.start(t); o.stop(t + ms / 1000);
+  }
+  function stepSignal() { beep(880, 90); if (navigator.vibrate) navigator.vibrate(30); }
+  function endSignal(ok) {
+    if (ok) { beep(660, 120, 0); beep(880, 120, 0.16); beep(1175, 220, 0.32); } else { beep(220, 400); }
+    if (navigator.vibrate) navigator.vibrate(ok ? [60, 60, 60, 60, 160] : 400);
+  }
+
+  function leg(what) { var t = now(); S.legs.push({ what: what, ms: Math.round(t - S.last) }); S.last = t; }
+
+  // One card read by the camera. The same card arrives many times a second, so every branch is idempotent.
+  function onRead(text) {
+    S.reads++;
+    var card; try { card = JSON.parse(text); } catch (e) { S.foreign++; return; }
+    if (!card || !card._app || typeof card.s !== "string") { S.foreign++; return; }
+    if (card.s === S.me) return;
+    if (!S.peer) { S.peer = card.s; S.first = Math.round(now() - S.t0); S.last = now(); }
+    if (card.s !== S.peer) { S.foreign++; return; }
+    var changed = false;
+    if (card._app.do === "done" && !S.peerDone) { S.peerDone = true; changed = true; }
+    if (card.n > S.ack) { S.ack = card.n; changed = true; }
+    if (!S.done && card.a === S.n) {
+      if (S.n < S.steps) { S.n++; leg("step " + S.n); } else { S.done = true; S.doneAt = now(); leg("completed"); }
+      changed = true;
+    }
+    if (S.peerDone && !S.done) { S.done = true; S.doneAt = now(); leg("completed (from the other)"); changed = true; }
+    if (changed) { draw(); stepSignal(); }
+    if (S.done && S.peerDone) finish("complete");
+  }
+
+  function scan() {
+    raf = requestAnimationFrame(scan);
+    var v = $("preview");
+    if (busy || !S || S.over || v.readyState < 2 || !v.videoWidth) return;
+    var t = now();
+    if (t - S.t0 > LIMIT_MS) return finish("timeout");
+    if (S.done && !S.peerDone && t - S.doneAt > DONE_WAIT_MS) return finish("unconfirmed");
+    S.frames++;
+    if (detector) {
+      busy = true;
+      detector.detect(v).then(function (found) { busy = false; if (S && !S.over) found.forEach(function (f) { onRead(f.rawValue); }); },
+                              function () { busy = false; });
+    } else {
+      var scale = Math.min(1, 900 / Math.max(v.videoWidth, v.videoHeight));
+      scratch.width = Math.round(v.videoWidth * scale); scratch.height = Math.round(v.videoHeight * scale);
+      var ctx = scratch.getContext("2d", { willReadFrequently: true });
+      ctx.drawImage(v, 0, 0, scratch.width, scratch.height);
+      var img = ctx.getImageData(0, 0, scratch.width, scratch.height);
+      var hit = jsQR(img.data, img.width, img.height, { inversionAttempts: "dontInvert" });
+      if (hit && hit.data) onRead(hit.data);
+    }
+  }
+
+  function finish(how) {
+    if (!S || S.over) return;
+    S.over = true; cancelAnimationFrame(raf);
+    var total = Math.round(now() - S.t0), ok = how === "complete";
+    endSignal(ok);
+    var track = stream && stream.getVideoTracks()[0], set = track && track.getSettings ? track.getSettings() : {};
+    var legs = S.legs.map(function (l) { return l.ms; }), sum = legs.reduce(function (a, b) { return a + b; }, 0);
+    var words = { complete: "Completed", unconfirmed: "Finished here, but the other phone's completed card was not seen",
+                  timeout: S.peer ? "Stopped after 60 s at step " + S.n + " of " + S.steps : "Never read the other phone", stopped: "Stopped by hand" }[how];
+    $("outcome").textContent = words; $("outcome").className = ok ? "ok" : "bad";
+    $("report").textContent = [
+      "outcome: " + how,
+      "camera: " + S.facing + (set.width ? " " + set.width + "x" + set.height : "") + (track && track.label ? " (" + track.label + ")" : ""),
+      "decoder: " + (detector ? "BarcodeDetector (built in)" : "jsQR (script)"),
+      "code: " + S.bytes + " bytes, QR version " + S.version + ", level M",
+      "steps each: " + S.steps + ", reached " + S.n + (S.done ? " and completed" : ""),
+      "first read after: " + (S.first == null ? "never" : S.first + " ms"),
+      "legs (ms): " + (legs.length ? legs.join(", ") : "none"),
+      "average leg: " + (legs.length ? Math.round(sum / legs.length) + " ms" : "n/a"),
+      "total: " + total + " ms",
+      "frames tried: " + S.frames + " (" + (S.frames / (total / 1000)).toFixed(1) + "/s), reads: " + S.reads + ", not ours: " + S.foreign,
+      "browser: " + navigator.userAgent
+    ].join("\n");
+    release();
+    $("run").hidden = true; $("result").hidden = false;
+  }
+
+  function release() {
+    if (stream) stream.getTracks().forEach(function (t) { t.stop(); });
+    stream = null; $("preview").srcObject = null;
+    if (wake) { try { wake.release(); } catch (e) {} wake = null; }
+  }
+
+  function start() {
+    var facing = $("camera").value;
+    $("setupNote").textContent = "Starting the camera…"; $("setupNote").className = "";
+    try { audio = audio || new (window.AudioContext || window.webkitAudioContext)(); audio.resume(); } catch (e) { audio = null; }
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) return fail("This page cannot reach the camera. It must be opened over https.");
+    navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: facing, width: { ideal: 1280 }, height: { ideal: 720 } } }).then(function (s) {
+      stream = s;
+      var track = s.getVideoTracks()[0], caps = track.getCapabilities ? track.getCapabilities() : {};
+      if (caps.focusMode && caps.focusMode.indexOf("continuous") >= 0) track.applyConstraints({ advanced: [{ focusMode: "continuous" }] }).catch(function () {});
+      var v = $("preview"); v.srcObject = s; v.style.transform = facing === "user" ? "scaleX(-1)" : "none"; v.play().catch(function () {});
+      if (navigator.wakeLock) navigator.wakeLock.request("screen").then(function (w) { wake = w; }, function () {});
+      S = { me: rand(4), n: 1, ack: 0, peer: null, done: false, peerDone: false, over: false, legs: [], pad: "", frames: 0, reads: 0, foreign: 0,
+            size: +$("size").value, steps: +$("steps").value, facing: facing, t0: now(), last: now(), first: null, doneAt: 0 };
+      $("setup").hidden = true; $("result").hidden = true; $("run").hidden = false;
+      draw();
+      var ready = function () { cancelAnimationFrame(raf); raf = requestAnimationFrame(scan); };
+      if (!("BarcodeDetector" in window)) { detector = null; return ready(); }
+      BarcodeDetector.getSupportedFormats().then(function (f) { detector = f.indexOf("qr_code") >= 0 ? new BarcodeDetector({ formats: ["qr_code"] }) : null; ready(); },
+                                                 function () { detector = null; ready(); });
+    }, function (e) { fail(e && e.name === "NotAllowedError" ? "The camera was refused. Allow it for this page and press Start again." : "The camera did not start: " + (e && e.name || e)); });
+  }
+  function fail(text) { $("setupNote").textContent = text; $("setupNote").className = "bad"; }
+
+  $("start").addEventListener("click", start);
+  $("stop").addEventListener("click", function () { finish("stopped"); });
+  $("again").addEventListener("click", function () { $("result").hidden = true; $("setup").hidden = false; $("setupNote").textContent = "Nothing leaves the phone: the camera is read in this page only."; });
+  $("copy").addEventListener("click", function () {
+    var text = $("report").textContent, b = $("copy");
+    (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(function () { b.textContent = "Copied"; },
+      function () { var r = document.createRange(); r.selectNodeContents($("report")); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); b.textContent = "Selected: copy it by hand"; });
+  });
+  if (!window.isSecureContext) fail("Open this page over https (or on localhost): browsers only give the camera to secure pages.");
+})();
+</script>
+</body>
+</html>
