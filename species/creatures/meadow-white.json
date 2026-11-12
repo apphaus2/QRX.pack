@@ -45,7 +45,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/meadow-white.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/meadow-white.glb",
         "scale": 1,
         "animations": {
           "idle": {

@@ -43,7 +43,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/fountain-koi.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/fountain-koi.glb",
         "scale": 1,
         "animations": {
           "idle": {

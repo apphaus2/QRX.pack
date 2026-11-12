@@ -44,7 +44,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/garden-snail.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/garden-snail.glb",
         "scale": 1,
         "animations": {
           "idle": {

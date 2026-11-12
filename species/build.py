@@ -4,7 +4,7 @@
     python3 species/build.py                      build everything (creatures/, models/, index.json)
     python3 species/build.py --check              validate the definitions and what is on disk; exit 1 on a fault
     python3 species/build.py --model-base <base>  how the documents name their models: the URL they are served under
-                                                  (the default, "https://qrx.apphaus.us/species/models/"), or
+                                                  (the default, "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/"), or
                                                   "bundle:" for models shipped inside an app
 
 Standard library only (Python 3.9 or later). README.md describes the layout and how to add to it.
@@ -20,7 +20,7 @@ from lib.builder import FEATURES, Builder, add_motes      # noqa: E402
 from lib.gltf import inspect                              # noqa: E402
 
 GENERATOR = "QRX species/build.py"
-DEFAULT_MODEL_BASE = "https://qrx.apphaus.us/species/models/"     # species are pulled by URL, like any glyph a code names; nothing is bundled
+DEFAULT_MODEL_BASE = "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/"     # pulled by URL from this public repository; nothing is bundled
 MAX_MODEL_BYTES = 80 * 1024        # the pack's creatures are 27 to 75 KB
 ID = re.compile(r"^[a-z][a-z0-9]*(-[a-z0-9]+)*$")
 HEX = re.compile(r"^#[0-9A-Fa-f]{6}$")

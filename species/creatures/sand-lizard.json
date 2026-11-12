@@ -44,7 +44,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/sand-lizard.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/sand-lizard.glb",
         "scale": 1,
         "animations": {
           "idle": {

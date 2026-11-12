@@ -43,7 +43,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/speckled-ray.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/speckled-ray.glb",
         "scale": 1,
         "animations": {
           "idle": {

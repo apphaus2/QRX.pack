@@ -173,16 +173,24 @@ rarities   [{id, name, weight, colour}]      habitats   [{id, name}]      modelB
 | base | `body.model` becomes | works where, today |
 | --- | --- | --- |
 | `bundle:` | `bundle:ember-skink.glb` | Only where an app ships the file and gives JsonScene a resolver for `bundle:` names. Today that is the TVs' habitat stages, for the habitats' own scenery; everywhere else `bundle:` resolves to nothing |
-| an `https://` prefix (default) | `https://qrx.apphaus.us/species/models/ember-skink.glb` | Everywhere, as the pack's own creatures do (`https://qrx.apphaus.us/models/...`), once the files are served there; nothing serves these yet. Needs the network at spawn time; JsonScene caches the download |
+| an `https://` prefix (default) | `https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/ember-skink.glb` | Everywhere, as the pack's own creatures do (`https://qrx.apphaus.us/models/...`), once the files are served there; nothing serves these yet. Needs the network at spawn time; JsonScene caches the download |
 | a relative prefix (`../models/`) | `../models/ember-skink.glb` | Nowhere today: a relative reference resolves against `AssetLocator.base`, and no app passes one |
 
-The default is `https://qrx.apphaus.us/species/models/` (the owner's call, 2026-11-12): species are not bundled in
-the apps. They are served publicly and pulled by URL, so a creature is named by its document's URL, exactly what a
-printed code would carry, and every platform loads it the way it loads the pack's creatures. The public layout is
-`https://qrx.apphaus.us/species/index.json`, `.../species/creatures/<id>.json` and `.../species/models/<id>.glb`:
-this folder's `index.json`, `creatures/` and `models/`, which QRX's site copies from its QRX.pack pin when it is built. Nothing is served
-there until the site is deployed with them. A spawn needs the network the first time a species is seen; JsonScene
-keeps the model after that.
+The default is this repository's own raw address, `https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/` (the owner's call,
+2026-11-12): species are not bundled in the apps and are not on the website. They are pulled straight from this
+public repository, so a creature is named by its document's URL, exactly what a printed code would carry, and every
+platform loads it the way it loads any glyph by URL:
+
+```
+https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/index.json            the catalog
+https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/creatures/<id>.json   a creature
+https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/<id>.glb       its model
+```
+
+A push to `master` is what publishes a change; GitHub may serve the old file for a few minutes after. The addresses
+hold only while this repository keeps its name, stays public and keeps these paths, and a caught creature carries
+its address with it, so do not move or rename a species' files once people can catch it. A spawn needs the network
+the first time a species is seen; JsonScene keeps the model after that.
 
 The model files are flat (`<id>.glb`) because the bundle resolvers take a bare file name. `reserved.json` keeps a
 species from taking a name the pack's models use.

@@ -43,7 +43,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/honeycrown-bee.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/honeycrown-bee.glb",
         "scale": 1,
         "animations": {
           "idle": {

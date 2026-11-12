@@ -44,7 +44,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/house-mouse.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/house-mouse.glb",
         "scale": 1,
         "animations": {
           "idle": {

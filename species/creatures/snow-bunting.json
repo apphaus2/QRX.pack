@@ -44,7 +44,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/snow-bunting.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/snow-bunting.glb",
         "scale": 1,
         "animations": {
           "idle": {

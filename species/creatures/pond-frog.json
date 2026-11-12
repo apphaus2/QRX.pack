@@ -44,7 +44,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/pond-frog.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/pond-frog.glb",
         "scale": 1,
         "animations": {
           "idle": {

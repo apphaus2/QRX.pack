@@ -44,7 +44,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/banded-gecko.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/banded-gecko.glb",
         "scale": 1,
         "animations": {
           "idle": {

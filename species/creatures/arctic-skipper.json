@@ -43,7 +43,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/arctic-skipper.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/arctic-skipper.glb",
         "scale": 1,
         "animations": {
           "idle": {

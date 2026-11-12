@@ -45,7 +45,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx.apphaus.us/species/models/field-bee.glb",
+        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/field-bee.glb",
         "scale": 1,
         "animations": {
           "idle": {
