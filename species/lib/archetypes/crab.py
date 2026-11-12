@@ -7,6 +7,7 @@ middle of the shell. An ornament sets spikes along the front of the shell; a glo
 """
 import math
 from ..builder import painter, turn, wave
+from ..builder import both, full_turn, lean, lift, swing
 from ..shapes import X, Y, Z, ball, box_of, cross, ellipsoid, moved, norm, qmul, quat, tube
 
 HABITAT, ORIGIN, LENGTH = "ground", "ground", 0.128
@@ -20,6 +21,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#D9643A", "belly": "#F0D9B5", "pattern": "#8C2F1B", "trim": "#F2B880", "claw": "#E8825A", "eye": "#080808", "accent": "#F2C14E", "glow": "#FFD9A0"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
+TRICKS = ("wave", "spin", "dance", "snap", "jump")
 
 
 def build(b):
@@ -82,4 +84,10 @@ def build(b):
     for side, node in eyes: rot[node] = turn(Z, wave(1, 9, side))
     for k, joint in enumerate(sting): rot[joint] = turn(X, wave(1, 5, 0.6 * k))
     b.clip("idle", 3.0, 24, rot=rot)
+    # Tricks: a wave of the left claw, snapping both, a turn, a side-to-side dance and a hop.
+    b.trick("wave", 1.4, rot={claws[0][0]: both(lean(X, -55), swing(Z, 22, 3))})
+    b.trick("snap", 1.2, rot={pinch: (lambda u: quat(X, -28 * abs(math.sin(4 * math.pi * u)) * math.sin(math.pi * u))) for _, pinch in claws})
+    b.trick("spin", 1.1, rot={body: full_turn(Y)})
+    b.trick("dance", 1.5, rot={body: swing(Y, 20, 3)}, pos={body: lift(0.008, 3)})
+    b.trick("jump", 0.7, pos={body: lift(0.03)})
     return {"sockets": {"mouth": "Body", "back": "Body"}}

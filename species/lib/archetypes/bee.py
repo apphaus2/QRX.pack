@@ -5,6 +5,7 @@ fluffy collar and bobbles on the feelers; a glow lights them.
 """
 import math
 from ..builder import painter, turn, wave
+from ..builder import full_turn, lift, swing
 from ..shapes import X, Y, Z, Profile, ball, box_of, ellipsoid, mirrored, moved, quat, sheet, tube
 
 HABITAT, ORIGIN, LENGTH = "air", "centre", 0.066
@@ -16,6 +17,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#F2C12E", "belly": "#F2C12E", "pattern": "#1B1B1B", "trim": "#FFF3C4", "fuzz": "#D9A521", "head": "#1B1B1B", "wing": "#E8F1F7", "eye": "#050505", "accent": "#FFF3C4", "glow": "#FFE680"}
 PATTERNS = ("plain", "bands", "tips", "saddle", "spots")
+TRICKS = ("dance", "spin", "flip")
 
 
 def build(b):
@@ -57,4 +59,10 @@ def build(b):
     beats = int(s["beats"])
     clip("move", 0.5, beats, beats * 4, 35, 4, 0, 0.002)
     clip("idle", 1.0, 12, 48, 26, 6, 5, 0.003)
+    # Tricks: a waggle dance, a turn and a loop, the wings beating through each.
+    beat = lambda side: (lambda u: quat(Z, side * (20 + 30 * math.sin(2 * math.pi * 6 * u))))
+    flap = {wings["WingL"]: beat(1), wings["WingR"]: beat(-1)}
+    b.trick("dance", 1.0, rot={**flap, body: swing(Y, 26, 4), abdomen: swing(Y, 24, 6, 1.0)}, pos={body: lift(0.008, 2)}, keys=24)
+    b.trick("spin", 1.0, rot={**flap, body: full_turn(Y)}, keys=24)
+    b.trick("flip", 1.0, rot={**flap, body: full_turn(X, -1)}, pos={body: lift(0.03)}, keys=24)
     return {"sockets": {"mouth": "Body"}}

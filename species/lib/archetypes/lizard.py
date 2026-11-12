@@ -6,6 +6,7 @@ a sail or a neck frill); a glow lights it.
 """
 import math
 from ..builder import painter, turn, wave
+from ..builder import full_turn, hold, lean, lift, swing
 from ..shapes import X, Y, Z, ellipsoid, fin, tube
 
 HABITAT, ORIGIN, LENGTH = "ground", "ground", 0.29
@@ -20,6 +21,7 @@ SHAPE = {
 CHOICES = {"crest": ("spikes", "sail", "frill")}
 COLOURS = {"body": "#80C23D", "belly": "#D9E8A0", "pattern": "#2B6B33", "trim": "#173D1E", "toe": "#A9D15C", "eye": "#080808", "accent": "#E8B33A", "glow": "#FFD86B"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
+TRICKS = ("spin", "pushup", "roll", "dead", "dance")
 
 
 def build(b):
@@ -63,16 +65,22 @@ def build(b):
         pad = ellipsoid((foot[0] + side * 0.003, foot[1], foot[2] + 0.004), (0.008, 0.003, 0.011), 8, 4)
         legs[name] = b.node(name, [(skin, limb), (toe, pad)], (side * 0.014 * g, hip_y, at), body)
 
-    swing = 30
+    stride = 30
     b.clip("move", s["beat"], 12, rot={
         body: turn(Y, wave(1, 6)),
         tail[0]: turn(Y, wave(1, -12, 0.7)), tail[1]: turn(Y, wave(1, -16, 1.4)), tail[2]: turn(Y, wave(1, -18, 2.1)),
         # A leg on +x swings forward with a negative turn about y, one on -x with a positive one; diagonal pairs together.
-        legs["LegFL"]: turn(Y, wave(1, -swing)), legs["LegBR"]: turn(Y, wave(1, swing)),
-        legs["LegFR"]: turn(Y, wave(1, -swing)), legs["LegBL"]: turn(Y, wave(1, swing)),
+        legs["LegFL"]: turn(Y, wave(1, -stride)), legs["LegBR"]: turn(Y, wave(1, stride)),
+        legs["LegFR"]: turn(Y, wave(1, -stride)), legs["LegBL"]: turn(Y, wave(1, stride)),
     })
     b.clip("idle", 4.0, 24, rot={
         body: turn(X, wave(1, 1.5, 0, -1.5)),
         tail[0]: turn(Y, wave(1, 5)), tail[1]: turn(Y, wave(1, 8, 0.8)), tail[2]: turn(Y, wave(1, 10, 1.6)),
     })
+    # Tricks: push-ups, a turn after its own tail, a roll, playing dead on its back and a wriggle.
+    b.trick("pushup", 1.5, pos={body: lift(0.012, 3)}, rot={body: swing(X, -6, 3)})
+    b.trick("spin", 1.1, rot={body: full_turn(Y), tail[0]: lean(Y, 30)})
+    b.trick("roll", 1.2, rot={body: full_turn(Z)}, pos={body: lift(0.01)})
+    b.trick("dead", 2.6, rot={body: hold(Z, 180)}, pos={body: lift(0.006)}, keys=20)
+    b.trick("dance", 1.4, rot={body: swing(Y, 18, 3), tail[0]: swing(Y, 26, 3, 1.0), tail[1]: swing(Y, 30, 3, 2.0)})
     return {"sockets": {"mouth": "Body", "back": "Body"}}

@@ -6,7 +6,8 @@ origin is at the body. An ornament draws the hindwings out into tails; a glow li
 painted "lit".
 """
 import math
-from ..shapes import X, Z, Profile, ball, ellipsoid, fin, mirrored, quat, sheet, tube
+from ..builder import full_turn, lift, swing
+from ..shapes import X, Y, Z, Profile, ball, ellipsoid, fin, mirrored, quat, sheet, tube
 
 HABITAT, ORIGIN, LENGTH = "air", "centre", 0.15
 SHAPE = {
@@ -21,6 +22,7 @@ SHAPE = {
 CHOICES = {"style": ("butterfly", "moth")}
 COLOURS = {"body": "#2A1D12", "wing": "#EE7A1A", "hind": "#FBB829", "pattern": "#2B1A38", "trim": "#FFFFFF", "eye": "#050505", "accent": "#F2E2B0", "glow": "#FFF2A8"}
 PATTERNS = ("plain", "edged", "eyespots", "bands", "veins")
+TRICKS = ("spin", "dance", "flip")
 
 
 def build(b):
@@ -88,4 +90,10 @@ def build(b):
            pos={body: lambda u: (0, 0.004 * math.sin(2 * math.pi * max(1, rate // 2) * u), 0)})
     rest = (lambda u: 8 + 5 * math.cos(2 * math.pi * 6 * u)) if moth else (lambda u: 45 + 25 * math.cos(2 * math.pi * u))
     b.clip("idle", 3.0, 36 if moth else 24, rot={wings["WingL"]: lambda u: quat(Z, rest(u)), wings["WingR"]: lambda u: quat(Z, -rest(u))})
+    # Tricks: a twirl, a loop the loop and a swaying dance, the wings beating through each.
+    beat = lambda side: (lambda u: quat(Z, side * (27.5 + 42.5 * math.cos(2 * math.pi * 6 * u))))
+    flap = {wings["WingL"]: beat(1), wings["WingR"]: beat(-1)}
+    b.trick("spin", 1.0, rot={**flap, body: full_turn(Y)}, keys=24)
+    b.trick("flip", 1.0, rot={**flap, body: full_turn(X, -1)}, pos={body: lift(0.04)}, keys=24)
+    b.trick("dance", 1.0, rot={**flap, body: swing(Z, 24, 3)}, pos={body: lift(0.012, 3)}, keys=24)
     return {"sockets": {"mouth": "Head"}}

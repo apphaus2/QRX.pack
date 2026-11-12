@@ -306,8 +306,13 @@ def inspect(data, digits=5):
 
         eyes = []      # where the eye-coloured parts are at rest, for "which way does it face"
 
-        def box(pose):
+        # Each mesh's outermost points in 26 directions: enough to measure a posed model without moving every vertex.
+        directions = [(x, y, z) for x in (-1, 0, 1) for y in (-1, 0, 1) for z in (-1, 0, 1) if (x, y, z) != (0, 0, 0)]
+        outline = {m: [list({max(positions, key=lambda p: p[0] * d[0] + p[1] * d[1] + p[2] * d[2]) for d in directions}) for positions in parts] for m, parts in geometry.items()}
+
+        def box(pose, shapes=None):
             """The model's box with `pose` {(node, path): value} over the rest transforms."""
+            shapes = geometry if shapes is None else shapes
             lo, hi = [math.inf] * 3, [-math.inf] * 3
 
             def walk(index, parent):
@@ -316,7 +321,7 @@ def inspect(data, digits=5):
                                 pose.get((index, "rotation"), node.get("rotation", (0, 0, 0, 1))),
                                 pose.get((index, "scale"), node.get("scale", (1, 1, 1))))
                 world = _compose(parent, local) if parent else local
-                for k, positions in enumerate(geometry.get(node.get("mesh"), [])):
+                for k, positions in enumerate(shapes.get(node.get("mesh"), [])):
                     if not pose and (node.get("mesh"), k) in eye_meshes: eyes.extend(_apply(world, p)[2] for p in positions)
                     for p in positions:
                         q = _apply(world, p)
@@ -354,16 +359,21 @@ def inspect(data, digits=5):
                 if times[0] != 0 or any(b <= a for a, b in zip(times, times[1:])): faults.append("%s: key times do not start at 0 and rise" % where)
                 if len(values[0]) != (4 if path == "rotation" else 3): faults.append("%s: wrong key width" % where); continue
                 if path == "rotation" and any(abs(math.sqrt(sum(c * c for c in q)) - 1) > 2e-3 for q in values): faults.append("%s: a quaternion is not unit length" % where)
-                if any(abs(x - y) > 2e-5 for x, y in zip(values[0], values[-1])): faults.append("%s: the last key is not the first, so the loop jumps" % where)
+                same = lambda a, b: all(abs(x - y) <= 2e-5 for x, y in zip(a, b))
+                if not same(values[0], values[-1]) and not (path == "rotation" and same(values[0], [-c for c in values[-1]])):     # q and -q are one rotation
+                    faults.append("%s: the last key is not the first, so the clip ends with a jump" % where)
                 duration = max(duration, times[-1])
                 channels.append((node, path, times, values))
             if not channels: faults.append("clip %s moves nothing" % name); continue
             if any(abs(times[-1] - duration) > 1e-6 for _, _, times, _ in channels): faults.append("clip %s: its channels end at different times" % name)
             clips[name] = {"duration": round(duration, 4), "channels": len(channels)}
+            own = [list(rest[0]), list(rest[1])]
             for t in sorted({t for _, _, times, _ in channels for t in times}):
-                lo, hi = box({(node, path): _sample(times, values, t, path == "rotation") for node, path, times, values in channels})
+                lo, hi = box({(node, path): _sample(times, values, t, path == "rotation") for node, path, times, values in channels}, outline)
                 for i in range(3):
                     swept[0][i], swept[1][i] = min(swept[0][i], lo[i]), max(swept[1][i], hi[i])
+                    own[0][i], own[1][i] = min(own[0][i], lo[i]), max(own[1][i], hi[i])
+            clips[name]["swept"] = [[round(c, digits) for c in own[0]], [round(c, digits) for c in own[1]]]
         facts["clips"] = clips
         facts["swept"] = [[round(c, digits) for c in swept[0]], [round(c, digits) for c in swept[1]]]
     except (GlbError, KeyError, IndexError, TypeError, ValueError) as error:

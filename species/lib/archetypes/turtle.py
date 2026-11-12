@@ -6,6 +6,7 @@ about. The origin is at the middle of the shell. An ornament raises a keel of sp
 """
 import math
 from ..builder import painter, turn, wave
+from ..builder import both, full_turn, lean, shrink, swing
 from ..shapes import X, Y, Z, ellipsoid, mirrored, moved, qmul, quat, tube
 
 HABITAT, ORIGIN, LENGTH = "water", "centre", 0.135
@@ -16,6 +17,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#5E8C4A", "belly": "#E9DFA8", "pattern": "#35602E", "trim": "#C9D98A", "skin": "#8FAE6A", "eye": "#080808", "accent": "#E0C060", "glow": "#B6FF9E"}
 PATTERNS = ("plain", "spots", "bands", "stripes", "saddle")
+TRICKS = ("hide", "spin", "wave", "dance")
 
 
 def build(b):
@@ -54,4 +56,11 @@ def build(b):
         }, pos={body: lambda u: (0, bob * math.sin(2 * math.pi * u), 0)})
     clip("move", s["beat"], 30, 12, 14, 0, 0.003)
     clip("idle", s["beat"] * 2.5, 10, 5, 6, 14, 0.0015)
+    # Tricks: into the shell and out again, a slow turn, a wave of a flipper and a rocking dance.
+    tuck = {head_node: shrink(0.85)}
+    tuck.update({node: shrink(0.8) for node in flippers.values()})
+    b.trick("hide", 2.6, scl=tuck, keys=20)
+    b.trick("spin", 1.6, rot={body: full_turn(Y)})
+    b.trick("wave", 1.3, rot={flippers["FL"]: both(lean(Z, 35), swing(Y, 22, 3))})
+    b.trick("dance", 1.5, rot={body: swing(Z, 15, 3)})
     return {"sockets": {"mouth": "Head"}}

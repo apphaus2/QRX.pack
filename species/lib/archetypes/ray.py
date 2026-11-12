@@ -5,7 +5,8 @@ An ornament adds two lobes ahead of the mouth and a longer, finned tail; a glow 
 """
 import math
 from ..builder import painter, turn, wave
-from ..shapes import Y, Z, Profile, ball, fin, loft, mirrored, moved, sheet, tube
+from ..builder import full_turn, lift, swing
+from ..shapes import X, Y, Z, Profile, ball, fin, loft, mirrored, moved, sheet, tube
 
 HABITAT, ORIGIN, LENGTH = "water", "centre", 0.185
 SHAPE = {
@@ -15,6 +16,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#B9A679", "belly": "#F2ECDD", "pattern": "#6E5A36", "trim": "#3C3120", "eye": "#080808", "accent": "#D9B45A", "glow": "#9EE8FF"}
 PATTERNS = ("plain", "spots", "saddle", "bands", "tips")
+TRICKS = ("spin", "flip", "wave", "dance")
 
 
 def build(b):
@@ -64,4 +66,9 @@ def build(b):
         }, pos={body: lambda u: (0, bob * math.sin(2 * math.pi * u - 1.57), 0)})
     clip("move", s["beat"], 22, 26, 0.004)
     clip("idle", s["beat"] * 2.3, 8, 10, 0.002)
+    # Tricks: a loop, a wave of one wing, a turn and a rocking dance.
+    b.trick("flip", 1.3, rot={body: full_turn(X, -1)}, pos={body: lift(0.04)})
+    b.trick("wave", 1.3, rot={wings["WingL"]: swing(Z, 34, 3), wings["WingLTip"]: swing(Z, 30, 3, -0.8)})
+    b.trick("spin", 1.2, rot={body: full_turn(Y)})
+    b.trick("dance", 1.5, rot={body: swing(Z, 20, 3)})
     return {"sockets": {"mouth": "Body"}}

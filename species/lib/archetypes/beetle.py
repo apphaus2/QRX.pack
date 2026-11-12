@@ -5,6 +5,7 @@ under the middle of the body. An ornament grows a horn (`horn`: rhino, stag); a 
 """
 import math
 from ..builder import painter, turn, wave
+from ..builder import about, both, full_turn, hold, lift, swing
 from ..shapes import X, Y, Z, cross, ellipsoid, norm, qmul, quat, tube
 
 HABITAT, ORIGIN, LENGTH = "ground", "ground", 0.092
@@ -18,6 +19,7 @@ SHAPE = {
 CHOICES = {"horn": ("rhino", "stag")}
 COLOURS = {"body": "#C0392B", "belly": "#2B2B2B", "pattern": "#151515", "trim": "#151515", "head": "#1C1C1C", "eye": "#050505", "accent": "#E0A030", "glow": "#FFE08A"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
+TRICKS = ("spin", "dead", "dance", "jump")
 
 
 def build(b):
@@ -64,4 +66,10 @@ def build(b):
     rot = {body: turn(X, wave(1, 1.2))}
     for side, node in feelers: rot[node] = lambda u, side=side: qmul(quat(Y, side * 10 * math.sin(2 * math.pi * u)), quat(X, 8 * math.sin(4 * math.pi * u + side)))
     b.clip("idle", 3.0, 24, rot=rot)
+    # Tricks: a turn on the spot, playing dead on its back, a rocking dance and a hop.
+    middle = (0.0, 0.018, 0.0)
+    b.trick("spin", 1.1, rot={body: full_turn(Y)})
+    b.trick("dead", 2.6, rot={body: hold(Z, 180)}, pos={body: about(middle, hold(Z, 180))}, keys=20)
+    b.trick("dance", 1.4, rot={body: both(swing(Z, 12, 3), swing(Y, 16, 2))}, pos={body: about(middle, swing(Z, 12, 3))})
+    b.trick("jump", 0.7, pos={body: lift(0.03)})
     return {"sockets": {"mouth": "Body", "back": "Body"}}

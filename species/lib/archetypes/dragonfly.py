@@ -5,6 +5,7 @@ thorax. An ornament ends the abdomen in a club and marks the wing tips; a glow l
 """
 import math
 from ..builder import painter, turn, wave
+from ..builder import full_turn, lift, swing
 from ..shapes import X, Y, Z, Profile, ball, ellipsoid, mirrored, moved, quat, sheet, tube
 
 HABITAT, ORIGIN, LENGTH = "air", "centre", 0.14
@@ -16,6 +17,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#2E86C1", "belly": "#2E86C1", "pattern": "#12344D", "trim": "#9FD3F5", "wing": "#DCEBF5", "eye": "#3A7D44", "accent": "#F25C54", "glow": "#9FF5FF"}
 PATTERNS = ("plain", "bands", "stripes", "tips", "saddle")
+TRICKS = ("spin", "flip", "dance")
 
 
 def build(b):
@@ -54,4 +56,10 @@ def build(b):
     beats = int(s["beats"])
     clip("move", 0.5, beats, beats * 6, 28, 3, 0)
     clip("idle", 1.0, 8, 40, 22, 5, 4)
+    # Tricks: a loop, a turn and a zigzag, the wings beating through each.
+    beat = lambda side, phase: (lambda u: quat(Z, side * (8 + 28 * math.sin(2 * math.pi * 6 * u - phase))))
+    flap = {wings["FL"]: beat(1, 0), wings["FR"]: beat(-1, 0), wings["BL"]: beat(1, 1.57), wings["BR"]: beat(-1, 1.57)}
+    b.trick("flip", 1.0, rot={**flap, body: full_turn(X, -1)}, pos={body: lift(0.04)}, keys=24)
+    b.trick("spin", 1.0, rot={**flap, body: full_turn(Y)}, keys=24)
+    b.trick("dance", 1.0, rot={**flap, body: swing(Y, 30, 3)}, pos={body: lambda u: (0.03 * math.sin(math.pi * u) * math.sin(6 * math.pi * u), 0.0, 0.0)}, keys=24)
     return {"sockets": {"mouth": "Body"}}

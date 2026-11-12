@@ -7,7 +7,8 @@ on the ears; a glow lights them and the tip of the tail.
 """
 import math
 from ..builder import painter, turn, wave
-from ..shapes import X, Y, Profile, ball, box_of, ellipsoid, fin, loft, moved, qmul, quat, tube
+from ..builder import about, full_turn, hold, lean, lift, swing
+from ..shapes import X, Y, Z, Profile, ball, box_of, ellipsoid, fin, loft, moved, qmul, quat, tube
 
 HABITAT, ORIGIN, LENGTH = "ground", "ground", 0.125
 SHAPE = {
@@ -27,6 +28,7 @@ SHAPE = {
 CHOICES = {"ears": ("round", "long", "point", "none"), "tail": ("thin", "stub", "bushy", "tuft", "none"), "gait": ("scurry", "hop")}
 COLOURS = {"body": "#9A7B5A", "belly": "#E9DCC6", "pattern": "#5E4630", "trim": "#F3E9D8", "ear": "#D9A99A", "nose": "#3A2A2A", "eye": "#080808", "accent": "#F0E6D0", "glow": "#FFE2B0"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
+TRICKS = ("jump", "spin", "roll", "dance", "shake", "dead")
 
 
 def build(b):
@@ -110,4 +112,12 @@ def build(b):
     rot = {head_node: lambda u: qmul(quat(Y, 12 * math.sin(2 * math.pi * u)), quat(X, 3 * math.sin(8 * math.pi * u)))}     # looks about, sniffing
     if tail_node is not None: rot[tail_node] = turn(Y, wave(1, 8, 0.7))
     b.clip("idle", 3.0, 24, rot=rot)
+    # Tricks: a jump, a hopping turn after its tail, a roll, a bouncing dance, a shake and playing dead.
+    middle = (0.0, cy, 0.0)
+    b.trick("jump", 0.8, rot={body: swing(X, -12, 1)}, pos={body: lift(0.04)})
+    b.trick("spin", 1.1, rot={body: full_turn(Y)}, pos={body: lift(0.008, 3)})
+    b.trick("roll", 1.2, rot={body: full_turn(Z)}, pos={body: about(middle, full_turn(Z))})
+    b.trick("dance", 1.4, rot={body: swing(Y, 20, 2), head_node: swing(Z, 14, 3)}, pos={body: lift(0.012, 4)})
+    b.trick("shake", 0.9, rot={body: swing(Z, 16, 5)}, pos={body: about(middle, swing(Z, 16, 5))})
+    b.trick("dead", 2.6, rot={body: hold(Z, 180)}, pos={body: about(middle, hold(Z, 180))}, keys=20)
     return {"sockets": {"mouth": "Head", "back": "Body"}}

@@ -4,8 +4,8 @@
     python3 species/build.py                      build everything (creatures/, models/, index.json)
     python3 species/build.py --check              validate the definitions and what is on disk; exit 1 on a fault
     python3 species/build.py --model-base <base>  how the documents name their models: the URL they are served under
-                                                  (the default, "https://apphaus2.github.io/QRX.pack/species/models/"), or
-                                                  "bundle:" for models shipped inside an app
+                                                  (the default is species/models/ under PACK, this repository's
+                                                  address, below), or "bundle:" for models shipped inside an app
 
 Standard library only (Python 3.9 or later). README.md describes the layout and how to add to it.
 """
@@ -18,14 +18,20 @@ from lib import archetypes as archetype_package          # noqa: E402
 from lib.behaviour import TEMPERS, logic                  # noqa: E402
 from lib.builder import FEATURES, Builder, add_motes      # noqa: E402
 from lib.gltf import inspect                              # noqa: E402
+from lib import mind as minds                            # noqa: E402
+from lib import sounds as voices                         # noqa: E402
+from lib import tricks                                   # noqa: E402
 
 GENERATOR = "QRX species/build.py"
-DEFAULT_MODEL_BASE = "https://apphaus2.github.io/QRX.pack/species/models/"     # pulled by URL from this repository through GitHub Pages; nothing is bundled
-MAX_MODEL_BYTES = 80 * 1024        # the pack's creatures are 27 to 75 KB
+PACK = "https://apphaus2.github.io/QRX.pack/"              # where this repository is served: every address the build writes starts here
+DEFAULT_SOUND_BASE = PACK + "species/sounds/"
+DEFAULT_MODEL_BASE = PACK + "species/models/"     # pulled by URL from this repository through GitHub Pages; nothing is bundled
+MAX_MODEL_BYTES = 96 * 1024        # 80 KB until 2026-11-12: a trick is a clip, and a legendary with a signature and four others needs the room
 ID = re.compile(r"^[a-z][a-z0-9]*(-[a-z0-9]+)*$")
 HEX = re.compile(r"^#[0-9A-Fa-f]{6}$")
-DEFINITION_KEYS = {"id", "name", "species", "description", "biomes", "habitat", "rarity", "archetype", "size", "shape", "colours", "pattern", "movement", "behaviour"}
-REQUIRED_KEYS = {"id", "name", "species", "description", "biomes", "habitat", "rarity", "archetype", "size"}
+DEFINITION_KEYS = {"id", "name", "species", "description", "biomes", "habitat", "rarity", "archetype", "size", "shape", "colours", "pattern", "movement", "behaviour", "prompt", "speech", "temperament", "voice", "tricks", "signature", "mind"}
+REQUIRED_KEYS = {"id", "name", "species", "description", "biomes", "habitat", "rarity", "archetype", "size", "prompt"}
+LIFE_NAME = re.compile(r"^[A-Z][A-Za-z' -]*$")
 
 
 def read_json(*path):
@@ -57,9 +63,29 @@ class Data:
             raise ValueError("life.json: names must be at least 16 different, trimmed, non-empty strings")
         if not (isinstance(age.get("minDays"), int) and isinstance(age.get("maxDays"), int) and 0 <= age["minDays"] < age["maxDays"]):
             raise ValueError("life.json: age needs whole minDays < maxDays")
+        natures = self.life.get("temperaments")
+        if not isinstance(natures, list) or not 6 <= len(natures) <= 8 or len(set(natures)) != len(natures) or not all(isinstance(n, str) and re.match(r"^[a-z]+$", n) for n in natures):
+            raise ValueError("life.json: temperaments must be six to eight different lower-case adjectives")
         self.archetypes = archetype_package.load()
+        self.mind = read_json("mind.json")       # what every creature's mind shares: tokens, registers, closing lines, budget, canned rules
+        self.tricks = read_json("tricks.json")   # every trick: its phrases, and what a behaviour trick does
+        self.sounds = read_json("sounds.json")   # the voices: a sound for each meaning
+        self.meanings = list(self.sounds.get("meanings", {}))
         self.check_tables(rarity)
+        self.check_voices()
+        for fault in tricks.table_faults(self.tricks, self.meanings): self.fault("tricks.json", fault)
+        for fault in minds.shared_faults(self.mind, TEMPERS, self.meanings): self.fault("mind.json", fault)
+        for level in rarity["levels"]:
+            if level.get("speech") not in self.mind.get("registers", {}): self.fault("rarity.json %s" % level.get("id"), "speech must be a register in mind.json (%s)" % ", ".join(self.mind.get("registers", {})))
+        for name in self.archetypes:
+            if self.mind.get("temperaments", {}).get(name) not in self.life["temperaments"]: self.fault("mind.json", "temperaments needs one of life.json's (%s) for the archetype %s" % (", ".join(self.life["temperaments"]), name))
+        for name, module in self.archetypes.items():
+            unknown = [t for t in getattr(module, "TRICKS", ()) if t not in self.tricks.get("tricks", {})]
+            if unknown or not getattr(module, "TRICKS", ()): self.fault("archetype %s" % name, "TRICKS must list tricks from tricks.json%s" % (" (not %s)" % ", ".join(unknown) if unknown else ""))
+            if name not in self.sounds.get("voices", {}): self.fault("sounds.json", "no voice for the archetype %s" % name)
+        self.tokens = minds.known_tokens(self.mind)
         self.definitions = self.read_definitions()
+        self.check_life()
 
     def fault(self, where, message):
         self.faults.append("%s: %s" % (where, message))
@@ -74,6 +100,9 @@ class Data:
             if any(f not in FEATURES for f in level.get("features", [])): self.fault(where, "features may be %s" % ", ".join(FEATURES))
             if not 0 <= level.get("glow", 0) <= 1: self.fault(where, "glow is 0 to 1")
             if not isinstance(level.get("maxBiomes"), int) or level["maxBiomes"] < 1: self.fault(where, "maxBiomes must be 1 or more")
+            if not isinstance(level.get("tricks"), int) or level["tricks"] < 1: self.fault(where, "tricks is how many of its archetype's tricks a species knows beside the basics: 1 or more")
+            vary = level.get("sound", {})
+            if not isinstance(vary, dict) or set(vary) - {"pitch", "length"} or any(not isinstance(v, (int, float)) or not 0.5 <= v <= 2 for v in vary.values()): self.fault(where, "sound may set pitch and length, each 0.5 to 2")
         for h in self.habitats.values():
             where = "habitats.json %s" % h.get("id")
             for key in ("bounds", "wild"):
@@ -92,10 +121,38 @@ class Data:
             if not isinstance(biome.get("code"), int): self.fault(where, "code must be the land-cover class number")
             if not HEX.match(str(biome.get("colour", ""))): self.fault(where, "colour must be #rrggbb")
             if not biome.get("name") or not biome.get("description"): self.fault(where, "needs a name and a description")
+            home = biome.get("home")
+            if not isinstance(home, str) or not home.strip() or home != home.strip() or "{" in home or "}" in home or "\n" in home or len(home) > 40:
+                self.fault(where, "needs a short `home` phrase that reads after \"I live in\" (what {home} becomes there)")
             if not isinstance(biome.get("roster"), int) or biome["roster"] < 0: self.fault(where, "roster is the least number of species at home here")
         for name, module in self.archetypes.items():
             missing = [k for k in ("HABITAT", "ORIGIN", "LENGTH", "SHAPE", "COLOURS", "PATTERNS", "build") if not hasattr(module, k)]
             if missing: self.fault("archetype %s" % name, "lacks %s" % ", ".join(missing))
+
+    def check_voices(self):
+        """sounds.json: every voice gives every meaning a sound, its own or another meaning's."""
+        table = self.sounds
+        if not isinstance(table.get("rate"), int) or not self.meanings or set(table.get("limits", {})) != {"file", "species", "seconds"}:
+            self.fault("sounds.json", "needs a rate, the meanings and limits (file, species, seconds)"); return
+        for voice, entry in table.get("voices", {}).items():
+            where = "sounds.json %s" % voice
+            if not ID.match(voice): self.fault(where, "a voice's name is lower-case words joined by hyphens")
+            if not isinstance(entry, dict) or set(entry) != set(self.meanings): self.fault(where, "must give exactly %s" % ", ".join(self.meanings)); continue
+            for meaning, spec in entry.items():
+                if isinstance(spec, str):
+                    if spec == meaning or not isinstance(entry.get(spec), dict): self.fault(where, "%s borrows %r, which must be another meaning with a sound of its own" % (meaning, spec))
+                elif not isinstance(spec, dict) or spec.get("kind") not in voices.KINDS or set(spec) - {"kind", "pitch", "length", "gain"} or any(not isinstance(spec.get(k, 1.0), (int, float)) or not 0.1 <= spec.get(k, 1.0) <= 4 for k in ("pitch", "length", "gain")):
+                    self.fault(where, "%s needs a kind (%s) and may set pitch, length and gain" % (meaning, ", ".join(voices.KINDS)))
+
+    def check_life(self):
+        """A living creature's name must not be mistaken for a template's, and must sit safely in a prompt."""
+        taken = {str(d.get("name", "")).lower(): d.get("id") for d in self.definitions.values()}
+        defaults = {str(v).lower() for v in self.mind.get("tokens", {}).values()} | {str(b.get("home", "")).lower() for b in self.biomes.values()} | set(self.life["temperaments"])
+        for name in self.life["names"]:
+            if not LIFE_NAME.match(name): self.fault("life.json", "the name %r must be letters, starting with a capital (it is put into prompts and spoken)" % name)
+            if name.lower() in taken: self.fault("life.json", "the name %s is the template name of %s; a living creature must not look like a copy of a template" % (name, taken[name.lower()]))
+            if name in self.reserved["names"]: self.fault("life.json", "the name %s belongs to a QRX.pack creature" % name)
+            if name.lower() in defaults: self.fault("life.json", "the name %s is what a token reads as by default" % name)
 
     def read_definitions(self):
         """Every definitions/<biome>/<id>.json, by id, in id order."""
@@ -133,6 +190,18 @@ class Data:
             if not isinstance(d[key], str) or not d[key].strip() or "\n" in d[key]: bad("%s must be one line of text" % key)
         if isinstance(d["name"], str) and d["name"] in self.reserved["names"]: bad("the name %s belongs to a QRX.pack creature" % d["name"])
         if isinstance(d["description"], str) and len(d["description"]) > 160: bad("description is over 160 characters")
+        prompt, limits = d["prompt"], self.mind.get("prompt", {})
+        if not isinstance(prompt, str) or not prompt.strip() or "\n" in prompt or prompt != prompt.strip(): bad("prompt must be one line of text")
+        else:
+            if not limits.get("min", 0) <= len(prompt) <= limits.get("max", 10 ** 6): bad("prompt is %d characters; it should be %d to %d (it is sent with every turn)" % (len(prompt), limits.get("min", 0), limits.get("max", 0)))
+            for fault in minds.token_faults(prompt, self.tokens): bad("prompt " + fault)
+            if "name" not in minds.tokens_in(prompt): bad("prompt must use {name}")
+            if not re.match(r"^I\b", prompt): bad("prompt is the creature speaking: it starts with \"I\"")
+            if prompt.startswith("$") or "${" in prompt or "*" in prompt: bad("prompt must be plain text (no $, no asterisks)")
+        if "temperament" in d and d["temperament"] not in self.life["temperaments"]: bad("temperament is one of life.json's: %s" % ", ".join(self.life["temperaments"]))
+        if "speech" in d and d["speech"] not in self.mind.get("registers", {}): bad("speech is one of %s" % ", ".join(self.mind.get("registers", {})))
+        if "voice" in d and d["voice"] not in self.sounds.get("voices", {}): bad("voice is one of the voices in sounds.json (%s)" % ", ".join(self.sounds.get("voices", {})))
+        if "mind" in d and (not isinstance(d["mind"], dict) or not d["mind"] or any(key not in minds.MIND_KEYS for key in d["mind"])): bad("mind may replace %s" % ", ".join(minds.MIND_KEYS))
         rarity, habitat, archetype = self.rarities.get(d["rarity"]), self.habitats.get(d["habitat"]), self.archetypes.get(d["archetype"])
         if rarity is None: bad("unknown rarity \"%s\"" % d["rarity"])
         if habitat is None: bad("unknown habitat \"%s\"" % d["habitat"])
@@ -173,6 +242,8 @@ class Data:
             else: bad("unknown movement key \"%s\"" % key)
         behaviour = d.get("behaviour", {})
         if behaviour.get("temper", "shy") not in TEMPERS: bad("behaviour.temper is one of %s" % ", ".join(TEMPERS))
+        if archetype and rarity and not self.faults:
+            for fault in tricks.species_faults(self.tricks, d, archetype, rarity): bad("tricks: " + fault)
         for key in behaviour:
             if key not in ("temper", "distance", "seconds", "watch"): bad("unknown behaviour key \"%s\"" % key)
         return faults
@@ -186,27 +257,61 @@ def model_reference(base, species_id):
     return "%s/%s.glb" % (base, species_id)
 
 
+def sound_base_for(model_base):
+    """Where the sounds are, beside the models: the same address with sounds/ for models/."""
+    if model_base.endswith("models/"): return model_base[:-len("models/")] + "sounds/"
+    return model_base if model_base.endswith(":") else DEFAULT_SOUND_BASE
+
+
+def species_sounds(data, d):
+    """{meaning: (file name, spec, pitch, length)} for a species: its voice (its definition's, or its archetype's)
+    with its rarity's variation. A meaning that borrows another's sound gets that one's file."""
+    voice, vary = d.get("voice", d["archetype"]), data.rarities[d["rarity"]].get("sound", {})
+    pitch, length = vary.get("pitch", 1.0), vary.get("length", 1.0)
+    specs, out = voices.resolve(data.sounds["voices"], voice), {}
+    for meaning in data.meanings:
+        out[meaning] = (voices.file_name(voice, voices.source(data.sounds["voices"], voice, meaning), pitch, length), specs[meaning], pitch, length)
+    return out
+
+
 def build_model(data, d):
-    """The .glb for one definition, and what the archetype said about it."""
+    """The .glb for one definition, and what was made: the archetype's sockets and each trick clip's seconds."""
     archetype, rarity, habitat = data.archetypes[d["archetype"]], data.rarities[d["rarity"]], data.habitats[d["habitat"]]
-    b = Builder(d, rarity, archetype, GENERATOR)
-    made = archetype.build(b) or {}
+    known = tricks.known(data.tricks, d, archetype, rarity)
+    b = Builder(d, rarity, archetype, GENERATOR, known)
+    made = dict(archetype.build(b) or {})
     if rarity.get("motes") and b.has("motes"): add_motes(b, int(rarity["motes"]))
-    if set(b.model.clips) != {"idle", "move"}: raise ValueError("the %s archetype made the clips %s, not idle and move" % (d["archetype"], sorted(b.model.clips)))
+    if set(b.model.clips) != {"idle", "move"} | set(b.made): raise ValueError("the %s archetype made the clips %s, not idle, move and its tricks" % (d["archetype"], sorted(b.model.clips)))
+    clash = set(b.made) & {"idle", "move", habitat["move"]}
+    if clash: raise ValueError("a trick is named like a clip the habitat plays: %s" % ", ".join(sorted(clash)))
+    for trick_id in known:
+        if tricks.handler(data.tricks, d, trick_id, b.made) is None: raise ValueError("the %s archetype animates no %s and tricks.json gives it nothing to do" % (d["archetype"], trick_id))
     b.model.rename_clip("move", habitat["move"])
+    made["tricks"] = {trick_id: b.made[trick_id] for trick_id in known if trick_id in b.made}
     return b.model.to_bytes(), made
 
 
-def build_document(data, d, made, model_base):
+def build_document(data, d, made, model_base, sound_base):
     """The creature's scene, in the shape of QRX.pack's creature-*.json with the body inlined."""
-    habitat = data.habitats[d["habitat"]]
+    habitat, rarity, archetype = data.habitats[d["habitat"]], data.rarities[d["rarity"]], data.archetypes[d["archetype"]]
     movement, wild = d.get("movement", {}), habitat["wild"]
-    state, behaviors, on = logic(d.get("behaviour", {}), movement.get("pause", habitat["pause"]))
+    behaviour = d.get("behaviour", {})
+    temper = behaviour.get("temper", "shy")
+    state, behaviors, on = logic(behaviour, movement.get("pause", habitat["pause"]))
     mobility = {"mode": habitat["mode"], "speed": movement.get("speed", habitat["speed"]), "turnRate": movement.get("turnRate", habitat["turnRate"])}
     if habitat["mode"] == "air": mobility["altitude"] = [wild["min"][1], wild["max"][1]]
     mobility.update(idle="idle", move=habitat["move"])
+    known = tricks.known(data.tricks, d, archetype, rarity)
+    animations = {"idle": {"clip": "idle", "loop": True}, habitat["move"]: {"clip": habitat["move"], "loop": True}}
+    for trick_id in made["tricks"]: animations[trick_id] = {"clip": trick_id, "loop": False}
+    # What the actor does by itself, whoever is or is not listening: its sounds when tapped or approached, and its tricks.
+    on["tap"] = [{"sound": data.mind["on"]["tap"][temper]}] + on["tap"]
+    on["near"] = ([] if temper == "shy" else [{"lookAt": "user"}]) + [{"sound": data.mind["on"]["near"][temper]}]
+    for trick_id in known: on[trick_id] = tricks.handler(data.tricks, d, trick_id, made["tricks"])
     return {
-        "_ui": {"version": 1, "habitat": d["habitat"], "species": d["id"], "rarity": d["rarity"], "biome": d["biomes"][0], "biomes": list(d["biomes"]), "state": state},
+        "_ui": {"version": 1, "habitat": d["habitat"], "species": d["id"], "rarity": d["rarity"], "biome": d["biomes"][0], "biomes": list(d["biomes"]),
+                "tokens": minds.header_tokens(data.mind, d, data.biomes), "homes": minds.homes(d, data.biomes),
+                "tricks": tricks.header(data.tricks, d, known), "state": state},
         "type": "Scene",
         "anchor": habitat["anchor"],
         "bounds": {"min": list(wild["min"]), "max": list(wild["max"])},
@@ -217,11 +322,13 @@ def build_document(data, d, made, model_base):
             "body": {
                 "model": model_reference(model_base, d["id"]),
                 "scale": 1,
-                "animations": {"idle": {"clip": "idle", "loop": True}, habitat["move"]: {"clip": habitat["move"], "loop": True}},
+                "animations": animations,
+                "sounds": {meaning: sound_base + name for meaning, (name, _, _, _) in species_sounds(data, d).items()},
                 "sockets": dict(made.get("sockets", {})),
             },
             "mobility": mobility,
             "behaviors": behaviors,
+            "mind": minds.build(data.mind, d, minds.register(d, rarity), tricks.canned(data.tricks, d, known)),
             "on": on,
         }],
     }
@@ -258,7 +365,7 @@ def total_weight(rows):
     return int(total) if float(total).is_integer() else round(total, 4)
 
 
-def build_all(data, model_base):
+def build_all(data, model_base, sound_base):
     """Every output file as {relative path: bytes}, with the faults met on the way. Definitions with faults are
     left out, so one bad file does not hide the rest."""
     outputs, faults, entries, good = {}, [], [], []
@@ -267,7 +374,13 @@ def build_all(data, model_base):
         if found: faults += found; continue
         try:
             glb, made = build_model(data, d)
-            document = build_document(data, d, made, model_base)
+            document = build_document(data, d, made, model_base, sound_base)
+            sounds = species_sounds(data, d)
+            actor = document["actors"][0]
+            cost = minds.turn_estimate(d["name"], actor["mind"], actor["body"]["animations"], actor["body"]["sounds"], [b["type"] for b in actor["behaviors"]])
+            if cost > actor["mind"]["budget"]["perTurn"]: raise ValueError("a turn with a full history is about %d tokens, over its mind's perTurn of %d: JsonMind would stop asking the model" % (cost, actor["mind"]["budget"]["perTurn"]))
+            for name, spec, pitch, length in sounds.values():
+                if "sounds/" + name not in outputs: outputs["sounds/" + name] = voices.synthesize(spec, data.sounds["rate"], pitch, length)
         except Exception as error:      # an archetype's own fault, reported against the definition that met it
             faults.append("%s: could not be built: %s: %s" % (d["_where"], type(error).__name__, error)); continue
         model_faults, facts = inspect(glb)
@@ -282,17 +395,19 @@ def build_all(data, model_base):
             "weight": data.rarities[d["rarity"]]["weight"], "archetype": d["archetype"],
             "document": "creatures/%s.json" % d["id"], "model": "models/%s.glb" % d["id"], "modelRef": model_reference(model_base, d["id"]),
             "size": [round(box[1][i] - box[0][i], 4) for i in range(3)], "bytes": len(glb), "triangles": facts["triangles"],
+            "speech": minds.register(d, data.rarities[d["rarity"]]), "sounds": {meaning: "sounds/" + name for meaning, (name, _, _, _) in sounds.items()},
         })
     tables = spawn_tables(data, good)
     index = {
         "version": 1,
         "modelBase": model_base,
+        "soundBase": sound_base,
         "visitorShare": data.visitor_share,
-        "life": {"names": list(data.life["names"]), "age": {"minDays": data.life["age"]["minDays"], "maxDays": data.life["age"]["maxDays"]}},
+        "life": {"names": list(data.life["names"]), "age": {"minDays": data.life["age"]["minDays"], "maxDays": data.life["age"]["maxDays"]}, "temperaments": list(data.life["temperaments"])},
         "rarities": [{"id": r["id"], "name": r["name"], "weight": r["weight"], "colour": r["colour"]} for r in data.rarities.values()],
         "habitats": [{"id": h["id"], "name": h["name"]} for h in data.habitats.values()],
         "codes": {str(b["code"]): b["id"] for b in sorted(data.biomes.values(), key=lambda b: b["code"])},
-        "biomes": [{"id": b["id"], "code": b["code"], "name": b["name"], "worldcover": b.get("worldcover", b["name"]), "colour": b["colour"], "description": b["description"],
+        "biomes": [{"id": b["id"], "code": b["code"], "name": b["name"], "worldcover": b.get("worldcover", b["name"]), "colour": b["colour"], "home": b.get("home", ""), "description": b["description"],
                     "weight": total_weight(tables[b["id"]]), "spawns": tables[b["id"]]}
                    for b in sorted(data.biomes.values(), key=lambda b: b["code"])],
         "species": entries,
@@ -305,7 +420,8 @@ def build_all(data, model_base):
 def roster(data, index):
     """ROSTER.md: every species by the biome it is at home in, written from the catalog."""
     species = {entry["id"]: entry for entry in index["species"]}
-    lines = ["# The roster", "", "Written by `build.py` from the definitions; do not edit. %d species in %d biomes." % (len(species), len(index["biomes"])), ""]
+    lines = ["# The roster", "", "**Spoilers.** This lists every creature's tricks, which players are meant to find out for themselves. The apps never show it.", "",
+             "Written by `build.py` from the definitions; do not edit. %d species in %d biomes." % (len(species), len(index["biomes"])), ""]
     lines += ["| biome | WorldCover | at home | " + " | ".join(data.rarities) + " | " + " | ".join(data.habitats) + " | visiting |",
               "| --- | --- | --- |" + " --- |" * (len(data.rarities) + len(data.habitats) + 1)]
     for biome in index["biomes"]:
@@ -316,23 +432,30 @@ def roster(data, index):
             " | ".join(str(sum(1 for e in home if e["habitat"] == h)) for h in data.habitats), len(biome["spawns"]) - len(home)))
     for biome in index["biomes"]:
         lines += ["", "## %s (`%s`, WorldCover %d: %s)" % (biome["name"], biome["id"], biome["code"], biome["worldcover"]), "", biome["description"], "",
-                  "| creature | species | rarity | habitat | archetype | chance here | also found in |", "| --- | --- | --- | --- | --- | --- | --- |"]
+                  "| creature | species | rarity | habitat | archetype | speaks | tricks | chance here | also found in |", "| --- | --- | --- | --- | --- | --- | --- | --- | --- |"]
         for row in biome["spawns"]:
             entry = species[row["species"]]
             if not row["home"]: continue
-            lines.append("| %s | %s (`%s`) | %s | %s | %s | %.2f%% | %s |" % (entry["name"], entry["species"], entry["id"], entry["rarity"], entry["habitat"], entry["archetype"],
-                                                                         100.0 * row["weight"] / biome["weight"], ", ".join(entry["biomes"][1:])))
+            d = data.definitions[entry["id"]]
+            known = tricks.known(data.tricks, d, data.archetypes[d["archetype"]], data.rarities[d["rarity"]])
+            sign = (d.get("signature") or {}).get("id")
+            lines.append("| %s | %s (`%s`) | %s | %s | %s | %s | %s | %.2f%% | %s |" % (entry["name"], entry["species"], entry["id"], entry["rarity"], entry["habitat"], entry["archetype"], entry["speech"],
+                                                                                   ", ".join("**%s**" % t if t == sign else t for t in known), 100.0 * row["weight"] / biome["weight"], ", ".join(entry["biomes"][1:])))
         visitors = ["%s (%s, %.2f%%)" % (species[row["species"]]["name"], species[row["species"]]["biome"], 100.0 * row["weight"] / biome["weight"]) for row in biome["spawns"] if not row["home"]]
         if visitors: lines += ["", "Visiting from other biomes: %s." % ", ".join(visitors)]
+    lines += ["", "## What to say", "", "Each trick answers to any of its phrases, said on their own or inside a sentence.", "", "| trick | phrases |", "| --- | --- |"]
+    for trick_id, entry in data.tricks["tricks"].items(): lines.append("| %s | %s |" % (trick_id, ", ".join(entry["phrases"])))
+    for d in data.definitions.values():
+        if isinstance(d.get("signature"), dict): lines.append("| **%s** (%s only) | %s |" % (d["signature"]["id"], d["name"], ", ".join(d["signature"]["phrases"])))
     return "\n".join(lines) + "\n"
 
 
 def write_all(outputs):
-    """Writes the outputs and removes creatures and models no definition makes any more."""
-    for folder in ("creatures", "models"):
+    """Writes the outputs and removes creatures, models and sounds no definition makes any more."""
+    for folder in ("creatures", "models", "sounds"):
         os.makedirs(os.path.join(HERE, folder), exist_ok=True)
         for name in os.listdir(os.path.join(HERE, folder)):
-            if "%s/%s" % (folder, name) not in outputs and name.endswith((".json", ".glb")): os.remove(os.path.join(HERE, folder, name))
+            if "%s/%s" % (folder, name) not in outputs and name.endswith((".json", ".glb", ".wav")): os.remove(os.path.join(HERE, folder, name))
     for path, content in outputs.items():
         with open(os.path.join(HERE, path), "wb") as f: f.write(content)
 
@@ -348,16 +471,23 @@ def check_model(data, d, glb, where):
     if len(glb) > MAX_MODEL_BYTES: faults.append("%s: %d bytes, over the %d allowed" % (where, len(glb), MAX_MODEL_BYTES))
     for clip in ("idle", habitat["move"]):
         if clip not in facts["clips"]: faults.append("%s: no clip named %s" % (where, clip))
-    extra = sorted(set(facts["clips"]) - {"idle", habitat["move"]})
+    known = tricks.known(data.tricks, d, data.archetypes[d["archetype"]], data.rarities[d["rarity"]])
+    extra = sorted(set(facts["clips"]) - {"idle", habitat["move"]} - set(known))
     if extra: faults.append("%s: clips nothing plays: %s" % (where, ", ".join(extra)))
     lo, hi = facts["box"]
     longest = max(hi[i] - lo[i] for i in range(3))
     if not habitat["size"][0] <= longest <= habitat["size"][1]:
         faults.append("%s: its longest side is %.3f m; a %s creature is %.2f to %.2f m" % (where, longest, d["habitat"], habitat["size"][0], habitat["size"][1]))
-    swept = facts["swept"]
+    # The clips that loop (idle and the moving one) must keep the creature compact; a trick may fling it about,
+    # but not out of the habitat.
+    looping = [facts["clips"][clip]["swept"] for clip in ("idle", habitat["move"]) if clip in facts["clips"]]
+    swept = [[min([lo[i]] + [box[0][i] for box in looping]) for i in range(3)], [max([hi[i]] + [box[1][i] for box in looping]) for i in range(3)]]
     for axis, i in (("wide", 0), ("tall", 1), ("long", 2)):
         room = habitat["bounds"]["max"][i] - habitat["bounds"]["min"][i]
         if swept[1][i] - swept[0][i] > room / 2: faults.append("%s: %.3f m %s in motion, over half the %s's %.2f m" % (where, swept[1][i] - swept[0][i], axis, habitat["name"], room))
+        for clip, measured in facts["clips"].items():
+            reach = measured["swept"][1][i] - measured["swept"][0][i]
+            if clip not in ("idle", habitat["move"]) and reach > room: faults.append("%s: the trick %s takes it %.3f m %s, more than the %s's %.2f m" % (where, clip, reach, axis, habitat["name"], room))
     if habitat["origin"] == "ground":
         if not -0.004 <= lo[1] <= 0.004: faults.append("%s: stands %.4f m off the ground (its lowest point should be at 0)" % (where, lo[1]))
     elif not all(lo[i] < 0 < hi[i] for i in range(3)): faults.append("%s: the origin is outside the body; a swimmer's or flier's is at mid-body" % where)
@@ -368,7 +498,7 @@ def check_model(data, d, glb, where):
     return faults, facts
 
 
-def check_outputs(data, outputs, model_base):
+def check_outputs(data, outputs, model_base, sound_base):
     """Faults in what is on disk: against what the definitions build now, and each file on its own terms."""
     faults = []
     on_disk = {}
@@ -377,7 +507,7 @@ def check_outputs(data, outputs, model_base):
             with open(os.path.join(HERE, path), "rb") as f: on_disk[path] = f.read()
         except OSError:
             faults.append("%s: missing; run build.py" % path)
-    for folder in ("creatures", "models"):
+    for folder in ("creatures", "models", "sounds"):
         for name in sorted(os.listdir(os.path.join(HERE, folder))) if os.path.isdir(os.path.join(HERE, folder)) else []:
             if "%s/%s" % (folder, name) not in outputs: faults.append("%s/%s: no definition makes this file" % (folder, name))
     for path, content in on_disk.items():
@@ -415,7 +545,10 @@ def check_outputs(data, outputs, model_base):
         bad = lambda message: faults.append("%s: %s" % (path, message))
         header = doc.get("_ui", {})
         if header.get("version") != 1: bad("_ui.version is not 1")
-        expected = {"habitat": d["habitat"], "species": sid, "rarity": d["rarity"], "biome": d["biomes"][0], "biomes": d["biomes"]}
+        archetype, rarity = data.archetypes[d["archetype"]], data.rarities[d["rarity"]]
+        known = tricks.known(data.tricks, d, archetype, rarity)
+        expected = {"habitat": d["habitat"], "species": sid, "rarity": d["rarity"], "biome": d["biomes"][0], "biomes": d["biomes"],
+                    "tokens": minds.header_tokens(data.mind, d, data.biomes), "homes": minds.homes(d, data.biomes), "tricks": tricks.header(data.tricks, d, known)}
         for key, value in expected.items():
             if header.get(key) != value: bad("_ui.%s is %r, not %r" % (key, header.get(key), value))
         if doc.get("type") != "Scene": bad("type is not Scene")
@@ -445,10 +578,75 @@ def check_outputs(data, outputs, model_base):
             if behaviour.get("type") not in ("idle", "wander", "approach", "flee", "follow", "patrol", "lookAt", "perchOn", "flyTo", "goTo"): bad("unknown behavior type %r" % behaviour.get("type"))
         if used - keys: bad("binds state it does not declare: %s" % ", ".join(sorted(used - keys)))
 
+        # The sounds: one for each meaning, each a small quiet WAV on disk.
+        sounds, heard, total = species_sounds(data, d), body.get("sounds", {}), 0
+        if list(heard) != data.meanings: bad("body.sounds must name exactly %s" % ", ".join(data.meanings))
+        for name in sorted({name for name, _, _, _ in sounds.values()}):
+            if "sounds/" + name not in on_disk: bad("its sound %s is missing" % name); continue
+            found, measured = voices.inspect(on_disk["sounds/" + name], data.sounds["rate"], data.sounds["limits"])
+            faults += ["sounds/%s: %s" % (name, f) for f in found]
+            total += len(on_disk["sounds/" + name])
+        for meaning, (name, _, _, _) in sounds.items():
+            if heard.get(meaning) != sound_base + name: bad("body.sounds.%s is %r, not %r" % (meaning, heard.get(meaning), sound_base + name))
+        if total > data.sounds["limits"]["species"]: bad("its sounds are %d bytes together, over the %d allowed" % (total, data.sounds["limits"]["species"]))
+
+        # The tricks: listed in the header, each an event the actor's own handler answers, each clip a one-shot.
+        handlers, listed_tricks = actor.get("on", {}), header.get("tricks", [])
+        if not listed_tricks: bad("knows no tricks")
+        for trick in listed_tricks if isinstance(listed_tricks, list) else []:
+            tid = trick.get("id")
+            faults += ["%s: %s" % (path, f) for f in tricks.phrase_faults("the trick %s" % tid, trick.get("phrases")) + tricks.command_faults("the trick %s" % tid, trick.get("do"), data.meanings)]
+            steps = handlers.get(tid)
+            if trick.get("do") != [{"emit": tid}] or not steps: bad("the trick %s must emit its own event, and the actor must have an on.%s handler" % (tid, tid)); continue
+            faults += ["%s: %s" % (path, f) for f in tricks.command_faults("on.%s" % tid, steps, data.meanings)]
+            for step in steps:
+                if "play" not in step: continue
+                animation = body.get("animations", {}).get(step["play"])
+                if animation is None or animation.get("clip") not in facts["clips"]: bad("the trick %s plays %r, which the body or the model lacks" % (tid, step["play"]))
+                elif animation.get("loop") is not False: bad("the trick %s plays %r, which loops; a trick is done once" % (tid, step["play"]))
+        declared = {a.get("clip") for a in body.get("animations", {}).values()}
+        if set(facts["clips"]) - declared: bad("the model has clips the body does not declare: %s" % ", ".join(sorted(set(facts["clips"]) - declared)))
+        for event in ("tap", "near"):
+            if not any("sound" in step for step in handlers.get(event, [])): bad("on.%s makes no sound" % event)
+        if "spoken" in handlers: bad("an on.spoken handler would answer beside the mind; being spoken to is the mind's")
+
+        # The mind: the definition's prompt as its persona, tokens the header can fill, parts JsonMind will act on.
+        mind = actor.get("mind")
+        if not isinstance(mind, dict) or not isinstance(mind.get("persona"), str): bad("the actor has no mind, so it cannot be talked to"); continue
+        if mind != minds.build(data.mind, d, minds.register(d, rarity), tricks.canned(data.tricks, d, known)): bad("the mind is not the one its definition, mind.json and tricks.json make")
+        if not mind["persona"].startswith(d["prompt"]): bad("the mind's persona does not begin with the definition's prompt")
+        if data.mind["secret"] not in mind["persona"]: bad("the persona does not tell the creature to keep its tricks secret")
+        tokens = header.get("tokens", {})
+        for fault in minds.token_faults(mind["persona"], list(tokens)): bad("the persona " + fault)
+        if list(tokens) != data.tokens: bad("_ui.tokens has %s, the known tokens are %s" % (", ".join(tokens), ", ".join(data.tokens)))
+        if "name" not in minds.tokens_in(mind["persona"]): bad("the persona does not use {name}")
+        if set(header.get("homes", {})) != set(d["biomes"]): bad("_ui.homes does not cover exactly the species' biomes")
+        elif tokens.get("home") != header["homes"].get(d["biomes"][0]): bad("_ui.tokens.home is not the home biome's phrase")
+        for fault in minds.mind_faults(mind, data.meanings, set(handlers)): bad("mind: " + fault)
+        for trick in listed_tricks if isinstance(listed_tricks, list) else []:
+            said = "spoken can you %s please" % (trick.get("phrases") or [""])[0]
+            first = next((rule for rule in mind.get("canned", []) if re.search(rule["match"], said, re.IGNORECASE)), None)
+            if first is None or first.get("do") != [{"emit": trick.get("id")}]: bad("with no model, saying %r would not do the trick %s" % (said[7:], trick.get("id")))
+        if isinstance(mind.get("budget"), dict) and isinstance(mind["budget"].get("perTurn"), int):
+            cost = minds.turn_estimate(d["name"], mind, body.get("animations", {}), heard, [b.get("type") for b in actor.get("behaviors", [])])
+            if cost > mind["budget"]["perTurn"]: bad("a turn with a full history is about %d tokens, over the mind's perTurn of %d: JsonMind would stop asking the model and fall back to the canned rules" % (cost, mind["budget"]["perTurn"]))
+
         entry = listed.get(sid, {})
         for key, value in (("biome", d["biomes"][0]), ("biomes", d["biomes"]), ("habitat", d["habitat"]), ("rarity", d["rarity"]), ("weight", data.rarities[d["rarity"]]["weight"]),
-                           ("bytes", len(glb)), ("document", path), ("model", where)):
+                           ("bytes", len(glb)), ("document", path), ("model", where), ("speech", minds.register(d, rarity))):
             if sid in listed and entry.get(key) != value: faults.append("index.json: %s.%s is %r, not %r" % (sid, key, entry.get(key), value))
+
+    # Tricks are for the player to find: the catalog must not list them. Signature tricks are one species' alone.
+    if b'"tricks"' in on_disk.get("index.json", b"") or b'"phrases"' in on_disk.get("index.json", b""): faults.append("index.json: lists tricks; they belong only in each creature's document")
+    signed, spoken_for = {}, {}
+    for d in data.definitions.values():
+        signature = d.get("signature")
+        if data.check_definition(d) or not isinstance(signature, dict): continue
+        if signature["id"] in signed: faults.append("%s: the signature trick %s is also %s's" % (d["_where"], signature["id"], signed[signature["id"]]))
+        signed[signature["id"]] = d["id"]
+        for phrase in signature["phrases"]:
+            if phrase in spoken_for: faults.append("%s: the signature phrase %r is also %s's" % (d["_where"], phrase, spoken_for[phrase]))
+            spoken_for[phrase] = d["id"]
 
     # The biomes: rosters, rarities, and the spawn tables against the definitions.
     valid = [d for d in data.definitions.values() if not data.check_definition(d)]
@@ -493,16 +691,22 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("--check", action="store_true", help="validate the definitions and the files on disk, write nothing")
     parser.add_argument("--model-base", help="how documents name their models: a URL prefix (default %s) or bundle:" % DEFAULT_MODEL_BASE)
+    parser.add_argument("--sound-base", help="how documents name their sounds: a URL prefix (default: beside the models, sounds/ for models/)")
     args = parser.parse_args()
     data = Data()
     model_base = args.model_base
     if model_base is None:
         try: model_base = read_json("index.json").get("modelBase", DEFAULT_MODEL_BASE) if args.check else DEFAULT_MODEL_BASE
         except (OSError, ValueError): model_base = DEFAULT_MODEL_BASE
-    outputs, faults = build_all(data, model_base)
+    sound_base = args.sound_base
+    if sound_base is None:
+        try: recorded = read_json("index.json") if args.check else {}
+        except (OSError, ValueError): recorded = {}
+        sound_base = recorded["soundBase"] if recorded.get("modelBase") == model_base and "soundBase" in recorded else sound_base_for(model_base)
+    outputs, faults = build_all(data, model_base, sound_base)
     faults = data.faults + faults
     if not args.check and not faults: write_all(outputs)
-    if args.check or not faults: faults += check_outputs(data, outputs, model_base)       # a build checks what it wrote
+    if args.check or not faults: faults += check_outputs(data, outputs, model_base, sound_base)       # a build checks what it wrote
     print(summary(data))
     digest = hashlib.sha256()
     for path in sorted(outputs): digest.update(path.encode() + b"\0" + outputs[path])

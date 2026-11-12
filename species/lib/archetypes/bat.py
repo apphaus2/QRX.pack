@@ -6,7 +6,8 @@ the body. An ornament grows the ears and adds a tail membrane; a glow lights the
 """
 import math
 from ..builder import turn, wave
-from ..shapes import X, Z, ball, ellipsoid, fin, mirrored, sheet, tube
+from ..builder import full_turn, lift, swing
+from ..shapes import X, Y, Z, ball, ellipsoid, fin, mirrored, quat, sheet, tube
 
 HABITAT, ORIGIN, LENGTH = "air", "centre", 0.178
 SHAPE = {
@@ -17,6 +18,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#4A3B36", "belly": "#7A655B", "membrane": "#2E2422", "bone": "#5A4740", "skin": "#8A6B62", "eye": "#0A0A0A", "accent": "#C9A0DC", "glow": "#E0B0FF"}
 PATTERNS = ("plain", "veins")
+TRICKS = ("spin", "flip", "dance")
 
 
 def build(b):
@@ -67,4 +69,12 @@ def build(b):
     beats = int(s["beats"])
     clip("move", 1.0, beats, beats * 8, 35, 30, 0, 0.005)
     clip("idle", 1.2, 3, 24, 25, 20, -10, 0.004)
+    # Tricks: a loop, a turn and a swaying dance, the wings beating through each.
+    flap = {}
+    for side, (upper, tip) in ((1, wings["L"]), (-1, wings["R"])):
+        flap[upper] = (lambda u, side=side: quat(Z, side * (5 + 32 * math.sin(2 * math.pi * 3 * u))))
+        flap[tip] = (lambda u, side=side: quat(Z, side * (-8 + 26 * math.sin(2 * math.pi * 3 * u - 1.0))))
+    b.trick("flip", 1.0, rot={**flap, body: full_turn(X, -1)}, pos={body: lift(0.04)}, keys=18)
+    b.trick("spin", 1.0, rot={**flap, body: full_turn(Y)}, keys=18)
+    b.trick("dance", 1.0, rot={**flap, body: swing(Z, 22, 3)}, pos={body: lift(0.012, 3)}, keys=18)
     return {"sockets": {"mouth": "Head"}}

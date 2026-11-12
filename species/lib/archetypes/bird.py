@@ -6,7 +6,8 @@ origin is at the body. An ornament raises a crest and trails two tail streamers 
 """
 import math
 from ..builder import painter, turn, wave
-from ..shapes import X, Y, Z, Profile, ball, box_of, ellipsoid, fin, loft, mirrored, sheet, tube
+from ..builder import full_turn, lean, lift, swing
+from ..shapes import X, Y, Z, Profile, ball, box_of, ellipsoid, fin, loft, mirrored, quat, sheet, tube
 
 HABITAT, ORIGIN, LENGTH = "air", "centre", 0.165
 SHAPE = {
@@ -24,6 +25,7 @@ SHAPE = {
 CHOICES = {"style": ("song", "owl")}
 COLOURS = {"body": "#8A6B4A", "belly": "#EAD9BE", "head": "#6E5238", "wing": "#6E5238", "pattern": "#3E2E20", "trim": "#F2E8D5", "beak": "#E0A030", "eye": "#050505", "accent": "#F25C54", "glow": "#FFE9A8"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
+TRICKS = ("jump", "spin", "flip", "bow", "dance", "shake", "headturn")
 
 
 def build(b):
@@ -96,4 +98,17 @@ def build(b):
         b.clip(name, duration, keys, rot=rot, pos={body: lambda u: (0, bob * math.sin(2 * math.pi * beats * u - 1.9), 0)})
     clip("move", s["beat"] * 2, 2, 24, 38, 24, 0, 0.004)
     clip("idle", s["beat"] * 2, 4, 32, 30, 16, -14, 0.002)
+    # Tricks: a hop in the air, a twirl, a loop, a bow, a rocking dance, a shake of the feathers and (for an owl)
+    # turning the head right round; the wings beat through each.
+    beat = lambda side, sweep, phase=0.0: (lambda u: quat(Z, side * (8 + sweep * math.sin(2 * math.pi * 3 * u - phase))))
+    flap = {}
+    for side, (arm, tip) in ((1, wings["L"]), (-1, wings["R"])):
+        flap[arm], flap[tip] = beat(side, 30), (lambda u, side=side: quat(Z, side * 18 * math.sin(2 * math.pi * 3 * u - 1.0)))
+    b.trick("jump", 0.9, rot=dict(flap), pos={body: lift(0.04, 2)}, keys=18)
+    b.trick("spin", 0.9, rot={**flap, body: full_turn(Y)}, keys=18)
+    b.trick("flip", 1.0, rot={**flap, body: full_turn(X, -1)}, pos={body: lift(0.04)}, keys=18)
+    b.trick("bow", 1.0, rot={**flap, body: lean(X, 32), head_node: lean(X, 14), tail_node: lean(X, -18)}, keys=18)
+    b.trick("dance", 1.0, rot={**flap, body: swing(Z, 20, 3)}, pos={body: lift(0.01, 3)}, keys=18)
+    b.trick("shake", 0.9, rot={**flap, body: swing(Z, 14, 5), tail_node: swing(Y, 20, 5, 1.0)}, keys=18)
+    b.trick("headturn", 1.8, rot={**flap, head_node: full_turn(Y)}, keys=18)
     return {"sockets": {"mouth": "Head", "back": "Body"}}

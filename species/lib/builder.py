@@ -9,14 +9,16 @@ An archetype is a module in lib/archetypes with
     SHAPE    = {...}                shape parameters and their defaults; a definition may override any of them
     COLOURS  = {...}                colour slots and their defaults ("#rrggbb")
     PATTERNS = (...)                the pattern types it can paint
-    def build(b): ...               adds nodes and the clips "idle" and "move" to the Builder b, returns {"sockets": {...}}
+    TRICKS   = (...)                the tricks its body can do, by id from tricks.json, the ones to give first first
+    def build(b): ...               adds nodes, the clips "idle" and "move" and a `b.trick(...)` clip for each trick it
+                                    animates, to the Builder b; returns {"sockets": {...}}
 
 The head is along +Z, +Y is up and +X is the creature's left.
 """
 import math, random, zlib
 
 from .gltf import Model
-from .shapes import Y, add, ball, mul, norm, qmul, qrot, quat, split
+from .shapes import Y, add, ball, mul, norm, qmul, qrot, quat, smooth, split, sub
 
 FEATURES = ("trim", "ornament", "glow", "motes")
 
@@ -28,8 +30,9 @@ def linear(hex_colour):
 
 
 class Builder:
-    def __init__(self, definition, rarity, archetype, generator):
+    def __init__(self, definition, rarity, archetype, generator, tricks=()):
         self.definition, self.rarity, self.archetype = definition, rarity, archetype
+        self.wanted, self.signature, self.made = set(tricks), definition.get("signature"), {}      # tricks to animate; the clips made, in seconds
         self.shape = dict(archetype.SHAPE, **definition.get("shape", {}))
         self.colours = dict(archetype.COLOURS, **definition.get("colours", {}))
         self.pattern = dict({"type": "plain"}, **definition.get("pattern", {}))
@@ -74,19 +77,81 @@ class Builder:
         """Shiny eyes at `places`, as a list of (material, part)."""
         return [(self.mat(slot, rough=0.25, glow=glow), ball(p, r)) for p in places]
 
-    def clip(self, name, duration, keys, rot=None, pos=None, scl=None):
+    def clip(self, name, duration, keys, rot=None, pos=None, scl=None, wrap=True):
         """A looping clip of `keys` even steps over `duration` seconds. Each of `rot` (quaternions), `pos`
         (offsets from rest) and `scl` (scales) maps a node to a function of u, the fraction of the clip from 0
-        to 1; the last key repeats the first, so write whole cycles: sin(2 * pi * 3 * u) is three of them."""
+        to 1; the last key repeats the first, so write whole cycles: sin(2 * pi * 3 * u) is three of them.
+        Without `wrap` the last key is the function at 1 (a full turn ends where it began, the long way round)."""
         times = [duration * i / keys for i in range(keys + 1)]
         for path, table in (("rotation", rot), ("translation", pos), ("scale", scl)):
             for node, fn in (table or {}).items():
-                self.model.channel(name, node, path, times, [fn((i % keys) / keys) for i in range(keys + 1)])
+                self.model.channel(name, node, path, times, [fn((i % keys) / keys if wrap else i / keys) for i in range(keys + 1)])
+
+    def trick(self, name, seconds, rot=None, pos=None, scl=None, keys=16):
+        """The one-shot clip of the trick `name`, made only for a species that knows it. Written like `clip`, with
+        every function back where it started at u = 1 (`full_turn`, `swing`, `lean`, `lift`, `pulse`, `hold`). A
+        legendary whose signature borrows this move gets it again under the signature's id, for its motes to join."""
+        names = [name] if name in self.wanted else []
+        if self.signature and self.signature.get("move") == name: names.append(self.signature["id"])
+        for clip in names:
+            self.clip(clip, seconds, keys, rot, pos, scl, wrap=False)
+            self.made[clip] = seconds
 
 
 def wave(cycles, amplitude, phase=0.0, offset=0.0):
     """u -> offset + amplitude * sin(2 pi cycles u - phase)."""
     return lambda u: offset + amplitude * math.sin(2 * math.pi * cycles * u - phase)
+
+
+# ---- trick moves: functions of u from 0 to 1 that end where they began ---------------------------------------
+
+def full_turn(axis, turns=1.0):
+    """A whole turn (or `turns` of them, negative for the other way) about `axis`, easing in and out."""
+    return lambda u: quat(axis, 360.0 * turns * smooth(u))
+
+
+def swing(axis, degrees, cycles=1, phase=0.0):
+    """Back and forth `cycles` times about `axis`, growing from rest and dying back to it."""
+    return lambda u: quat(axis, degrees * math.sin(math.pi * u) * math.sin(2 * math.pi * cycles * u + phase))
+
+
+def lean(axis, degrees):
+    """Over by `degrees` about `axis` and back."""
+    return lambda u: quat(axis, degrees * math.sin(math.pi * u) ** 2)
+
+
+def hold(axis, degrees, edge=0.2):
+    """Over by `degrees`, held there, and back: `edge` is the share of the clip spent going and returning."""
+    return lambda u: quat(axis, degrees * smooth(u / edge) * smooth((1 - u) / edge))
+
+
+def lift(height, hops=1):
+    """Up by `height` and down again, `hops` times."""
+    return lambda u: (0.0, height * math.sin(math.pi * ((u * hops) % 1.0 if u < 1 else 0.0)), 0.0)
+
+
+def pulse(amount, beats=1, axes=(1.0, 1.0, 1.0)):
+    """Bigger by `amount` (smaller if negative) and back, `beats` times; `axes` weights x, y and z."""
+    return lambda u: tuple(1 + amount * a * math.sin(math.pi * beats * u) ** 2 for a in axes)
+
+
+def shrink(amount, edge=0.2, axes=(1.0, 1.0, 1.0)):
+    """Smaller by `amount`, held, and back: tucking something in."""
+    return lambda u: tuple(1 - amount * a * smooth(u / edge) * smooth((1 - u) / edge) for a in axes)
+
+
+def about(pivot, rotation, also=None):
+    """The offset that makes `rotation` (a function of u) turn a node about `pivot` (in the node's own space)
+    instead of about its origin, plus the offset `also` when given."""
+    def at(u):
+        offset = sub(pivot, qrot(rotation(u), pivot))
+        return add(offset, also(u)) if also else offset
+    return at
+
+
+def both(first, then):
+    """Two rotations at once: `first` applied, then `then`."""
+    return lambda u: qmul(then(u), first(u))
 
 
 def turn(axis, fn):
@@ -180,11 +245,21 @@ def add_motes(b, count):
         lowest = min(qrot(tilt, p)[1] for _, part in prims for p in part[0])
         at = (at[0], max(at[1], lo[1] + size - lowest), at[2])
     node = b.model.node("Motes", prims, at, turn=tilt)
-    swing, keys = 180.0 / count, 24
+    sway, keys = 180.0 / count, 24
+    flourish = (b.signature or {}).get("motes")
+    span, tall = max(hi[0] - lo[0], hi[2] - lo[2]), hi[1] - lo[1]
     for name, channels in list(b.model.clips.items()):
         duration = max(times[-1] for _, _, times, _ in channels)
         times = [duration * i / keys for i in range(keys + 1)]
+        if b.signature and name == b.signature["id"]:
+            # The signature trick: the motes leave their ring and come back, each legendary's in its own way.
+            u = [i / keys for i in range(keys + 1)]
+            turns, grow, rise = {"burst": (1, 1.6, 0.0), "swirl": (2, 0.5, 0.0), "gather": (1, -0.6, 0.35), "rise": (1, 0.3, 0.9), "fall": (1, 0.3, -0.7)}[flourish]
+            b.model.channel(name, node, "rotation", times, [qmul(tilt, quat(Y, 360.0 * turns * smooth(x))) for x in u])
+            b.model.channel(name, node, "scale", times, [(1 + grow * math.sin(math.pi * x) ** 2,) * 3 for x in u])
+            if rise: b.model.channel(name, node, "translation", times, [(0.0, rise * max(tall, 0.3 * span) * math.sin(math.pi * x) ** 2, 0.0) for x in u])
+            continue
         phase = [2 * math.pi * (i % keys) / keys for i in range(keys + 1)]
-        b.model.channel(name, node, "rotation", times, [qmul(tilt, quat(Y, swing * math.sin(p))) for p in phase])
+        b.model.channel(name, node, "rotation", times, [qmul(tilt, quat(Y, sway * math.sin(p))) for p in phase])
         b.model.channel(name, node, "scale", times, [(1 + 0.25 * math.sin(2 * p),) * 3 for p in phase])
     return node

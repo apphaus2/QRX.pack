@@ -123,6 +123,7 @@
     "Zest",
     "Zinnia"
   ],
+  "temperaments": ["shy", "bold", "playful", "lazy", "curious", "gentle", "grumpy", "proud"],
   "age": {
     "minDays": 2,
     "maxDays": 1460

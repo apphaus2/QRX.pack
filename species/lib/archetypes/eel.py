@@ -4,7 +4,8 @@
 fluttering frills behind the head and a taller ribbon; a glow lights a dot on each flank of every piece.
 """
 from ..builder import painter, turn, wave
-from ..shapes import Y, Z, Profile, ball, ellipsoid, fin, moved, tube
+from ..builder import full_turn, lift, swing
+from ..shapes import X, Y, Z, Profile, ball, ellipsoid, fin, moved, tube
 
 HABITAT, ORIGIN, LENGTH = "water", "centre", 0.22
 SHAPE = {
@@ -16,6 +17,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#C9B27A", "belly": "#EFE6C8", "pattern": "#5E4B2B", "trim": "#2A2114", "fin": "#A8905A", "eye": "#080808", "accent": "#E08A3C", "glow": "#8CF5E1"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
+TRICKS = ("spin", "dance", "jump")
 
 
 def build(b):
@@ -62,4 +64,8 @@ def build(b):
         b.clip(name, duration, 14, rot=rot)
     clip("move", s["beat"], s["sway"], 18)
     clip("idle", s["beat"] * 4, s["sway"] * 0.3, 10)
+    # Tricks: a corkscrew, a wriggling dance and a leap.
+    b.trick("spin", 1.2, rot={body: full_turn(Z)})
+    b.trick("dance", 1.4, rot={joint: swing(Z if k % 2 else Y, 26, 3, 0.6 * k) for k, joint in enumerate(joints[:4])})
+    b.trick("jump", 0.9, rot={body: swing(X, -24, 1)}, pos={body: lift(0.05)})
     return {"sockets": {"mouth": "Body"}}

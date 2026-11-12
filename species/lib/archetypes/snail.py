@@ -6,6 +6,7 @@ them and a lit band.
 """
 import math
 from ..builder import turn, wave
+from ..builder import hold, shrink, swing
 from ..shapes import X, Z, norm, tube
 
 HABITAT, ORIGIN, LENGTH = "ground", "ground", 0.088
@@ -17,6 +18,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#C8A46A", "skin": "#B9B08E", "pattern": "#7A5630", "trim": "#F0DFB8", "eye": "#080808", "accent": "#E8C860", "glow": "#FFE9A0"}
 PATTERNS = ("plain", "bands", "stripes")
+TRICKS = ("hide", "dance")
 
 
 def build(b):
@@ -68,4 +70,11 @@ def build(b):
     rot = {shell: turn(X, wave(1, 1))}
     for side, node in stalks: rot[node] = turn(Z, wave(1, 8 * side, 0.5 * side))
     b.clip("idle", 4.0, 24, rot=rot, scl={node: (lambda u, side=side: (1, 0.82 + 0.18 * math.cos(2 * math.pi * u + side), 1)) for side, node in stalks})
+    # Tricks: into the shell and out again, and a slow sway of shell and eyes.
+    tuck = {body: shrink(0.4, axes=(0.3, 0.2, 1.0))}
+    tuck.update({node: shrink(0.9, axes=(0.3, 1.0, 0.3)) for _, node in stalks})
+    b.trick("hide", 3.0, scl=tuck, rot={shell: hold(X, -8)}, keys=20)
+    rot = {shell: swing(Z, 12, 3)}
+    rot.update({node: swing(Z, 22 * side, 3, 0.8) for side, node in stalks})
+    b.trick("dance", 2.0, rot=rot)
     return {"sockets": {"mouth": "Body", "back": "Shell"}}

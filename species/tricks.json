@@ -1,0 +1,36 @@
+{
+  "basics": ["come", "stay", "speak", "hide"],
+  "tricks": {
+    "come": {
+      "phrases": ["come here", "come", "come on", "come to me", "over here", "here boy", "here girl"],
+      "do": [{ "sound": "call" }, { "behave": { "type": "approach", "target": "user", "stopAt": 0.4 } }, { "wait": 8 }, { "behave": "none" }]
+    },
+    "stay": {
+      "phrases": ["sit", "stay", "sit down", "stay there", "wait there", "stand still"],
+      "do": [{ "behave": "idle" }, { "lookAt": "user" }, { "sound": "content" }, { "wait": 8 }, { "behave": "none" }]
+    },
+    "speak": {
+      "phrases": ["speak", "say something", "talk to me", "make a sound", "make a noise", "say hello"],
+      "do": [{ "lookAt": "user" }, { "sound": "call" }, { "wait": 0.7 }, { "sound": "content" }]
+    },
+    "hide": {
+      "phrases": ["hide", "go hide", "hide away", "go and hide", "run and hide", "hide and seek"],
+      "sound": "alarm",
+      "do": [{ "sound": "alarm" }, { "behave": { "type": "flee", "from": "user", "distance": 2.5 } }, { "wait": 6 }, { "behave": "none" }]
+    },
+    "jump": { "phrases": ["jump", "hop", "jump up", "do a jump", "can you jump", "leap"] },
+    "spin": { "phrases": ["spin", "spin around", "turn around", "twirl", "do a spin", "spin round"] },
+    "dance": { "phrases": ["dance", "do a dance", "dance for me", "wiggle", "boogie", "can you dance"], "sound": "content" },
+    "roll": { "phrases": ["roll over", "roll", "do a roll", "can you roll over", "roll around", "barrel roll"] },
+    "flip": { "phrases": ["flip", "do a flip", "backflip", "somersault", "flip over", "loop the loop"] },
+    "dead": { "phrases": ["play dead", "lie down", "go to sleep", "bang", "night night", "nap time"], "sound": "content" },
+    "wave": { "phrases": ["wave", "wave hello", "wave at me", "wave goodbye", "high five", "say hi"] },
+    "bow": { "phrases": ["bow", "take a bow", "nod", "curtsy", "bow down", "say thank you"], "sound": "content" },
+    "puff": { "phrases": ["puff up", "puff", "get big", "blow up", "make yourself big", "big and scary"] },
+    "pushup": { "phrases": ["push up", "push ups", "do a push up", "press up", "exercise", "work out"] },
+    "snap": { "phrases": ["snap", "clap", "pinch", "click your claws", "clap your claws", "snap your claws"] },
+    "shake": { "phrases": ["shake", "shake it off", "shake yourself", "shiver", "give a shake", "fluff up"] },
+    "pulse": { "phrases": ["pulse", "glow", "light up", "shine", "flash", "do a pulse"], "sound": "content" },
+    "headturn": { "phrases": ["turn your head", "look behind you", "head right round", "look around", "twist your head", "who is behind you"], "sound": "curious" }
+  }
+}

@@ -6,7 +6,8 @@ beads down the back; a glow lights them.
 """
 import math
 from ..builder import painter, turn, wave
-from ..shapes import X, Profile, ball, box_of, ellipsoid, loft, quat, tube
+from ..builder import about, full_turn, lean, lift, pulse, swing
+from ..shapes import X, Y, Z, Profile, ball, box_of, ellipsoid, loft, quat, tube
 
 HABITAT, ORIGIN, LENGTH = "ground", "ground", 0.082
 SHAPE = {
@@ -18,6 +19,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#5FA83A", "belly": "#E6E9B8", "pattern": "#2F6B24", "trim": "#F0E36B", "eye": "#0A0A0A", "accent": "#E8A23A", "glow": "#C8FF8A"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
+TRICKS = ("jump", "flip", "puff", "spin", "dance")
 
 
 def build(b):
@@ -62,4 +64,14 @@ def build(b):
     b.clip("move", s["beat"], 14, rot=rot, pos={body: lambda u: (0, 0.018 * s["hop"] * up(u), 0)})
     swell = lambda u: 0.5 + 0.5 * math.sin(2 * math.pi * 3 * u)
     b.clip("idle", 2.4, 24, rot={body: turn(X, wave(1, 1))}, scl={throat: lambda u: (1 + 0.2 * swell(u), 1 + 0.5 * swell(u), 1 + 0.2 * swell(u))})
+    # Tricks: a high jump, a backflip, puffing up, a hopping turn and a rocking dance.
+    middle = (0.0, 0.017, 0.0)
+    spring = {}
+    for thigh, shin, arm in legs.values():
+        spring.update({thigh: lean(X, 45), shin: lean(X, -52), arm: lean(X, -25)})
+    b.trick("jump", 0.9, rot={**spring, body: swing(X, -14, 1)}, pos={body: lift(0.06)})
+    b.trick("flip", 1.0, rot={**spring, body: full_turn(X, -1)}, pos={body: about(middle, full_turn(X, -1), lift(0.07))})
+    b.trick("puff", 1.6, scl={body: pulse(0.28, 1, (1.0, 1.0, 0.6)), throat: pulse(0.6)})
+    b.trick("spin", 1.1, rot={body: full_turn(Y)}, pos={body: lift(0.012, 3)})
+    b.trick("dance", 1.4, rot={body: swing(Z, 14, 3)}, pos={body: about(middle, swing(Z, 14, 3))})
     return {"sockets": {"mouth": "Body", "back": "Body"}}

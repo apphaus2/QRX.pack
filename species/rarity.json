@@ -1,10 +1,10 @@
 {
   "visitorShare": 0.5,
   "levels": [
-    { "id": "common", "name": "Common", "weight": 60, "colour": "#8E9AA6", "maxBiomes": 3, "features": [], "glow": 0, "motes": 0 },
-    { "id": "uncommon", "name": "Uncommon", "weight": 25, "colour": "#3FA66B", "maxBiomes": 2, "features": ["trim"], "glow": 0, "motes": 0 },
-    { "id": "rare", "name": "Rare", "weight": 10, "colour": "#3B82F6", "maxBiomes": 1, "features": ["trim", "ornament"], "glow": 0, "motes": 0 },
-    { "id": "epic", "name": "Epic", "weight": 4, "colour": "#A855F7", "maxBiomes": 1, "features": ["trim", "ornament", "glow"], "glow": 0.6, "motes": 0 },
-    { "id": "legendary", "name": "Legendary", "weight": 1, "colour": "#F5B301", "maxBiomes": 1, "features": ["trim", "ornament", "glow", "motes"], "glow": 1.0, "motes": 5 }
+    { "id": "common", "name": "Common", "weight": 60, "colour": "#8E9AA6", "maxBiomes": 3, "features": [], "glow": 0, "motes": 0, "speech": "little", "tricks": 2 },
+    { "id": "uncommon", "name": "Uncommon", "weight": 25, "colour": "#3FA66B", "maxBiomes": 2, "features": ["trim"], "glow": 0, "motes": 0, "speech": "little", "tricks": 2 },
+    { "id": "rare", "name": "Rare", "weight": 10, "colour": "#3B82F6", "maxBiomes": 1, "features": ["trim", "ornament"], "glow": 0, "motes": 0, "speech": "simple", "tricks": 3 },
+    { "id": "epic", "name": "Epic", "weight": 4, "colour": "#A855F7", "maxBiomes": 1, "features": ["trim", "ornament", "glow"], "glow": 0.6, "motes": 0, "speech": "clear", "tricks": 4 },
+    { "id": "legendary", "name": "Legendary", "weight": 1, "colour": "#F5B301", "maxBiomes": 1, "features": ["trim", "ornament", "glow", "motes"], "glow": 1.0, "motes": 5, "speech": "thoughtful", "tricks": 4, "signature": true, "sound": { "pitch": 0.9, "length": 1.2 } }
   ]
 }

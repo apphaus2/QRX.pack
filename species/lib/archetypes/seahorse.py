@@ -5,7 +5,8 @@ mid-body. An ornament adds a tall coronet and spines down the back; a glow light
 """
 import math
 from ..builder import painter, turn, wave
-from ..shapes import X, Y, ball, ellipsoid, fin, tube
+from ..builder import full_turn, lean, swing
+from ..shapes import X, Y, Z, ball, ellipsoid, fin, tube
 
 HABITAT, ORIGIN, LENGTH = "water", "centre", 0.115
 SHAPE = {
@@ -15,6 +16,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#C7A93C", "belly": "#E7D48A", "pattern": "#8A6F1E", "trim": "#5B4712", "fin": "#E6D27A", "eye": "#080808", "accent": "#E86A5C", "glow": "#FFD27A"}
 PATTERNS = ("plain", "bands", "spots", "tips")
+TRICKS = ("spin", "bow", "dance")
 
 
 def build(b):
@@ -59,4 +61,8 @@ def build(b):
     beats = int(s["flutter"])
     clip("move", 1.0, beats * 4, 11, beats, 25, 6, 2, 0.001)
     clip("idle", 3.0, 48, 0, 12, 14, 9, 5, 0.003)
+    # Tricks: a twirl, a bow and a sway.
+    b.trick("spin", 1.2, rot={body: full_turn(Y)})
+    b.trick("bow", 1.2, rot={body: lean(X, 32), head_node: lean(X, 18)})
+    b.trick("dance", 1.5, rot={body: swing(Z, 18, 3), curl[0]: swing(X, 14, 3, 1.0)})
     return {"sockets": {"mouth": "Head"}}

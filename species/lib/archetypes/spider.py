@@ -5,7 +5,8 @@ on the ground under the middle of the body. An ornament sets horns on the abdome
 """
 import math
 from ..builder import painter, turn, wave
-from ..shapes import X, Y, box_of, cross, ellipsoid, norm, qmul, quat, tube
+from ..builder import about, full_turn, hold, lift, swing
+from ..shapes import X, Y, Z, box_of, cross, ellipsoid, norm, qmul, quat, tube
 
 HABITAT, ORIGIN, LENGTH = "ground", "ground", 0.085
 SHAPE = {
@@ -15,6 +16,7 @@ SHAPE = {
 }
 COLOURS = {"body": "#6B4A2E", "belly": "#3A2A1C", "pattern": "#E8C56A", "trim": "#2A1C10", "head": "#3E2C1E", "eye": "#050505", "accent": "#D94F3A", "glow": "#FFB37A"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
+TRICKS = ("jump", "spin", "dead", "dance")
 
 
 def build(b):
@@ -54,4 +56,10 @@ def build(b):
     for node, side, axis, half, i in legs:
         if i == 0: rot[node] = lambda u, axis=axis, side=side: quat(axis, 12 * (0.5 + 0.5 * math.sin(4 * math.pi * u + side)))
     b.clip("idle", 3.0, 24, rot=rot)
+    # Tricks: two bounces, a turn, playing dead on its back and a bobbing dance.
+    middle = (0.0, height, 0.0)
+    b.trick("jump", 0.9, pos={body: lift(0.035, 2)})
+    b.trick("spin", 1.0, rot={body: full_turn(Y)})
+    b.trick("dead", 2.6, rot={body: hold(Z, 180)}, pos={body: about(middle, hold(Z, 180))}, keys=20)
+    b.trick("dance", 1.4, rot={body: swing(Y, 16, 2)}, pos={body: lift(0.01, 4)})
     return {"sockets": {"mouth": "Body", "back": "Body"}}

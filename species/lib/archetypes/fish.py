@@ -6,7 +6,8 @@ each flank.
 """
 import math
 from ..builder import painter, turn, wave
-from ..shapes import Y, Z, Profile, ball, box_of, fin, loft, quat
+from ..builder import full_turn, lift, swing
+from ..shapes import X, Y, Z, Profile, ball, box_of, fin, loft, quat
 
 HABITAT, ORIGIN, LENGTH = "water", "centre", 0.125
 SHAPE = {
@@ -20,6 +21,7 @@ SHAPE = {
 CHOICES = {"tail": ("fork", "round", "fan", "lyre"), "dorsal": ("sail", "low", "tall", "spines")}
 COLOURS = {"body": "#F26B0F", "belly": "#F7F1E3", "pattern": "#FFFFFF", "trim": "#111111", "fin": "#F8851F", "eye": "#080808", "accent": "#F8851F", "glow": "#9FF3FF"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
+TRICKS = ("jump", "spin", "flip", "roll", "dance")
 
 TAILS = {   # (back, up) outlines round a hub at the tail's root
     "fork": [(0.008, 0), (0, -0.008), (0.012, -0.017), (0.030, -0.023), (0.024, 0), (0.030, 0.023), (0.012, 0.017), (0, 0.008), (0, -0.008)],
@@ -79,4 +81,10 @@ def build(b):
         })
     clip("move", s["beat"] * 2, 3, 25, 6)
     clip("idle", s["beat"] * 8, 1, 8, 25)
+    # Tricks: a leap, a turn on the spot, a somersault, a barrel roll and a wiggle.
+    b.trick("jump", 0.9, rot={body: swing(X, -28, 1)}, pos={body: lift(0.05)})
+    b.trick("spin", 1.0, rot={body: full_turn(Y)})
+    b.trick("flip", 1.1, rot={body: full_turn(X, -1)}, pos={body: lift(0.03)})
+    b.trick("roll", 1.0, rot={body: full_turn(Z)})
+    b.trick("dance", 1.4, rot={body: swing(Y, 24, 3), tail_node: swing(Y, 38, 3, 1.0)})
     return {"sockets": {"mouth": "Body"}}
