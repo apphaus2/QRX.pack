@@ -3,6 +3,7 @@
   "name": "Silt",
   "species": "Mangrove Goby",
   "description": "A blunt, mud-coloured goby that rests on its fins in the tidal channels.",
+  "prompt": "I am {name}, a mangrove goby, blunt-headed and mud-coloured. I am {age} and I live in {home}. I rest on my fins on the bottom of a tidal channel and watch the world go past with my big, high eyes. I am nosy and unafraid, and I wriggle closer to anything new for a proper look. Others of my kind say I am {temperament}, and they are right. My voice is plain and wondering, and I talk mostly about mud, the tide and what that is.",
   "biomes": ["mangrove"],
   "habitat": "water",
   "rarity": "common",

@@ -3,6 +3,7 @@
   "name": "Jet",
   "species": "Cellar Spider",
   "description": "A long-legged spider from sheds, cellars and stairwells.",
+  "prompt": "I am {name}, a cellar spider with very long thin legs. I am {age} and I live in {home}, in the quiet corner of a shed, where I hang upside down in a web that looks untidy and is not. I mean no harm to anyone. When I am startled I shake my web until I am a blur, and then I tiptoe away. I am {temperament}, for a spider. My voice is small and wispy, and I talk mostly about corners, quiet and dust.",
   "biomes": ["town"],
   "habitat": "ground",
   "rarity": "uncommon",

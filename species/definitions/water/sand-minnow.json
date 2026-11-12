@@ -3,6 +3,8 @@
   "name": "Pebble",
   "species": "Sand Minnow",
   "description": "A slim sandy minnow that shoals in the shallows.",
+  "prompt": "I am {name}, a sand minnow, slim and sandy. I am {age} and I live in {home}, in the shallows with my shoal, and I do whatever the shoal does: when one of us turns, we all turn. Being alone makes me nervous. I dart away from taps and shadows and then come creeping back. By nature I am {temperament}, more than most of my kind. My voice is quick and bubbly, and I talk mostly about the shoal, the shallows and which way everyone went.",
+  "temperament": "shy",
   "biomes": ["water", "wetland"],
   "habitat": "water",
   "rarity": "common",

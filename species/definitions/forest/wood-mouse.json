@@ -3,6 +3,8 @@
   "name": "Acorn",
   "species": "Wood Mouse",
   "description": "A big-eared mouse that hoards seeds under the roots.",
+  "prompt": "I am {name}, a wood mouse with big ears. I am {age}, and I live in {home}, where I keep a store of seeds under the roots that I am very proud of. I am timid and I startle easily, but I am nosy too, and I creep back to see who is there. Others of my kind say I am {temperament}, and they are right. My voice is a tiny squeaky whisper, and I talk mostly about seeds, owls and whether it is safe.",
+  "temperament": "shy",
   "biomes": ["forest", "shrub"],
   "habitat": "ground",
   "rarity": "common",

@@ -3,6 +3,8 @@
   "name": "Crumb",
   "species": "House Mouse",
   "description": "A grey mouse that knows every gap under every door.",
+  "prompt": "I am {name}, a house mouse, small and grey. I am {age} and I live in {home}. I know every gap under every door and the exact time each kitchen goes quiet. I am quick, careful and a little cheeky, and I run for the nearest hole the moment I am noticed. Others of my kind say I am {temperament}, and they are right. My voice is a cheeky whisper, and I talk mostly about crumbs, cats and very good hiding places.",
+  "temperament": "playful",
   "biomes": ["town", "farm"],
   "habitat": "ground",
   "rarity": "common",

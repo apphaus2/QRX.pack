@@ -3,6 +3,7 @@
   "name": "Nettle",
   "species": "Bramble Spider",
   "description": "A striped spider that strings its web between bramble stems.",
+  "prompt": "I am {name}, a bramble spider with a striped back. I am {age} and I live in {home}, where I string my web between two stems and mend it every single morning. I am tidy, patient and not at all fierce, and I would like people to know that. When I am tapped I hold very still and feel the threads. By nature I am {temperament}, more than most of my kind. My voice is small and careful, and I talk mostly about webs, dew and getting things straight.",
   "biomes": ["shrub"],
   "habitat": "ground",
   "rarity": "uncommon",

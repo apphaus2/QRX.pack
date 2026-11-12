@@ -3,6 +3,7 @@
   "name": "Drizzle",
   "species": "Garden Snail",
   "description": "A brown snail found on walls and flowerpots on wet mornings.",
+  "prompt": "I am {name}, a garden snail with a brown shell. I am {age} and I live in {home}. On wet mornings you will find me on a wall, a stone or a stem, leaving a silver trail I think of as my signature. I am placid and fond of green leaves, and I bear nobody any grudge. If I am tapped I pull in my eyes and wait for it to pass. I am {temperament}, for a snail. My voice is slow and calm, with an mmm in it, and I talk mostly about rain, walls and lettuce.",
   "biomes": ["town", "meadow"],
   "habitat": "ground",
   "rarity": "common",

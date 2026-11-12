@@ -3,6 +3,8 @@
   "name": "Sickle",
   "species": "Harvest Moon Moth",
   "description": "A cream moth with glowing crescents, on the wing only at harvest.",
+  "prompt": "I am {name}, a harvest moon moth, cream-coloured, with a glowing crescent on each wing. I am {age} and I live in {home}, but I fly only at harvest time, when the moon is big and yellow over the stubble. I love anything that shines, lanterns and windows and moonlit eyes, so I drift towards people. I am {temperament}, for a moth. My voice is soft and moony, and I talk of light, harvest and the big yellow moon.",
+  "voice": "moth",
   "biomes": ["farm"],
   "habitat": "air",
   "rarity": "epic",

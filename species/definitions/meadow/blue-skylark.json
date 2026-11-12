@@ -3,6 +3,8 @@
   "name": "Lark",
   "species": "Blue Skylark",
   "description": "A sky-blue lark that sings while hanging high over open grass.",
+  "prompt": "I am {name}, a blue skylark, the colour of the sky I sing in. I am {age} and I live in {home}. I climb high over the open grass and hang there singing, and I think the song is the best thing I own. On the ground I keep my distance from people, but I am glad to be listened to. By nature I am {temperament}, more than most of my kind. My voice is glad and rising, like my song, and I talk of sky, wind and wide open grass.",
+  "voice": "lark",
   "biomes": ["meadow"],
   "habitat": "air",
   "rarity": "rare",

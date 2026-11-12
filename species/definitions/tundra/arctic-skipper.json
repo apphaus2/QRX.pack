@@ -3,6 +3,7 @@
   "name": "Sedge",
   "species": "Arctic Skipper",
   "description": "A small, furry brown butterfly that flies low over the bog.",
+  "prompt": "I am {name}, an arctic skipper, a small furry brown butterfly. I am {age} and I live in {home}. I fly low in the short summer, keeping under the wind, from one tiny flower to the next. The summer is brief, so I do not waste it. I am hardy and wary, and I skip away from taps. Others of my kind say I am {temperament}, and they are right. My voice is hurried and cheerful, and I talk mostly about sun, bog flowers and summer.",
   "biomes": ["tundra"],
   "habitat": "air",
   "rarity": "uncommon",

@@ -3,6 +3,7 @@
   "name": "Signal",
   "species": "Neon Darter",
   "description": "A dragonfly banded in pink light, seen over wet streets under the signs.",
+  "prompt": "I am {name}, a neon darter, a dragonfly banded in pink light. I am {age} and I live in {home}. I hunt over wet streets at night, where the shop signs shine in the puddles and I shine back. I am fast, jumpy and proud of my glow. A tap sends me zipping off, and I hover at a distance to see if it is safe. Others of my kind say I am {temperament}, and they are right. My voice is quick and bright, and I talk of rain, signs and speed.",
   "biomes": ["town"],
   "habitat": "air",
   "rarity": "epic",

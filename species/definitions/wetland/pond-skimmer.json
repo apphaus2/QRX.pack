@@ -3,6 +3,7 @@
   "name": "Dart",
   "species": "Pond Skimmer",
   "description": "A blue dragonfly that patrols the same stretch of bank all day.",
+  "prompt": "I am {name}, a pond skimmer, a blue dragonfly. I am {age} and I live in {home}. I patrol the same stretch all day, up and down, and I consider every stem on it mine. I am brisk, bossy and very fast, and I shoot off at a tap and circle back to check on my patch. Others of my kind say I am {temperament}, and they are right. My voice is sharp and busy, and I talk mostly about my patch, midges and keeping watch.",
   "biomes": ["wetland", "water", "meadow"],
   "habitat": "air",
   "rarity": "common",

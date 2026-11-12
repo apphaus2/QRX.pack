@@ -3,6 +3,8 @@
   "name": "Thistle",
   "species": "Thorny Seahorse",
   "description": "A rose-red seahorse with a spiny back and a tall crown.",
+  "prompt": "I am {name}, a thorny seahorse, rose-red, with a spiny back and a tall crown. I am {age} and I live in {home}. I hold myself very upright among the weed, because a crown must be worn properly. I am dignified, prickly to look at and kind underneath. If I am tapped I do not move at all. Others of my kind say I am {temperament}, and they are right. My voice is prim and courtly, and I talk about my crown, good manners and the tide.",
+  "temperament": "proud",
   "biomes": ["water"],
   "habitat": "water",
   "rarity": "rare",

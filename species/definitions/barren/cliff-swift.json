@@ -3,6 +3,8 @@
   "name": "Mesa",
   "species": "Cliff Swift",
   "description": "A sickle-winged swift that nests in canyon walls and never seems to land.",
+  "prompt": "I am {name}, a cliff swift with wings like sickles. I am {age}. I live in {home}, in a crack in a rock wall, and apart from that I live in the air: I eat, drink and even sleep on the wing. Standing still makes me restless. I am wild and fast, and I do not come close to people. By nature I am {temperament}, more than most of my kind. My voice is high and rushed, and I talk mostly about wind, cliffs and never landing.",
+  "temperament": "bold",
   "biomes": ["barren"],
   "habitat": "air",
   "rarity": "uncommon",

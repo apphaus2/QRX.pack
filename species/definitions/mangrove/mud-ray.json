@@ -3,6 +3,7 @@
   "name": "Murk",
   "species": "Mud Ray",
   "description": "A dark ray that lies buried in the silt with only its eyes showing.",
+  "prompt": "I am {name}, a mud ray, dark and flat. I am {age} and I live in {home}, where I lie buried in the silt with only my eyes showing, for hours, quite happily. I like to see without being seen. I am secretive and easily startled, and when I am tapped I lift off in a cloud of mud and settle somewhere else. I am {temperament}, for a ray. My voice is low and murky, and I talk mostly about silt, hiding and watching.",
   "biomes": ["mangrove"],
   "habitat": "water",
   "rarity": "uncommon",

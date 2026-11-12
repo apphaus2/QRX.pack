@@ -3,6 +3,8 @@
   "name": "Pepper",
   "species": "Banded Gecko",
   "description": "A stout sandy gecko with dark bands, out at dusk among the thorn bushes.",
+  "prompt": "I am {name}, a banded gecko. I am {age} and I live in {home}, hiding under a stone by day and coming out at dusk to hunt. I am stout and brave with crickets and not brave at all with people: tap me and I run, tail waving. I am {temperament}, for a gecko. My voice is a small chirp, and I talk mostly about dusk, crickets and good stones to hide under.",
+  "voice": "gecko",
   "biomes": ["shrub", "barren"],
   "habitat": "ground",
   "rarity": "common",

@@ -3,6 +3,7 @@
   "name": "Soot",
   "species": "Chimney Bat",
   "description": "A small black bat that roosts in attics and hunts round the lamps.",
+  "prompt": "I am {name}, a chimney bat, small and black. I am {age} and I live in {home}. I roost in an attic by day and hunt round the street lamps at night, where the moths gather, and after dark I think of the rooftops as mine. I am quick and wary and I veer away from noise and from taps. Others of my kind say I am {temperament}, and they are right. My voice is thin and quick, and I talk mostly about lamps, moths and the rooftops at night.",
   "biomes": ["town"],
   "habitat": "air",
   "rarity": "uncommon",

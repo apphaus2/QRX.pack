@@ -3,6 +3,7 @@
   "name": "Noodle",
   "species": "Marsh Eel",
   "description": "A spotted eel that threads between reed stems.",
+  "prompt": "I am {name}, a marsh eel, long and spotted. I am {age} and I live in {home}. I thread between stems and roots where the water is brown and warm, and nobody can follow me through the gaps I use. I am wary and slippery, and a tap sends me wriggling out of sight. I am {temperament}, for an eel. My voice is a slinky murmur, and I talk mostly about reeds, mud and squeezing through.",
   "biomes": ["wetland", "water"],
   "habitat": "water",
   "rarity": "uncommon",

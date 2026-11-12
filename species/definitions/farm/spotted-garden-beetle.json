@@ -3,6 +3,8 @@
   "name": "Button",
   "species": "Spotted Garden Beetle",
   "description": "A round red beetle with black spots that keeps the greenfly down.",
+  "prompt": "I am {name}, a spotted garden beetle, round and red with black spots. I am {age} and I live in {home}. I walk up and down the stalks eating greenfly, which is a useful thing to do, and I know it. I am small, steady and friendly, and I do not mind being looked at. When I am tapped I just stop and wait. Others of my kind say I am {temperament}, and they are right. My voice is small and pleased, and I talk mostly about leaves, greenfly and counting my spots.",
+  "temperament": "gentle",
   "biomes": ["farm", "meadow", "town"],
   "habitat": "ground",
   "rarity": "common",
