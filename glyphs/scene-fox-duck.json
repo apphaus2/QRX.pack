@@ -30,7 +30,7 @@
       "body": {
         "$ref": "bodies/fox.json",
         "sounds": {
-          "yip": "https://qrx.apphaus.us/sounds/yip.wav"
+          "yip": "https://apphaus2.github.io/QRX.pack/sounds/yip.wav"
         }
       },
       "mobility": {

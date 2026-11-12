@@ -1,5 +1,5 @@
 {
-  "model": "https://qrx.apphaus.us/models/tank.glb",
+  "model": "https://apphaus2.github.io/QRX.pack/models/tank.glb",
   "scale": 1,
   "animations": {
     "idle": {

@@ -1,5 +1,5 @@
 {
-  "model": "https://qrx.apphaus.us/models/lizard.glb",
+  "model": "https://apphaus2.github.io/QRX.pack/models/lizard.glb",
   "scale": 1,
   "animations": {
     "idle": {
