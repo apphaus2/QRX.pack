@@ -199,7 +199,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/northlight-fox.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/northlight-fox.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -232,10 +232,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/fox-call-090-120.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/fox-content-090-120.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/fox-alarm-090-120.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/fox-curious-090-120.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/fox-call-090-120.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/fox-content-090-120.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/fox-alarm-090-120.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/fox-curious-090-120.wav"
         },
         "sockets": {
           "mouth": "Head",

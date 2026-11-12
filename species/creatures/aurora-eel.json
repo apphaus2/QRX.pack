@@ -167,7 +167,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/aurora-eel.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/aurora-eel.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -192,10 +192,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/eel-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/eel-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/eel-alarm.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/eel-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/eel-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/eel-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/eel-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/eel-curious.wav"
         },
         "sockets": {
           "mouth": "Body"

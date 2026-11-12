@@ -155,7 +155,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/hedge-finch.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/hedge-finch.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -176,10 +176,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/bird-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/bird-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/bird-alarm.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/bird-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/bird-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/bird-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/bird-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/bird-curious.wav"
         },
         "sockets": {
           "mouth": "Head",

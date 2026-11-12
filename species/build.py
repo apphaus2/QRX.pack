@@ -23,7 +23,7 @@ from lib import sounds as voices                         # noqa: E402
 from lib import tricks                                   # noqa: E402
 
 GENERATOR = "QRX species/build.py"
-PACK = "https://apphaus2.github.io/QRX.pack/"              # where this repository is served: every address the build writes starts here
+PACK = "https://qrx-pack.apphaus.us/"              # where this repository is served: every address the build writes starts here
 DEFAULT_SOUND_BASE = PACK + "species/sounds/"
 DEFAULT_MODEL_BASE = PACK + "species/models/"     # pulled by URL from this repository through GitHub Pages; nothing is bundled
 MAX_MODEL_BYTES = 96 * 1024        # 80 KB until 2026-11-12: a trick is a clip, and a legendary with a signature and four others needs the room

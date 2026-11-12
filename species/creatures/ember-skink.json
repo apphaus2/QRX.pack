@@ -183,7 +183,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/ember-skink.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/ember-skink.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -212,10 +212,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/lizard-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/lizard-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/lizard-alarm.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/lizard-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/lizard-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/lizard-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/lizard-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/lizard-curious.wav"
         },
         "sockets": {
           "mouth": "Body",

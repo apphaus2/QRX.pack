@@ -155,7 +155,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/field-bee.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/field-bee.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -176,10 +176,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/bee-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/bee-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/bee-alarm.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/bee-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/bee-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/bee-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/bee-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/bee-curious.wav"
         },
         "sockets": {
           "mouth": "Body"

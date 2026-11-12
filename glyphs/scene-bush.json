@@ -20,7 +20,7 @@
         "$ref": "bodies/bush.json",
         "sounds": {
           "song": {
-            "url": "https://apphaus2.github.io/QRX.pack/sounds/song.wav",
+            "url": "https://qrx-pack.apphaus.us/sounds/song.wav",
             "spatial": true
           }
         }

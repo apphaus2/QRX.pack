@@ -209,19 +209,19 @@ the catalog follow.
 | base | `body.model` becomes | works where, today |
 | --- | --- | --- |
 | `bundle:` | `bundle:ember-skink.glb` | Only where an app ships the file and gives JsonScene a resolver for `bundle:` names. Today that is the TVs' habitat stages, for the habitats' own scenery; everywhere else `bundle:` resolves to nothing |
-| an `https://` prefix (default) | `https://apphaus2.github.io/QRX.pack/species/models/ember-skink.glb` | Everywhere, as the pack's own creatures do (`https://qrx.apphaus.us/models/...`), once the files are served there; nothing serves these yet. Needs the network at spawn time; JsonScene caches the download |
+| an `https://` prefix (default) | `https://qrx-pack.apphaus.us/species/models/ember-skink.glb` | Everywhere, as the pack's own creatures do (`https://qrx.apphaus.us/models/...`), once the files are served there; nothing serves these yet. Needs the network at spawn time; JsonScene caches the download |
 | a relative prefix (`../models/`) | `../models/ember-skink.glb` | Nowhere today: a relative reference resolves against `AssetLocator.base`, and no app passes one |
 
-The default is this repository's GitHub Pages address, `https://apphaus2.github.io/QRX.pack/species/models/` (the owner's call,
+The default is this repository's GitHub Pages address, `https://qrx-pack.apphaus.us/species/models/` (the owner's call,
 2026-11-12): species are not bundled in the apps and are not on the website. Pages serves this repository's `master`
 exactly as it is (`.nojekyll` at the root: nothing is built), so a creature is named by its document's URL, exactly
 what a printed code would carry, and every platform loads it the way it loads any glyph by URL:
 
 ```
-https://apphaus2.github.io/QRX.pack/species/index.json            the catalog
-https://apphaus2.github.io/QRX.pack/species/creatures/<id>.json   a creature
-https://apphaus2.github.io/QRX.pack/species/models/<id>.glb       its model
-https://apphaus2.github.io/QRX.pack/species/sounds/<name>.wav     a sound
+https://qrx-pack.apphaus.us/species/index.json            the catalog
+https://qrx-pack.apphaus.us/species/creatures/<id>.json   a creature
+https://qrx-pack.apphaus.us/species/models/<id>.glb       its model
+https://qrx-pack.apphaus.us/species/sounds/<name>.wav     a sound
 ```
 
 A push to `master` publishes a change within a minute or so; Pages lets a client keep a file for ten minutes

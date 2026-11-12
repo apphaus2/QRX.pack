@@ -183,7 +183,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/jade-turtle.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/jade-turtle.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -216,10 +216,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/turtle-call-090-120.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/turtle-content-090-120.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/turtle-alarm-090-120.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/turtle-curious-090-120.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/turtle-call-090-120.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/turtle-content-090-120.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/turtle-alarm-090-120.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/turtle-curious-090-120.wav"
         },
         "sockets": {
           "mouth": "Head"

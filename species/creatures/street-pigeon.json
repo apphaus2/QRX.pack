@@ -151,7 +151,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/street-pigeon.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/street-pigeon.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -172,10 +172,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/pigeon-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/pigeon-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/pigeon-alarm.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/pigeon-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/pigeon-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/pigeon-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/pigeon-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/pigeon-curious.wav"
         },
         "sockets": {
           "mouth": "Head",

@@ -153,7 +153,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/reed-seahorse.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/reed-seahorse.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -174,10 +174,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/seahorse-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/seahorse-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/seahorse-alarm.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/seahorse-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/seahorse-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/seahorse-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/seahorse-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/seahorse-curious.wav"
         },
         "sockets": {
           "mouth": "Head"

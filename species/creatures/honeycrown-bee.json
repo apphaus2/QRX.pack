@@ -183,7 +183,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/honeycrown-bee.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/honeycrown-bee.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -212,10 +212,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/bee-call-090-120.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/bee-content-090-120.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/bee-alarm-090-120.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/bee-curious-090-120.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/bee-call-090-120.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/bee-content-090-120.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/bee-alarm-090-120.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/bee-curious-090-120.wav"
         },
         "sockets": {
           "mouth": "Body"

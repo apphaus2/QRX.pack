@@ -153,7 +153,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/pond-frog.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/pond-frog.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -174,10 +174,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/frog-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/frog-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/frog-alarm.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/frog-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/frog-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/frog-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/frog-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/frog-curious.wav"
         },
         "sockets": {
           "mouth": "Body",

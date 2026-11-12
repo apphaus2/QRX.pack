@@ -167,7 +167,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/granary-owl.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/granary-owl.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -192,10 +192,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/owl-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/owl-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/owl-alarm.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/owl-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/owl-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/owl-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/owl-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/owl-curious.wav"
         },
         "sockets": {
           "mouth": "Head",

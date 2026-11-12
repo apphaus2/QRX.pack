@@ -137,7 +137,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/meadow-snail.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/meadow-snail.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -158,10 +158,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/snail-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/snail-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/snail-call.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/snail-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/snail-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/snail-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/snail-call.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/snail-curious.wav"
         },
         "sockets": {
           "mouth": "Body",

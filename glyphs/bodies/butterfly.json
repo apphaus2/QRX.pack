@@ -1,5 +1,5 @@
 {
-  "model": "https://apphaus2.github.io/QRX.pack/models/butterfly.glb",
+  "model": "https://qrx-pack.apphaus.us/models/butterfly.glb",
   "scale": 1,
   "animations": {
     "idle": { "clip": "idle", "loop": true },

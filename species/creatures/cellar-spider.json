@@ -151,7 +151,7 @@
         ]
       },
       "body": {
-        "model": "https://apphaus2.github.io/QRX.pack/species/models/cellar-spider.glb",
+        "model": "https://qrx-pack.apphaus.us/species/models/cellar-spider.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -172,10 +172,10 @@
           }
         },
         "sounds": {
-          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/spider-call.wav",
-          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/spider-content.wav",
-          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/spider-alarm.wav",
-          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/spider-call.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/spider-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/spider-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/spider-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/spider-call.wav"
         },
         "sockets": {
           "mouth": "Body",
