@@ -197,6 +197,21 @@ the first time a species is seen; JsonScene keeps the model after that.
 The model files are flat (`<id>.glb`) because the bundle resolvers take a bare file name. `reserved.json` keeps a
 species from taking a name the pack's models use.
 
+## Templates and life
+
+A species here is a template: its document is public, and anyone can load it by its URL. An individual creature
+exists only when the app spawns one out in the world, and only a spawned creature gets *life information*: its own
+name and its age. `life.json` is what those are drawn from, and the build copies it into `index.json` as `life`:
+
+```
+names   the pool a spawned creature's own name is picked from (the name in a species' definition, "Twig", is only
+        the template's example)
+age     { minDays, maxDays }: how old a creature can be when it is met
+```
+
+The app picks both from the encounter, so two phones that meet the same creature agree on its name and age. A
+creature loaded from a code or a URL, with no spawn, has no life information.
+
 ## Checking
 
 `--check` rebuilds everything in memory and reads everything on disk, and fails on:

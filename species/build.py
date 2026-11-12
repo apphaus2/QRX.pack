@@ -51,6 +51,12 @@ class Data:
         self.habitats = {h["id"]: h for h in read_json("habitats.json")["habitats"]}
         self.biomes = {b["id"]: b for b in read_json("biomes.json")["biomes"]}
         self.reserved = read_json("reserved.json")
+        self.life = read_json("life.json")       # what a spawned creature's own name and age are drawn from
+        names, age = self.life.get("names"), self.life.get("age", {})
+        if not isinstance(names, list) or len(names) < 16 or len(set(names)) != len(names) or not all(isinstance(n, str) and n.strip() == n and n for n in names):
+            raise ValueError("life.json: names must be at least 16 different, trimmed, non-empty strings")
+        if not (isinstance(age.get("minDays"), int) and isinstance(age.get("maxDays"), int) and 0 <= age["minDays"] < age["maxDays"]):
+            raise ValueError("life.json: age needs whole minDays < maxDays")
         self.archetypes = archetype_package.load()
         self.check_tables(rarity)
         self.definitions = self.read_definitions()
@@ -282,6 +288,7 @@ def build_all(data, model_base):
         "version": 1,
         "modelBase": model_base,
         "visitorShare": data.visitor_share,
+        "life": {"names": list(data.life["names"]), "age": {"minDays": data.life["age"]["minDays"], "maxDays": data.life["age"]["maxDays"]}},
         "rarities": [{"id": r["id"], "name": r["name"], "weight": r["weight"], "colour": r["colour"]} for r in data.rarities.values()],
         "habitats": [{"id": h["id"], "name": h["name"]} for h in data.habitats.values()],
         "codes": {str(b["code"]): b["id"] for b in sorted(data.biomes.values(), key=lambda b: b["code"])},
