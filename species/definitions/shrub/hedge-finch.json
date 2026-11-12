@@ -1,0 +1,14 @@
+{
+  "id": "hedge-finch",
+  "name": "Peep",
+  "species": "Hedge Finch",
+  "description": "A small brown finch that flits from thicket to thicket.",
+  "biomes": ["shrub", "farm", "forest"],
+  "habitat": "air",
+  "rarity": "common",
+  "archetype": "bird",
+  "size": 0.14,
+  "shape": {"plump": 1.05, "beak": 0.7},
+  "colours": {"body": "#8C6F4E", "belly": "#E6D5B8", "head": "#6B5239", "wing": "#6B5239", "pattern": "#3F3022", "beak": "#C9A26B"},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

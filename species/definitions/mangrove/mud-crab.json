@@ -1,0 +1,14 @@
+{
+  "id": "mud-crab",
+  "name": "Skitter",
+  "species": "Mud Crab",
+  "description": "A mud-brown crab that sidles between the roots at low tide.",
+  "biomes": ["mangrove", "wetland"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "crab",
+  "size": 0.12,
+  "colours": {"body": "#6E5A44", "belly": "#C9B79A", "pattern": "#4A3A2A", "claw": "#8A6E52"},
+  "pattern": {"type": "saddle", "level": 0.3},
+  "behaviour": {"temper": "shy", "distance": 2.0}
+}

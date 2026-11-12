@@ -1,0 +1,16 @@
+{
+  "id": "spotted-garden-beetle",
+  "name": "Button",
+  "species": "Spotted Garden Beetle",
+  "description": "A round red beetle with black spots that keeps the greenfly down.",
+  "biomes": ["farm", "meadow", "town"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "beetle",
+  "size": 0.075,
+  "shape": {"dome": 1.15, "width": 1.1},
+  "colours": {"body": "#D23B2B", "pattern": "#151515"},
+  "pattern": {"type": "spots", "count": 7, "size": 0.24},
+  "movement": {"speed": 0.08},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

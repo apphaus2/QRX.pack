@@ -1,0 +1,16 @@
+{
+  "id": "harvest-mouse",
+  "name": "Nibble",
+  "species": "Harvest Mouse",
+  "description": "A tiny golden mouse that climbs wheat stalks with its tail.",
+  "biomes": ["farm"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "critter",
+  "size": 0.095,
+  "shape": {"taillen": 1.5, "plump": 0.95},
+  "colours": {"body": "#D9A24A", "belly": "#FBF1DC", "pattern": "#A8742A", "trim": "#F2D08A"},
+  "pattern": {"type": "saddle", "level": 0.35},
+  "movement": {"speed": 0.2},
+  "behaviour": {"temper": "curious"}
+}

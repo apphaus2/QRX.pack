@@ -1,0 +1,15 @@
+{
+  "id": "violet-fantail",
+  "name": "Plum",
+  "species": "Violet Fantail",
+  "description": "A deep purple fish with a fanned tail, found over clear gravel.",
+  "biomes": ["water"],
+  "habitat": "water",
+  "rarity": "rare",
+  "archetype": "fish",
+  "size": 0.13,
+  "shape": {"tail": "fan", "dorsal": "tall", "fins": 1.2},
+  "colours": {"body": "#7A3FBF", "belly": "#D9C2F2", "pattern": "#F2D24A", "trim": "#2A1245", "fin": "#B58AE8", "accent": "#F2D24A"},
+  "pattern": {"type": "bands", "count": 3, "width": 0.3},
+  "behaviour": {"temper": "curious"}
+}

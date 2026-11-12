@@ -1,0 +1,14 @@
+{
+  "id": "reed-seahorse",
+  "name": "Nib",
+  "species": "Reed Seahorse",
+  "description": "A yellow-green seahorse that holds on to weed with its tail.",
+  "biomes": ["water", "mangrove"],
+  "habitat": "water",
+  "rarity": "common",
+  "archetype": "seahorse",
+  "size": 0.11,
+  "pattern": {"type": "bands", "count": 7, "width": 0.35},
+  "movement": {"speed": 0.12},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

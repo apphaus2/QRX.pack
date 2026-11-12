@@ -1,0 +1,15 @@
+{
+  "id": "arctic-skipper",
+  "name": "Sedge",
+  "species": "Arctic Skipper",
+  "description": "A small, furry brown butterfly that flies low over the bog.",
+  "biomes": ["tundra"],
+  "habitat": "air",
+  "rarity": "uncommon",
+  "archetype": "butterfly",
+  "size": 0.12,
+  "shape": {"fore": 0.9, "hind": 0.9, "fat": 1.2, "rate": 8},
+  "colours": {"wing": "#B8742E", "hind": "#C98A3A", "pattern": "#F2E3B0", "trim": "#5A3A1A", "body": "#3A2A1E"},
+  "pattern": {"type": "eyespots", "size": 0.16},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

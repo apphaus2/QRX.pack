@@ -1,0 +1,14 @@
+{
+  "id": "street-pigeon",
+  "name": "Cobble",
+  "species": "Street Pigeon",
+  "description": "A grey pigeon at home on ledges, statues and station roofs.",
+  "biomes": ["town"],
+  "habitat": "air",
+  "rarity": "common",
+  "archetype": "bird",
+  "size": 0.18,
+  "shape": {"plump": 1.25, "head": 0.9, "beak": 0.6, "tail": 0.9},
+  "colours": {"body": "#8E97A6", "belly": "#B5BCC8", "head": "#5E6B7E", "wing": "#7A8494", "pattern": "#3C4656", "beak": "#C98A8A"},
+  "behaviour": {"temper": "shy", "distance": 2.0}
+}

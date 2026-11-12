@@ -1,0 +1,15 @@
+{
+  "id": "neon-darter",
+  "name": "Signal",
+  "species": "Neon Darter",
+  "description": "A dragonfly banded in pink light, seen over wet streets under the signs.",
+  "biomes": ["town"],
+  "habitat": "air",
+  "rarity": "epic",
+  "archetype": "dragonfly",
+  "size": 0.15,
+  "colours": {"body": "#1A1A2E", "belly": "#1A1A2E", "pattern": "#FF3DA6", "trim": "#33E0FF", "wing": "#C9D6F2", "eye": "#33E0FF", "accent": "#FF3DA6", "glow": "#FF6AC1"},
+  "pattern": {"type": "bands", "count": 4, "width": 0.4, "lit": true},
+  "movement": {"speed": 0.5},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "northlight-fox",
+  "name": "Nimbus",
+  "species": "Northlight Fox",
+  "description": "A white fox whose tail tip glows like the sky it walks under.",
+  "biomes": ["tundra"],
+  "habitat": "ground",
+  "rarity": "legendary",
+  "archetype": "critter",
+  "size": 0.17,
+  "shape": {"ears": "point", "earsize": 1.2, "tail": "bushy", "taillen": 1.2, "snout": 1.5, "long": 1.15, "legs": 1.25, "plump": 0.95, "beat": 0.5},
+  "colours": {"body": "#EEF3F7", "belly": "#FFFFFF", "pattern": "#C9D6E3", "trim": "#FFFFFF", "ear": "#2A3A4A", "nose": "#1E1E1E", "accent": "#7FE8D9", "glow": "#9FF5E6", "eye": "#2A3A4A"},
+  "movement": {"speed": 0.22},
+  "behaviour": {"temper": "curious", "watch": true}
+}

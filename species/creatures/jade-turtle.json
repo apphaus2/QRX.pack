@@ -1,0 +1,111 @@
+{
+  "_ui": {
+    "version": 1,
+    "habitat": "water",
+    "species": "jade-turtle",
+    "rarity": "legendary",
+    "biome": "wetland",
+    "biomes": [
+      "wetland"
+    ],
+    "state": {
+      "still": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.52,
+      0.08,
+      -0.18
+    ],
+    "max": [
+      0.52,
+      0.5,
+      0.18
+    ]
+  },
+  "actors": [
+    {
+      "id": "lotus",
+      "name": "Lotus",
+      "transform": {
+        "position": [
+          0,
+          0.3,
+          0
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "model": "https://qrx.apphaus.us/species/models/jade-turtle.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          },
+          "swim": {
+            "clip": "swim",
+            "loop": true
+          }
+        },
+        "sockets": {
+          "mouth": "Head"
+        }
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.15,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "idle",
+          "priority": 10,
+          "when": "$still"
+        },
+        {
+          "type": "lookAt",
+          "target": "user",
+          "priority": 1
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "still": true
+            }
+          },
+          {
+            "wait": 4
+          },
+          {
+            "set": {
+              "still": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

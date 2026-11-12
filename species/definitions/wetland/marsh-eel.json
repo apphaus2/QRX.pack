@@ -1,0 +1,13 @@
+{
+  "id": "marsh-eel",
+  "name": "Noodle",
+  "species": "Marsh Eel",
+  "description": "A spotted eel that threads between reed stems.",
+  "biomes": ["wetland", "water"],
+  "habitat": "water",
+  "rarity": "uncommon",
+  "archetype": "eel",
+  "size": 0.21,
+  "pattern": {"type": "spots", "count": 10, "size": 0.2},
+  "behaviour": {"temper": "shy"}
+}

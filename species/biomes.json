@@ -1,0 +1,16 @@
+{
+  "source": "ESA WorldCover 10 m land-cover classes (v100 2020, v200 2021): the class codes and names only",
+  "biomes": [
+    { "code": 10, "id": "forest", "name": "Forest", "worldcover": "Tree cover", "colour": "#006400", "roster": 6, "description": "Woods and plantations: bark, leaf litter and the dark under the canopy." },
+    { "code": 20, "id": "shrub", "name": "Scrub", "worldcover": "Shrubland", "colour": "#FFBB22", "roster": 6, "description": "Thickets, heath and thorn: dry, tangled and sunlit." },
+    { "code": 30, "id": "meadow", "name": "Meadow", "worldcover": "Grassland", "colour": "#D9C84A", "roster": 6, "description": "Open grass, pasture and wildflowers." },
+    { "code": 40, "id": "farm", "name": "Farmland", "worldcover": "Cropland", "colour": "#F096FF", "roster": 6, "description": "Fields, orchards, barns and hedgerows." },
+    { "code": 50, "id": "town", "name": "Town", "worldcover": "Built-up", "colour": "#FA0000", "roster": 12, "description": "Streets, roofs, gardens and park ponds: where most people are." },
+    { "code": 60, "id": "barren", "name": "Barrens", "worldcover": "Bare / sparse vegetation", "colour": "#B4B4B4", "roster": 6, "description": "Desert, dunes, rock and scree." },
+    { "code": 70, "id": "snow", "name": "Snowfield", "worldcover": "Snow and ice", "colour": "#BFE6F2", "roster": 6, "description": "Permanent snow, glaciers and the cold water at their edges." },
+    { "code": 80, "id": "water", "name": "Open Water", "worldcover": "Permanent water bodies", "colour": "#0064C8", "roster": 6, "description": "Lakes, rivers, reservoirs and the sea." },
+    { "code": 90, "id": "wetland", "name": "Marsh", "worldcover": "Herbaceous wetland", "colour": "#0096A0", "roster": 6, "description": "Reedbeds, fens and flooded grass." },
+    { "code": 95, "id": "mangrove", "name": "Mangrove", "worldcover": "Mangroves", "colour": "#00CF75", "roster": 6, "description": "Tidal forest: roots, mud and brackish water." },
+    { "code": 100, "id": "tundra", "name": "Tundra", "worldcover": "Moss and lichen", "colour": "#C9C48A", "roster": 6, "description": "Moss, lichen and bog pools on cold open ground." }
+  ]
+}

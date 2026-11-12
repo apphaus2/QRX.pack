@@ -1,0 +1,15 @@
+{
+  "id": "cliff-swift",
+  "name": "Mesa",
+  "species": "Cliff Swift",
+  "description": "A sickle-winged swift that nests in canyon walls and never seems to land.",
+  "biomes": ["barren"],
+  "habitat": "air",
+  "rarity": "uncommon",
+  "archetype": "bird",
+  "size": 0.2,
+  "shape": {"wings": 1.45, "chord": 0.7, "plump": 0.85, "fork": 1.0, "beak": 0.4, "beat": 0.22},
+  "colours": {"body": "#5A4A42", "belly": "#D9C7B0", "head": "#4A3C36", "wing": "#4A3C36", "pattern": "#2E2420", "trim": "#D9C7B0", "beak": "#2A2A2A"},
+  "movement": {"speed": 0.5, "pause": [0.2, 1]},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

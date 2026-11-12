@@ -1,0 +1,15 @@
+{
+  "id": "lamp-moth",
+  "name": "Flicker",
+  "species": "Lamp Moth",
+  "description": "A dusty moth that circles porch lights and street lamps.",
+  "biomes": ["town"],
+  "habitat": "air",
+  "rarity": "common",
+  "archetype": "butterfly",
+  "size": 0.13,
+  "shape": {"style": "moth"},
+  "colours": {"wing": "#B8A88A", "hind": "#D2C6AA", "pattern": "#6E5E46", "body": "#8A7A60", "accent": "#D8CCB0"},
+  "pattern": {"type": "bands", "count": 3, "width": 0.35},
+  "behaviour": {"temper": "curious"}
+}

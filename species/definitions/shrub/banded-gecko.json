@@ -1,0 +1,15 @@
+{
+  "id": "banded-gecko",
+  "name": "Pepper",
+  "species": "Banded Gecko",
+  "description": "A stout sandy gecko with dark bands, out at dusk among the thorn bushes.",
+  "biomes": ["shrub", "barren"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "lizard",
+  "size": 0.2,
+  "shape": {"girth": 1.1, "tail": 0.85},
+  "colours": {"body": "#E0C28A", "belly": "#F5EBD2", "pattern": "#6B4A2B", "toe": "#EAD3A6"},
+  "pattern": {"type": "bands", "count": 5, "width": 0.45},
+  "behaviour": {"temper": "shy", "distance": 2.2}
+}

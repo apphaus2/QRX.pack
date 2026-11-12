@@ -1,0 +1,13 @@
+{
+  "id": "dusk-bat",
+  "name": "Umber",
+  "species": "Dusk Bat",
+  "description": "A brown bat that leaves its hollow tree as the light goes.",
+  "biomes": ["forest"],
+  "habitat": "air",
+  "rarity": "uncommon",
+  "archetype": "bat",
+  "size": 0.18,
+  "colours": {"body": "#5A4034", "belly": "#8A6A58", "membrane": "#3A2A26", "bone": "#6A4E44"},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

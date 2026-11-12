@@ -1,0 +1,16 @@
+{
+  "id": "frost-jelly",
+  "name": "Shiver",
+  "species": "Frost Jelly",
+  "description": "A jelly of clear ice-blue that drifts under the pack ice, glowing faintly.",
+  "biomes": ["snow"],
+  "habitat": "water",
+  "rarity": "epic",
+  "archetype": "jellyfish",
+  "size": 0.12,
+  "shape": {"dome": 1.15, "tentacles": 10},
+  "colours": {"body": "#DDF3FF", "belly": "#F5FCFF", "pattern": "#7FD4FF", "trim": "#7FD4FF", "tentacle": "#CDEBFA", "accent": "#9FE6FF", "glow": "#9FE6FF"},
+  "pattern": {"type": "stripes", "count": 5, "lit": true},
+  "movement": {"speed": 0.1},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

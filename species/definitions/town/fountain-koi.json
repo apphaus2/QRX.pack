@@ -1,0 +1,16 @@
+{
+  "id": "fountain-koi",
+  "name": "Brocade",
+  "species": "Fountain Koi",
+  "description": "A white koi splashed with red, grown old in a city fountain.",
+  "biomes": ["town"],
+  "habitat": "water",
+  "rarity": "rare",
+  "archetype": "fish",
+  "size": 0.15,
+  "shape": {"tail": "lyre", "dorsal": "low", "depth": 0.8, "girth": 1.25, "beat": 0.5},
+  "colours": {"body": "#F7F3EA", "belly": "#FFFFFF", "pattern": "#E8472B", "trim": "#1A1A1A", "fin": "#F7E3D3", "accent": "#E8472B"},
+  "pattern": {"type": "spots", "count": 5, "size": 0.42},
+  "movement": {"speed": 0.2},
+  "behaviour": {"temper": "calm", "seconds": 4, "watch": true}
+}

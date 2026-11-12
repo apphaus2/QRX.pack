@@ -1,0 +1,16 @@
+{
+  "id": "mud-ray",
+  "name": "Murk",
+  "species": "Mud Ray",
+  "description": "A dark ray that lies buried in the silt with only its eyes showing.",
+  "biomes": ["mangrove"],
+  "habitat": "water",
+  "rarity": "uncommon",
+  "archetype": "ray",
+  "size": 0.19,
+  "shape": {"span": 0.95},
+  "colours": {"body": "#5E5446", "belly": "#E0D6C4", "pattern": "#3A332A", "trim": "#8A7C68"},
+  "pattern": {"type": "saddle", "level": 0.3},
+  "movement": {"speed": 0.2},
+  "behaviour": {"temper": "shy"}
+}

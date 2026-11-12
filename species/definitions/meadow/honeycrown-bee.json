@@ -1,0 +1,15 @@
+{
+  "id": "honeycrown-bee",
+  "name": "Mead",
+  "species": "Honeycrown Bee",
+  "description": "A great dark bee with a ruff of gold, said to visit a meadow once a summer.",
+  "biomes": ["meadow"],
+  "habitat": "air",
+  "rarity": "legendary",
+  "archetype": "bee",
+  "size": 0.09,
+  "shape": {"fat": 1.25},
+  "colours": {"body": "#4A2608", "belly": "#4A2608", "pattern": "#F5B301", "trim": "#FFE9A0", "fuzz": "#E89B0C", "head": "#3A1E08", "accent": "#FFF0B8", "glow": "#FFD84A"},
+  "pattern": {"type": "bands", "count": 3, "width": 0.45, "lit": true},
+  "behaviour": {"temper": "curious", "watch": true}
+}

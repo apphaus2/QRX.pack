@@ -1,0 +1,22 @@
+{
+  "habitats": [
+    {
+      "id": "water", "name": "Tank", "mode": "air", "origin": "centre", "move": "swim", "anchor": "free",
+      "bounds": { "min": [-0.72, 0.12, -0.45], "max": [0.72, 0.84, 0.10] },
+      "wild": { "min": [-0.52, 0.08, -0.18], "max": [0.52, 0.5, 0.18] },
+      "start": [0, 0.3, 0], "size": [0.06, 0.26], "speed": 0.3, "turnRate": 360, "pause": [0.5, 2]
+    },
+    {
+      "id": "ground", "name": "Terrarium", "mode": "ground", "origin": "ground", "move": "walk", "anchor": "code",
+      "bounds": { "min": [-0.75, 0, -0.80], "max": [0.75, 0.30, 0.10] },
+      "wild": { "min": [-0.6, 0, -0.6], "max": [0.6, 0.3, 0.6] },
+      "start": [0, 0, -0.2], "size": [0.05, 0.30], "speed": 0.14, "turnRate": 240, "pause": [2, 7]
+    },
+    {
+      "id": "air", "name": "Aviary", "mode": "air", "origin": "centre", "move": "fly", "anchor": "code",
+      "bounds": { "min": [-0.80, 0.22, -0.55], "max": [0.80, 1.05, 0.15] },
+      "wild": { "min": [-0.7, 0.25, -0.5], "max": [0.7, 1.0, 0.5] },
+      "start": [0, 0.6, -0.2], "size": [0.05, 0.26], "speed": 0.35, "turnRate": 540, "pause": [0.5, 3]
+    }
+  ]
+}

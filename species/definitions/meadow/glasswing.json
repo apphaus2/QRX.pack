@@ -1,0 +1,15 @@
+{
+  "id": "glasswing",
+  "name": "Prism",
+  "species": "Glasswing",
+  "description": "A butterfly with wings like clear glass, their veins lit from within.",
+  "biomes": ["meadow"],
+  "habitat": "air",
+  "rarity": "epic",
+  "archetype": "butterfly",
+  "size": 0.17,
+  "shape": {"fore": 1.1},
+  "colours": {"wing": "#BFEFF2", "hind": "#D8F7F0", "pattern": "#6AE0E8", "trim": "#2A4A55", "body": "#23323A", "accent": "#6AE0E8", "glow": "#9FF5FF"},
+  "pattern": {"type": "veins", "lit": true},
+  "behaviour": {"temper": "curious"}
+}

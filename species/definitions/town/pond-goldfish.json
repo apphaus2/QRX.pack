@@ -1,0 +1,14 @@
+{
+  "id": "pond-goldfish",
+  "name": "Tango",
+  "species": "Pond Goldfish",
+  "description": "A plump orange fish from park ponds and garden pools.",
+  "biomes": ["town"],
+  "habitat": "water",
+  "rarity": "common",
+  "archetype": "fish",
+  "size": 0.11,
+  "shape": {"tail": "fan", "depth": 0.95, "girth": 1.2},
+  "colours": {"body": "#F28C1E", "belly": "#FBD9A0", "fin": "#F7A64A", "pattern": "#F28C1E"},
+  "behaviour": {"temper": "curious"}
+}

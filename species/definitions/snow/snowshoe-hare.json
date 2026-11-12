@@ -1,0 +1,15 @@
+{
+  "id": "snowshoe-hare",
+  "name": "Mitten",
+  "species": "Snowshoe Hare",
+  "description": "A white hare with broad furred feet that runs on top of the snow.",
+  "biomes": ["snow"],
+  "habitat": "ground",
+  "rarity": "rare",
+  "archetype": "critter",
+  "size": 0.15,
+  "shape": {"ears": "long", "earsize": 0.9, "tail": "stub", "gait": "hop", "hindfeet": 2.0, "plump": 1.25, "legs": 1.1, "snout": 0.5, "beat": 0.5},
+  "colours": {"body": "#F7F7F2", "belly": "#FFFFFF", "pattern": "#E3E6EA", "ear": "#F2C9C9", "trim": "#FFFFFF", "accent": "#DDEFFA", "nose": "#5A4A4A"},
+  "movement": {"speed": 0.25},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

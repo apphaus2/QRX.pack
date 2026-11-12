@@ -1,0 +1,16 @@
+{
+  "id": "starlit-ray",
+  "name": "Nocturne",
+  "species": "Starlit Ray",
+  "description": "A midnight-blue ray scattered with lights like a clear night sky.",
+  "biomes": ["water"],
+  "habitat": "water",
+  "rarity": "legendary",
+  "archetype": "ray",
+  "size": 0.17,
+  "shape": {"span": 1.1, "tail": 1.2},
+  "colours": {"body": "#0E1A3A", "belly": "#C9D6F2", "pattern": "#BFE8FF", "trim": "#3A5AA8", "accent": "#6FA8FF", "glow": "#BFE8FF"},
+  "pattern": {"type": "spots", "count": 16, "size": 0.09, "lit": true},
+  "movement": {"speed": 0.22},
+  "behaviour": {"temper": "calm", "seconds": 4, "watch": true}
+}

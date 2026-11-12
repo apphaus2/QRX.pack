@@ -1,0 +1,15 @@
+{
+  "id": "rooftop-gecko",
+  "name": "Copper",
+  "species": "Rooftop Gecko",
+  "description": "A copper gecko that hunts moths on warm walls after dark.",
+  "biomes": ["town"],
+  "habitat": "ground",
+  "rarity": "rare",
+  "archetype": "lizard",
+  "size": 0.2,
+  "shape": {"flat": 0.65, "legs": 1.15},
+  "colours": {"body": "#B87333", "belly": "#F0D9C0", "pattern": "#6E3F1A", "trim": "#F2B880", "toe": "#D99A66", "accent": "#5FD3C6"},
+  "pattern": {"type": "spots", "count": 9, "size": 0.2},
+  "behaviour": {"temper": "curious"}
+}

@@ -1,0 +1,16 @@
+{
+  "id": "darkling-beetle",
+  "name": "Dune",
+  "species": "Darkling Beetle",
+  "description": "A black beetle that drinks the fog from its own ridged back.",
+  "biomes": ["barren"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "beetle",
+  "size": 0.07,
+  "shape": {"dome": 1.2, "width": 0.9},
+  "colours": {"body": "#2A2622", "pattern": "#4A443C", "head": "#1E1B18", "trim": "#111111", "belly": "#1E1B18"},
+  "pattern": {"type": "stripes", "count": 4, "width": 0.4},
+  "movement": {"speed": 0.09},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

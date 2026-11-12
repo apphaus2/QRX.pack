@@ -1,0 +1,16 @@
+{
+  "id": "marsh-newt",
+  "name": "Fern",
+  "species": "Marsh Newt",
+  "description": "A dark, slow newt with an orange belly, found under wet leaves.",
+  "biomes": ["wetland"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "lizard",
+  "size": 0.17,
+  "shape": {"flat": 0.85, "girth": 0.9, "tail": 1.15, "legs": 0.85},
+  "colours": {"body": "#4A5A2E", "belly": "#F2A23A", "pattern": "#2A331A", "trim": "#F2A23A", "toe": "#6A7A44"},
+  "pattern": {"type": "spots", "count": 9, "size": 0.15},
+  "movement": {"speed": 0.08},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

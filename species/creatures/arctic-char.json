@@ -1,0 +1,108 @@
+{
+  "_ui": {
+    "version": 1,
+    "habitat": "water",
+    "species": "arctic-char",
+    "rarity": "rare",
+    "biome": "tundra",
+    "biomes": [
+      "tundra"
+    ],
+    "state": {
+      "scared": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.52,
+      0.08,
+      -0.18
+    ],
+    "max": [
+      0.52,
+      0.5,
+      0.18
+    ]
+  },
+  "actors": [
+    {
+      "id": "tarn",
+      "name": "Tarn",
+      "transform": {
+        "position": [
+          0,
+          0.3,
+          0
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "model": "https://qrx.apphaus.us/species/models/arctic-char.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          },
+          "swim": {
+            "clip": "swim",
+            "loop": true
+          }
+        },
+        "sockets": {
+          "mouth": "Body"
+        }
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.3,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 1.6,
+          "priority": 10,
+          "when": "$scared"
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "scared": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "scared": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "one-claw-crab",
+  "name": "Fiddle",
+  "species": "One-Claw Crab",
+  "description": "A blue crab that waves one huge orange claw from the mouth of its burrow.",
+  "biomes": ["mangrove"],
+  "habitat": "ground",
+  "rarity": "rare",
+  "archetype": "crab",
+  "size": 0.13,
+  "shape": {"bigclaw": 1.9, "claws": 0.8, "width": 0.9},
+  "colours": {"body": "#3A5A7A", "belly": "#D9E3EA", "pattern": "#1E3348", "trim": "#F2C14E", "claw": "#F2A23A", "accent": "#F2C14E"},
+  "pattern": {"type": "spots", "count": 6, "size": 0.25},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

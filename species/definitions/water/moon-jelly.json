@@ -1,0 +1,14 @@
+{
+  "id": "moon-jelly",
+  "name": "Bloop",
+  "species": "Moon Jelly",
+  "description": "A pale jelly that pulses along just under the surface.",
+  "biomes": ["water", "mangrove"],
+  "habitat": "water",
+  "rarity": "common",
+  "archetype": "jellyfish",
+  "size": 0.11,
+  "pattern": {"type": "stripes", "count": 4},
+  "movement": {"speed": 0.1},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

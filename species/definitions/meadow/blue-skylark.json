@@ -1,0 +1,15 @@
+{
+  "id": "blue-skylark",
+  "name": "Lark",
+  "species": "Blue Skylark",
+  "description": "A sky-blue lark that sings while hanging high over open grass.",
+  "biomes": ["meadow"],
+  "habitat": "air",
+  "rarity": "rare",
+  "archetype": "bird",
+  "size": 0.16,
+  "shape": {"wings": 1.1, "tail": 1.1, "fork": 0.5},
+  "colours": {"body": "#5B8FD9", "belly": "#F2E9D8", "head": "#3F6FB5", "wing": "#3F6FB5", "pattern": "#1F3A66", "trim": "#F2E9D8", "beak": "#3A3A3A", "accent": "#F2C14E"},
+  "pattern": {"type": "saddle", "level": 0.0},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

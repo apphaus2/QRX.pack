@@ -1,0 +1,106 @@
+{
+  "_ui": {
+    "version": 1,
+    "habitat": "water",
+    "species": "thorny-seahorse",
+    "rarity": "rare",
+    "biome": "water",
+    "biomes": [
+      "water"
+    ],
+    "state": {
+      "still": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.52,
+      0.08,
+      -0.18
+    ],
+    "max": [
+      0.52,
+      0.5,
+      0.18
+    ]
+  },
+  "actors": [
+    {
+      "id": "thistle",
+      "name": "Thistle",
+      "transform": {
+        "position": [
+          0,
+          0.3,
+          0
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "model": "https://qrx.apphaus.us/species/models/thorny-seahorse.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          },
+          "swim": {
+            "clip": "swim",
+            "loop": true
+          }
+        },
+        "sockets": {
+          "mouth": "Head"
+        }
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.12,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "idle",
+          "priority": 10,
+          "when": "$still"
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "still": true
+            }
+          },
+          {
+            "wait": 4
+          },
+          {
+            "set": {
+              "still": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

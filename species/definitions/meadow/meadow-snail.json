@@ -1,0 +1,14 @@
+{
+  "id": "meadow-snail",
+  "name": "Dawdle",
+  "species": "Meadow Snail",
+  "description": "A banded snail that climbs grass stems after rain.",
+  "biomes": ["meadow", "forest"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "snail",
+  "size": 0.085,
+  "pattern": {"type": "bands"},
+  "movement": {"speed": 0.03, "turnRate": 60, "pause": [3, 8]},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

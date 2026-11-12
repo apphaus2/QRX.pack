@@ -1,0 +1,15 @@
+{
+  "id": "boreal-emerald",
+  "name": "Verdigris",
+  "species": "Boreal Emerald",
+  "description": "A deep green dragonfly ringed with light, seen over bog pools in the short summer.",
+  "biomes": ["tundra"],
+  "habitat": "air",
+  "rarity": "epic",
+  "archetype": "dragonfly",
+  "size": 0.15,
+  "colours": {"body": "#0E5A4A", "belly": "#0E5A4A", "pattern": "#3DFFC2", "trim": "#B8FFE8", "wing": "#D9F2EA", "eye": "#3DFFC2", "accent": "#3DFFC2", "glow": "#7CFFD9"},
+  "pattern": {"type": "bands", "count": 3, "width": 0.4, "lit": true},
+  "movement": {"speed": 0.5},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

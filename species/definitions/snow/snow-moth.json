@@ -1,0 +1,15 @@
+{
+  "id": "snow-moth",
+  "name": "Drift",
+  "species": "Snow Moth",
+  "description": "A thick-furred white moth that flies on still, cold days.",
+  "biomes": ["snow"],
+  "habitat": "air",
+  "rarity": "common",
+  "archetype": "butterfly",
+  "size": 0.13,
+  "shape": {"style": "moth", "fat": 1.3},
+  "colours": {"wing": "#F2F6FA", "hind": "#E3ECF5", "pattern": "#B8CCE0", "body": "#E8EEF5", "accent": "#FFFFFF"},
+  "pattern": {"type": "bands", "count": 2, "width": 0.35},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

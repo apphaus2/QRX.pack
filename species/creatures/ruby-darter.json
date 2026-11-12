@@ -1,0 +1,108 @@
+{
+  "_ui": {
+    "version": 1,
+    "habitat": "air",
+    "species": "ruby-darter",
+    "rarity": "rare",
+    "biome": "wetland",
+    "biomes": [
+      "wetland"
+    ],
+    "state": {
+      "scared": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "code",
+  "bounds": {
+    "min": [
+      -0.7,
+      0.25,
+      -0.5
+    ],
+    "max": [
+      0.7,
+      1.0,
+      0.5
+    ]
+  },
+  "actors": [
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "transform": {
+        "position": [
+          0,
+          0.6,
+          -0.2
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "model": "https://qrx.apphaus.us/species/models/ruby-darter.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          },
+          "fly": {
+            "clip": "fly",
+            "loop": true
+          }
+        },
+        "sockets": {
+          "mouth": "Body"
+        }
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.5,
+        "turnRate": 540,
+        "altitude": [
+          0.25,
+          1.0
+        ],
+        "idle": "idle",
+        "move": "fly"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 2.5,
+          "priority": 10,
+          "when": "$scared"
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            3
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "scared": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "scared": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

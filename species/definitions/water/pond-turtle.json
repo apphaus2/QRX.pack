@@ -1,0 +1,14 @@
+{
+  "id": "pond-turtle",
+  "name": "Tumble",
+  "species": "Pond Turtle",
+  "description": "A green turtle that basks on logs and slips in at the first footstep.",
+  "biomes": ["water", "wetland"],
+  "habitat": "water",
+  "rarity": "uncommon",
+  "archetype": "turtle",
+  "size": 0.15,
+  "pattern": {"type": "spots", "count": 9, "size": 0.3},
+  "movement": {"speed": 0.18},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

@@ -1,0 +1,14 @@
+{
+  "id": "snow-bunting",
+  "name": "Flurry",
+  "species": "Snow Bunting",
+  "description": "A round white bird that rides the wind over the snowfields.",
+  "biomes": ["snow", "tundra"],
+  "habitat": "air",
+  "rarity": "common",
+  "archetype": "bird",
+  "size": 0.14,
+  "shape": {"plump": 1.25, "beak": 0.5, "tail": 0.8},
+  "colours": {"body": "#F4F6F8", "belly": "#FFFFFF", "head": "#EDEFF2", "wing": "#C9D2DB", "pattern": "#3A424C", "beak": "#E0B050"},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

@@ -56,11 +56,19 @@ glyphs/minds/    actor minds: persona, senses, canned replies, token budget
 habitats/        the TV's three habitats (tank, terrarium, aviary): self-contained scenes the TV apps bundle
 images/, sounds/ media the documents use by URL
 models/          our own glTF models (CC0), written by the scripts
+species/         the creatures found out in the world, with no code: one small definition per species, the pipeline
+                 that builds them (`python3 species/build.py`), and what it builds (creatures/, models/, index.json).
+                 77 species on the 11 ESA WorldCover land-cover classes, five rarities; see species/README.md
 scripts/         assets.py makes the test card and the sounds; bush.py, butterfly.py, pet.py, fish.py, tank.py, habitats.py
                  and lizard.py the models (the bush, the butterfly, the pet's bowl and bed, the reef fish and the trout,
                  the aquarium's tank, the three habitats' scenery, the lizard; lizard.py builds with habitats.py's helpers):
                  `python3 scripts/bush.py .`, `python3 scripts/habitats.py .`, `python3 scripts/lizard.py .`
 ```
+
+A *species* is a creature that is found by where the player stands, not by a printed code. Each is an ordinary
+creature document (`species/creatures/<id>.json`, with `species`, `rarity`, `biome` and `biomes` beside `habitat` in
+its header), named by its URL like any other glyph: `https://qrx.apphaus.us/species/creatures/bark-skink.json`.
+`species/index.json` is the catalog: what can spawn in each land-cover class and how likely.
 
 References inside `glyphs/` are relative (`bodies/fox.json`), so the folder works from any host. Media URLs
 are absolute: `https://qrx.apphaus.us/images/...`, `.../sounds/...` and `.../models/...`.
@@ -68,7 +76,8 @@ are absolute: `https://qrx.apphaus.us/images/...`, `.../sounds/...` and `.../mod
 ## Hosting
 
 https://qrx.apphaus.us, QRX's website ([QRX.site](https://github.com/apphaus2/QRX.site)), serves this repository's
-`glyphs/`, `images/`, `sounds/` and `models/` at the same paths (`/glyphs/image.json`), from the commit it pins as
+`glyphs/`, `images/`, `sounds/` and `models/` at the same paths (`/glyphs/image.json`), and `species/index.json`,
+`species/creatures/` and `species/models/` under `/species/`, from the commit it pins as
 `third_party/QRX.pack`. So a push here goes live once QRX.site bumps the pin and deploys; check with
 `curl -sI https://qrx.apphaus.us/glyphs/image.json`.
 

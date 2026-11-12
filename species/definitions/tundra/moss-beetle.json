@@ -1,0 +1,16 @@
+{
+  "id": "moss-beetle",
+  "name": "Lichen",
+  "species": "Moss Beetle",
+  "description": "A small green beetle speckled like the lichen it lives on.",
+  "biomes": ["tundra"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "beetle",
+  "size": 0.065,
+  "shape": {"dome": 0.9},
+  "colours": {"body": "#6E7A3A", "pattern": "#C9D48A", "head": "#3A4220", "trim": "#2A3018", "belly": "#3A4220"},
+  "pattern": {"type": "spots", "count": 9, "size": 0.16},
+  "movement": {"speed": 0.07},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

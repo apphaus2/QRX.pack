@@ -1,0 +1,16 @@
+{
+  "id": "tundra-lemming",
+  "name": "Bog",
+  "species": "Tundra Lemming",
+  "description": "A round, short-tailed lemming that tunnels through the moss.",
+  "biomes": ["tundra", "snow"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "critter",
+  "size": 0.1,
+  "shape": {"plump": 1.3, "long": 0.8, "ears": "none", "tail": "stub", "taillen": 0.6, "snout": 0.5, "legs": 0.7},
+  "colours": {"body": "#A8824A", "belly": "#E8DCC0", "pattern": "#5A4226", "trim": "#E8DCC0"},
+  "pattern": {"type": "stripes", "count": 1, "width": 0.22},
+  "movement": {"speed": 0.16},
+  "behaviour": {"temper": "shy", "distance": 2.0}
+}

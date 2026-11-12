@@ -1,0 +1,16 @@
+{
+  "id": "rock-scorpion",
+  "name": "Flint",
+  "species": "Rock Scorpion",
+  "description": "A sand-coloured scorpion that waits under flat stones through the heat.",
+  "biomes": ["barren"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "crab",
+  "size": 0.11,
+  "shape": {"sting": 5, "sideways": false, "width": 0.6, "claws": 0.9},
+  "colours": {"body": "#A8824A", "belly": "#D9C39A", "pattern": "#6E5228", "trim": "#E8D3A0", "claw": "#B8935A", "accent": "#5A3A1A"},
+  "pattern": {"type": "saddle", "level": 0.2},
+  "movement": {"speed": 0.1},
+  "behaviour": {"temper": "shy", "distance": 1.8}
+}

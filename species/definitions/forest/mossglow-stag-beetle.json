@@ -1,0 +1,16 @@
+{
+  "id": "mossglow-stag-beetle",
+  "name": "Bramble",
+  "species": "Mossglow Stag Beetle",
+  "description": "A stag beetle whose shell is dotted with moss that glows after rain.",
+  "biomes": ["forest"],
+  "habitat": "ground",
+  "rarity": "epic",
+  "archetype": "beetle",
+  "size": 0.11,
+  "shape": {"horn": "stag", "sheen": 0.5, "dome": 0.9},
+  "colours": {"body": "#2F5D3A", "pattern": "#9BE564", "trim": "#183020", "head": "#1E2A1E", "belly": "#1E2A1E", "accent": "#B7F27A", "glow": "#B7F27A"},
+  "pattern": {"type": "spots", "count": 8, "size": 0.22, "lit": true},
+  "movement": {"speed": 0.07},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

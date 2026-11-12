@@ -1,0 +1,16 @@
+{
+  "id": "sand-minnow",
+  "name": "Pebble",
+  "species": "Sand Minnow",
+  "description": "A slim sandy minnow that shoals in the shallows.",
+  "biomes": ["water", "wetland"],
+  "habitat": "water",
+  "rarity": "common",
+  "archetype": "fish",
+  "size": 0.1,
+  "shape": {"depth": 0.7, "dorsal": "low"},
+  "colours": {"body": "#C2B280", "belly": "#F2EAD0", "pattern": "#8A7A50", "fin": "#D6C89A"},
+  "pattern": {"type": "saddle", "level": 0.25},
+  "movement": {"speed": 0.4},
+  "behaviour": {"temper": "shy"}
+}

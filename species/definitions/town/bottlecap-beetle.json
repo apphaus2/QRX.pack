@@ -1,0 +1,16 @@
+{
+  "id": "bottlecap-beetle",
+  "name": "Clink",
+  "species": "Bottlecap Beetle",
+  "description": "A shiny teal beetle often mistaken for something dropped on the pavement.",
+  "biomes": ["town"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "beetle",
+  "size": 0.08,
+  "shape": {"sheen": 0.9, "dome": 0.8},
+  "colours": {"body": "#2A8C8C", "pattern": "#E8D36B", "trim": "#0F3A3A", "head": "#123030", "belly": "#123030"},
+  "pattern": {"type": "stripes", "count": 3, "width": 0.3},
+  "movement": {"speed": 0.08},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

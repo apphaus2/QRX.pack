@@ -1,0 +1,16 @@
+{
+  "id": "bramble-spider",
+  "name": "Nettle",
+  "species": "Bramble Spider",
+  "description": "A striped spider that strings its web between bramble stems.",
+  "biomes": ["shrub"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "spider",
+  "size": 0.075,
+  "shape": {"abdomen": 1.15},
+  "colours": {"body": "#7A6A3A", "pattern": "#F2E6A8", "trim": "#3A3018", "head": "#4A3E22", "belly": "#4A3E22"},
+  "pattern": {"type": "stripes", "count": 2, "width": 0.3},
+  "movement": {"speed": 0.1},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

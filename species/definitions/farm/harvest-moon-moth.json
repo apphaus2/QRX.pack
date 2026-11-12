@@ -1,0 +1,15 @@
+{
+  "id": "harvest-moon-moth",
+  "name": "Sickle",
+  "species": "Harvest Moon Moth",
+  "description": "A cream moth with glowing crescents, on the wing only at harvest.",
+  "biomes": ["farm"],
+  "habitat": "air",
+  "rarity": "epic",
+  "archetype": "butterfly",
+  "size": 0.18,
+  "shape": {"style": "moth", "fore": 1.1, "rate": 8, "flap": [-20, 50]},
+  "colours": {"wing": "#F1E7B8", "hind": "#F7F0CF", "pattern": "#FFD25A", "trim": "#B89A4A", "body": "#E9DFB5", "accent": "#FFF6D0", "glow": "#FFE27A"},
+  "pattern": {"type": "bands", "count": 2, "width": 0.3, "lit": true},
+  "behaviour": {"temper": "curious"}
+}

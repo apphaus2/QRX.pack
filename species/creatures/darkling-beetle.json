@@ -1,0 +1,103 @@
+{
+  "_ui": {
+    "version": 1,
+    "habitat": "ground",
+    "species": "darkling-beetle",
+    "rarity": "common",
+    "biome": "barren",
+    "biomes": [
+      "barren"
+    ],
+    "state": {
+      "still": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "code",
+  "bounds": {
+    "min": [
+      -0.6,
+      0,
+      -0.6
+    ],
+    "max": [
+      0.6,
+      0.3,
+      0.6
+    ]
+  },
+  "actors": [
+    {
+      "id": "dune",
+      "name": "Dune",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -0.2
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "model": "https://qrx.apphaus.us/species/models/darkling-beetle.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          },
+          "walk": {
+            "clip": "walk",
+            "loop": true
+          }
+        },
+        "sockets": {
+          "mouth": "Body",
+          "back": "Body"
+        }
+      },
+      "mobility": {
+        "mode": "ground",
+        "speed": 0.09,
+        "turnRate": 240,
+        "idle": "idle",
+        "move": "walk"
+      },
+      "behaviors": [
+        {
+          "type": "idle",
+          "priority": 10,
+          "when": "$still"
+        },
+        {
+          "type": "wander",
+          "pause": [
+            2,
+            7
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "still": true
+            }
+          },
+          {
+            "wait": 4
+          },
+          {
+            "set": {
+              "still": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

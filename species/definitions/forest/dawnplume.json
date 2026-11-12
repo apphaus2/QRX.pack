@@ -1,0 +1,15 @@
+{
+  "id": "dawnplume",
+  "name": "Aurelia",
+  "species": "Dawnplume",
+  "description": "A golden songbird with trailing plumes, heard at first light and almost never seen.",
+  "biomes": ["forest"],
+  "habitat": "air",
+  "rarity": "legendary",
+  "archetype": "bird",
+  "size": 0.2,
+  "shape": {"tail": 1.2, "streamers": 1.2, "beak": 0.8},
+  "colours": {"body": "#F2B63A", "belly": "#FFF1C9", "head": "#E8872B", "wing": "#E8872B", "pattern": "#B5541E", "trim": "#FFF1C9", "beak": "#5A3A1A", "accent": "#FF7A4D", "glow": "#FFE9A8"},
+  "pattern": {"type": "saddle", "level": 0.1},
+  "behaviour": {"temper": "curious", "watch": true}
+}

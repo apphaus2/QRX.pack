@@ -1,0 +1,15 @@
+{
+  "id": "arctic-char",
+  "name": "Tarn",
+  "species": "Arctic Char",
+  "description": "A dark fish with a red belly from the cold tundra lakes.",
+  "biomes": ["tundra"],
+  "habitat": "water",
+  "rarity": "rare",
+  "archetype": "fish",
+  "size": 0.14,
+  "shape": {"depth": 0.8, "girth": 1.1, "fins": 1.1},
+  "colours": {"body": "#3A5A5A", "belly": "#E8472B", "pattern": "#F2E3D0", "trim": "#1E3333", "fin": "#E8472B", "accent": "#FFF2E0"},
+  "pattern": {"type": "spots", "count": 12, "size": 0.1},
+  "behaviour": {"temper": "shy"}
+}

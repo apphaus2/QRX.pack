@@ -1,0 +1,16 @@
+{
+  "id": "jade-turtle",
+  "name": "Lotus",
+  "species": "Jade Turtle",
+  "description": "A turtle with a shell like carved jade, older than the marsh it swims in.",
+  "biomes": ["wetland"],
+  "habitat": "water",
+  "rarity": "legendary",
+  "archetype": "turtle",
+  "size": 0.18,
+  "shape": {"dome": 1.15},
+  "colours": {"body": "#1F8A6A", "pattern": "#9FFFD0", "trim": "#E8FFF2", "belly": "#F2E9B8", "skin": "#5FB89A", "accent": "#C9FFE6", "glow": "#9FFFD0"},
+  "pattern": {"type": "spots", "count": 9, "size": 0.28, "lit": true},
+  "movement": {"speed": 0.15},
+  "behaviour": {"temper": "calm", "seconds": 4, "watch": true}
+}

@@ -1,0 +1,16 @@
+{
+  "id": "garden-snail",
+  "name": "Drizzle",
+  "species": "Garden Snail",
+  "description": "A brown snail found on walls and flowerpots on wet mornings.",
+  "biomes": ["town", "meadow"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "snail",
+  "size": 0.09,
+  "shape": {"shell": 1.1},
+  "colours": {"body": "#9A7B4A", "pattern": "#4E3A1E", "skin": "#A8A088"},
+  "pattern": {"type": "stripes", "count": 7},
+  "movement": {"speed": 0.03, "turnRate": 60, "pause": [3, 8]},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

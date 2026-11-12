@@ -1,0 +1,106 @@
+{
+  "_ui": {
+    "version": 1,
+    "habitat": "ground",
+    "species": "mud-crab",
+    "rarity": "common",
+    "biome": "mangrove",
+    "biomes": [
+      "mangrove",
+      "wetland"
+    ],
+    "state": {
+      "scared": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "code",
+  "bounds": {
+    "min": [
+      -0.6,
+      0,
+      -0.6
+    ],
+    "max": [
+      0.6,
+      0.3,
+      0.6
+    ]
+  },
+  "actors": [
+    {
+      "id": "skitter",
+      "name": "Skitter",
+      "transform": {
+        "position": [
+          0,
+          0,
+          -0.2
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "model": "https://qrx.apphaus.us/species/models/mud-crab.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          },
+          "walk": {
+            "clip": "walk",
+            "loop": true
+          }
+        },
+        "sockets": {
+          "mouth": "Body",
+          "back": "Body"
+        }
+      },
+      "mobility": {
+        "mode": "ground",
+        "speed": 0.14,
+        "turnRate": 240,
+        "idle": "idle",
+        "move": "walk"
+      },
+      "behaviors": [
+        {
+          "type": "flee",
+          "from": "user",
+          "distance": 2.0,
+          "priority": 10,
+          "when": "$scared"
+        },
+        {
+          "type": "wander",
+          "pause": [
+            2,
+            7
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "scared": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "scared": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

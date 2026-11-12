@@ -1,0 +1,16 @@
+{
+  "id": "ruby-darter",
+  "name": "Zephyr",
+  "species": "Ruby Darter",
+  "description": "A red dragonfly with marked wing tips that holds the best perch on the marsh.",
+  "biomes": ["wetland"],
+  "habitat": "air",
+  "rarity": "rare",
+  "archetype": "dragonfly",
+  "size": 0.16,
+  "shape": {"span": 1.1},
+  "colours": {"body": "#C42B3A", "belly": "#C42B3A", "pattern": "#5A0F18", "trim": "#FFB3A8", "wing": "#F2E3DC", "eye": "#7A1A22", "accent": "#FF5A4D"},
+  "pattern": {"type": "bands", "count": 4, "width": 0.35},
+  "movement": {"speed": 0.5},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

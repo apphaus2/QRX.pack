@@ -1,0 +1,15 @@
+{
+  "id": "ember-skink",
+  "name": "Cinder",
+  "species": "Ember Skink",
+  "description": "A dark skink banded like cooling lava, with a sail that glows at night.",
+  "biomes": ["barren"],
+  "habitat": "ground",
+  "rarity": "epic",
+  "archetype": "lizard",
+  "size": 0.24,
+  "shape": {"crest": "sail"},
+  "colours": {"body": "#3A2A28", "belly": "#5A3A30", "pattern": "#FF6A2B", "trim": "#FFB84A", "toe": "#5A3A30", "accent": "#FF7A2E", "glow": "#FF8A3D"},
+  "pattern": {"type": "bands", "count": 5, "width": 0.3, "lit": true},
+  "behaviour": {"temper": "shy", "distance": 2.2}
+}

@@ -1,0 +1,16 @@
+{
+  "id": "golden-harvest-hare",
+  "name": "Ceres",
+  "species": "Golden Harvest Hare",
+  "description": "A hare the colour of ripe wheat that farmers count as luck for the year.",
+  "biomes": ["farm"],
+  "habitat": "ground",
+  "rarity": "legendary",
+  "archetype": "critter",
+  "size": 0.16,
+  "shape": {"ears": "long", "earsize": 1.1, "tail": "stub", "gait": "hop", "hindfeet": 1.8, "legs": 1.2, "long": 1.05, "snout": 0.55, "beat": 0.5},
+  "colours": {"body": "#E3B23C", "belly": "#FFF4D6", "pattern": "#B07D1E", "trim": "#FFF4D6", "ear": "#F2C9A0", "accent": "#FFE9A0", "glow": "#FFE27A"},
+  "pattern": {"type": "saddle", "level": 0.35},
+  "movement": {"speed": 0.25},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

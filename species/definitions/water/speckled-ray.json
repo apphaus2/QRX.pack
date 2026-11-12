@@ -1,0 +1,14 @@
+{
+  "id": "speckled-ray",
+  "name": "Skim",
+  "species": "Speckled Ray",
+  "description": "A sandy ray that glides low over the bottom.",
+  "biomes": ["water"],
+  "habitat": "water",
+  "rarity": "uncommon",
+  "archetype": "ray",
+  "size": 0.2,
+  "pattern": {"type": "spots", "count": 12, "size": 0.14},
+  "movement": {"speed": 0.25},
+  "behaviour": {"temper": "shy"}
+}

@@ -1,0 +1,15 @@
+{
+  "id": "sand-lizard",
+  "name": "Grit",
+  "species": "Sand Lizard",
+  "description": "A flat, pale lizard that all but vanishes against the sand.",
+  "biomes": ["barren", "shrub"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "lizard",
+  "size": 0.21,
+  "shape": {"flat": 0.6, "girth": 1.15, "tail": 0.8},
+  "colours": {"body": "#D9B98A", "belly": "#F5E9D0", "pattern": "#A8825A", "toe": "#E6CFA6"},
+  "pattern": {"type": "spots", "count": 10, "size": 0.16},
+  "behaviour": {"temper": "shy", "distance": 2.2}
+}

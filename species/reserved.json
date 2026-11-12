@@ -1,0 +1,5 @@
+{
+  "why": "Names QRX.pack already uses for creatures, actors and models; a species may not take one as its id or its creature's name.",
+  "ids": ["fish", "fish-blue", "lizard", "butterfly", "trout", "bush", "tank", "bed", "bowl", "habitat-tank", "habitat-terrarium", "habitat-aviary"],
+  "names": ["Sunny", "Indigo", "Biscuit", "Clover", "Rusty", "Flit", "Pip", "Speckle"]
+}

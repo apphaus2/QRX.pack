@@ -1,0 +1,15 @@
+{
+  "id": "nightshade-moth",
+  "name": "Sable",
+  "species": "Nightshade Moth",
+  "description": "A dusk-purple moth whose wing-eyes glow among the dark leaves.",
+  "biomes": ["shrub"],
+  "habitat": "air",
+  "rarity": "epic",
+  "archetype": "butterfly",
+  "size": 0.17,
+  "shape": {"style": "moth", "rate": 9, "flap": [-25, 45]},
+  "colours": {"wing": "#3A2A4A", "hind": "#5A3A6A", "pattern": "#D08CFF", "trim": "#1E1428", "body": "#2A1E33", "accent": "#8A6AA0", "glow": "#D08CFF"},
+  "pattern": {"type": "eyespots", "size": 0.2, "lit": true},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QRay species preview</title>
+<!--
+  Every generated model, by biome, playing its clip. Serve the species folder and open /preview/:
+
+      cd species && python3 -m http.server 8000        then http://localhost:8000/preview/
+
+  It reads ../index.json and loads ../models/*.glb by relative path. three.js comes from jsDelivr, pinned.
+-->
+<style>
+  :root { --ink: #1c2330; --soft: #5b6676; --line: #dfe4ea; --page: #f4f6f8; --card: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root { --ink: #e8ecf1; --soft: #9aa6b5; --line: #2c3442; --page: #12161d; --card: #1a202a; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.4 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { position: sticky; top: 0; z-index: 3; background: var(--page); border-bottom: 1px solid var(--line); padding: 10px 16px; }
+  h1 { font-size: 17px; margin: 0 0 8px; }
+  h1 small { font-weight: 400; color: var(--soft); margin-left: 8px; }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+  .row > span { color: var(--soft); width: 58px; font-size: 12px; }
+  button { font: inherit; font-size: 12px; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--page); border-color: var(--ink); }
+  button i { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 5px; }
+  main { padding: 4px 16px 48px; }
+  section h2 { font-size: 15px; margin: 22px 0 2px; display: flex; align-items: center; gap: 8px; }
+  section h2 i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  section h2 small { font-weight: 400; color: var(--soft); }
+  section p { margin: 0 0 10px; color: var(--soft); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 12px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  .view { aspect-ratio: 1 / 1; }
+  .view.water { background: linear-gradient(#2aa7bf, #073553); }
+  .view.ground { background: linear-gradient(#c98a4b, #7a4a2a); }
+  .view.air { background: linear-gradient(#4a4a93, #c97c8a); }
+  .text { padding: 8px 10px 10px; }
+  .name { font-weight: 600; }
+  .species { color: var(--soft); }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .tag { font-size: 11px; border-radius: 999px; padding: 1px 7px; border: 1px solid var(--line); color: var(--soft); }
+  .tag.rarity { color: #fff; border-color: transparent; }
+  .about { color: var(--soft); font-size: 12px; margin-top: 6px; }
+  .visitor { opacity: 0.75; }
+  canvas#stage { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; }
+  #status { color: var(--soft); font-size: 12px; margin-left: auto; }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header>
+  <h1>QRay species <small id="count"></small></h1>
+  <div class="row" id="biomes"><span>Biome</span></div>
+  <div class="row" id="habitats"><span>Habitat</span></div>
+  <div class="row" id="rarities"><span>Rarity</span></div>
+  <div class="row" id="options"><span>Show</span>
+    <button data-clip="move" aria-pressed="true">Moving</button><button data-clip="idle" aria-pressed="false">Idle</button>
+    <button id="spin" aria-pressed="true">Turn</button><button id="visitors" aria-pressed="false">Visitors too</button>
+    <span id="status"></span>
+  </div>
+</header>
+<main id="main"></main>
+<canvas id="stage"></canvas>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+const index = await (await fetch("../index.json")).json();
+const species = Object.fromEntries(index.species.map(s => [s.id, s]));
+const rarity = Object.fromEntries(index.rarities.map(r => [r.id, r]));
+const habitat = Object.fromEntries(index.habitats.map(h => [h.id, h]));
+const filter = { biome: null, habitat: null, rarity: null, clip: "move", spin: true, visitors: false };
+const views = [];      // { element, scene, camera, mixer, actions, pivot, id }
+const loader = new GLTFLoader();
+const status = document.getElementById("status");
+let loaded = 0, failed = 0;
+
+function chips(row, items, key, dot) {
+  const all = [{ id: null, name: "All" }, ...items];
+  for (const item of all) {
+    const button = document.createElement("button");
+    button.innerHTML = (dot && item.colour ? `<i style="background:${item.colour}"></i>` : "") + item.name;
+    button.setAttribute("aria-pressed", String(filter[key] === item.id));
+    button.onclick = () => { filter[key] = item.id; for (const b of row.querySelectorAll("button")) b.setAttribute("aria-pressed", String(b === button)); layout(); };
+    row.appendChild(button);
+  }
+}
+chips(document.getElementById("biomes"), index.biomes.map(b => ({ id: b.id, name: `${b.name} ${b.code}`, colour: b.colour })), "biome", true);
+chips(document.getElementById("habitats"), index.habitats.map(h => ({ id: h.id, name: `${h.id} (${h.name})` })), "habitat", false);
+chips(document.getElementById("rarities"), index.rarities, "rarity", true);
+for (const button of document.querySelectorAll("[data-clip]")) button.onclick = () => {
+  filter.clip = button.dataset.clip;
+  for (const b of document.querySelectorAll("[data-clip]")) b.setAttribute("aria-pressed", String(b === button));
+  for (const view of views) play(view);
+};
+document.getElementById("spin").onclick = e => { filter.spin = !filter.spin; e.target.setAttribute("aria-pressed", String(filter.spin)); };
+document.getElementById("visitors").onclick = e => { filter.visitors = !filter.visitors; e.target.setAttribute("aria-pressed", String(filter.visitors)); layout(); };
+
+function play(view) {
+  if (!view.mixer) return;
+  const wanted = filter.clip === "idle" ? "idle" : view.move;
+  for (const [name, action] of Object.entries(view.actions)) { if (name === wanted) action.reset().play(); else action.stop(); }
+}
+
+// Models load a few at a time: python's http.server answers one request at a time and drops a flood of them.
+const queue = [];
+let running = 0;
+function enqueue(job) { queue.push(job); pump(); }
+function pump() { while (running < 4 && queue.length) { running++; queue.shift()().then(() => { running--; pump(); }); } }
+function report() { status.textContent = `${loaded} of ${views.length} models loaded` + (failed ? `, ${failed} failed` : ""); }
+
+function show(view, gltf) {
+  if (!views.includes(view)) return;      // the page was laid out again while this one loaded
+  const box = new THREE.Box3().setFromObject(gltf.scene);
+  const centre = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
+  gltf.scene.position.sub(centre);
+  view.pivot.add(gltf.scene);
+  const reach = Math.max(size.x, size.y, size.z) * 1.9 + 0.02;
+  view.camera.position.set(reach * 0.75, reach * 0.42, reach * 0.95);
+  view.camera.lookAt(0, 0, 0);
+  view.mixer = new THREE.AnimationMixer(gltf.scene);
+  for (const clip of gltf.animations) { view.actions[clip.name] = view.mixer.clipAction(clip); if (clip.name !== "idle") view.move = clip.name; }
+  play(view);
+  loaded++;
+  report();
+}
+
+function makeView(element, s) {
+  const scene = new THREE.Scene();
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x51483f, 1.5));
+  const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+  sun.position.set(1.5, 3, 2.5);
+  scene.add(sun);
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 20);
+  const pivot = new THREE.Group();
+  scene.add(pivot);
+  const view = { element, scene, camera, pivot, mixer: null, actions: {}, id: s.id, move: null };
+  views.push(view);
+  enqueue(() => new Promise(done => {
+    const attempt = left => loader.load("../" + s.model, gltf => { show(view, gltf); done(); }, undefined, error => {
+      if (left > 0) return setTimeout(() => attempt(left - 1), 400);
+      failed++; element.textContent = "could not load " + s.model; console.error(s.model, error); report(); done();
+    });
+    attempt(2);
+  }));
+}
+
+function card(s, visitor) {
+  const element = document.createElement("div");
+  element.className = "card" + (visitor ? " visitor" : "");
+  const r = rarity[s.rarity];
+  element.innerHTML = `<div class="view ${s.habitat}"></div><div class="text">
+    <div class="name">${s.name}</div><div class="species">${s.species}</div>
+    <div class="tags"><span class="tag rarity" style="background:${r.colour}">${r.name}</span><span class="tag">${s.habitat}</span><span class="tag">${s.archetype}</span>${visitor ? '<span class="tag">visitor</span>' : ""}</div>
+    <div class="about">${s.description}<br>${(Math.max(...s.size) * 100).toFixed(0)} cm, ${(s.bytes / 1024).toFixed(0)} KB, ${s.triangles} triangles</div></div>`;
+  makeView(element.querySelector(".view"), s);
+  return element;
+}
+
+function layout() {
+  const main = document.getElementById("main");
+  main.textContent = "";
+  views.length = 0;
+  queue.length = 0;
+  loaded = failed = 0;
+  let shown = 0;
+  for (const biome of index.biomes) {
+    if (filter.biome && filter.biome !== biome.id) continue;
+    const rows = biome.spawns.filter(row => (row.home || filter.visitors) && (!filter.habitat || species[row.species].habitat === filter.habitat) && (!filter.rarity || row.rarity === filter.rarity));
+    if (!rows.length) continue;
+    const section = document.createElement("section");
+    const total = biome.weight;
+    section.innerHTML = `<h2><i style="background:${biome.colour}"></i>${biome.name} <small>WorldCover ${biome.code}, ${biome.worldcover}; ${biome.spawns.filter(r => r.home).length} at home, ${biome.spawns.filter(r => !r.home).length} visiting</small></h2><p>${biome.description}</p>`;
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    for (const row of rows) {
+      const element = card(species[row.species], !row.home);
+      element.querySelector(".tags").insertAdjacentHTML("beforeend", `<span class="tag" title="chance of this one when something spawns here">${(100 * row.weight / total).toFixed(row.weight / total < 0.01 ? 2 : 1)}%</span>`);
+      grid.appendChild(element);
+      shown++;
+    }
+    section.appendChild(grid);
+    main.appendChild(section);
+  }
+  document.getElementById("count").textContent = `${index.species.length} species in ${index.biomes.length} biomes, ${shown} shown`;
+}
+
+// One renderer for the whole page: each card's square is a viewport of the same canvas.
+const canvas = document.getElementById("stage");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const clock = new THREE.Clock();
+function frame() {
+  const dt = clock.getDelta();
+  const width = canvas.clientWidth, height = canvas.clientHeight;
+  if (canvas.width !== Math.floor(width * renderer.getPixelRatio()) || canvas.height !== Math.floor(height * renderer.getPixelRatio())) renderer.setSize(width, height, false);
+  renderer.setScissorTest(false);
+  renderer.clear();
+  renderer.setScissorTest(true);
+  const top = document.querySelector("header").getBoundingClientRect().bottom;
+  for (const view of views) {
+    const rect = view.element.getBoundingClientRect();
+    if (rect.bottom < top || rect.top > height || rect.right < 0 || rect.left > width) continue;
+    if (view.mixer) view.mixer.update(dt);
+    if (filter.spin) view.pivot.rotation.y += dt * 0.5;
+    const y0 = Math.max(rect.top, top);
+    renderer.setViewport(rect.left, height - rect.bottom, rect.width, rect.height);
+    renderer.setScissor(rect.left, height - rect.bottom, rect.width, rect.bottom - y0);
+    view.camera.aspect = rect.width / rect.height;
+    view.camera.updateProjectionMatrix();
+    renderer.render(view.scene, view.camera);
+  }
+  requestAnimationFrame(frame);
+}
+layout();
+frame();
+window.qray = { views, filter, index };     // for looking at the page from the console
+</script>
+</body>
+</html>

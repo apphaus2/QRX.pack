@@ -1,0 +1,14 @@
+{
+  "id": "chimney-bat",
+  "name": "Soot",
+  "species": "Chimney Bat",
+  "description": "A small black bat that roosts in attics and hunts round the lamps.",
+  "biomes": ["town"],
+  "habitat": "air",
+  "rarity": "uncommon",
+  "archetype": "bat",
+  "size": 0.16,
+  "shape": {"ears": 0.8},
+  "colours": {"body": "#2E2E33", "belly": "#4A4A52", "membrane": "#1E1E22", "bone": "#3A3A42", "skin": "#5A4A4A"},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

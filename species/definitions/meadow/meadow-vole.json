@@ -1,0 +1,16 @@
+{
+  "id": "meadow-vole",
+  "name": "Bracken",
+  "species": "Meadow Vole",
+  "description": "A plump vole that keeps runways through the long grass.",
+  "biomes": ["meadow", "farm"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "critter",
+  "size": 0.1,
+  "shape": {"plump": 1.2, "long": 0.85, "earsize": 0.6, "taillen": 0.4, "snout": 0.6, "legs": 0.8},
+  "colours": {"body": "#7A5E44", "belly": "#D9C9B0", "pattern": "#4E3A2A", "trim": "#A88A68"},
+  "pattern": {"type": "saddle", "level": 0.3},
+  "movement": {"speed": 0.18},
+  "behaviour": {"temper": "shy", "distance": 2.0}
+}

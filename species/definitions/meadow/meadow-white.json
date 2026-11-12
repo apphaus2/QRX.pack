@@ -1,0 +1,14 @@
+{
+  "id": "meadow-white",
+  "name": "Petal",
+  "species": "Meadow White",
+  "description": "A plain white butterfly, the first one out on a warm morning.",
+  "biomes": ["meadow", "farm", "town"],
+  "habitat": "air",
+  "rarity": "common",
+  "archetype": "butterfly",
+  "size": 0.14,
+  "colours": {"wing": "#F7F4E6", "hind": "#F3EBC2", "pattern": "#6A6A5A", "body": "#3A362E"},
+  "pattern": {"type": "edged"},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

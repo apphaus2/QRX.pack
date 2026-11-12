@@ -1,0 +1,2688 @@
+{
+  "version": 1,
+  "modelBase": "https://qrx.apphaus.us/species/models/",
+  "visitorShare": 0.5,
+  "rarities": [
+    {
+      "id": "common",
+      "name": "Common",
+      "weight": 60,
+      "colour": "#8E9AA6"
+    },
+    {
+      "id": "uncommon",
+      "name": "Uncommon",
+      "weight": 25,
+      "colour": "#3FA66B"
+    },
+    {
+      "id": "rare",
+      "name": "Rare",
+      "weight": 10,
+      "colour": "#3B82F6"
+    },
+    {
+      "id": "epic",
+      "name": "Epic",
+      "weight": 4,
+      "colour": "#A855F7"
+    },
+    {
+      "id": "legendary",
+      "name": "Legendary",
+      "weight": 1,
+      "colour": "#F5B301"
+    }
+  ],
+  "habitats": [
+    {
+      "id": "water",
+      "name": "Tank"
+    },
+    {
+      "id": "ground",
+      "name": "Terrarium"
+    },
+    {
+      "id": "air",
+      "name": "Aviary"
+    }
+  ],
+  "codes": {
+    "10": "forest",
+    "20": "shrub",
+    "30": "meadow",
+    "40": "farm",
+    "50": "town",
+    "60": "barren",
+    "70": "snow",
+    "80": "water",
+    "90": "wetland",
+    "95": "mangrove",
+    "100": "tundra"
+  },
+  "biomes": [
+    {
+      "id": "forest",
+      "code": 10,
+      "name": "Forest",
+      "worldcover": "Tree cover",
+      "colour": "#006400",
+      "description": "Woods and plantations: bark, leaf litter and the dark under the canopy.",
+      "weight": 220,
+      "spawns": [
+        {
+          "species": "bark-skink",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "wood-mouse",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "dusk-bat",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "emerald-swallowtail",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "mossglow-stag-beetle",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "dawnplume",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "hedge-finch",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "meadow-snail",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "shrub",
+      "code": 20,
+      "name": "Scrub",
+      "worldcover": "Shrubland",
+      "colour": "#FFBB22",
+      "description": "Thickets, heath and thorn: dry, tangled and sunlit.",
+      "weight": 250,
+      "spawns": [
+        {
+          "species": "banded-gecko",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "hedge-finch",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "bramble-spider",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "thornback-hedgehog",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "nightshade-moth",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "sunfrill-lizard",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "bark-skink",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "sand-lizard",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "wood-mouse",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "meadow",
+      "code": 30,
+      "name": "Meadow",
+      "worldcover": "Grassland",
+      "colour": "#D9C84A",
+      "description": "Open grass, pasture and wildflowers.",
+      "weight": 280,
+      "spawns": [
+        {
+          "species": "meadow-snail",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "meadow-white",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "meadow-vole",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "blue-skylark",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "glasswing",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "honeycrown-bee",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "field-bee",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "garden-snail",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "pond-skimmer",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "spotted-garden-beetle",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "farm",
+      "code": 40,
+      "name": "Farmland",
+      "worldcover": "Cropland",
+      "colour": "#F096FF",
+      "description": "Fields, orchards, barns and hedgerows.",
+      "weight": 262.5,
+      "spawns": [
+        {
+          "species": "field-bee",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "spotted-garden-beetle",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "harvest-mouse",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "granary-owl",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "harvest-moon-moth",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "golden-harvest-hare",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "hedge-finch",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "house-mouse",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "meadow-white",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "meadow-vole",
+          "rarity": "uncommon",
+          "weight": 12.5,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "town",
+      "code": 50,
+      "name": "Town",
+      "worldcover": "Built-up",
+      "colour": "#FA0000",
+      "description": "Streets, roofs, gardens and park ponds: where most people are.",
+      "weight": 490,
+      "spawns": [
+        {
+          "species": "garden-snail",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "house-mouse",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "lamp-moth",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "pond-goldfish",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "street-pigeon",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "bottlecap-beetle",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "cellar-spider",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "chimney-bat",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "fountain-koi",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "rooftop-gecko",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "neon-darter",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "clocktower-raven",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "field-bee",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "meadow-white",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "spotted-garden-beetle",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "barren",
+      "code": 60,
+      "name": "Barrens",
+      "worldcover": "Bare / sparse vegetation",
+      "colour": "#B4B4B4",
+      "description": "Desert, dunes, rock and scree.",
+      "weight": 215,
+      "spawns": [
+        {
+          "species": "darkling-beetle",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "sand-lizard",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "cliff-swift",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "rock-scorpion",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "longfoot-jerboa",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "ember-skink",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "sun-scarab",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "banded-gecko",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "snow",
+      "code": 70,
+      "name": "Snowfield",
+      "worldcover": "Snow and ice",
+      "colour": "#BFE6F2",
+      "description": "Permanent snow, glaciers and the cold water at their edges.",
+      "weight": 190,
+      "spawns": [
+        {
+          "species": "snow-bunting",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "snow-moth",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "icefish",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "snowshoe-hare",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "frost-jelly",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "glacier-owl",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "tundra-lemming",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "water",
+      "code": 80,
+      "name": "Open Water",
+      "worldcover": "Permanent water bodies",
+      "colour": "#0064C8",
+      "description": "Lakes, rivers, reservoirs and the sea.",
+      "weight": 297.5,
+      "spawns": [
+        {
+          "species": "moon-jelly",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "reed-seahorse",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "sand-minnow",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "pond-turtle",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "speckled-ray",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "thorny-seahorse",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "violet-fantail",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "aurora-eel",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "starlit-ray",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "pond-skimmer",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "marsh-eel",
+          "rarity": "uncommon",
+          "weight": 12.5,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "wetland",
+      "code": 90,
+      "name": "Marsh",
+      "worldcover": "Herbaceous wetland",
+      "colour": "#0096A0",
+      "description": "Reedbeds, fens and flooded grass.",
+      "weight": 257.5,
+      "spawns": [
+        {
+          "species": "pond-frog",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "pond-skimmer",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "marsh-eel",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "marsh-newt",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "ruby-darter",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "glowspot-frog",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "jade-turtle",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "mud-crab",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "sand-minnow",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "pond-turtle",
+          "rarity": "uncommon",
+          "weight": 12.5,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "mangrove",
+      "code": 95,
+      "name": "Mangrove",
+      "worldcover": "Mangroves",
+      "colour": "#00CF75",
+      "description": "Tidal forest: roots, mud and brackish water.",
+      "weight": 250,
+      "spawns": [
+        {
+          "species": "mangrove-goby",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "mud-crab",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "mud-ray",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "one-claw-crab",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "lantern-jelly",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "mangrove-kingfisher",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "moon-jelly",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "pond-frog",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "reed-seahorse",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        }
+      ]
+    },
+    {
+      "id": "tundra",
+      "code": 100,
+      "name": "Tundra",
+      "worldcover": "Moss and lichen",
+      "colour": "#C9C48A",
+      "description": "Moss, lichen and bog pools on cold open ground.",
+      "weight": 190,
+      "spawns": [
+        {
+          "species": "moss-beetle",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "tundra-lemming",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "arctic-skipper",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "arctic-char",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "boreal-emerald",
+          "rarity": "epic",
+          "weight": 4,
+          "home": true
+        },
+        {
+          "species": "northlight-fox",
+          "rarity": "legendary",
+          "weight": 1,
+          "home": true
+        },
+        {
+          "species": "snow-bunting",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        }
+      ]
+    }
+  ],
+  "species": [
+    {
+      "id": "arctic-char",
+      "name": "Tarn",
+      "species": "Arctic Char",
+      "description": "A dark fish with a red belly from the cold tundra lakes.",
+      "biome": "tundra",
+      "biomes": [
+        "tundra"
+      ],
+      "habitat": "water",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "fish",
+      "document": "creatures/arctic-char.json",
+      "model": "models/arctic-char.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/arctic-char.glb",
+      "size": [
+        0.069,
+        0.0829,
+        0.1585
+      ],
+      "bytes": 35376,
+      "triangles": 908
+    },
+    {
+      "id": "arctic-skipper",
+      "name": "Sedge",
+      "species": "Arctic Skipper",
+      "description": "A small, furry brown butterfly that flies low over the bog.",
+      "biome": "tundra",
+      "biomes": [
+        "tundra"
+      ],
+      "habitat": "air",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "butterfly",
+      "document": "creatures/arctic-skipper.json",
+      "model": "models/arctic-skipper.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/arctic-skipper.glb",
+      "size": [
+        0.1085,
+        0.0262,
+        0.0803
+      ],
+      "bytes": 32184,
+      "triangles": 740
+    },
+    {
+      "id": "aurora-eel",
+      "name": "Ribbon",
+      "species": "Aurora Eel",
+      "description": "A dark eel with lines of green light running the length of its sides.",
+      "biome": "water",
+      "biomes": [
+        "water"
+      ],
+      "habitat": "water",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "eel",
+      "document": "creatures/aurora-eel.json",
+      "model": "models/aurora-eel.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/aurora-eel.glb",
+      "size": [
+        0.0567,
+        0.0454,
+        0.2411
+      ],
+      "bytes": 79272,
+      "triangles": 1054
+    },
+    {
+      "id": "banded-gecko",
+      "name": "Pepper",
+      "species": "Banded Gecko",
+      "description": "A stout sandy gecko with dark bands, out at dusk among the thorn bushes.",
+      "biome": "shrub",
+      "biomes": [
+        "shrub",
+        "barren"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "lizard",
+      "document": "creatures/banded-gecko.json",
+      "model": "models/banded-gecko.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/banded-gecko.glb",
+      "size": [
+        0.0861,
+        0.0283,
+        0.1872
+      ],
+      "bytes": 40316,
+      "triangles": 624
+    },
+    {
+      "id": "bark-skink",
+      "name": "Twig",
+      "species": "Bark Skink",
+      "description": "A slim brown skink that suns itself on fallen logs.",
+      "biome": "forest",
+      "biomes": [
+        "forest",
+        "shrub"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "lizard",
+      "document": "creatures/bark-skink.json",
+      "model": "models/bark-skink.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/bark-skink.glb",
+      "size": [
+        0.0926,
+        0.0307,
+        0.2324
+      ],
+      "bytes": 39408,
+      "triangles": 624
+    },
+    {
+      "id": "blue-skylark",
+      "name": "Lark",
+      "species": "Blue Skylark",
+      "description": "A sky-blue lark that sings while hanging high over open grass.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow"
+      ],
+      "habitat": "air",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "bird",
+      "document": "creatures/blue-skylark.json",
+      "model": "models/blue-skylark.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/blue-skylark.glb",
+      "size": [
+        0.166,
+        0.0685,
+        0.1823
+      ],
+      "bytes": 53264,
+      "triangles": 906
+    },
+    {
+      "id": "boreal-emerald",
+      "name": "Verdigris",
+      "species": "Boreal Emerald",
+      "description": "A deep green dragonfly ringed with light, seen over bog pools in the short summer.",
+      "biome": "tundra",
+      "biomes": [
+        "tundra"
+      ],
+      "habitat": "air",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "dragonfly",
+      "document": "creatures/boreal-emerald.json",
+      "model": "models/boreal-emerald.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/boreal-emerald.glb",
+      "size": [
+        0.1471,
+        0.0255,
+        0.1361
+      ],
+      "bytes": 46600,
+      "triangles": 696
+    },
+    {
+      "id": "bottlecap-beetle",
+      "name": "Clink",
+      "species": "Bottlecap Beetle",
+      "description": "A shiny teal beetle often mistaken for something dropped on the pavement.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beetle",
+      "document": "creatures/bottlecap-beetle.json",
+      "model": "models/bottlecap-beetle.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/bottlecap-beetle.glb",
+      "size": [
+        0.0641,
+        0.0272,
+        0.0822
+      ],
+      "bytes": 37840,
+      "triangles": 668
+    },
+    {
+      "id": "bramble-spider",
+      "name": "Nettle",
+      "species": "Bramble Spider",
+      "description": "A striped spider that strings its web between bramble stems.",
+      "biome": "shrub",
+      "biomes": [
+        "shrub"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "spider",
+      "document": "creatures/bramble-spider.json",
+      "model": "models/bramble-spider.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/bramble-spider.glb",
+      "size": [
+        0.0698,
+        0.0255,
+        0.0673
+      ],
+      "bytes": 38644,
+      "triangles": 724
+    },
+    {
+      "id": "cellar-spider",
+      "name": "Jet",
+      "species": "Cellar Spider",
+      "description": "A long-legged spider from sheds, cellars and stairwells.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "spider",
+      "document": "creatures/cellar-spider.json",
+      "model": "models/cellar-spider.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/cellar-spider.glb",
+      "size": [
+        0.0987,
+        0.029,
+        0.0855
+      ],
+      "bytes": 37152,
+      "triangles": 724
+    },
+    {
+      "id": "chimney-bat",
+      "name": "Soot",
+      "species": "Chimney Bat",
+      "description": "A small black bat that roosts in attics and hunts round the lamps.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "air",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "bat",
+      "document": "creatures/chimney-bat.json",
+      "model": "models/chimney-bat.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/chimney-bat.glb",
+      "size": [
+        0.16,
+        0.0356,
+        0.0591
+      ],
+      "bytes": 43944,
+      "triangles": 864
+    },
+    {
+      "id": "cliff-swift",
+      "name": "Mesa",
+      "species": "Cliff Swift",
+      "description": "A sickle-winged swift that nests in canyon walls and never seems to land.",
+      "biome": "barren",
+      "biomes": [
+        "barren"
+      ],
+      "habitat": "air",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "bird",
+      "document": "creatures/cliff-swift.json",
+      "model": "models/cliff-swift.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/cliff-swift.glb",
+      "size": [
+        0.2588,
+        0.0571,
+        0.1435
+      ],
+      "bytes": 50140,
+      "triangles": 900
+    },
+    {
+      "id": "clocktower-raven",
+      "name": "Regent",
+      "species": "Clocktower Raven",
+      "description": "A raven with a violet sheen that is said to know the hour without the bells.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "air",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "bird",
+      "document": "creatures/clocktower-raven.json",
+      "model": "models/clocktower-raven.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/clocktower-raven.glb",
+      "size": [
+        0.2405,
+        0.1144,
+        0.233
+      ],
+      "bytes": 60112,
+      "triangles": 1086
+    },
+    {
+      "id": "darkling-beetle",
+      "name": "Dune",
+      "species": "Darkling Beetle",
+      "description": "A black beetle that drinks the fog from its own ridged back.",
+      "biome": "barren",
+      "biomes": [
+        "barren"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "beetle",
+      "document": "creatures/darkling-beetle.json",
+      "model": "models/darkling-beetle.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/darkling-beetle.glb",
+      "size": [
+        0.0507,
+        0.0292,
+        0.0719
+      ],
+      "bytes": 37024,
+      "triangles": 668
+    },
+    {
+      "id": "dawnplume",
+      "name": "Aurelia",
+      "species": "Dawnplume",
+      "description": "A golden songbird with trailing plumes, heard at first light and almost never seen.",
+      "biome": "forest",
+      "biomes": [
+        "forest"
+      ],
+      "habitat": "air",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "bird",
+      "document": "creatures/dawnplume.json",
+      "model": "models/dawnplume.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/dawnplume.glb",
+      "size": [
+        0.1996,
+        0.104,
+        0.2438
+      ],
+      "bytes": 62076,
+      "triangles": 1086
+    },
+    {
+      "id": "dusk-bat",
+      "name": "Umber",
+      "species": "Dusk Bat",
+      "description": "A brown bat that leaves its hollow tree as the light goes.",
+      "biome": "forest",
+      "biomes": [
+        "forest"
+      ],
+      "habitat": "air",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "bat",
+      "document": "creatures/dusk-bat.json",
+      "model": "models/dusk-bat.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/dusk-bat.glb",
+      "size": [
+        0.18,
+        0.044,
+        0.0664
+      ],
+      "bytes": 43936,
+      "triangles": 864
+    },
+    {
+      "id": "ember-skink",
+      "name": "Cinder",
+      "species": "Ember Skink",
+      "description": "A dark skink banded like cooling lava, with a sail that glows at night.",
+      "biome": "barren",
+      "biomes": [
+        "barren"
+      ],
+      "habitat": "ground",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "lizard",
+      "document": "creatures/ember-skink.json",
+      "model": "models/ember-skink.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/ember-skink.glb",
+      "size": [
+        0.101,
+        0.056,
+        0.2419
+      ],
+      "bytes": 42296,
+      "triangles": 627
+    },
+    {
+      "id": "emerald-swallowtail",
+      "name": "Juniper",
+      "species": "Emerald Swallowtail",
+      "description": "A green butterfly with long tails, seen where sun reaches the forest floor.",
+      "biome": "forest",
+      "biomes": [
+        "forest"
+      ],
+      "habitat": "air",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "butterfly",
+      "document": "creatures/emerald-swallowtail.json",
+      "model": "models/emerald-swallowtail.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/emerald-swallowtail.glb",
+      "size": [
+        0.1875,
+        0.0407,
+        0.1689
+      ],
+      "bytes": 33672,
+      "triangles": 744
+    },
+    {
+      "id": "field-bee",
+      "name": "Barley",
+      "species": "Field Bee",
+      "description": "A busy striped bee working along the crop rows.",
+      "biome": "farm",
+      "biomes": [
+        "farm",
+        "meadow",
+        "town"
+      ],
+      "habitat": "air",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "bee",
+      "document": "creatures/field-bee.json",
+      "model": "models/field-bee.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/field-bee.glb",
+      "size": [
+        0.0625,
+        0.0339,
+        0.0787
+      ],
+      "bytes": 36600,
+      "triangles": 746
+    },
+    {
+      "id": "fountain-koi",
+      "name": "Brocade",
+      "species": "Fountain Koi",
+      "description": "A white koi splashed with red, grown old in a city fountain.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "water",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "fish",
+      "document": "creatures/fountain-koi.json",
+      "model": "models/fountain-koi.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/fountain-koi.glb",
+      "size": [
+        0.0738,
+        0.0753,
+        0.1932
+      ],
+      "bytes": 36736,
+      "triangles": 910
+    },
+    {
+      "id": "frost-jelly",
+      "name": "Shiver",
+      "species": "Frost Jelly",
+      "description": "A jelly of clear ice-blue that drifts under the pack ice, glowing faintly.",
+      "biome": "snow",
+      "biomes": [
+        "snow"
+      ],
+      "habitat": "water",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "jellyfish",
+      "document": "creatures/frost-jelly.json",
+      "model": "models/frost-jelly.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/frost-jelly.glb",
+      "size": [
+        0.101,
+        0.1473,
+        0.1011
+      ],
+      "bytes": 78508,
+      "triangles": 1016
+    },
+    {
+      "id": "garden-snail",
+      "name": "Drizzle",
+      "species": "Garden Snail",
+      "description": "A brown snail found on walls and flowerpots on wet mornings.",
+      "biome": "town",
+      "biomes": [
+        "town",
+        "meadow"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "snail",
+      "document": "creatures/garden-snail.json",
+      "model": "models/garden-snail.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/garden-snail.glb",
+      "size": [
+        0.0257,
+        0.0537,
+        0.0927
+      ],
+      "bytes": 41036,
+      "triangles": 940
+    },
+    {
+      "id": "glacier-owl",
+      "name": "Boreal",
+      "species": "Glacier Owl",
+      "description": "A great white owl flecked with blue light, the quiet keeper of the ice.",
+      "biome": "snow",
+      "biomes": [
+        "snow"
+      ],
+      "habitat": "air",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "bird",
+      "document": "creatures/glacier-owl.json",
+      "model": "models/glacier-owl.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/glacier-owl.glb",
+      "size": [
+        0.2299,
+        0.12,
+        0.2012
+      ],
+      "bytes": 64932,
+      "triangles": 1178
+    },
+    {
+      "id": "glasswing",
+      "name": "Prism",
+      "species": "Glasswing",
+      "description": "A butterfly with wings like clear glass, their veins lit from within.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow"
+      ],
+      "habitat": "air",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "butterfly",
+      "document": "creatures/glasswing.json",
+      "model": "models/glasswing.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/glasswing.glb",
+      "size": [
+        0.1836,
+        0.0364,
+        0.1512
+      ],
+      "bytes": 34112,
+      "triangles": 744
+    },
+    {
+      "id": "glowspot-frog",
+      "name": "Marble",
+      "species": "Glowspot Frog",
+      "description": "A dark frog whose spots shine green on moonless nights.",
+      "biome": "wetland",
+      "biomes": [
+        "wetland"
+      ],
+      "habitat": "ground",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "frog",
+      "document": "creatures/glowspot-frog.json",
+      "model": "models/glowspot-frog.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/glowspot-frog.glb",
+      "size": [
+        0.0996,
+        0.0535,
+        0.0811
+      ],
+      "bytes": 56008,
+      "triangles": 1292
+    },
+    {
+      "id": "golden-harvest-hare",
+      "name": "Ceres",
+      "species": "Golden Harvest Hare",
+      "description": "A hare the colour of ripe wheat that farmers count as luck for the year.",
+      "biome": "farm",
+      "biomes": [
+        "farm"
+      ],
+      "habitat": "ground",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "critter",
+      "document": "creatures/golden-harvest-hare.json",
+      "model": "models/golden-harvest-hare.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/golden-harvest-hare.glb",
+      "size": [
+        0.1322,
+        0.1181,
+        0.1379
+      ],
+      "bytes": 65752,
+      "triangles": 1532
+    },
+    {
+      "id": "granary-owl",
+      "name": "Tawny",
+      "species": "Granary Owl",
+      "description": "A pale-faced owl that roosts in barn rafters and hunts the field edges.",
+      "biome": "farm",
+      "biomes": [
+        "farm"
+      ],
+      "habitat": "air",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "bird",
+      "document": "creatures/granary-owl.json",
+      "model": "models/granary-owl.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/granary-owl.glb",
+      "size": [
+        0.2031,
+        0.0887,
+        0.1284
+      ],
+      "bytes": 56644,
+      "triangles": 998
+    },
+    {
+      "id": "harvest-moon-moth",
+      "name": "Sickle",
+      "species": "Harvest Moon Moth",
+      "description": "A cream moth with glowing crescents, on the wing only at harvest.",
+      "biome": "farm",
+      "biomes": [
+        "farm"
+      ],
+      "habitat": "air",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "butterfly",
+      "document": "creatures/harvest-moon-moth.json",
+      "model": "models/harvest-moon-moth.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/harvest-moon-moth.glb",
+      "size": [
+        0.1958,
+        0.0353,
+        0.1103
+      ],
+      "bytes": 35356,
+      "triangles": 756
+    },
+    {
+      "id": "harvest-mouse",
+      "name": "Nibble",
+      "species": "Harvest Mouse",
+      "description": "A tiny golden mouse that climbs wheat stalks with its tail.",
+      "biome": "farm",
+      "biomes": [
+        "farm"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "critter",
+      "document": "creatures/harvest-mouse.json",
+      "model": "models/harvest-mouse.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/harvest-mouse.glb",
+      "size": [
+        0.027,
+        0.0382,
+        0.1252
+      ],
+      "bytes": 48992,
+      "triangles": 1098
+    },
+    {
+      "id": "hedge-finch",
+      "name": "Peep",
+      "species": "Hedge Finch",
+      "description": "A small brown finch that flits from thicket to thicket.",
+      "biome": "shrub",
+      "biomes": [
+        "shrub",
+        "farm",
+        "forest"
+      ],
+      "habitat": "air",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "bird",
+      "document": "creatures/hedge-finch.json",
+      "model": "models/hedge-finch.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/hedge-finch.glb",
+      "size": [
+        0.1352,
+        0.0457,
+        0.1068
+      ],
+      "bytes": 46732,
+      "triangles": 900
+    },
+    {
+      "id": "honeycrown-bee",
+      "name": "Mead",
+      "species": "Honeycrown Bee",
+      "description": "A great dark bee with a ruff of gold, said to visit a meadow once a summer.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow"
+      ],
+      "habitat": "air",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "bee",
+      "document": "creatures/honeycrown-bee.json",
+      "model": "models/honeycrown-bee.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/honeycrown-bee.glb",
+      "size": [
+        0.089,
+        0.0578,
+        0.1032
+      ],
+      "bytes": 60040,
+      "triangles": 1322
+    },
+    {
+      "id": "house-mouse",
+      "name": "Crumb",
+      "species": "House Mouse",
+      "description": "A grey mouse that knows every gap under every door.",
+      "biome": "town",
+      "biomes": [
+        "town",
+        "farm"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "critter",
+      "document": "creatures/house-mouse.json",
+      "model": "models/house-mouse.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/house-mouse.glb",
+      "size": [
+        0.0299,
+        0.0425,
+        0.1237
+      ],
+      "bytes": 45992,
+      "triangles": 1098
+    },
+    {
+      "id": "icefish",
+      "name": "Glint",
+      "species": "Icefish",
+      "description": "A pale, thick-bodied fish from meltwater pools under the ice.",
+      "biome": "snow",
+      "biomes": [
+        "snow"
+      ],
+      "habitat": "water",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "fish",
+      "document": "creatures/icefish.json",
+      "model": "models/icefish.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/icefish.glb",
+      "size": [
+        0.0601,
+        0.0542,
+        0.119
+      ],
+      "bytes": 43300,
+      "triangles": 910
+    },
+    {
+      "id": "jade-turtle",
+      "name": "Lotus",
+      "species": "Jade Turtle",
+      "description": "A turtle with a shell like carved jade, older than the marsh it swims in.",
+      "biome": "wetland",
+      "biomes": [
+        "wetland"
+      ],
+      "habitat": "water",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "turtle",
+      "document": "creatures/jade-turtle.json",
+      "model": "models/jade-turtle.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/jade-turtle.glb",
+      "size": [
+        0.2309,
+        0.084,
+        0.1887
+      ],
+      "bytes": 52168,
+      "triangles": 1138
+    },
+    {
+      "id": "lamp-moth",
+      "name": "Flicker",
+      "species": "Lamp Moth",
+      "description": "A dusty moth that circles porch lights and street lamps.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "air",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "butterfly",
+      "document": "creatures/lamp-moth.json",
+      "model": "models/lamp-moth.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/lamp-moth.glb",
+      "size": [
+        0.1297,
+        0.0255,
+        0.0797
+      ],
+      "bytes": 33276,
+      "triangles": 756
+    },
+    {
+      "id": "lantern-jelly",
+      "name": "Lumen",
+      "species": "Lantern Jelly",
+      "description": "An amber jelly that lights the dark water under the mangrove roots.",
+      "biome": "mangrove",
+      "biomes": [
+        "mangrove"
+      ],
+      "habitat": "water",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "jellyfish",
+      "document": "creatures/lantern-jelly.json",
+      "model": "models/lantern-jelly.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/lantern-jelly.glb",
+      "size": [
+        0.101,
+        0.1325,
+        0.1011
+      ],
+      "bytes": 67616,
+      "triangles": 944
+    },
+    {
+      "id": "longfoot-jerboa",
+      "name": "Skip",
+      "species": "Longfoot Jerboa",
+      "description": "A hopping desert mouse with a tufted tail longer than itself.",
+      "biome": "barren",
+      "biomes": [
+        "barren"
+      ],
+      "habitat": "ground",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "critter",
+      "document": "creatures/longfoot-jerboa.json",
+      "model": "models/longfoot-jerboa.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/longfoot-jerboa.glb",
+      "size": [
+        0.0389,
+        0.0791,
+        0.1749
+      ],
+      "bytes": 55584,
+      "triangles": 1374
+    },
+    {
+      "id": "mangrove-goby",
+      "name": "Silt",
+      "species": "Mangrove Goby",
+      "description": "A blunt, mud-coloured goby that rests on its fins in the tidal channels.",
+      "biome": "mangrove",
+      "biomes": [
+        "mangrove"
+      ],
+      "habitat": "water",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "fish",
+      "document": "creatures/mangrove-goby.json",
+      "model": "models/mangrove-goby.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/mangrove-goby.glb",
+      "size": [
+        0.0551,
+        0.0511,
+        0.1091
+      ],
+      "bytes": 34476,
+      "triangles": 911
+    },
+    {
+      "id": "mangrove-kingfisher",
+      "name": "Halcyon",
+      "species": "Mangrove Kingfisher",
+      "description": "A kingfisher of teal and flame that dives where the tide turns.",
+      "biome": "mangrove",
+      "biomes": [
+        "mangrove"
+      ],
+      "habitat": "air",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "bird",
+      "document": "creatures/mangrove-kingfisher.json",
+      "model": "models/mangrove-kingfisher.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/mangrove-kingfisher.glb",
+      "size": [
+        0.1851,
+        0.0989,
+        0.1933
+      ],
+      "bytes": 61716,
+      "triangles": 1086
+    },
+    {
+      "id": "marsh-eel",
+      "name": "Noodle",
+      "species": "Marsh Eel",
+      "description": "A spotted eel that threads between reed stems.",
+      "biome": "wetland",
+      "biomes": [
+        "wetland",
+        "water"
+      ],
+      "habitat": "water",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "eel",
+      "document": "creatures/marsh-eel.json",
+      "model": "models/marsh-eel.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/marsh-eel.glb",
+      "size": [
+        0.0158,
+        0.0299,
+        0.2109
+      ],
+      "bytes": 57216,
+      "triangles": 766
+    },
+    {
+      "id": "marsh-newt",
+      "name": "Fern",
+      "species": "Marsh Newt",
+      "description": "A dark, slow newt with an orange belly, found under wet leaves.",
+      "biome": "wetland",
+      "biomes": [
+        "wetland"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "lizard",
+      "document": "creatures/marsh-newt.json",
+      "model": "models/marsh-newt.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/marsh-newt.glb",
+      "size": [
+        0.0635,
+        0.0238,
+        0.1837
+      ],
+      "bytes": 36940,
+      "triangles": 624
+    },
+    {
+      "id": "meadow-snail",
+      "name": "Dawdle",
+      "species": "Meadow Snail",
+      "description": "A banded snail that climbs grass stems after rain.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow",
+        "forest"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "snail",
+      "document": "creatures/meadow-snail.json",
+      "model": "models/meadow-snail.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/meadow-snail.glb",
+      "size": [
+        0.0243,
+        0.0492,
+        0.0876
+      ],
+      "bytes": 35812,
+      "triangles": 940
+    },
+    {
+      "id": "meadow-vole",
+      "name": "Bracken",
+      "species": "Meadow Vole",
+      "description": "A plump vole that keeps runways through the long grass.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow",
+        "farm"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "critter",
+      "document": "creatures/meadow-vole.json",
+      "model": "models/meadow-vole.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/meadow-vole.glb",
+      "size": [
+        0.0359,
+        0.0403,
+        0.0766
+      ],
+      "bytes": 48952,
+      "triangles": 1098
+    },
+    {
+      "id": "meadow-white",
+      "name": "Petal",
+      "species": "Meadow White",
+      "description": "A plain white butterfly, the first one out on a warm morning.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow",
+        "farm",
+        "town"
+      ],
+      "habitat": "air",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "butterfly",
+      "document": "creatures/meadow-white.json",
+      "model": "models/meadow-white.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/meadow-white.glb",
+      "size": [
+        0.1381,
+        0.03,
+        0.0937
+      ],
+      "bytes": 30088,
+      "triangles": 740
+    },
+    {
+      "id": "moon-jelly",
+      "name": "Bloop",
+      "species": "Moon Jelly",
+      "description": "A pale jelly that pulses along just under the surface.",
+      "biome": "water",
+      "biomes": [
+        "water",
+        "mangrove"
+      ],
+      "habitat": "water",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "jellyfish",
+      "document": "creatures/moon-jelly.json",
+      "model": "models/moon-jelly.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/moon-jelly.glb",
+      "size": [
+        0.0926,
+        0.1038,
+        0.0927
+      ],
+      "bytes": 55516,
+      "triangles": 784
+    },
+    {
+      "id": "moss-beetle",
+      "name": "Lichen",
+      "species": "Moss Beetle",
+      "description": "A small green beetle speckled like the lichen it lives on.",
+      "biome": "tundra",
+      "biomes": [
+        "tundra"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "beetle",
+      "document": "creatures/moss-beetle.json",
+      "model": "models/moss-beetle.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/moss-beetle.glb",
+      "size": [
+        0.0521,
+        0.0232,
+        0.0668
+      ],
+      "bytes": 35284,
+      "triangles": 668
+    },
+    {
+      "id": "mossglow-stag-beetle",
+      "name": "Bramble",
+      "species": "Mossglow Stag Beetle",
+      "description": "A stag beetle whose shell is dotted with moss that glows after rain.",
+      "biome": "forest",
+      "biomes": [
+        "forest"
+      ],
+      "habitat": "ground",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "beetle",
+      "document": "creatures/mossglow-stag-beetle.json",
+      "model": "models/mossglow-stag-beetle.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/mossglow-stag-beetle.glb",
+      "size": [
+        0.0882,
+        0.0393,
+        0.1336
+      ],
+      "bytes": 39732,
+      "triangles": 764
+    },
+    {
+      "id": "mud-crab",
+      "name": "Skitter",
+      "species": "Mud Crab",
+      "description": "A mud-brown crab that sidles between the roots at low tide.",
+      "biome": "mangrove",
+      "biomes": [
+        "mangrove",
+        "wetland"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "crab",
+      "document": "creatures/mud-crab.json",
+      "model": "models/mud-crab.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/mud-crab.glb",
+      "size": [
+        0.0955,
+        0.0427,
+        0.1211
+      ],
+      "bytes": 46908,
+      "triangles": 780
+    },
+    {
+      "id": "mud-ray",
+      "name": "Murk",
+      "species": "Mud Ray",
+      "description": "A dark ray that lies buried in the silt with only its eyes showing.",
+      "biome": "mangrove",
+      "biomes": [
+        "mangrove"
+      ],
+      "habitat": "water",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "ray",
+      "document": "creatures/mud-ray.json",
+      "model": "models/mud-ray.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/mud-ray.glb",
+      "size": [
+        0.1561,
+        0.0213,
+        0.1931
+      ],
+      "bytes": 50732,
+      "triangles": 1102
+    },
+    {
+      "id": "neon-darter",
+      "name": "Signal",
+      "species": "Neon Darter",
+      "description": "A dragonfly banded in pink light, seen over wet streets under the signs.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "air",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "dragonfly",
+      "document": "creatures/neon-darter.json",
+      "model": "models/neon-darter.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/neon-darter.glb",
+      "size": [
+        0.1471,
+        0.0255,
+        0.1361
+      ],
+      "bytes": 46332,
+      "triangles": 696
+    },
+    {
+      "id": "nightshade-moth",
+      "name": "Sable",
+      "species": "Nightshade Moth",
+      "description": "A dusk-purple moth whose wing-eyes glow among the dark leaves.",
+      "biome": "shrub",
+      "biomes": [
+        "shrub"
+      ],
+      "habitat": "air",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "butterfly",
+      "document": "creatures/nightshade-moth.json",
+      "model": "models/nightshade-moth.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/nightshade-moth.glb",
+      "size": [
+        0.1695,
+        0.0333,
+        0.1042
+      ],
+      "bytes": 34836,
+      "triangles": 756
+    },
+    {
+      "id": "northlight-fox",
+      "name": "Nimbus",
+      "species": "Northlight Fox",
+      "description": "A white fox whose tail tip glows like the sky it walks under.",
+      "biome": "tundra",
+      "biomes": [
+        "tundra"
+      ],
+      "habitat": "ground",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "critter",
+      "document": "creatures/northlight-fox.json",
+      "model": "models/northlight-fox.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/northlight-fox.glb",
+      "size": [
+        0.1875,
+        0.1125,
+        0.2264
+      ],
+      "bytes": 58168,
+      "triangles": 1312
+    },
+    {
+      "id": "one-claw-crab",
+      "name": "Fiddle",
+      "species": "One-Claw Crab",
+      "description": "A blue crab that waves one huge orange claw from the mouth of its burrow.",
+      "biome": "mangrove",
+      "biomes": [
+        "mangrove"
+      ],
+      "habitat": "ground",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "crab",
+      "document": "creatures/one-claw-crab.json",
+      "model": "models/one-claw-crab.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/one-claw-crab.glb",
+      "size": [
+        0.1188,
+        0.0463,
+        0.1255
+      ],
+      "bytes": 50492,
+      "triangles": 830
+    },
+    {
+      "id": "pond-frog",
+      "name": "Puddle",
+      "species": "Pond Frog",
+      "description": "A green frog that plops into the water before you see it.",
+      "biome": "wetland",
+      "biomes": [
+        "wetland",
+        "mangrove"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "frog",
+      "document": "creatures/pond-frog.json",
+      "model": "models/pond-frog.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/pond-frog.glb",
+      "size": [
+        0.0891,
+        0.0378,
+        0.0726
+      ],
+      "bytes": 48656,
+      "triangles": 1128
+    },
+    {
+      "id": "pond-goldfish",
+      "name": "Tango",
+      "species": "Pond Goldfish",
+      "description": "A plump orange fish from park ponds and garden pools.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "water",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "fish",
+      "document": "creatures/pond-goldfish.json",
+      "model": "models/pond-goldfish.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/pond-goldfish.glb",
+      "size": [
+        0.0531,
+        0.0671,
+        0.1144
+      ],
+      "bytes": 32272,
+      "triangles": 910
+    },
+    {
+      "id": "pond-skimmer",
+      "name": "Dart",
+      "species": "Pond Skimmer",
+      "description": "A blue dragonfly that patrols the same stretch of bank all day.",
+      "biome": "wetland",
+      "biomes": [
+        "wetland",
+        "water",
+        "meadow"
+      ],
+      "habitat": "air",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "dragonfly",
+      "document": "creatures/pond-skimmer.json",
+      "model": "models/pond-skimmer.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/pond-skimmer.glb",
+      "size": [
+        0.1373,
+        0.0238,
+        0.1185
+      ],
+      "bytes": 38604,
+      "triangles": 632
+    },
+    {
+      "id": "pond-turtle",
+      "name": "Tumble",
+      "species": "Pond Turtle",
+      "description": "A green turtle that basks on logs and slips in at the first footstep.",
+      "biome": "water",
+      "biomes": [
+        "water",
+        "wetland"
+      ],
+      "habitat": "water",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "turtle",
+      "document": "creatures/pond-turtle.json",
+      "model": "models/pond-turtle.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/pond-turtle.glb",
+      "size": [
+        0.1924,
+        0.0356,
+        0.1572
+      ],
+      "bytes": 40696,
+      "triangles": 910
+    },
+    {
+      "id": "reed-seahorse",
+      "name": "Nib",
+      "species": "Reed Seahorse",
+      "description": "A yellow-green seahorse that holds on to weed with its tail.",
+      "biome": "water",
+      "biomes": [
+        "water",
+        "mangrove"
+      ],
+      "habitat": "water",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "seahorse",
+      "document": "creatures/reed-seahorse.json",
+      "model": "models/reed-seahorse.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/reed-seahorse.glb",
+      "size": [
+        0.0322,
+        0.1167,
+        0.0597
+      ],
+      "bytes": 50596,
+      "triangles": 775
+    },
+    {
+      "id": "rock-scorpion",
+      "name": "Flint",
+      "species": "Rock Scorpion",
+      "description": "A sand-coloured scorpion that waits under flat stones through the heat.",
+      "biome": "barren",
+      "biomes": [
+        "barren"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "crab",
+      "document": "creatures/rock-scorpion.json",
+      "model": "models/rock-scorpion.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/rock-scorpion.glb",
+      "size": [
+        0.0919,
+        0.0595,
+        0.0983
+      ],
+      "bytes": 70308,
+      "triangles": 1146
+    },
+    {
+      "id": "rooftop-gecko",
+      "name": "Copper",
+      "species": "Rooftop Gecko",
+      "description": "A copper gecko that hunts moths on warm walls after dark.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "ground",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "lizard",
+      "document": "creatures/rooftop-gecko.json",
+      "model": "models/rooftop-gecko.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/rooftop-gecko.glb",
+      "size": [
+        0.0916,
+        0.0346,
+        0.2016
+      ],
+      "bytes": 39480,
+      "triangles": 632
+    },
+    {
+      "id": "ruby-darter",
+      "name": "Zephyr",
+      "species": "Ruby Darter",
+      "description": "A red dragonfly with marked wing tips that holds the best perch on the marsh.",
+      "biome": "wetland",
+      "biomes": [
+        "wetland"
+      ],
+      "habitat": "air",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "dragonfly",
+      "document": "creatures/ruby-darter.json",
+      "model": "models/ruby-darter.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/ruby-darter.glb",
+      "size": [
+        0.1714,
+        0.0272,
+        0.1452
+      ],
+      "bytes": 46140,
+      "triangles": 696
+    },
+    {
+      "id": "sand-lizard",
+      "name": "Grit",
+      "species": "Sand Lizard",
+      "description": "A flat, pale lizard that all but vanishes against the sand.",
+      "biome": "barren",
+      "biomes": [
+        "barren",
+        "shrub"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "lizard",
+      "document": "creatures/sand-lizard.json",
+      "model": "models/sand-lizard.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/sand-lizard.glb",
+      "size": [
+        0.0914,
+        0.0294,
+        0.1914
+      ],
+      "bytes": 36440,
+      "triangles": 624
+    },
+    {
+      "id": "sand-minnow",
+      "name": "Pebble",
+      "species": "Sand Minnow",
+      "description": "A slim sandy minnow that shoals in the shallows.",
+      "biome": "water",
+      "biomes": [
+        "water",
+        "wetland"
+      ],
+      "habitat": "water",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "fish",
+      "document": "creatures/sand-minnow.json",
+      "model": "models/sand-minnow.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/sand-minnow.glb",
+      "size": [
+        0.0448,
+        0.043,
+        0.0976
+      ],
+      "bytes": 34812,
+      "triangles": 908
+    },
+    {
+      "id": "snow-bunting",
+      "name": "Flurry",
+      "species": "Snow Bunting",
+      "description": "A round white bird that rides the wind over the snowfields.",
+      "biome": "snow",
+      "biomes": [
+        "snow",
+        "tundra"
+      ],
+      "habitat": "air",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "bird",
+      "document": "creatures/snow-bunting.json",
+      "model": "models/snow-bunting.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/snow-bunting.glb",
+      "size": [
+        0.1396,
+        0.0515,
+        0.0986
+      ],
+      "bytes": 46760,
+      "triangles": 900
+    },
+    {
+      "id": "snow-moth",
+      "name": "Drift",
+      "species": "Snow Moth",
+      "description": "A thick-furred white moth that flies on still, cold days.",
+      "biome": "snow",
+      "biomes": [
+        "snow"
+      ],
+      "habitat": "air",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "butterfly",
+      "document": "creatures/snow-moth.json",
+      "model": "models/snow-moth.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/snow-moth.glb",
+      "size": [
+        0.1332,
+        0.0281,
+        0.0797
+      ],
+      "bytes": 33060,
+      "triangles": 756
+    },
+    {
+      "id": "snowshoe-hare",
+      "name": "Mitten",
+      "species": "Snowshoe Hare",
+      "description": "A white hare with broad furred feet that runs on top of the snow.",
+      "biome": "snow",
+      "biomes": [
+        "snow"
+      ],
+      "habitat": "ground",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "critter",
+      "document": "creatures/snowshoe-hare.json",
+      "model": "models/snowshoe-hare.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/snowshoe-hare.glb",
+      "size": [
+        0.0561,
+        0.103,
+        0.1122
+      ],
+      "bytes": 54088,
+      "triangles": 1352
+    },
+    {
+      "id": "speckled-ray",
+      "name": "Skim",
+      "species": "Speckled Ray",
+      "description": "A sandy ray that glides low over the bottom.",
+      "biome": "water",
+      "biomes": [
+        "water"
+      ],
+      "habitat": "water",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "ray",
+      "document": "creatures/speckled-ray.json",
+      "model": "models/speckled-ray.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/speckled-ray.glb",
+      "size": [
+        0.173,
+        0.0224,
+        0.2032
+      ],
+      "bytes": 52028,
+      "triangles": 1102
+    },
+    {
+      "id": "spotted-garden-beetle",
+      "name": "Button",
+      "species": "Spotted Garden Beetle",
+      "description": "A round red beetle with black spots that keeps the greenfly down.",
+      "biome": "farm",
+      "biomes": [
+        "farm",
+        "meadow",
+        "town"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "beetle",
+      "document": "creatures/spotted-garden-beetle.json",
+      "model": "models/spotted-garden-beetle.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/spotted-garden-beetle.glb",
+      "size": [
+        0.066,
+        0.0301,
+        0.077
+      ],
+      "bytes": 35084,
+      "triangles": 668
+    },
+    {
+      "id": "starlit-ray",
+      "name": "Nocturne",
+      "species": "Starlit Ray",
+      "description": "A midnight-blue ray scattered with lights like a clear night sky.",
+      "biome": "water",
+      "biomes": [
+        "water"
+      ],
+      "habitat": "water",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "ray",
+      "document": "creatures/starlit-ray.json",
+      "model": "models/starlit-ray.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/starlit-ray.glb",
+      "size": [
+        0.1693,
+        0.0809,
+        0.247
+      ],
+      "bytes": 64288,
+      "triangles": 1392
+    },
+    {
+      "id": "street-pigeon",
+      "name": "Cobble",
+      "species": "Street Pigeon",
+      "description": "A grey pigeon at home on ledges, statues and station roofs.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "air",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "bird",
+      "document": "creatures/street-pigeon.json",
+      "model": "models/street-pigeon.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/street-pigeon.glb",
+      "size": [
+        0.1795,
+        0.0647,
+        0.1307
+      ],
+      "bytes": 46760,
+      "triangles": 900
+    },
+    {
+      "id": "sun-scarab",
+      "name": "Sol",
+      "species": "Sun Scarab",
+      "description": "A horned scarab of polished gold that walks the dunes at noon.",
+      "biome": "barren",
+      "biomes": [
+        "barren"
+      ],
+      "habitat": "ground",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "beetle",
+      "document": "creatures/sun-scarab.json",
+      "model": "models/sun-scarab.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/sun-scarab.glb",
+      "size": [
+        0.0947,
+        0.0566,
+        0.113
+      ],
+      "bytes": 46956,
+      "triangles": 908
+    },
+    {
+      "id": "sunfrill-lizard",
+      "name": "Marigold",
+      "species": "Sunfrill Lizard",
+      "description": "A lizard that opens a blazing frill round its neck when the noon sun is highest.",
+      "biome": "shrub",
+      "biomes": [
+        "shrub"
+      ],
+      "habitat": "ground",
+      "rarity": "legendary",
+      "weight": 1,
+      "archetype": "lizard",
+      "document": "creatures/sunfrill-lizard.json",
+      "model": "models/sunfrill-lizard.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/sunfrill-lizard.glb",
+      "size": [
+        0.1893,
+        0.1006,
+        0.2621
+      ],
+      "bytes": 50980,
+      "triangles": 814
+    },
+    {
+      "id": "thornback-hedgehog",
+      "name": "Quill",
+      "species": "Thornback Hedgehog",
+      "description": "A round hedgehog that snuffles under gorse and rolls up when surprised.",
+      "biome": "shrub",
+      "biomes": [
+        "shrub"
+      ],
+      "habitat": "ground",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "critter",
+      "document": "creatures/thornback-hedgehog.json",
+      "model": "models/thornback-hedgehog.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/thornback-hedgehog.glb",
+      "size": [
+        0.0727,
+        0.0714,
+        0.0937
+      ],
+      "bytes": 60292,
+      "triangles": 1520
+    },
+    {
+      "id": "thorny-seahorse",
+      "name": "Thistle",
+      "species": "Thorny Seahorse",
+      "description": "A rose-red seahorse with a spiny back and a tall crown.",
+      "biome": "water",
+      "biomes": [
+        "water"
+      ],
+      "habitat": "water",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "seahorse",
+      "document": "creatures/thorny-seahorse.json",
+      "model": "models/thorny-seahorse.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/thorny-seahorse.glb",
+      "size": [
+        0.0381,
+        0.1492,
+        0.0754
+      ],
+      "bytes": 58408,
+      "triangles": 845
+    },
+    {
+      "id": "tundra-lemming",
+      "name": "Bog",
+      "species": "Tundra Lemming",
+      "description": "A round, short-tailed lemming that tunnels through the moss.",
+      "biome": "tundra",
+      "biomes": [
+        "tundra",
+        "snow"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "critter",
+      "document": "creatures/tundra-lemming.json",
+      "model": "models/tundra-lemming.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/tundra-lemming.glb",
+      "size": [
+        0.0389,
+        0.0417,
+        0.0632
+      ],
+      "bytes": 44532,
+      "triangles": 1004
+    },
+    {
+      "id": "violet-fantail",
+      "name": "Plum",
+      "species": "Violet Fantail",
+      "description": "A deep purple fish with a fanned tail, found over clear gravel.",
+      "biome": "water",
+      "biomes": [
+        "water"
+      ],
+      "habitat": "water",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "fish",
+      "document": "creatures/violet-fantail.json",
+      "model": "models/violet-fantail.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/violet-fantail.glb",
+      "size": [
+        0.0653,
+        0.1265,
+        0.1668
+      ],
+      "bytes": 38608,
+      "triangles": 911
+    },
+    {
+      "id": "wood-mouse",
+      "name": "Acorn",
+      "species": "Wood Mouse",
+      "description": "A big-eared mouse that hoards seeds under the roots.",
+      "biome": "forest",
+      "biomes": [
+        "forest",
+        "shrub"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "critter",
+      "document": "creatures/wood-mouse.json",
+      "model": "models/wood-mouse.glb",
+      "modelRef": "https://qrx.apphaus.us/species/models/wood-mouse.glb",
+      "size": [
+        0.0329,
+        0.0461,
+        0.1317
+      ],
+      "bytes": 47532,
+      "triangles": 1098
+    }
+  ]
+}

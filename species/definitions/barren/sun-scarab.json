@@ -1,0 +1,16 @@
+{
+  "id": "sun-scarab",
+  "name": "Sol",
+  "species": "Sun Scarab",
+  "description": "A horned scarab of polished gold that walks the dunes at noon.",
+  "biomes": ["barren"],
+  "habitat": "ground",
+  "rarity": "legendary",
+  "archetype": "beetle",
+  "size": 0.11,
+  "shape": {"sheen": 1.0, "dome": 1.1},
+  "colours": {"body": "#E8B62E", "pattern": "#FFF0A8", "trim": "#8A5A0A", "head": "#6E4A0C", "belly": "#6E4A0C", "accent": "#FFE27A", "glow": "#FFE27A"},
+  "pattern": {"type": "spots", "count": 6, "size": 0.2, "lit": true},
+  "movement": {"speed": 0.07},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

@@ -1,0 +1,16 @@
+{
+  "id": "mangrove-kingfisher",
+  "name": "Halcyon",
+  "species": "Mangrove Kingfisher",
+  "description": "A kingfisher of teal and flame that dives where the tide turns.",
+  "biomes": ["mangrove"],
+  "habitat": "air",
+  "rarity": "legendary",
+  "archetype": "bird",
+  "size": 0.2,
+  "shape": {"beak": 1.9, "head": 1.15, "tail": 0.7, "plump": 1.05, "wings": 0.95, "streamers": 0.5},
+  "colours": {"body": "#128A9A", "belly": "#F28A2E", "head": "#0E6A8A", "wing": "#0E6A8A", "pattern": "#0A3A55", "trim": "#7FE8F2", "beak": "#2A2A2A", "accent": "#7FE8F2", "glow": "#9FF5FF"},
+  "pattern": {"type": "saddle", "level": 0.0},
+  "movement": {"speed": 0.5},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

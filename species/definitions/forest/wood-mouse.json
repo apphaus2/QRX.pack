@@ -1,0 +1,16 @@
+{
+  "id": "wood-mouse",
+  "name": "Acorn",
+  "species": "Wood Mouse",
+  "description": "A big-eared mouse that hoards seeds under the roots.",
+  "biomes": ["forest", "shrub"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "critter",
+  "size": 0.11,
+  "shape": {"earsize": 1.2, "taillen": 1.2},
+  "colours": {"body": "#9B6B43", "belly": "#F0E3CF", "pattern": "#6E4A2C"},
+  "pattern": {"type": "saddle", "level": 0.45},
+  "movement": {"speed": 0.2},
+  "behaviour": {"temper": "shy", "distance": 2.0}
+}

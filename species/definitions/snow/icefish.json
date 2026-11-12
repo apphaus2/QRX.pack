@@ -1,0 +1,16 @@
+{
+  "id": "icefish",
+  "name": "Glint",
+  "species": "Icefish",
+  "description": "A pale, thick-bodied fish from meltwater pools under the ice.",
+  "biomes": ["snow"],
+  "habitat": "water",
+  "rarity": "uncommon",
+  "archetype": "fish",
+  "size": 0.12,
+  "shape": {"depth": 0.75, "girth": 1.3, "tail": "round", "dorsal": "low"},
+  "colours": {"body": "#BFE3F2", "belly": "#F2FBFF", "pattern": "#7FB8D9", "trim": "#FFFFFF", "fin": "#D9F1FA"},
+  "pattern": {"type": "stripes", "count": 2, "width": 0.3},
+  "movement": {"speed": 0.2},
+  "behaviour": {"temper": "shy"}
+}

@@ -1,0 +1,16 @@
+{
+  "id": "glacier-owl",
+  "name": "Boreal",
+  "species": "Glacier Owl",
+  "description": "A great white owl flecked with blue light, the quiet keeper of the ice.",
+  "biomes": ["snow"],
+  "habitat": "air",
+  "rarity": "legendary",
+  "archetype": "bird",
+  "size": 0.22,
+  "shape": {"style": "owl", "plump": 1.3, "chord": 1.3, "tail": 0.7, "wings": 1.05},
+  "colours": {"body": "#F5F8FB", "belly": "#FFFFFF", "head": "#F5F8FB", "wing": "#DCE6EE", "pattern": "#6FD6FF", "trim": "#BDEFFF", "beak": "#4A5560", "accent": "#6FD6FF", "glow": "#9FE9FF", "eye": "#FFD84A"},
+  "pattern": {"type": "spots", "count": 9, "size": 0.13, "lit": true},
+  "movement": {"speed": 0.3},
+  "behaviour": {"temper": "calm", "seconds": 4, "watch": true}
+}

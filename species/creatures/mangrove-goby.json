@@ -1,0 +1,108 @@
+{
+  "_ui": {
+    "version": 1,
+    "habitat": "water",
+    "species": "mangrove-goby",
+    "rarity": "common",
+    "biome": "mangrove",
+    "biomes": [
+      "mangrove"
+    ],
+    "state": {
+      "curious": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "free",
+  "bounds": {
+    "min": [
+      -0.52,
+      0.08,
+      -0.18
+    ],
+    "max": [
+      0.52,
+      0.5,
+      0.18
+    ]
+  },
+  "actors": [
+    {
+      "id": "silt",
+      "name": "Silt",
+      "transform": {
+        "position": [
+          0,
+          0.3,
+          0
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "model": "https://qrx.apphaus.us/species/models/mangrove-goby.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          },
+          "swim": {
+            "clip": "swim",
+            "loop": true
+          }
+        },
+        "sockets": {
+          "mouth": "Body"
+        }
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.2,
+        "turnRate": 360,
+        "altitude": [
+          0.08,
+          0.5
+        ],
+        "idle": "idle",
+        "move": "swim"
+      },
+      "behaviors": [
+        {
+          "type": "approach",
+          "target": "user",
+          "stopAt": 0.5,
+          "priority": 10,
+          "when": "$curious"
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            2
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "curious": true
+            }
+          },
+          {
+            "wait": 3
+          },
+          {
+            "set": {
+              "curious": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

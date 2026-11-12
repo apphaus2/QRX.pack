@@ -1,0 +1,15 @@
+{
+  "id": "thornback-hedgehog",
+  "name": "Quill",
+  "species": "Thornback Hedgehog",
+  "description": "A round hedgehog that snuffles under gorse and rolls up when surprised.",
+  "biomes": ["shrub"],
+  "habitat": "ground",
+  "rarity": "rare",
+  "archetype": "critter",
+  "size": 0.13,
+  "shape": {"spines": true, "plump": 1.25, "long": 0.9, "earsize": 0.7, "tail": "none", "legs": 0.8, "snout": 1.2},
+  "colours": {"body": "#8A6E52", "belly": "#E8D9C0", "pattern": "#4A3828", "accent": "#F2E3C6"},
+  "movement": {"speed": 0.08},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

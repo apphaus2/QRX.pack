@@ -1,0 +1,16 @@
+{
+  "id": "lantern-jelly",
+  "name": "Lumen",
+  "species": "Lantern Jelly",
+  "description": "An amber jelly that lights the dark water under the mangrove roots.",
+  "biomes": ["mangrove"],
+  "habitat": "water",
+  "rarity": "epic",
+  "archetype": "jellyfish",
+  "size": 0.12,
+  "shape": {"dome": 0.8},
+  "colours": {"body": "#C98A4A", "belly": "#F2D9B0", "pattern": "#FFD27A", "trim": "#FFB84A", "tentacle": "#E8C08A", "accent": "#FFD27A", "glow": "#FFD27A"},
+  "pattern": {"type": "spots", "count": 8, "size": 0.22, "lit": true},
+  "movement": {"speed": 0.1},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

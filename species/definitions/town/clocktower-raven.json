@@ -1,0 +1,14 @@
+{
+  "id": "clocktower-raven",
+  "name": "Regent",
+  "species": "Clocktower Raven",
+  "description": "A raven with a violet sheen that is said to know the hour without the bells.",
+  "biomes": ["town"],
+  "habitat": "air",
+  "rarity": "legendary",
+  "archetype": "bird",
+  "size": 0.22,
+  "shape": {"plump": 1.1, "beak": 1.4, "wings": 1.15, "tail": 1.2, "streamers": 0.7},
+  "colours": {"body": "#1C1B26", "belly": "#2A2838", "head": "#14131C", "wing": "#232133", "pattern": "#5B3FD9", "trim": "#8E7BFF", "beak": "#2E2E2E", "accent": "#8E7BFF", "glow": "#B9A8FF", "eye": "#D8D0FF"},
+  "behaviour": {"temper": "calm", "seconds": 4, "watch": true}
+}

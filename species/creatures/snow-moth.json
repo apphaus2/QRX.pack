@@ -1,0 +1,106 @@
+{
+  "_ui": {
+    "version": 1,
+    "habitat": "air",
+    "species": "snow-moth",
+    "rarity": "common",
+    "biome": "snow",
+    "biomes": [
+      "snow"
+    ],
+    "state": {
+      "still": false
+    }
+  },
+  "type": "Scene",
+  "anchor": "code",
+  "bounds": {
+    "min": [
+      -0.7,
+      0.25,
+      -0.5
+    ],
+    "max": [
+      0.7,
+      1.0,
+      0.5
+    ]
+  },
+  "actors": [
+    {
+      "id": "drift",
+      "name": "Drift",
+      "transform": {
+        "position": [
+          0,
+          0.6,
+          -0.2
+        ],
+        "rotation": [
+          0,
+          90,
+          0
+        ]
+      },
+      "body": {
+        "model": "https://qrx.apphaus.us/species/models/snow-moth.glb",
+        "scale": 1,
+        "animations": {
+          "idle": {
+            "clip": "idle",
+            "loop": true
+          },
+          "fly": {
+            "clip": "fly",
+            "loop": true
+          }
+        },
+        "sockets": {
+          "mouth": "Head"
+        }
+      },
+      "mobility": {
+        "mode": "air",
+        "speed": 0.35,
+        "turnRate": 540,
+        "altitude": [
+          0.25,
+          1.0
+        ],
+        "idle": "idle",
+        "move": "fly"
+      },
+      "behaviors": [
+        {
+          "type": "idle",
+          "priority": 10,
+          "when": "$still"
+        },
+        {
+          "type": "wander",
+          "pause": [
+            0.5,
+            3
+          ]
+        }
+      ],
+      "on": {
+        "tap": [
+          {
+            "set": {
+              "still": true
+            }
+          },
+          {
+            "wait": 4
+          },
+          {
+            "set": {
+              "still": false
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "id": "sunfrill-lizard",
+  "name": "Marigold",
+  "species": "Sunfrill Lizard",
+  "description": "A lizard that opens a blazing frill round its neck when the noon sun is highest.",
+  "biomes": ["shrub"],
+  "habitat": "ground",
+  "rarity": "legendary",
+  "archetype": "lizard",
+  "size": 0.26,
+  "shape": {"crest": "frill", "girth": 1.05},
+  "colours": {"body": "#D98A2B", "belly": "#F7E3B0", "pattern": "#8A3A12", "trim": "#FFE08A", "toe": "#E8A84A", "accent": "#FFB52E", "glow": "#FFD36B"},
+  "pattern": {"type": "bands", "count": 6, "width": 0.4},
+  "behaviour": {"temper": "calm", "seconds": 4, "watch": true}
+}

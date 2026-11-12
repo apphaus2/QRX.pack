@@ -1,0 +1,16 @@
+{
+  "id": "granary-owl",
+  "name": "Tawny",
+  "species": "Granary Owl",
+  "description": "A pale-faced owl that roosts in barn rafters and hunts the field edges.",
+  "biomes": ["farm"],
+  "habitat": "air",
+  "rarity": "rare",
+  "archetype": "bird",
+  "size": 0.19,
+  "shape": {"style": "owl", "plump": 1.2, "wings": 1.1, "chord": 1.25, "tail": 0.7},
+  "colours": {"body": "#C99A5A", "belly": "#F7EEDD", "head": "#C99A5A", "wing": "#A87B42", "pattern": "#6E4E28", "trim": "#F7EEDD", "beak": "#D9B98A", "accent": "#6E4E28", "eye": "#1A1208"},
+  "pattern": {"type": "spots", "count": 10, "size": 0.14},
+  "movement": {"speed": 0.3},
+  "behaviour": {"temper": "calm", "seconds": 4, "watch": true}
+}

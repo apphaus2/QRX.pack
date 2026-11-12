@@ -1,0 +1,13 @@
+{
+  "id": "field-bee",
+  "name": "Barley",
+  "species": "Field Bee",
+  "description": "A busy striped bee working along the crop rows.",
+  "biomes": ["farm", "meadow", "town"],
+  "habitat": "air",
+  "rarity": "common",
+  "archetype": "bee",
+  "size": 0.07,
+  "pattern": {"type": "bands", "count": 3, "width": 0.45},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

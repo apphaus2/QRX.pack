@@ -1,0 +1,15 @@
+{
+  "id": "longfoot-jerboa",
+  "name": "Skip",
+  "species": "Longfoot Jerboa",
+  "description": "A hopping desert mouse with a tufted tail longer than itself.",
+  "biomes": ["barren"],
+  "habitat": "ground",
+  "rarity": "rare",
+  "archetype": "critter",
+  "size": 0.13,
+  "shape": {"ears": "long", "earsize": 0.7, "tail": "tuft", "taillen": 1.6, "gait": "hop", "hindfeet": 2.2, "legs": 1.3, "long": 0.8, "beat": 0.45},
+  "colours": {"body": "#E0B878", "belly": "#FBF2DE", "ear": "#E8B8A0", "accent": "#3A2A1E"},
+  "movement": {"speed": 0.25},
+  "behaviour": {"temper": "shy", "distance": 2.2}
+}

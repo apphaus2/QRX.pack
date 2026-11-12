@@ -1,0 +1,16 @@
+{
+  "id": "bark-skink",
+  "name": "Twig",
+  "species": "Bark Skink",
+  "description": "A slim brown skink that suns itself on fallen logs.",
+  "biomes": ["forest", "shrub"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "lizard",
+  "size": 0.22,
+  "shape": {"flat": 0.75, "tail": 1.1},
+  "colours": {"body": "#7A5A3A", "belly": "#D8C3A0", "pattern": "#4A3422", "toe": "#9A7A55"},
+  "pattern": {"type": "stripes", "count": 2, "width": 0.35},
+  "movement": {"speed": 0.16},
+  "behaviour": {"temper": "shy", "distance": 2.2}
+}

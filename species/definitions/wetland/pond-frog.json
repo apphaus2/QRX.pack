@@ -1,0 +1,14 @@
+{
+  "id": "pond-frog",
+  "name": "Puddle",
+  "species": "Pond Frog",
+  "description": "A green frog that plops into the water before you see it.",
+  "biomes": ["wetland", "mangrove"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "frog",
+  "size": 0.085,
+  "pattern": {"type": "stripes", "count": 1, "width": 0.14},
+  "movement": {"speed": 0.18},
+  "behaviour": {"temper": "shy", "distance": 2.0}
+}

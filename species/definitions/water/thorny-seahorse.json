@@ -1,0 +1,16 @@
+{
+  "id": "thorny-seahorse",
+  "name": "Thistle",
+  "species": "Thorny Seahorse",
+  "description": "A rose-red seahorse with a spiny back and a tall crown.",
+  "biomes": ["water"],
+  "habitat": "water",
+  "rarity": "rare",
+  "archetype": "seahorse",
+  "size": 0.13,
+  "shape": {"snout": 1.2},
+  "colours": {"body": "#D9577A", "belly": "#F5B8C8", "pattern": "#8A2444", "trim": "#FFE0E8", "fin": "#F5B8C8", "accent": "#FFD27A"},
+  "pattern": {"type": "bands", "count": 9, "width": 0.3},
+  "movement": {"speed": 0.12},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

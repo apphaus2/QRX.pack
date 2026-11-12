@@ -1,0 +1,14 @@
+{
+  "id": "pond-skimmer",
+  "name": "Dart",
+  "species": "Pond Skimmer",
+  "description": "A blue dragonfly that patrols the same stretch of bank all day.",
+  "biomes": ["wetland", "water", "meadow"],
+  "habitat": "air",
+  "rarity": "common",
+  "archetype": "dragonfly",
+  "size": 0.14,
+  "pattern": {"type": "bands", "count": 5, "width": 0.4},
+  "movement": {"speed": 0.5},
+  "behaviour": {"temper": "shy", "distance": 2.5}
+}

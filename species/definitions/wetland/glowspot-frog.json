@@ -1,0 +1,16 @@
+{
+  "id": "glowspot-frog",
+  "name": "Marble",
+  "species": "Glowspot Frog",
+  "description": "A dark frog whose spots shine green on moonless nights.",
+  "biomes": ["wetland"],
+  "habitat": "ground",
+  "rarity": "epic",
+  "archetype": "frog",
+  "size": 0.095,
+  "shape": {"eyes": 1.15},
+  "colours": {"body": "#1F4A3A", "belly": "#CFE8C8", "pattern": "#7CFFB2", "trim": "#0E2A20", "accent": "#7CFFB2", "glow": "#7CFFB2"},
+  "pattern": {"type": "spots", "count": 9, "size": 0.2, "lit": true},
+  "movement": {"speed": 0.18},
+  "behaviour": {"temper": "curious"}
+}

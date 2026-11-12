@@ -1,0 +1,15 @@
+{
+  "id": "aurora-eel",
+  "name": "Ribbon",
+  "species": "Aurora Eel",
+  "description": "A dark eel with lines of green light running the length of its sides.",
+  "biomes": ["water"],
+  "habitat": "water",
+  "rarity": "epic",
+  "archetype": "eel",
+  "size": 0.24,
+  "shape": {"crest": 1.2},
+  "colours": {"body": "#12303A", "belly": "#1E4A55", "pattern": "#2BD9B5", "trim": "#C24AD9", "fin": "#1E6A75", "accent": "#C24AD9", "glow": "#5CF2D9"},
+  "pattern": {"type": "stripes", "count": 2, "width": 0.25, "lit": true},
+  "behaviour": {"temper": "shy"}
+}

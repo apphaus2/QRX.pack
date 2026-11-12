@@ -1,0 +1,15 @@
+{
+  "id": "emerald-swallowtail",
+  "name": "Juniper",
+  "species": "Emerald Swallowtail",
+  "description": "A green butterfly with long tails, seen where sun reaches the forest floor.",
+  "biomes": ["forest"],
+  "habitat": "air",
+  "rarity": "rare",
+  "archetype": "butterfly",
+  "size": 0.19,
+  "shape": {"hind": 1.1},
+  "colours": {"wing": "#1E8C5A", "hind": "#2BB673", "pattern": "#0E2F22", "trim": "#F2E46B", "accent": "#0E2F22", "body": "#1A1A1A"},
+  "pattern": {"type": "edged"},
+  "behaviour": {"temper": "curious"}
+}
