@@ -42,6 +42,11 @@
   .tag { font-size: 11px; border-radius: 999px; padding: 1px 7px; border: 1px solid var(--line); color: var(--soft); }
   .tag.rarity { color: #fff; border-color: transparent; }
   .about { color: var(--soft); font-size: 12px; margin-top: 6px; }
+  .tricks, .voice { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .tricks button, .voice button { padding: 1px 8px; font-size: 11px; }
+  .tricks button.behaviour { border-style: dashed; color: var(--soft); }
+  .tricks button.signature { border-color: #F5B301; }
+  .spoiler { color: var(--soft); font-size: 12px; margin: 0 0 6px; }
   .visitor { opacity: 0.75; }
   canvas#stage { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; }
   #status { color: var(--soft); font-size: 12px; margin-left: auto; }
@@ -56,6 +61,7 @@
 <body>
 <header>
   <h1>QRay species <small id="count"></small></h1>
+  <p class="spoiler"><b>Spoilers.</b> A developer's page: it shows every creature's tricks, which players are meant to find out for themselves. The apps never show them.</p>
   <div class="row" id="biomes"><span>Biome</span></div>
   <div class="row" id="habitats"><span>Habitat</span></div>
   <div class="row" id="rarities"><span>Rarity</span></div>
@@ -125,7 +131,8 @@ function show(view, gltf) {
   view.camera.position.set(reach * 0.75, reach * 0.42, reach * 0.95);
   view.camera.lookAt(0, 0, 0);
   view.mixer = new THREE.AnimationMixer(gltf.scene);
-  for (const clip of gltf.animations) { view.actions[clip.name] = view.mixer.clipAction(clip); if (clip.name !== "idle") view.move = clip.name; }
+  for (const clip of gltf.animations) { view.actions[clip.name] = view.mixer.clipAction(clip); if (["swim", "walk", "fly"].includes(clip.name)) view.move = clip.name; }
+  view.mixer.addEventListener("finished", () => play(view));      // a trick is done once, then the creature goes back to what it was doing
   play(view);
   loaded++;
   report();
@@ -149,6 +156,48 @@ function makeView(element, s) {
     });
     attempt(2);
   }));
+  return view;
+}
+
+// A trick's clip, once; its sound with it. A behaviour trick (coming over, staying) has nothing to play here.
+function trick(view, s, id, sound) {
+  if (sound && s.sounds[sound]) new Audio("../" + s.sounds[sound]).play().catch(() => {});
+  const action = view.actions[id];
+  if (!action) return;
+  for (const other of Object.values(view.actions)) other.stop();
+  action.reset().setLoop(THREE.LoopOnce, 1).play();
+}
+
+// A JSON file through the same queue as the models, tried three times.
+function queued(url) {
+  return new Promise((resolve, reject) => enqueue(async () => {
+    for (let left = 2; ; left--) {
+      try { const answer = await fetch(url); if (!answer.ok) throw new Error(answer.status); resolve(await answer.json()); return; }
+      catch (error) { if (left <= 0) { reject(error); return; } await new Promise(again => setTimeout(again, 400)); }
+    }
+  }));
+}
+
+async function tricks(element, view, s) {
+  const row = element.querySelector(".tricks"), voice = element.querySelector(".voice");
+  for (const meaning of Object.keys(s.sounds)) {
+    const button = document.createElement("button");
+    button.textContent = "\u266a " + meaning;
+    button.onclick = () => new Audio("../" + s.sounds[meaning]).play().catch(() => {});
+    voice.appendChild(button);
+  }
+  try {
+    const doc = await queued("../" + s.document), actor = doc.actors[0];
+    for (const t of doc._ui.tricks) {
+      const steps = actor.on[t.id] || [], clip = actor.body.animations[t.id], sound = (steps.find(step => step.sound) || {}).sound;
+      const button = document.createElement("button");
+      button.textContent = t.id;
+      button.title = "say: " + t.phrases.join(", ");
+      button.className = clip ? (steps.length > 6 ? "signature" : "") : "behaviour";
+      button.onclick = () => trick(view, s, t.id, sound);
+      row.appendChild(button);
+    }
+  } catch (error) { row.textContent = "could not read " + s.document; }
 }
 
 function card(s, visitor) {
@@ -158,8 +207,9 @@ function card(s, visitor) {
   element.innerHTML = `<div class="view ${s.habitat}"></div><div class="text">
     <div class="name">${s.name}</div><div class="species">${s.species}</div>
     <div class="tags"><span class="tag rarity" style="background:${r.colour}">${r.name}</span><span class="tag">${s.habitat}</span><span class="tag">${s.archetype}</span>${visitor ? '<span class="tag">visitor</span>' : ""}</div>
-    <div class="about">${s.description}<br>${(Math.max(...s.size) * 100).toFixed(0)} cm, ${(s.bytes / 1024).toFixed(0)} KB, ${s.triangles} triangles</div></div>`;
-  makeView(element.querySelector(".view"), s);
+    <div class="about">${s.description}<br>${(Math.max(...s.size) * 100).toFixed(0)} cm, ${(s.bytes / 1024).toFixed(0)} KB, ${s.triangles} triangles, speaks ${s.speech}</div>
+    <div class="tricks"></div><div class="voice"></div></div>`;
+  tricks(element, makeView(element.querySelector(".view"), s), s);
   return element;
 }
 

@@ -10,9 +10,10 @@ under CC0 1.0 ([LICENSE](LICENSE)). The sounds, the test card and every model ar
 [Animated Fish Pack](https://quaternius.com/packs/animatedfish.html) was looked at for the fish: its models have one
 swim clip and no glTF of their own, so the fish here are written by hand like the others.)
 
-Every creature under `species/` (its document and its model) was made for QRX too and is dedicated to the public
-domain under CC0 1.0. The models are written by `species/build.py` from the definitions beside it; nothing in them is
-sampled or traced, and the names and designs are original. The biome list uses the class codes and names of ESA
+Every creature under `species/` (its document, its model, its sounds, its prompt and its tricks) was made for QRX too
+and is dedicated to the public domain under CC0 1.0. The models and the sounds are written by `species/build.py` from
+the definitions and tables beside it (the sounds are synthesized in `species/lib/sounds.py`: tones and noise, no
+recordings); nothing in them is sampled or traced, and the names and designs are original. The biome list uses the class codes and names of ESA
 WorldCover (its product user manual); no WorldCover data is included.
 
 ## Third-party models (referenced by URL, not copied)

@@ -57,7 +57,7 @@ habitats/        the TV's three habitats (tank, terrarium, aviary): self-contain
 images/, sounds/ media the documents use by URL
 models/          our own glTF models (CC0), written by the scripts
 species/         the creatures found out in the world, with no code: one small definition per species, the pipeline
-                 that builds them (`python3 species/build.py`), and what it builds (creatures/, models/, index.json).
+                 that builds them (`python3 species/build.py`), and what it builds (creatures/, models/, sounds/, index.json).
                  77 species on the 11 ESA WorldCover land-cover classes, five rarities; see species/README.md
 scripts/         assets.py makes the test card and the sounds; bush.py, butterfly.py, pet.py, fish.py, tank.py, habitats.py
                  and lizard.py the models (the bush, the butterfly, the pet's bowl and bed, the reef fish and the trout,
@@ -69,7 +69,9 @@ A *species* is a creature that is found by where the player stands, not by a pri
 creature document (`species/creatures/<id>.json`, with `species`, `rarity`, `biome` and `biomes` beside `habitat` in
 its header), named by its URL on this repository's GitHub Pages:
 `https://apphaus2.github.io/QRX.pack/species/creatures/bark-skink.json`. The species are not on the website.
-`species/index.json` is the catalog: what can spawn in each land-cover class and how likely.
+`species/index.json` is the catalog: what can spawn in each land-cover class and how likely. Each can be talked to
+(a prompt in the first person, filled in from the one creature's own name, age, home and temperament), answers in
+sounds when no AI is behind it, and knows tricks the player has to find; `species/README.md` has all of it.
 
 References inside `glyphs/` are relative (`bodies/fox.json`), so the folder works from any host. Media URLs
 are absolute: `https://apphaus2.github.io/QRX.pack/images/...`, `.../sounds/...` and `.../models/...`.
