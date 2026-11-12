@@ -44,7 +44,7 @@
         ]
       },
       "body": {
-        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/reed-seahorse.glb",
+        "model": "https://apphaus2.github.io/QRX.pack/species/models/reed-seahorse.glb",
         "scale": 1,
         "animations": {
           "idle": {

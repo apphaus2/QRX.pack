@@ -43,7 +43,7 @@
         ]
       },
       "body": {
-        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/sun-scarab.glb",
+        "model": "https://apphaus2.github.io/QRX.pack/species/models/sun-scarab.glb",
         "scale": 1,
         "animations": {
           "idle": {

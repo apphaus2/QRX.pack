@@ -45,7 +45,7 @@
         ]
       },
       "body": {
-        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/hedge-finch.glb",
+        "model": "https://apphaus2.github.io/QRX.pack/species/models/hedge-finch.glb",
         "scale": 1,
         "animations": {
           "idle": {

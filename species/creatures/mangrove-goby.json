@@ -43,7 +43,7 @@
         ]
       },
       "body": {
-        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/mangrove-goby.glb",
+        "model": "https://apphaus2.github.io/QRX.pack/species/models/mangrove-goby.glb",
         "scale": 1,
         "animations": {
           "idle": {

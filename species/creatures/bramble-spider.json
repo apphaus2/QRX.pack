@@ -43,7 +43,7 @@
         ]
       },
       "body": {
-        "model": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/bramble-spider.glb",
+        "model": "https://apphaus2.github.io/QRX.pack/species/models/bramble-spider.glb",
         "scale": 1,
         "animations": {
           "idle": {

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "modelBase": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/",
+  "modelBase": "https://apphaus2.github.io/QRX.pack/species/models/",
   "visitorShare": 0.5,
   "rarities": [
     {
@@ -824,7 +824,7 @@
       "archetype": "fish",
       "document": "creatures/arctic-char.json",
       "model": "models/arctic-char.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/arctic-char.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/arctic-char.glb",
       "size": [
         0.069,
         0.0829,
@@ -848,7 +848,7 @@
       "archetype": "butterfly",
       "document": "creatures/arctic-skipper.json",
       "model": "models/arctic-skipper.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/arctic-skipper.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/arctic-skipper.glb",
       "size": [
         0.1085,
         0.0262,
@@ -872,7 +872,7 @@
       "archetype": "eel",
       "document": "creatures/aurora-eel.json",
       "model": "models/aurora-eel.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/aurora-eel.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/aurora-eel.glb",
       "size": [
         0.0567,
         0.0454,
@@ -897,7 +897,7 @@
       "archetype": "lizard",
       "document": "creatures/banded-gecko.json",
       "model": "models/banded-gecko.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/banded-gecko.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/banded-gecko.glb",
       "size": [
         0.0861,
         0.0283,
@@ -922,7 +922,7 @@
       "archetype": "lizard",
       "document": "creatures/bark-skink.json",
       "model": "models/bark-skink.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/bark-skink.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/bark-skink.glb",
       "size": [
         0.0926,
         0.0307,
@@ -946,7 +946,7 @@
       "archetype": "bird",
       "document": "creatures/blue-skylark.json",
       "model": "models/blue-skylark.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/blue-skylark.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/blue-skylark.glb",
       "size": [
         0.166,
         0.0685,
@@ -970,7 +970,7 @@
       "archetype": "dragonfly",
       "document": "creatures/boreal-emerald.json",
       "model": "models/boreal-emerald.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/boreal-emerald.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/boreal-emerald.glb",
       "size": [
         0.1471,
         0.0255,
@@ -994,7 +994,7 @@
       "archetype": "beetle",
       "document": "creatures/bottlecap-beetle.json",
       "model": "models/bottlecap-beetle.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/bottlecap-beetle.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/bottlecap-beetle.glb",
       "size": [
         0.0641,
         0.0272,
@@ -1018,7 +1018,7 @@
       "archetype": "spider",
       "document": "creatures/bramble-spider.json",
       "model": "models/bramble-spider.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/bramble-spider.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/bramble-spider.glb",
       "size": [
         0.0698,
         0.0255,
@@ -1042,7 +1042,7 @@
       "archetype": "spider",
       "document": "creatures/cellar-spider.json",
       "model": "models/cellar-spider.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/cellar-spider.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/cellar-spider.glb",
       "size": [
         0.0987,
         0.029,
@@ -1066,7 +1066,7 @@
       "archetype": "bat",
       "document": "creatures/chimney-bat.json",
       "model": "models/chimney-bat.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/chimney-bat.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/chimney-bat.glb",
       "size": [
         0.16,
         0.0356,
@@ -1090,7 +1090,7 @@
       "archetype": "bird",
       "document": "creatures/cliff-swift.json",
       "model": "models/cliff-swift.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/cliff-swift.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/cliff-swift.glb",
       "size": [
         0.2588,
         0.0571,
@@ -1114,7 +1114,7 @@
       "archetype": "bird",
       "document": "creatures/clocktower-raven.json",
       "model": "models/clocktower-raven.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/clocktower-raven.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/clocktower-raven.glb",
       "size": [
         0.2405,
         0.1144,
@@ -1138,7 +1138,7 @@
       "archetype": "beetle",
       "document": "creatures/darkling-beetle.json",
       "model": "models/darkling-beetle.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/darkling-beetle.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/darkling-beetle.glb",
       "size": [
         0.0507,
         0.0292,
@@ -1162,7 +1162,7 @@
       "archetype": "bird",
       "document": "creatures/dawnplume.json",
       "model": "models/dawnplume.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/dawnplume.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/dawnplume.glb",
       "size": [
         0.1996,
         0.104,
@@ -1186,7 +1186,7 @@
       "archetype": "bat",
       "document": "creatures/dusk-bat.json",
       "model": "models/dusk-bat.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/dusk-bat.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/dusk-bat.glb",
       "size": [
         0.18,
         0.044,
@@ -1210,7 +1210,7 @@
       "archetype": "lizard",
       "document": "creatures/ember-skink.json",
       "model": "models/ember-skink.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/ember-skink.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/ember-skink.glb",
       "size": [
         0.101,
         0.056,
@@ -1234,7 +1234,7 @@
       "archetype": "butterfly",
       "document": "creatures/emerald-swallowtail.json",
       "model": "models/emerald-swallowtail.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/emerald-swallowtail.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/emerald-swallowtail.glb",
       "size": [
         0.1875,
         0.0407,
@@ -1260,7 +1260,7 @@
       "archetype": "bee",
       "document": "creatures/field-bee.json",
       "model": "models/field-bee.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/field-bee.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/field-bee.glb",
       "size": [
         0.0625,
         0.0339,
@@ -1284,7 +1284,7 @@
       "archetype": "fish",
       "document": "creatures/fountain-koi.json",
       "model": "models/fountain-koi.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/fountain-koi.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/fountain-koi.glb",
       "size": [
         0.0738,
         0.0753,
@@ -1308,7 +1308,7 @@
       "archetype": "jellyfish",
       "document": "creatures/frost-jelly.json",
       "model": "models/frost-jelly.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/frost-jelly.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/frost-jelly.glb",
       "size": [
         0.101,
         0.1473,
@@ -1333,7 +1333,7 @@
       "archetype": "snail",
       "document": "creatures/garden-snail.json",
       "model": "models/garden-snail.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/garden-snail.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/garden-snail.glb",
       "size": [
         0.0257,
         0.0537,
@@ -1357,7 +1357,7 @@
       "archetype": "bird",
       "document": "creatures/glacier-owl.json",
       "model": "models/glacier-owl.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/glacier-owl.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/glacier-owl.glb",
       "size": [
         0.2299,
         0.12,
@@ -1381,7 +1381,7 @@
       "archetype": "butterfly",
       "document": "creatures/glasswing.json",
       "model": "models/glasswing.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/glasswing.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/glasswing.glb",
       "size": [
         0.1836,
         0.0364,
@@ -1405,7 +1405,7 @@
       "archetype": "frog",
       "document": "creatures/glowspot-frog.json",
       "model": "models/glowspot-frog.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/glowspot-frog.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/glowspot-frog.glb",
       "size": [
         0.0996,
         0.0535,
@@ -1429,7 +1429,7 @@
       "archetype": "critter",
       "document": "creatures/golden-harvest-hare.json",
       "model": "models/golden-harvest-hare.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/golden-harvest-hare.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/golden-harvest-hare.glb",
       "size": [
         0.1322,
         0.1181,
@@ -1453,7 +1453,7 @@
       "archetype": "bird",
       "document": "creatures/granary-owl.json",
       "model": "models/granary-owl.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/granary-owl.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/granary-owl.glb",
       "size": [
         0.2031,
         0.0887,
@@ -1477,7 +1477,7 @@
       "archetype": "butterfly",
       "document": "creatures/harvest-moon-moth.json",
       "model": "models/harvest-moon-moth.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/harvest-moon-moth.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/harvest-moon-moth.glb",
       "size": [
         0.1958,
         0.0353,
@@ -1501,7 +1501,7 @@
       "archetype": "critter",
       "document": "creatures/harvest-mouse.json",
       "model": "models/harvest-mouse.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/harvest-mouse.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/harvest-mouse.glb",
       "size": [
         0.027,
         0.0382,
@@ -1527,7 +1527,7 @@
       "archetype": "bird",
       "document": "creatures/hedge-finch.json",
       "model": "models/hedge-finch.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/hedge-finch.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/hedge-finch.glb",
       "size": [
         0.1352,
         0.0457,
@@ -1551,7 +1551,7 @@
       "archetype": "bee",
       "document": "creatures/honeycrown-bee.json",
       "model": "models/honeycrown-bee.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/honeycrown-bee.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/honeycrown-bee.glb",
       "size": [
         0.089,
         0.0578,
@@ -1576,7 +1576,7 @@
       "archetype": "critter",
       "document": "creatures/house-mouse.json",
       "model": "models/house-mouse.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/house-mouse.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/house-mouse.glb",
       "size": [
         0.0299,
         0.0425,
@@ -1600,7 +1600,7 @@
       "archetype": "fish",
       "document": "creatures/icefish.json",
       "model": "models/icefish.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/icefish.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/icefish.glb",
       "size": [
         0.0601,
         0.0542,
@@ -1624,7 +1624,7 @@
       "archetype": "turtle",
       "document": "creatures/jade-turtle.json",
       "model": "models/jade-turtle.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/jade-turtle.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/jade-turtle.glb",
       "size": [
         0.2309,
         0.084,
@@ -1648,7 +1648,7 @@
       "archetype": "butterfly",
       "document": "creatures/lamp-moth.json",
       "model": "models/lamp-moth.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/lamp-moth.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/lamp-moth.glb",
       "size": [
         0.1297,
         0.0255,
@@ -1672,7 +1672,7 @@
       "archetype": "jellyfish",
       "document": "creatures/lantern-jelly.json",
       "model": "models/lantern-jelly.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/lantern-jelly.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/lantern-jelly.glb",
       "size": [
         0.101,
         0.1325,
@@ -1696,7 +1696,7 @@
       "archetype": "critter",
       "document": "creatures/longfoot-jerboa.json",
       "model": "models/longfoot-jerboa.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/longfoot-jerboa.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/longfoot-jerboa.glb",
       "size": [
         0.0389,
         0.0791,
@@ -1720,7 +1720,7 @@
       "archetype": "fish",
       "document": "creatures/mangrove-goby.json",
       "model": "models/mangrove-goby.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/mangrove-goby.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/mangrove-goby.glb",
       "size": [
         0.0551,
         0.0511,
@@ -1744,7 +1744,7 @@
       "archetype": "bird",
       "document": "creatures/mangrove-kingfisher.json",
       "model": "models/mangrove-kingfisher.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/mangrove-kingfisher.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/mangrove-kingfisher.glb",
       "size": [
         0.1851,
         0.0989,
@@ -1769,7 +1769,7 @@
       "archetype": "eel",
       "document": "creatures/marsh-eel.json",
       "model": "models/marsh-eel.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/marsh-eel.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/marsh-eel.glb",
       "size": [
         0.0158,
         0.0299,
@@ -1793,7 +1793,7 @@
       "archetype": "lizard",
       "document": "creatures/marsh-newt.json",
       "model": "models/marsh-newt.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/marsh-newt.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/marsh-newt.glb",
       "size": [
         0.0635,
         0.0238,
@@ -1818,7 +1818,7 @@
       "archetype": "snail",
       "document": "creatures/meadow-snail.json",
       "model": "models/meadow-snail.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/meadow-snail.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/meadow-snail.glb",
       "size": [
         0.0243,
         0.0492,
@@ -1843,7 +1843,7 @@
       "archetype": "critter",
       "document": "creatures/meadow-vole.json",
       "model": "models/meadow-vole.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/meadow-vole.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/meadow-vole.glb",
       "size": [
         0.0359,
         0.0403,
@@ -1869,7 +1869,7 @@
       "archetype": "butterfly",
       "document": "creatures/meadow-white.json",
       "model": "models/meadow-white.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/meadow-white.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/meadow-white.glb",
       "size": [
         0.1381,
         0.03,
@@ -1894,7 +1894,7 @@
       "archetype": "jellyfish",
       "document": "creatures/moon-jelly.json",
       "model": "models/moon-jelly.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/moon-jelly.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/moon-jelly.glb",
       "size": [
         0.0926,
         0.1038,
@@ -1918,7 +1918,7 @@
       "archetype": "beetle",
       "document": "creatures/moss-beetle.json",
       "model": "models/moss-beetle.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/moss-beetle.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/moss-beetle.glb",
       "size": [
         0.0521,
         0.0232,
@@ -1942,7 +1942,7 @@
       "archetype": "beetle",
       "document": "creatures/mossglow-stag-beetle.json",
       "model": "models/mossglow-stag-beetle.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/mossglow-stag-beetle.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/mossglow-stag-beetle.glb",
       "size": [
         0.0882,
         0.0393,
@@ -1967,7 +1967,7 @@
       "archetype": "crab",
       "document": "creatures/mud-crab.json",
       "model": "models/mud-crab.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/mud-crab.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/mud-crab.glb",
       "size": [
         0.0955,
         0.0427,
@@ -1991,7 +1991,7 @@
       "archetype": "ray",
       "document": "creatures/mud-ray.json",
       "model": "models/mud-ray.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/mud-ray.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/mud-ray.glb",
       "size": [
         0.1561,
         0.0213,
@@ -2015,7 +2015,7 @@
       "archetype": "dragonfly",
       "document": "creatures/neon-darter.json",
       "model": "models/neon-darter.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/neon-darter.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/neon-darter.glb",
       "size": [
         0.1471,
         0.0255,
@@ -2039,7 +2039,7 @@
       "archetype": "butterfly",
       "document": "creatures/nightshade-moth.json",
       "model": "models/nightshade-moth.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/nightshade-moth.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/nightshade-moth.glb",
       "size": [
         0.1695,
         0.0333,
@@ -2063,7 +2063,7 @@
       "archetype": "critter",
       "document": "creatures/northlight-fox.json",
       "model": "models/northlight-fox.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/northlight-fox.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/northlight-fox.glb",
       "size": [
         0.1875,
         0.1125,
@@ -2087,7 +2087,7 @@
       "archetype": "crab",
       "document": "creatures/one-claw-crab.json",
       "model": "models/one-claw-crab.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/one-claw-crab.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/one-claw-crab.glb",
       "size": [
         0.1188,
         0.0463,
@@ -2112,7 +2112,7 @@
       "archetype": "frog",
       "document": "creatures/pond-frog.json",
       "model": "models/pond-frog.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/pond-frog.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/pond-frog.glb",
       "size": [
         0.0891,
         0.0378,
@@ -2136,7 +2136,7 @@
       "archetype": "fish",
       "document": "creatures/pond-goldfish.json",
       "model": "models/pond-goldfish.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/pond-goldfish.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/pond-goldfish.glb",
       "size": [
         0.0531,
         0.0671,
@@ -2162,7 +2162,7 @@
       "archetype": "dragonfly",
       "document": "creatures/pond-skimmer.json",
       "model": "models/pond-skimmer.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/pond-skimmer.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/pond-skimmer.glb",
       "size": [
         0.1373,
         0.0238,
@@ -2187,7 +2187,7 @@
       "archetype": "turtle",
       "document": "creatures/pond-turtle.json",
       "model": "models/pond-turtle.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/pond-turtle.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/pond-turtle.glb",
       "size": [
         0.1924,
         0.0356,
@@ -2212,7 +2212,7 @@
       "archetype": "seahorse",
       "document": "creatures/reed-seahorse.json",
       "model": "models/reed-seahorse.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/reed-seahorse.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/reed-seahorse.glb",
       "size": [
         0.0322,
         0.1167,
@@ -2236,7 +2236,7 @@
       "archetype": "crab",
       "document": "creatures/rock-scorpion.json",
       "model": "models/rock-scorpion.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/rock-scorpion.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/rock-scorpion.glb",
       "size": [
         0.0919,
         0.0595,
@@ -2260,7 +2260,7 @@
       "archetype": "lizard",
       "document": "creatures/rooftop-gecko.json",
       "model": "models/rooftop-gecko.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/rooftop-gecko.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/rooftop-gecko.glb",
       "size": [
         0.0916,
         0.0346,
@@ -2284,7 +2284,7 @@
       "archetype": "dragonfly",
       "document": "creatures/ruby-darter.json",
       "model": "models/ruby-darter.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/ruby-darter.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/ruby-darter.glb",
       "size": [
         0.1714,
         0.0272,
@@ -2309,7 +2309,7 @@
       "archetype": "lizard",
       "document": "creatures/sand-lizard.json",
       "model": "models/sand-lizard.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/sand-lizard.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/sand-lizard.glb",
       "size": [
         0.0914,
         0.0294,
@@ -2334,7 +2334,7 @@
       "archetype": "fish",
       "document": "creatures/sand-minnow.json",
       "model": "models/sand-minnow.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/sand-minnow.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/sand-minnow.glb",
       "size": [
         0.0448,
         0.043,
@@ -2359,7 +2359,7 @@
       "archetype": "bird",
       "document": "creatures/snow-bunting.json",
       "model": "models/snow-bunting.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/snow-bunting.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/snow-bunting.glb",
       "size": [
         0.1396,
         0.0515,
@@ -2383,7 +2383,7 @@
       "archetype": "butterfly",
       "document": "creatures/snow-moth.json",
       "model": "models/snow-moth.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/snow-moth.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/snow-moth.glb",
       "size": [
         0.1332,
         0.0281,
@@ -2407,7 +2407,7 @@
       "archetype": "critter",
       "document": "creatures/snowshoe-hare.json",
       "model": "models/snowshoe-hare.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/snowshoe-hare.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/snowshoe-hare.glb",
       "size": [
         0.0561,
         0.103,
@@ -2431,7 +2431,7 @@
       "archetype": "ray",
       "document": "creatures/speckled-ray.json",
       "model": "models/speckled-ray.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/speckled-ray.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/speckled-ray.glb",
       "size": [
         0.173,
         0.0224,
@@ -2457,7 +2457,7 @@
       "archetype": "beetle",
       "document": "creatures/spotted-garden-beetle.json",
       "model": "models/spotted-garden-beetle.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/spotted-garden-beetle.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/spotted-garden-beetle.glb",
       "size": [
         0.066,
         0.0301,
@@ -2481,7 +2481,7 @@
       "archetype": "ray",
       "document": "creatures/starlit-ray.json",
       "model": "models/starlit-ray.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/starlit-ray.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/starlit-ray.glb",
       "size": [
         0.1693,
         0.0809,
@@ -2505,7 +2505,7 @@
       "archetype": "bird",
       "document": "creatures/street-pigeon.json",
       "model": "models/street-pigeon.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/street-pigeon.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/street-pigeon.glb",
       "size": [
         0.1795,
         0.0647,
@@ -2529,7 +2529,7 @@
       "archetype": "beetle",
       "document": "creatures/sun-scarab.json",
       "model": "models/sun-scarab.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/sun-scarab.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/sun-scarab.glb",
       "size": [
         0.0947,
         0.0566,
@@ -2553,7 +2553,7 @@
       "archetype": "lizard",
       "document": "creatures/sunfrill-lizard.json",
       "model": "models/sunfrill-lizard.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/sunfrill-lizard.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/sunfrill-lizard.glb",
       "size": [
         0.1893,
         0.1006,
@@ -2577,7 +2577,7 @@
       "archetype": "critter",
       "document": "creatures/thornback-hedgehog.json",
       "model": "models/thornback-hedgehog.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/thornback-hedgehog.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/thornback-hedgehog.glb",
       "size": [
         0.0727,
         0.0714,
@@ -2601,7 +2601,7 @@
       "archetype": "seahorse",
       "document": "creatures/thorny-seahorse.json",
       "model": "models/thorny-seahorse.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/thorny-seahorse.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/thorny-seahorse.glb",
       "size": [
         0.0381,
         0.1492,
@@ -2626,7 +2626,7 @@
       "archetype": "critter",
       "document": "creatures/tundra-lemming.json",
       "model": "models/tundra-lemming.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/tundra-lemming.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/tundra-lemming.glb",
       "size": [
         0.0389,
         0.0417,
@@ -2650,7 +2650,7 @@
       "archetype": "fish",
       "document": "creatures/violet-fantail.json",
       "model": "models/violet-fantail.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/violet-fantail.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/violet-fantail.glb",
       "size": [
         0.0653,
         0.1265,
@@ -2675,7 +2675,7 @@
       "archetype": "critter",
       "document": "creatures/wood-mouse.json",
       "model": "models/wood-mouse.glb",
-      "modelRef": "https://raw.githubusercontent.com/apphaus2/QRX.pack/master/species/models/wood-mouse.glb",
+      "modelRef": "https://apphaus2.github.io/QRX.pack/species/models/wood-mouse.glb",
       "size": [
         0.0329,
         0.0461,
