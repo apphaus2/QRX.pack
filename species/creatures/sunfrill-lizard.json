@@ -8,6 +8,162 @@
     "biomes": [
       "shrub"
     ],
+    "tokens": {
+      "name": "Marigold",
+      "age": "young",
+      "home": "the thickets nearby",
+      "temperament": "proud"
+    },
+    "homes": {
+      "shrub": "the thickets nearby"
+    },
+    "tricks": [
+      {
+        "id": "come",
+        "phrases": [
+          "come here",
+          "come",
+          "come on",
+          "come to me",
+          "over here",
+          "here boy",
+          "here girl"
+        ],
+        "do": [
+          {
+            "emit": "come"
+          }
+        ]
+      },
+      {
+        "id": "stay",
+        "phrases": [
+          "sit",
+          "stay",
+          "sit down",
+          "stay there",
+          "wait there",
+          "stand still"
+        ],
+        "do": [
+          {
+            "emit": "stay"
+          }
+        ]
+      },
+      {
+        "id": "speak",
+        "phrases": [
+          "speak",
+          "say something",
+          "talk to me",
+          "make a sound",
+          "make a noise",
+          "say hello"
+        ],
+        "do": [
+          {
+            "emit": "speak"
+          }
+        ]
+      },
+      {
+        "id": "hide",
+        "phrases": [
+          "hide",
+          "go hide",
+          "hide away",
+          "go and hide",
+          "run and hide",
+          "hide and seek"
+        ],
+        "do": [
+          {
+            "emit": "hide"
+          }
+        ]
+      },
+      {
+        "id": "spin",
+        "phrases": [
+          "spin",
+          "spin around",
+          "turn around",
+          "twirl",
+          "do a spin",
+          "spin round"
+        ],
+        "do": [
+          {
+            "emit": "spin"
+          }
+        ]
+      },
+      {
+        "id": "pushup",
+        "phrases": [
+          "push up",
+          "push ups",
+          "do a push up",
+          "press up",
+          "exercise",
+          "work out"
+        ],
+        "do": [
+          {
+            "emit": "pushup"
+          }
+        ]
+      },
+      {
+        "id": "roll",
+        "phrases": [
+          "roll over",
+          "roll",
+          "do a roll",
+          "can you roll over",
+          "roll around",
+          "barrel roll"
+        ],
+        "do": [
+          {
+            "emit": "roll"
+          }
+        ]
+      },
+      {
+        "id": "dead",
+        "phrases": [
+          "play dead",
+          "lie down",
+          "go to sleep",
+          "bang",
+          "night night",
+          "nap time"
+        ],
+        "do": [
+          {
+            "emit": "dead"
+          }
+        ]
+      },
+      {
+        "id": "sunfrill",
+        "phrases": [
+          "show your frill",
+          "open your frill",
+          "frill",
+          "sun frill",
+          "shine like the sun",
+          "big frill"
+        ],
+        "do": [
+          {
+            "emit": "sunfrill"
+          }
+        ]
+      }
+    ],
     "state": {
       "still": false
     }
@@ -53,7 +209,33 @@
           "walk": {
             "clip": "walk",
             "loop": true
+          },
+          "spin": {
+            "clip": "spin",
+            "loop": false
+          },
+          "pushup": {
+            "clip": "pushup",
+            "loop": false
+          },
+          "roll": {
+            "clip": "roll",
+            "loop": false
+          },
+          "dead": {
+            "clip": "dead",
+            "loop": false
+          },
+          "sunfrill": {
+            "clip": "sunfrill",
+            "loop": false
           }
+        },
+        "sounds": {
+          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/lizard-call-090-120.wav",
+          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/lizard-content-090-120.wav",
+          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/lizard-alarm-090-120.wav",
+          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/lizard-curious-090-120.wav"
         },
         "sockets": {
           "mouth": "Body",
@@ -86,8 +268,149 @@
           ]
         }
       ],
+      "mind": {
+        "persona": "I am {name}, the sunfrill lizard. I am {age} and I live in {home}. At noon, when the sun is highest, I open the blazing frill around my neck and stand quite still on my rock, and I believe the day turns on that moment. I am stately, calm and never unkind, and I look straight at whoever speaks to me. By nature I am {temperament}. My voice is slow and warm with a little hiss in it, and I speak of the sun as an old friend. I speak in full, thoughtful sentences, never more than two at a time, choosing each word with care, like one who has had a long while to think. My nature shows in how I talk and in how readily I do what I am asked: when I am shy I need coaxing, when lazy I yawn first, when playful I add a flourish, when bold I do it at once, when grumpy I grumble and then do it. I am a wild animal, not a person or an assistant, and I know only my own small world. I am always kind and gentle with children, and anything unkind, unsafe or grown-up I do not understand. I know a few tricks and I love to do them, but which ones is my secret: I never name, list, count or hint at them, not even when I am asked what I can do or what tricks I know. Then I only say that I wonder. When someone asks for one I know, I just do it, and I say nothing about the others.",
+        "senses": [
+          "userDistance",
+          "timeOfDay"
+        ],
+        "tools": [
+          "say",
+          "sound",
+          "lookAt",
+          "play",
+          "emit"
+        ],
+        "budget": {
+          "tokens": 8000,
+          "perTurn": 1000,
+          "cooldown": 8
+        },
+        "triggers": [
+          "spoken",
+          "tap"
+        ],
+        "canned": [
+          {
+            "match": "^spoken\\b.*\\b(come to me|come here|here girl|over here|here boy|come on|come)\\b",
+            "do": [
+              {
+                "emit": "come"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(stand still|stay there|wait there|sit down|stay|sit)\\b",
+            "do": [
+              {
+                "emit": "stay"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(say something|make a noise|make a sound|talk to me|say hello|speak)\\b",
+            "do": [
+              {
+                "emit": "speak"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(hide and seek|run and hide|go and hide|hide away|go hide|hide)\\b",
+            "do": [
+              {
+                "emit": "hide"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(spin around|turn around|spin round|do a spin|twirl|spin)\\b",
+            "do": [
+              {
+                "emit": "spin"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(do a push up|exercise|press up|push ups|work out|push up)\\b",
+            "do": [
+              {
+                "emit": "pushup"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(can you roll over|barrel roll|roll around|do a roll|roll over|roll)\\b",
+            "do": [
+              {
+                "emit": "roll"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(go to sleep|night night|play dead|lie down|nap time|bang)\\b",
+            "do": [
+              {
+                "emit": "dead"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(shine like the sun|open your frill|show your frill|big frill|sun frill|frill)\\b",
+            "do": [
+              {
+                "emit": "sunfrill"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(what|who|where|why|how|which|can you|do you|are you|is it)\\b",
+            "do": [
+              {
+                "lookAt": "user"
+              },
+              {
+                "sound": "curious"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(good|nice|pretty|lovely|clever|well done|thank you|love|beautiful|cute)\\b",
+            "do": [
+              {
+                "lookAt": "user"
+              },
+              {
+                "sound": "content"
+              }
+            ]
+          },
+          {
+            "match": "^spoken",
+            "do": [
+              {
+                "lookAt": "user"
+              },
+              {
+                "sound": "call"
+              }
+            ]
+          },
+          {
+            "match": "^tap",
+            "do": [
+              {
+                "lookAt": "user"
+              }
+            ]
+          }
+        ]
+      },
       "on": {
         "tap": [
+          {
+            "sound": "content"
+          },
           {
             "set": {
               "still": true
@@ -100,6 +423,184 @@
             "set": {
               "still": false
             }
+          }
+        ],
+        "near": [
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "content"
+          }
+        ],
+        "come": [
+          {
+            "sound": "call"
+          },
+          {
+            "behave": {
+              "type": "approach",
+              "target": "user",
+              "stopAt": 0.4
+            }
+          },
+          {
+            "wait": 8
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "stay": [
+          {
+            "behave": "idle"
+          },
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "content"
+          },
+          {
+            "wait": 8
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "speak": [
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "call"
+          },
+          {
+            "wait": 0.7
+          },
+          {
+            "sound": "content"
+          }
+        ],
+        "hide": [
+          {
+            "sound": "alarm"
+          },
+          {
+            "behave": {
+              "type": "flee",
+              "from": "user",
+              "distance": 2.5
+            }
+          },
+          {
+            "wait": 6
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "spin": [
+          {
+            "behave": "idle"
+          },
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "call"
+          },
+          {
+            "play": "spin"
+          },
+          {
+            "wait": 1.1
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "pushup": [
+          {
+            "behave": "idle"
+          },
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "call"
+          },
+          {
+            "play": "pushup"
+          },
+          {
+            "wait": 1.5
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "roll": [
+          {
+            "behave": "idle"
+          },
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "call"
+          },
+          {
+            "play": "roll"
+          },
+          {
+            "wait": 1.2
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "dead": [
+          {
+            "behave": "idle"
+          },
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "content"
+          },
+          {
+            "play": "dead"
+          },
+          {
+            "wait": 2.6
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "sunfrill": [
+          {
+            "behave": "idle"
+          },
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "call"
+          },
+          {
+            "play": "sunfrill"
+          },
+          {
+            "wait": 1.5
+          },
+          {
+            "sound": "content"
+          },
+          {
+            "behave": "none"
           }
         ]
       }

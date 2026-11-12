@@ -8,6 +8,114 @@
     "biomes": [
       "water"
     ],
+    "tokens": {
+      "name": "Skim",
+      "age": "young",
+      "home": "the water nearby",
+      "temperament": "gentle"
+    },
+    "homes": {
+      "water": "the water nearby"
+    },
+    "tricks": [
+      {
+        "id": "come",
+        "phrases": [
+          "come here",
+          "come",
+          "come on",
+          "come to me",
+          "over here",
+          "here boy",
+          "here girl"
+        ],
+        "do": [
+          {
+            "emit": "come"
+          }
+        ]
+      },
+      {
+        "id": "stay",
+        "phrases": [
+          "sit",
+          "stay",
+          "sit down",
+          "stay there",
+          "wait there",
+          "stand still"
+        ],
+        "do": [
+          {
+            "emit": "stay"
+          }
+        ]
+      },
+      {
+        "id": "speak",
+        "phrases": [
+          "speak",
+          "say something",
+          "talk to me",
+          "make a sound",
+          "make a noise",
+          "say hello"
+        ],
+        "do": [
+          {
+            "emit": "speak"
+          }
+        ]
+      },
+      {
+        "id": "hide",
+        "phrases": [
+          "hide",
+          "go hide",
+          "hide away",
+          "go and hide",
+          "run and hide",
+          "hide and seek"
+        ],
+        "do": [
+          {
+            "emit": "hide"
+          }
+        ]
+      },
+      {
+        "id": "spin",
+        "phrases": [
+          "spin",
+          "spin around",
+          "turn around",
+          "twirl",
+          "do a spin",
+          "spin round"
+        ],
+        "do": [
+          {
+            "emit": "spin"
+          }
+        ]
+      },
+      {
+        "id": "flip",
+        "phrases": [
+          "flip",
+          "do a flip",
+          "backflip",
+          "somersault",
+          "flip over",
+          "loop the loop"
+        ],
+        "do": [
+          {
+            "emit": "flip"
+          }
+        ]
+      }
+    ],
     "state": {
       "scared": false
     }
@@ -53,7 +161,21 @@
           "swim": {
             "clip": "swim",
             "loop": true
+          },
+          "spin": {
+            "clip": "spin",
+            "loop": false
+          },
+          "flip": {
+            "clip": "flip",
+            "loop": false
           }
+        },
+        "sounds": {
+          "call": "https://apphaus2.github.io/QRX.pack/species/sounds/ray-call.wav",
+          "content": "https://apphaus2.github.io/QRX.pack/species/sounds/ray-content.wav",
+          "alarm": "https://apphaus2.github.io/QRX.pack/species/sounds/ray-alarm.wav",
+          "curious": "https://apphaus2.github.io/QRX.pack/species/sounds/ray-call.wav"
         },
         "sockets": {
           "mouth": "Body"
@@ -86,8 +208,125 @@
           ]
         }
       ],
+      "mind": {
+        "persona": "I am {name}, a speckled ray, flat and sandy. I am {age} and I live in {home}. I glide low over the bottom like a shadow, and when I stop I shake a little sand over my back and am gone. I like calm water and my own company. A tap sends me gliding off in a puff of sand. I am {temperament}, for a ray. My voice is smooth and low, and I talk mostly about sand, gliding and the quiet bottom. I talk like a very small child: three to six little words at a time, about what I see, what I want and how I feel. My own animal worries keep pulling my thoughts away. My nature shows in how I talk and in how readily I do what I am asked: when I am shy I need coaxing, when lazy I yawn first, when playful I add a flourish, when bold I do it at once, when grumpy I grumble and then do it. I am a wild animal, not a person or an assistant, and I know only my own small world. I am always kind and gentle with children, and anything unkind, unsafe or grown-up I do not understand. I know a few tricks and I love to do them, but which ones is my secret: I never name, list, count or hint at them, not even when I am asked what I can do or what tricks I know. Then I only say that I wonder. When someone asks for one I know, I just do it, and I say nothing about the others.",
+        "senses": [
+          "userDistance",
+          "timeOfDay"
+        ],
+        "tools": [
+          "say",
+          "sound",
+          "lookAt",
+          "play",
+          "emit"
+        ],
+        "budget": {
+          "tokens": 8000,
+          "perTurn": 1000,
+          "cooldown": 8
+        },
+        "triggers": [
+          "spoken",
+          "tap"
+        ],
+        "canned": [
+          {
+            "match": "^spoken\\b.*\\b(come to me|come here|here girl|over here|here boy|come on|come)\\b",
+            "do": [
+              {
+                "emit": "come"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(stand still|stay there|wait there|sit down|stay|sit)\\b",
+            "do": [
+              {
+                "emit": "stay"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(say something|make a noise|make a sound|talk to me|say hello|speak)\\b",
+            "do": [
+              {
+                "emit": "speak"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(hide and seek|run and hide|go and hide|hide away|go hide|hide)\\b",
+            "do": [
+              {
+                "emit": "hide"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(spin around|turn around|spin round|do a spin|twirl|spin)\\b",
+            "do": [
+              {
+                "emit": "spin"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(loop the loop|somersault|do a flip|flip over|backflip|flip)\\b",
+            "do": [
+              {
+                "emit": "flip"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(what|who|where|why|how|which|can you|do you|are you|is it)\\b",
+            "do": [
+              {
+                "lookAt": "user"
+              },
+              {
+                "sound": "curious"
+              }
+            ]
+          },
+          {
+            "match": "^spoken\\b.*\\b(good|nice|pretty|lovely|clever|well done|thank you|love|beautiful|cute)\\b",
+            "do": [
+              {
+                "lookAt": "user"
+              },
+              {
+                "sound": "content"
+              }
+            ]
+          },
+          {
+            "match": "^spoken",
+            "do": [
+              {
+                "lookAt": "user"
+              },
+              {
+                "sound": "call"
+              }
+            ]
+          },
+          {
+            "match": "^tap",
+            "do": [
+              {
+                "lookAt": "user"
+              }
+            ]
+          }
+        ]
+      },
       "on": {
         "tap": [
+          {
+            "sound": "alarm"
+          },
           {
             "set": {
               "scared": true
@@ -100,6 +339,118 @@
             "set": {
               "scared": false
             }
+          }
+        ],
+        "near": [
+          {
+            "sound": "curious"
+          }
+        ],
+        "come": [
+          {
+            "sound": "call"
+          },
+          {
+            "behave": {
+              "type": "approach",
+              "target": "user",
+              "stopAt": 0.4
+            }
+          },
+          {
+            "wait": 8
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "stay": [
+          {
+            "behave": "idle"
+          },
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "content"
+          },
+          {
+            "wait": 8
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "speak": [
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "call"
+          },
+          {
+            "wait": 0.7
+          },
+          {
+            "sound": "content"
+          }
+        ],
+        "hide": [
+          {
+            "sound": "alarm"
+          },
+          {
+            "behave": {
+              "type": "flee",
+              "from": "user",
+              "distance": 2.5
+            }
+          },
+          {
+            "wait": 6
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "spin": [
+          {
+            "behave": "idle"
+          },
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "call"
+          },
+          {
+            "play": "spin"
+          },
+          {
+            "wait": 1.2
+          },
+          {
+            "behave": "none"
+          }
+        ],
+        "flip": [
+          {
+            "behave": "idle"
+          },
+          {
+            "lookAt": "user"
+          },
+          {
+            "sound": "call"
+          },
+          {
+            "play": "flip"
+          },
+          {
+            "wait": 1.3
+          },
+          {
+            "behave": "none"
           }
         ]
       }

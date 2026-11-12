@@ -1,6 +1,7 @@
 {
   "version": 1,
   "modelBase": "https://apphaus2.github.io/QRX.pack/species/models/",
+  "soundBase": "https://apphaus2.github.io/QRX.pack/species/sounds/",
   "visitorShare": 0.5,
   "life": {
     "names": [
@@ -130,7 +131,17 @@
     "age": {
       "minDays": 2,
       "maxDays": 1460
-    }
+    },
+    "temperaments": [
+      "shy",
+      "bold",
+      "playful",
+      "lazy",
+      "curious",
+      "gentle",
+      "grumpy",
+      "proud"
+    ]
   },
   "rarities": [
     {
@@ -198,6 +209,7 @@
       "name": "Forest",
       "worldcover": "Tree cover",
       "colour": "#006400",
+      "home": "the woods nearby",
       "description": "Woods and plantations: bark, leaf litter and the dark under the canopy.",
       "weight": 220,
       "spawns": [
@@ -257,6 +269,7 @@
       "name": "Scrub",
       "worldcover": "Shrubland",
       "colour": "#FFBB22",
+      "home": "the thickets nearby",
       "description": "Thickets, heath and thorn: dry, tangled and sunlit.",
       "weight": 250,
       "spawns": [
@@ -322,6 +335,7 @@
       "name": "Meadow",
       "worldcover": "Grassland",
       "colour": "#D9C84A",
+      "home": "the meadow nearby",
       "description": "Open grass, pasture and wildflowers.",
       "weight": 280,
       "spawns": [
@@ -393,6 +407,7 @@
       "name": "Farmland",
       "worldcover": "Cropland",
       "colour": "#F096FF",
+      "home": "the fields nearby",
       "description": "Fields, orchards, barns and hedgerows.",
       "weight": 262.5,
       "spawns": [
@@ -464,6 +479,7 @@
       "name": "Town",
       "worldcover": "Built-up",
       "colour": "#FA0000",
+      "home": "the streets and gardens nearby",
       "description": "Streets, roofs, gardens and park ponds: where most people are.",
       "weight": 490,
       "spawns": [
@@ -565,6 +581,7 @@
       "name": "Barrens",
       "worldcover": "Bare / sparse vegetation",
       "colour": "#B4B4B4",
+      "home": "the dry, rocky land nearby",
       "description": "Desert, dunes, rock and scree.",
       "weight": 215,
       "spawns": [
@@ -624,6 +641,7 @@
       "name": "Snowfield",
       "worldcover": "Snow and ice",
       "colour": "#BFE6F2",
+      "home": "the snow and ice nearby",
       "description": "Permanent snow, glaciers and the cold water at their edges.",
       "weight": 190,
       "spawns": [
@@ -677,6 +695,7 @@
       "name": "Open Water",
       "worldcover": "Permanent water bodies",
       "colour": "#0064C8",
+      "home": "the water nearby",
       "description": "Lakes, rivers, reservoirs and the sea.",
       "weight": 297.5,
       "spawns": [
@@ -754,6 +773,7 @@
       "name": "Marsh",
       "worldcover": "Herbaceous wetland",
       "colour": "#0096A0",
+      "home": "the marsh nearby",
       "description": "Reedbeds, fens and flooded grass.",
       "weight": 257.5,
       "spawns": [
@@ -825,6 +845,7 @@
       "name": "Mangrove",
       "worldcover": "Mangroves",
       "colour": "#00CF75",
+      "home": "the mangroves nearby",
       "description": "Tidal forest: roots, mud and brackish water.",
       "weight": 250,
       "spawns": [
@@ -890,6 +911,7 @@
       "name": "Tundra",
       "worldcover": "Moss and lichen",
       "colour": "#C9C48A",
+      "home": "the cold, mossy land nearby",
       "description": "Moss, lichen and bog pools on cold open ground.",
       "weight": 190,
       "spawns": [
@@ -960,8 +982,15 @@
         0.0829,
         0.1585
       ],
-      "bytes": 35376,
-      "triangles": 908
+      "bytes": 38452,
+      "triangles": 908,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/fish-call.wav",
+        "content": "sounds/fish-content.wav",
+        "alarm": "sounds/fish-alarm.wav",
+        "curious": "sounds/fish-curious.wav"
+      }
     },
     {
       "id": "arctic-skipper",
@@ -984,8 +1013,15 @@
         0.0262,
         0.0803
       ],
-      "bytes": 32184,
-      "triangles": 740
+      "bytes": 36716,
+      "triangles": 740,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/butterfly-call.wav",
+        "content": "sounds/butterfly-content.wav",
+        "alarm": "sounds/butterfly-alarm.wav",
+        "curious": "sounds/butterfly-call.wav"
+      }
     },
     {
       "id": "aurora-eel",
@@ -1008,8 +1044,15 @@
         0.0454,
         0.2411
       ],
-      "bytes": 79272,
-      "triangles": 1054
+      "bytes": 83428,
+      "triangles": 1054,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/eel-call.wav",
+        "content": "sounds/eel-content.wav",
+        "alarm": "sounds/eel-alarm.wav",
+        "curious": "sounds/eel-curious.wav"
+      }
     },
     {
       "id": "banded-gecko",
@@ -1033,8 +1076,15 @@
         0.0283,
         0.1872
       ],
-      "bytes": 40316,
-      "triangles": 624
+      "bytes": 42708,
+      "triangles": 624,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/gecko-call.wav",
+        "content": "sounds/gecko-content.wav",
+        "alarm": "sounds/gecko-alarm.wav",
+        "curious": "sounds/gecko-curious.wav"
+      }
     },
     {
       "id": "bark-skink",
@@ -1058,8 +1108,15 @@
         0.0307,
         0.2324
       ],
-      "bytes": 39408,
-      "triangles": 624
+      "bytes": 41804,
+      "triangles": 624,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/lizard-call.wav",
+        "content": "sounds/lizard-content.wav",
+        "alarm": "sounds/lizard-alarm.wav",
+        "curious": "sounds/lizard-curious.wav"
+      }
     },
     {
       "id": "blue-skylark",
@@ -1082,8 +1139,15 @@
         0.0685,
         0.1823
       ],
-      "bytes": 53264,
-      "triangles": 906
+      "bytes": 62004,
+      "triangles": 906,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/lark-call.wav",
+        "content": "sounds/lark-content.wav",
+        "alarm": "sounds/lark-alarm.wav",
+        "curious": "sounds/lark-curious.wav"
+      }
     },
     {
       "id": "boreal-emerald",
@@ -1106,8 +1170,15 @@
         0.0255,
         0.1361
       ],
-      "bytes": 46600,
-      "triangles": 696
+      "bytes": 57228,
+      "triangles": 696,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/dragonfly-call.wav",
+        "content": "sounds/dragonfly-content.wav",
+        "alarm": "sounds/dragonfly-alarm.wav",
+        "curious": "sounds/dragonfly-call.wav"
+      }
     },
     {
       "id": "bottlecap-beetle",
@@ -1130,8 +1201,15 @@
         0.0272,
         0.0822
       ],
-      "bytes": 37840,
-      "triangles": 668
+      "bytes": 39888,
+      "triangles": 668,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/beetle-call.wav",
+        "content": "sounds/beetle-content.wav",
+        "alarm": "sounds/beetle-alarm.wav",
+        "curious": "sounds/beetle-call.wav"
+      }
     },
     {
       "id": "bramble-spider",
@@ -1154,8 +1232,15 @@
         0.0255,
         0.0673
       ],
-      "bytes": 38644,
-      "triangles": 724
+      "bytes": 40064,
+      "triangles": 724,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/spider-call.wav",
+        "content": "sounds/spider-content.wav",
+        "alarm": "sounds/spider-alarm.wav",
+        "curious": "sounds/spider-call.wav"
+      }
     },
     {
       "id": "cellar-spider",
@@ -1178,8 +1263,15 @@
         0.029,
         0.0855
       ],
-      "bytes": 37152,
-      "triangles": 724
+      "bytes": 38572,
+      "triangles": 724,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/spider-call.wav",
+        "content": "sounds/spider-content.wav",
+        "alarm": "sounds/spider-alarm.wav",
+        "curious": "sounds/spider-call.wav"
+      }
     },
     {
       "id": "chimney-bat",
@@ -1202,8 +1294,15 @@
         0.0356,
         0.0591
       ],
-      "bytes": 43944,
-      "triangles": 864
+      "bytes": 49876,
+      "triangles": 864,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/bat-call.wav",
+        "content": "sounds/bat-content.wav",
+        "alarm": "sounds/bat-alarm.wav",
+        "curious": "sounds/bat-curious.wav"
+      }
     },
     {
       "id": "cliff-swift",
@@ -1226,8 +1325,15 @@
         0.0571,
         0.1435
       ],
-      "bytes": 50140,
-      "triangles": 900
+      "bytes": 55568,
+      "triangles": 900,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/bird-call.wav",
+        "content": "sounds/bird-content.wav",
+        "alarm": "sounds/bird-alarm.wav",
+        "curious": "sounds/bird-curious.wav"
+      }
     },
     {
       "id": "clocktower-raven",
@@ -1250,8 +1356,15 @@
         0.1144,
         0.233
       ],
-      "bytes": 60112,
-      "triangles": 1086
+      "bytes": 82408,
+      "triangles": 1086,
+      "speech": "thoughtful",
+      "sounds": {
+        "call": "sounds/raven-call-090-120.wav",
+        "content": "sounds/raven-content-090-120.wav",
+        "alarm": "sounds/raven-alarm-090-120.wav",
+        "curious": "sounds/raven-curious-090-120.wav"
+      }
     },
     {
       "id": "darkling-beetle",
@@ -1274,8 +1387,15 @@
         0.0292,
         0.0719
       ],
-      "bytes": 37024,
-      "triangles": 668
+      "bytes": 39072,
+      "triangles": 668,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/beetle-call.wav",
+        "content": "sounds/beetle-content.wav",
+        "alarm": "sounds/beetle-alarm.wav",
+        "curious": "sounds/beetle-call.wav"
+      }
     },
     {
       "id": "dawnplume",
@@ -1298,8 +1418,15 @@
         0.104,
         0.2438
       ],
-      "bytes": 62076,
-      "triangles": 1086
+      "bytes": 84916,
+      "triangles": 1086,
+      "speech": "thoughtful",
+      "sounds": {
+        "call": "sounds/lark-call-090-120.wav",
+        "content": "sounds/lark-content-090-120.wav",
+        "alarm": "sounds/lark-alarm-090-120.wav",
+        "curious": "sounds/lark-curious-090-120.wav"
+      }
     },
     {
       "id": "dusk-bat",
@@ -1322,8 +1449,15 @@
         0.044,
         0.0664
       ],
-      "bytes": 43936,
-      "triangles": 864
+      "bytes": 49872,
+      "triangles": 864,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/bat-call.wav",
+        "content": "sounds/bat-content.wav",
+        "alarm": "sounds/bat-alarm.wav",
+        "curious": "sounds/bat-curious.wav"
+      }
     },
     {
       "id": "ember-skink",
@@ -1346,8 +1480,15 @@
         0.056,
         0.2419
       ],
-      "bytes": 42296,
-      "triangles": 627
+      "bytes": 47160,
+      "triangles": 627,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/lizard-call.wav",
+        "content": "sounds/lizard-content.wav",
+        "alarm": "sounds/lizard-alarm.wav",
+        "curious": "sounds/lizard-curious.wav"
+      }
     },
     {
       "id": "emerald-swallowtail",
@@ -1370,8 +1511,15 @@
         0.0407,
         0.1689
       ],
-      "bytes": 33672,
-      "triangles": 744
+      "bytes": 40608,
+      "triangles": 744,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/butterfly-call.wav",
+        "content": "sounds/butterfly-content.wav",
+        "alarm": "sounds/butterfly-alarm.wav",
+        "curious": "sounds/butterfly-call.wav"
+      }
     },
     {
       "id": "field-bee",
@@ -1396,8 +1544,15 @@
         0.0339,
         0.0787
       ],
-      "bytes": 36600,
-      "triangles": 746
+      "bytes": 41748,
+      "triangles": 746,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/bee-call.wav",
+        "content": "sounds/bee-content.wav",
+        "alarm": "sounds/bee-alarm.wav",
+        "curious": "sounds/bee-curious.wav"
+      }
     },
     {
       "id": "fountain-koi",
@@ -1420,8 +1575,15 @@
         0.0753,
         0.1932
       ],
-      "bytes": 36736,
-      "triangles": 910
+      "bytes": 39812,
+      "triangles": 910,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/fish-call.wav",
+        "content": "sounds/fish-content.wav",
+        "alarm": "sounds/fish-alarm.wav",
+        "curious": "sounds/fish-curious.wav"
+      }
     },
     {
       "id": "frost-jelly",
@@ -1444,8 +1606,15 @@
         0.1473,
         0.1011
       ],
-      "bytes": 78508,
-      "triangles": 1016
+      "bytes": 81980,
+      "triangles": 1016,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/jellyfish-call.wav",
+        "content": "sounds/jellyfish-content.wav",
+        "alarm": "sounds/jellyfish-alarm.wav",
+        "curious": "sounds/jellyfish-call.wav"
+      }
     },
     {
       "id": "garden-snail",
@@ -1469,8 +1638,15 @@
         0.0537,
         0.0927
       ],
-      "bytes": 41036,
-      "triangles": 940
+      "bytes": 44748,
+      "triangles": 940,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/snail-call.wav",
+        "content": "sounds/snail-content.wav",
+        "alarm": "sounds/snail-call.wav",
+        "curious": "sounds/snail-curious.wav"
+      }
     },
     {
       "id": "glacier-owl",
@@ -1493,8 +1669,15 @@
         0.12,
         0.2012
       ],
-      "bytes": 64932,
-      "triangles": 1178
+      "bytes": 87292,
+      "triangles": 1178,
+      "speech": "thoughtful",
+      "sounds": {
+        "call": "sounds/owl-call-090-120.wav",
+        "content": "sounds/owl-content-090-120.wav",
+        "alarm": "sounds/owl-alarm-090-120.wav",
+        "curious": "sounds/owl-curious-090-120.wav"
+      }
     },
     {
       "id": "glasswing",
@@ -1517,8 +1700,15 @@
         0.0364,
         0.1512
       ],
-      "bytes": 34112,
-      "triangles": 744
+      "bytes": 41048,
+      "triangles": 744,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/butterfly-call.wav",
+        "content": "sounds/butterfly-content.wav",
+        "alarm": "sounds/butterfly-alarm.wav",
+        "curious": "sounds/butterfly-call.wav"
+      }
     },
     {
       "id": "glowspot-frog",
@@ -1541,8 +1731,15 @@
         0.0535,
         0.0811
       ],
-      "bytes": 56008,
-      "triangles": 1292
+      "bytes": 66448,
+      "triangles": 1292,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/frog-call.wav",
+        "content": "sounds/frog-content.wav",
+        "alarm": "sounds/frog-alarm.wav",
+        "curious": "sounds/frog-curious.wav"
+      }
     },
     {
       "id": "golden-harvest-hare",
@@ -1565,8 +1762,15 @@
         0.1181,
         0.1379
       ],
-      "bytes": 65752,
-      "triangles": 1532
+      "bytes": 78544,
+      "triangles": 1532,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/hare-call-090-120.wav",
+        "content": "sounds/hare-content-090-120.wav",
+        "alarm": "sounds/hare-alarm-090-120.wav",
+        "curious": "sounds/hare-curious-090-120.wav"
+      }
     },
     {
       "id": "granary-owl",
@@ -1589,8 +1793,15 @@
         0.0887,
         0.1284
       ],
-      "bytes": 56644,
-      "triangles": 998
+      "bytes": 66292,
+      "triangles": 998,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/owl-call.wav",
+        "content": "sounds/owl-content.wav",
+        "alarm": "sounds/owl-alarm.wav",
+        "curious": "sounds/owl-curious.wav"
+      }
     },
     {
       "id": "harvest-moon-moth",
@@ -1613,8 +1824,15 @@
         0.0353,
         0.1103
       ],
-      "bytes": 35356,
-      "triangles": 756
+      "bytes": 42292,
+      "triangles": 756,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/moth-call.wav",
+        "content": "sounds/moth-content.wav",
+        "alarm": "sounds/moth-alarm.wav",
+        "curious": "sounds/moth-call.wav"
+      }
     },
     {
       "id": "harvest-mouse",
@@ -1637,8 +1855,15 @@
         0.0382,
         0.1252
       ],
-      "bytes": 48992,
-      "triangles": 1098
+      "bytes": 51332,
+      "triangles": 1098,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/critter-call.wav",
+        "content": "sounds/critter-content.wav",
+        "alarm": "sounds/critter-alarm.wav",
+        "curious": "sounds/critter-curious.wav"
+      }
     },
     {
       "id": "hedge-finch",
@@ -1663,8 +1888,15 @@
         0.0457,
         0.1068
       ],
-      "bytes": 46732,
-      "triangles": 900
+      "bytes": 52164,
+      "triangles": 900,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/bird-call.wav",
+        "content": "sounds/bird-content.wav",
+        "alarm": "sounds/bird-alarm.wav",
+        "curious": "sounds/bird-curious.wav"
+      }
     },
     {
       "id": "honeycrown-bee",
@@ -1687,8 +1919,15 @@
         0.0578,
         0.1032
       ],
-      "bytes": 60040,
-      "triangles": 1322
+      "bytes": 74268,
+      "triangles": 1322,
+      "speech": "thoughtful",
+      "sounds": {
+        "call": "sounds/bee-call-090-120.wav",
+        "content": "sounds/bee-content-090-120.wav",
+        "alarm": "sounds/bee-alarm-090-120.wav",
+        "curious": "sounds/bee-curious-090-120.wav"
+      }
     },
     {
       "id": "house-mouse",
@@ -1712,8 +1951,15 @@
         0.0425,
         0.1237
       ],
-      "bytes": 45992,
-      "triangles": 1098
+      "bytes": 48332,
+      "triangles": 1098,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/critter-call.wav",
+        "content": "sounds/critter-content.wav",
+        "alarm": "sounds/critter-alarm.wav",
+        "curious": "sounds/critter-curious.wav"
+      }
     },
     {
       "id": "icefish",
@@ -1736,8 +1982,15 @@
         0.0542,
         0.119
       ],
-      "bytes": 43300,
-      "triangles": 910
+      "bytes": 45208,
+      "triangles": 910,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/fish-call.wav",
+        "content": "sounds/fish-content.wav",
+        "alarm": "sounds/fish-alarm.wav",
+        "curious": "sounds/fish-curious.wav"
+      }
     },
     {
       "id": "jade-turtle",
@@ -1760,8 +2013,15 @@
         0.084,
         0.1887
       ],
-      "bytes": 52168,
-      "triangles": 1138
+      "bytes": 63696,
+      "triangles": 1138,
+      "speech": "thoughtful",
+      "sounds": {
+        "call": "sounds/turtle-call-090-120.wav",
+        "content": "sounds/turtle-content-090-120.wav",
+        "alarm": "sounds/turtle-alarm-090-120.wav",
+        "curious": "sounds/turtle-curious-090-120.wav"
+      }
     },
     {
       "id": "lamp-moth",
@@ -1784,8 +2044,15 @@
         0.0255,
         0.0797
       ],
-      "bytes": 33276,
-      "triangles": 756
+      "bytes": 37808,
+      "triangles": 756,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/moth-call.wav",
+        "content": "sounds/moth-content.wav",
+        "alarm": "sounds/moth-alarm.wav",
+        "curious": "sounds/moth-call.wav"
+      }
     },
     {
       "id": "lantern-jelly",
@@ -1808,8 +2075,15 @@
         0.1325,
         0.1011
       ],
-      "bytes": 67616,
-      "triangles": 944
+      "bytes": 71092,
+      "triangles": 944,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/jellyfish-call.wav",
+        "content": "sounds/jellyfish-content.wav",
+        "alarm": "sounds/jellyfish-alarm.wav",
+        "curious": "sounds/jellyfish-call.wav"
+      }
     },
     {
       "id": "longfoot-jerboa",
@@ -1832,8 +2106,15 @@
         0.0791,
         0.1749
       ],
-      "bytes": 55584,
-      "triangles": 1374
+      "bytes": 59100,
+      "triangles": 1374,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/critter-call.wav",
+        "content": "sounds/critter-content.wav",
+        "alarm": "sounds/critter-alarm.wav",
+        "curious": "sounds/critter-curious.wav"
+      }
     },
     {
       "id": "mangrove-goby",
@@ -1856,8 +2137,15 @@
         0.0511,
         0.1091
       ],
-      "bytes": 34476,
-      "triangles": 911
+      "bytes": 36384,
+      "triangles": 911,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/fish-call.wav",
+        "content": "sounds/fish-content.wav",
+        "alarm": "sounds/fish-alarm.wav",
+        "curious": "sounds/fish-curious.wav"
+      }
     },
     {
       "id": "mangrove-kingfisher",
@@ -1880,8 +2168,15 @@
         0.0989,
         0.1933
       ],
-      "bytes": 61716,
-      "triangles": 1086
+      "bytes": 83948,
+      "triangles": 1086,
+      "speech": "thoughtful",
+      "sounds": {
+        "call": "sounds/bird-call-090-120.wav",
+        "content": "sounds/bird-content-090-120.wav",
+        "alarm": "sounds/bird-alarm-090-120.wav",
+        "curious": "sounds/bird-curious-090-120.wav"
+      }
     },
     {
       "id": "marsh-eel",
@@ -1905,8 +2200,15 @@
         0.0299,
         0.2109
       ],
-      "bytes": 57216,
-      "triangles": 766
+      "bytes": 60196,
+      "triangles": 766,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/eel-call.wav",
+        "content": "sounds/eel-content.wav",
+        "alarm": "sounds/eel-alarm.wav",
+        "curious": "sounds/eel-curious.wav"
+      }
     },
     {
       "id": "marsh-newt",
@@ -1929,8 +2231,15 @@
         0.0238,
         0.1837
       ],
-      "bytes": 36940,
-      "triangles": 624
+      "bytes": 39336,
+      "triangles": 624,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/lizard-call.wav",
+        "content": "sounds/lizard-content.wav",
+        "alarm": "sounds/lizard-alarm.wav",
+        "curious": "sounds/lizard-curious.wav"
+      }
     },
     {
       "id": "meadow-snail",
@@ -1954,8 +2263,15 @@
         0.0492,
         0.0876
       ],
-      "bytes": 35812,
-      "triangles": 940
+      "bytes": 39524,
+      "triangles": 940,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/snail-call.wav",
+        "content": "sounds/snail-content.wav",
+        "alarm": "sounds/snail-call.wav",
+        "curious": "sounds/snail-curious.wav"
+      }
     },
     {
       "id": "meadow-vole",
@@ -1979,8 +2295,15 @@
         0.0403,
         0.0766
       ],
-      "bytes": 48952,
-      "triangles": 1098
+      "bytes": 51292,
+      "triangles": 1098,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/critter-call.wav",
+        "content": "sounds/critter-content.wav",
+        "alarm": "sounds/critter-alarm.wav",
+        "curious": "sounds/critter-curious.wav"
+      }
     },
     {
       "id": "meadow-white",
@@ -2005,8 +2328,15 @@
         0.03,
         0.0937
       ],
-      "bytes": 30088,
-      "triangles": 740
+      "bytes": 34620,
+      "triangles": 740,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/butterfly-call.wav",
+        "content": "sounds/butterfly-content.wav",
+        "alarm": "sounds/butterfly-alarm.wav",
+        "curious": "sounds/butterfly-call.wav"
+      }
     },
     {
       "id": "moon-jelly",
@@ -2030,8 +2360,15 @@
         0.1038,
         0.0927
       ],
-      "bytes": 55516,
-      "triangles": 784
+      "bytes": 57156,
+      "triangles": 784,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/jellyfish-call.wav",
+        "content": "sounds/jellyfish-content.wav",
+        "alarm": "sounds/jellyfish-alarm.wav",
+        "curious": "sounds/jellyfish-call.wav"
+      }
     },
     {
       "id": "moss-beetle",
@@ -2054,8 +2391,15 @@
         0.0232,
         0.0668
       ],
-      "bytes": 35284,
-      "triangles": 668
+      "bytes": 37332,
+      "triangles": 668,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/beetle-call.wav",
+        "content": "sounds/beetle-content.wav",
+        "alarm": "sounds/beetle-alarm.wav",
+        "curious": "sounds/beetle-call.wav"
+      }
     },
     {
       "id": "mossglow-stag-beetle",
@@ -2078,8 +2422,15 @@
         0.0393,
         0.1336
       ],
-      "bytes": 39732,
-      "triangles": 764
+      "bytes": 43636,
+      "triangles": 764,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/beetle-call.wav",
+        "content": "sounds/beetle-content.wav",
+        "alarm": "sounds/beetle-alarm.wav",
+        "curious": "sounds/beetle-call.wav"
+      }
     },
     {
       "id": "mud-crab",
@@ -2103,8 +2454,15 @@
         0.0427,
         0.1211
       ],
-      "bytes": 46908,
-      "triangles": 780
+      "bytes": 48404,
+      "triangles": 780,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/crab-call.wav",
+        "content": "sounds/crab-content.wav",
+        "alarm": "sounds/crab-alarm.wav",
+        "curious": "sounds/crab-curious.wav"
+      }
     },
     {
       "id": "mud-ray",
@@ -2127,8 +2485,15 @@
         0.0213,
         0.1931
       ],
-      "bytes": 50732,
-      "triangles": 1102
+      "bytes": 52652,
+      "triangles": 1102,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/ray-call.wav",
+        "content": "sounds/ray-content.wav",
+        "alarm": "sounds/ray-alarm.wav",
+        "curious": "sounds/ray-call.wav"
+      }
     },
     {
       "id": "neon-darter",
@@ -2151,8 +2516,15 @@
         0.0255,
         0.1361
       ],
-      "bytes": 46332,
-      "triangles": 696
+      "bytes": 56960,
+      "triangles": 696,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/dragonfly-call.wav",
+        "content": "sounds/dragonfly-content.wav",
+        "alarm": "sounds/dragonfly-alarm.wav",
+        "curious": "sounds/dragonfly-call.wav"
+      }
     },
     {
       "id": "nightshade-moth",
@@ -2175,8 +2547,15 @@
         0.0333,
         0.1042
       ],
-      "bytes": 34836,
-      "triangles": 756
+      "bytes": 41772,
+      "triangles": 756,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/moth-call.wav",
+        "content": "sounds/moth-content.wav",
+        "alarm": "sounds/moth-alarm.wav",
+        "curious": "sounds/moth-call.wav"
+      }
     },
     {
       "id": "northlight-fox",
@@ -2199,8 +2578,15 @@
         0.1125,
         0.2264
       ],
-      "bytes": 58168,
-      "triangles": 1312
+      "bytes": 70952,
+      "triangles": 1312,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/fox-call-090-120.wav",
+        "content": "sounds/fox-content-090-120.wav",
+        "alarm": "sounds/fox-alarm-090-120.wav",
+        "curious": "sounds/fox-curious-090-120.wav"
+      }
     },
     {
       "id": "one-claw-crab",
@@ -2223,8 +2609,15 @@
         0.0463,
         0.1255
       ],
-      "bytes": 50492,
-      "triangles": 830
+      "bytes": 53148,
+      "triangles": 830,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/crab-call.wav",
+        "content": "sounds/crab-content.wav",
+        "alarm": "sounds/crab-alarm.wav",
+        "curious": "sounds/crab-curious.wav"
+      }
     },
     {
       "id": "pond-frog",
@@ -2248,8 +2641,15 @@
         0.0378,
         0.0726
       ],
-      "bytes": 48656,
-      "triangles": 1128
+      "bytes": 56828,
+      "triangles": 1128,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/frog-call.wav",
+        "content": "sounds/frog-content.wav",
+        "alarm": "sounds/frog-alarm.wav",
+        "curious": "sounds/frog-curious.wav"
+      }
     },
     {
       "id": "pond-goldfish",
@@ -2272,8 +2672,15 @@
         0.0671,
         0.1144
       ],
-      "bytes": 32272,
-      "triangles": 910
+      "bytes": 34180,
+      "triangles": 910,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/fish-call.wav",
+        "content": "sounds/fish-content.wav",
+        "alarm": "sounds/fish-alarm.wav",
+        "curious": "sounds/fish-curious.wav"
+      }
     },
     {
       "id": "pond-skimmer",
@@ -2298,8 +2705,15 @@
         0.0238,
         0.1185
       ],
-      "bytes": 38604,
-      "triangles": 632
+      "bytes": 45596,
+      "triangles": 632,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/dragonfly-call.wav",
+        "content": "sounds/dragonfly-content.wav",
+        "alarm": "sounds/dragonfly-alarm.wav",
+        "curious": "sounds/dragonfly-call.wav"
+      }
     },
     {
       "id": "pond-turtle",
@@ -2323,8 +2737,15 @@
         0.0356,
         0.1572
       ],
-      "bytes": 40696,
-      "triangles": 910
+      "bytes": 44576,
+      "triangles": 910,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/turtle-call.wav",
+        "content": "sounds/turtle-content.wav",
+        "alarm": "sounds/turtle-alarm.wav",
+        "curious": "sounds/turtle-curious.wav"
+      }
     },
     {
       "id": "reed-seahorse",
@@ -2348,8 +2769,15 @@
         0.1167,
         0.0597
       ],
-      "bytes": 50596,
-      "triangles": 775
+      "bytes": 52360,
+      "triangles": 775,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/seahorse-call.wav",
+        "content": "sounds/seahorse-content.wav",
+        "alarm": "sounds/seahorse-alarm.wav",
+        "curious": "sounds/seahorse-curious.wav"
+      }
     },
     {
       "id": "rock-scorpion",
@@ -2372,8 +2800,15 @@
         0.0595,
         0.0983
       ],
-      "bytes": 70308,
-      "triangles": 1146
+      "bytes": 71812,
+      "triangles": 1146,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/scorpion-call.wav",
+        "content": "sounds/scorpion-content.wav",
+        "alarm": "sounds/scorpion-alarm.wav",
+        "curious": "sounds/scorpion-call.wav"
+      }
     },
     {
       "id": "rooftop-gecko",
@@ -2396,8 +2831,15 @@
         0.0346,
         0.2016
       ],
-      "bytes": 39480,
-      "triangles": 632
+      "bytes": 43048,
+      "triangles": 632,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/gecko-call.wav",
+        "content": "sounds/gecko-content.wav",
+        "alarm": "sounds/gecko-alarm.wav",
+        "curious": "sounds/gecko-curious.wav"
+      }
     },
     {
       "id": "ruby-darter",
@@ -2420,8 +2862,15 @@
         0.0272,
         0.1452
       ],
-      "bytes": 46140,
-      "triangles": 696
+      "bytes": 56764,
+      "triangles": 696,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/dragonfly-call.wav",
+        "content": "sounds/dragonfly-content.wav",
+        "alarm": "sounds/dragonfly-alarm.wav",
+        "curious": "sounds/dragonfly-call.wav"
+      }
     },
     {
       "id": "sand-lizard",
@@ -2445,8 +2894,15 @@
         0.0294,
         0.1914
       ],
-      "bytes": 36440,
-      "triangles": 624
+      "bytes": 38836,
+      "triangles": 624,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/lizard-call.wav",
+        "content": "sounds/lizard-content.wav",
+        "alarm": "sounds/lizard-alarm.wav",
+        "curious": "sounds/lizard-curious.wav"
+      }
     },
     {
       "id": "sand-minnow",
@@ -2470,8 +2926,15 @@
         0.043,
         0.0976
       ],
-      "bytes": 34812,
-      "triangles": 908
+      "bytes": 36720,
+      "triangles": 908,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/fish-call.wav",
+        "content": "sounds/fish-content.wav",
+        "alarm": "sounds/fish-alarm.wav",
+        "curious": "sounds/fish-curious.wav"
+      }
     },
     {
       "id": "snow-bunting",
@@ -2495,8 +2958,15 @@
         0.0515,
         0.0986
       ],
-      "bytes": 46760,
-      "triangles": 900
+      "bytes": 52192,
+      "triangles": 900,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/bird-call.wav",
+        "content": "sounds/bird-content.wav",
+        "alarm": "sounds/bird-alarm.wav",
+        "curious": "sounds/bird-curious.wav"
+      }
     },
     {
       "id": "snow-moth",
@@ -2519,8 +2989,15 @@
         0.0281,
         0.0797
       ],
-      "bytes": 33060,
-      "triangles": 756
+      "bytes": 37592,
+      "triangles": 756,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/moth-call.wav",
+        "content": "sounds/moth-content.wav",
+        "alarm": "sounds/moth-alarm.wav",
+        "curious": "sounds/moth-call.wav"
+      }
     },
     {
       "id": "snowshoe-hare",
@@ -2543,8 +3020,15 @@
         0.103,
         0.1122
       ],
-      "bytes": 54088,
-      "triangles": 1352
+      "bytes": 57604,
+      "triangles": 1352,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/hare-call.wav",
+        "content": "sounds/hare-content.wav",
+        "alarm": "sounds/hare-alarm.wav",
+        "curious": "sounds/hare-curious.wav"
+      }
     },
     {
       "id": "speckled-ray",
@@ -2567,8 +3051,15 @@
         0.0224,
         0.2032
       ],
-      "bytes": 52028,
-      "triangles": 1102
+      "bytes": 53948,
+      "triangles": 1102,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/ray-call.wav",
+        "content": "sounds/ray-content.wav",
+        "alarm": "sounds/ray-alarm.wav",
+        "curious": "sounds/ray-call.wav"
+      }
     },
     {
       "id": "spotted-garden-beetle",
@@ -2593,8 +3084,15 @@
         0.0301,
         0.077
       ],
-      "bytes": 35084,
-      "triangles": 668
+      "bytes": 37136,
+      "triangles": 668,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/beetle-call.wav",
+        "content": "sounds/beetle-content.wav",
+        "alarm": "sounds/beetle-alarm.wav",
+        "curious": "sounds/beetle-call.wav"
+      }
     },
     {
       "id": "starlit-ray",
@@ -2617,8 +3115,15 @@
         0.0809,
         0.247
       ],
-      "bytes": 64288,
-      "triangles": 1392
+      "bytes": 75336,
+      "triangles": 1392,
+      "speech": "thoughtful",
+      "sounds": {
+        "call": "sounds/ray-call-090-120.wav",
+        "content": "sounds/ray-content-090-120.wav",
+        "alarm": "sounds/ray-alarm-090-120.wav",
+        "curious": "sounds/ray-call-090-120.wav"
+      }
     },
     {
       "id": "street-pigeon",
@@ -2641,8 +3146,15 @@
         0.0647,
         0.1307
       ],
-      "bytes": 46760,
-      "triangles": 900
+      "bytes": 52192,
+      "triangles": 900,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/pigeon-call.wav",
+        "content": "sounds/pigeon-content.wav",
+        "alarm": "sounds/pigeon-alarm.wav",
+        "curious": "sounds/pigeon-curious.wav"
+      }
     },
     {
       "id": "sun-scarab",
@@ -2665,8 +3177,15 @@
         0.0566,
         0.113
       ],
-      "bytes": 46956,
-      "triangles": 908
+      "bytes": 58560,
+      "triangles": 908,
+      "speech": "thoughtful",
+      "sounds": {
+        "call": "sounds/beetle-call-090-120.wav",
+        "content": "sounds/beetle-content-090-120.wav",
+        "alarm": "sounds/beetle-alarm-090-120.wav",
+        "curious": "sounds/beetle-call-090-120.wav"
+      }
     },
     {
       "id": "sunfrill-lizard",
@@ -2689,8 +3208,15 @@
         0.1006,
         0.2621
       ],
-      "bytes": 50980,
-      "triangles": 814
+      "bytes": 63468,
+      "triangles": 814,
+      "speech": "thoughtful",
+      "sounds": {
+        "call": "sounds/lizard-call-090-120.wav",
+        "content": "sounds/lizard-content-090-120.wav",
+        "alarm": "sounds/lizard-alarm-090-120.wav",
+        "curious": "sounds/lizard-curious-090-120.wav"
+      }
     },
     {
       "id": "thornback-hedgehog",
@@ -2713,8 +3239,15 @@
         0.0714,
         0.0937
       ],
-      "bytes": 60292,
-      "triangles": 1520
+      "bytes": 63808,
+      "triangles": 1520,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/hedgehog-call.wav",
+        "content": "sounds/hedgehog-content.wav",
+        "alarm": "sounds/hedgehog-alarm.wav",
+        "curious": "sounds/hedgehog-curious.wav"
+      }
     },
     {
       "id": "thorny-seahorse",
@@ -2737,8 +3270,15 @@
         0.1492,
         0.0754
       ],
-      "bytes": 58408,
-      "triangles": 845
+      "bytes": 61396,
+      "triangles": 845,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/seahorse-call.wav",
+        "content": "sounds/seahorse-content.wav",
+        "alarm": "sounds/seahorse-alarm.wav",
+        "curious": "sounds/seahorse-curious.wav"
+      }
     },
     {
       "id": "tundra-lemming",
@@ -2762,8 +3302,15 @@
         0.0417,
         0.0632
       ],
-      "bytes": 44532,
-      "triangles": 1004
+      "bytes": 46872,
+      "triangles": 1004,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/critter-call.wav",
+        "content": "sounds/critter-content.wav",
+        "alarm": "sounds/critter-alarm.wav",
+        "curious": "sounds/critter-curious.wav"
+      }
     },
     {
       "id": "violet-fantail",
@@ -2786,8 +3333,15 @@
         0.1265,
         0.1668
       ],
-      "bytes": 38608,
-      "triangles": 911
+      "bytes": 41688,
+      "triangles": 911,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/fish-call.wav",
+        "content": "sounds/fish-content.wav",
+        "alarm": "sounds/fish-alarm.wav",
+        "curious": "sounds/fish-curious.wav"
+      }
     },
     {
       "id": "wood-mouse",
@@ -2811,8 +3365,15 @@
         0.0461,
         0.1317
       ],
-      "bytes": 47532,
-      "triangles": 1098
+      "bytes": 49872,
+      "triangles": 1098,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/critter-call.wav",
+        "content": "sounds/critter-content.wav",
+        "alarm": "sounds/critter-alarm.wav",
+        "curious": "sounds/critter-curious.wav"
+      }
     }
   ]
 }
