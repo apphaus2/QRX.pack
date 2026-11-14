@@ -63,10 +63,13 @@ soundscapes/     the sound of each of the 11 land-cover classes: a day and a nig
                  and short cues to scatter over them, synthesized by `python3 -I soundscapes/build.py` from one
                  recipe per biome; index.json is the catalog; see soundscapes/README.md.
                  Listen: https://qrx-pack.apphaus.us/soundscapes/preview/
-scripts/         assets.py makes the test card and the sounds; bush.py, butterfly.py, pet.py, fish.py, tank.py, habitats.py
-                 and lizard.py the models (the bush, the butterfly, the pet's bowl and bed, the reef fish and the trout,
-                 the aquarium's tank, the three habitats' scenery, the lizard; lizard.py builds with habitats.py's helpers):
-                 `python3 scripts/bush.py .`, `python3 scripts/habitats.py .`, `python3 scripts/lizard.py .`
+scripts/         assets.py makes the test card and the sounds; bush.py, butterfly.py, pet.py, fish.py, tank.py, habitats.py,
+                 lizard.py and plants.py the models (the bush, the butterfly, the pet's bowl and bed, the reef fish and the
+                 trout, the aquarium's tank, the three habitats' scenery, the lizard, and the wild food's seven plants,
+                 `models/plant-<kind>.glb`: berry bush, seed grass, mushrooms, nectar flower, pond weed, acorns, lichen, at
+                 real size with a "sway" clip; lizard.py and plants.py build with habitats.py's helpers):
+                 `python3 scripts/bush.py .`, `python3 scripts/habitats.py .`, `python3 scripts/lizard.py .`,
+                 `python3 scripts/plants.py .` (`--check` reads the plants back and checks them)
 ```
 
 A *species* is a creature that is found by where the player stands, not by a printed code. Each is an ordinary
