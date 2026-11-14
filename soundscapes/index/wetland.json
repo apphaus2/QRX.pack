@@ -1,0 +1,294 @@
+{
+  "id": "wetland",
+  "code": 90,
+  "name": "Marsh",
+  "beds": {
+    "day": {
+      "file": "beds/wetland-day.ogg",
+      "bytes": 143691,
+      "level": 0.0
+    },
+    "night": {
+      "file": "beds/wetland-night.ogg",
+      "bytes": 147566,
+      "level": 0.0
+    }
+  },
+  "cues": [
+    {
+      "id": "croak",
+      "file": "cues/wetland-croak.ogg",
+      "bytes": 4203,
+      "seconds": 1.35,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        25.0,
+        70.0
+      ],
+      "level": -2.0,
+      "spread": 0.8
+    },
+    {
+      "id": "moorhen",
+      "file": "cues/wetland-moorhen.ogg",
+      "bytes": 3315,
+      "seconds": 1.088,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        30.0,
+        90.0
+      ],
+      "level": -3.0,
+      "spread": 0.9
+    },
+    {
+      "id": "plop",
+      "file": "cues/wetland-plop.ogg",
+      "bytes": 1099,
+      "seconds": 0.367,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        25.0,
+        80.0
+      ],
+      "level": -4.0,
+      "spread": 0.7
+    },
+    {
+      "id": "dragonfly",
+      "file": "cues/wetland-dragonfly.ogg",
+      "bytes": 4816,
+      "seconds": 1.585,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -2.0,
+      "spread": 1.0
+    },
+    {
+      "id": "warbler",
+      "file": "cues/wetland-warbler.ogg",
+      "bytes": 6296,
+      "seconds": 1.986,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        20.0,
+        60.0
+      ],
+      "level": -2.0,
+      "spread": 0.9
+    },
+    {
+      "id": "bittern",
+      "file": "cues/wetland-bittern.ogg",
+      "bytes": 11155,
+      "seconds": 3.933,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        45.0,
+        120.0
+      ],
+      "level": -3.0,
+      "spread": 0.9
+    },
+    {
+      "id": "splash",
+      "file": "cues/wetland-splash.ogg",
+      "bytes": 2422,
+      "seconds": 0.806,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -3.0,
+      "spread": 0.8
+    },
+    {
+      "id": "frog-near",
+      "file": "cues/wetland-frog-near.ogg",
+      "bytes": 5925,
+      "seconds": 1.959,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        30.0,
+        80.0
+      ],
+      "level": -1.0,
+      "spread": 0.7
+    },
+    {
+      "id": "heron",
+      "file": "cues/wetland-heron.ogg",
+      "bytes": 3346,
+      "seconds": 1.154,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        50.0,
+        140.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    }
+  ],
+  "calls": [
+    "species/sounds/dragonfly-call.wav",
+    "species/sounds/eel-call.wav",
+    "species/sounds/frog-call.wav",
+    "species/sounds/lizard-call.wav",
+    "species/sounds/turtle-call-090-120.wav"
+  ],
+  "build": {
+    "recipe": "1f641b8b906dec0f",
+    "toolkit": "0525a943cd7c0716",
+    "seconds": {
+      "day": 40.4,
+      "night": 14.9,
+      "cues": 3.1,
+      "total": 67.8
+    },
+    "frames": {
+      "croak": 64783,
+      "moorhen": 52210,
+      "plop": 17618,
+      "dragonfly": 76082,
+      "warbler": 95349,
+      "bittern": 188785,
+      "splash": 38669,
+      "frog-near": 94052,
+      "heron": 55407
+    },
+    "measures": {
+      "day": {
+        "seconds": 30.0,
+        "peak": -10.540495299068294,
+        "rms": -26.012310544625088,
+        "lufs": -22.230791627051584,
+        "dc": -93.34794610149721,
+        "corr": 0.7569075072083828,
+        "seam": 0.7790486347037927,
+        "slope": 0.9123656048568938,
+        "bands": {
+          "<250": 6.5,
+          "250-2k": 69.4,
+          "2k-8k": 21.7,
+          ">8k": 2.4
+        },
+        "spread": 2.0291909489693793,
+        "stand": 2.5389194817082448,
+        "standBand": "250-2k",
+        "sourceSeam": [
+          0.453,
+          0.459
+        ]
+      },
+      "night": {
+        "seconds": 30.0,
+        "peak": -8.557629175958686,
+        "rms": -26.099100670036343,
+        "lufs": -22.769492442166065,
+        "dc": -92.74556289496395,
+        "corr": 0.4900208595325695,
+        "seam": 0.2606481043288417,
+        "slope": 0.4293104152524431,
+        "bands": {
+          "<250": 11.4,
+          "250-2k": 74.5,
+          "2k-8k": 14.0,
+          ">8k": 0.2
+        },
+        "spread": 3.3220928226659936,
+        "stand": 2.875905416492632,
+        "standBand": "250-2k",
+        "sourceSeam": [
+          0.141,
+          0.121
+        ]
+      },
+      "croak": {
+        "seconds": 1.3496458333333334,
+        "peak": -8.768912163327352,
+        "rms": -23.825439435284807,
+        "loud": -20.514913307495007,
+        "edges": 75.51948662258738
+      },
+      "moorhen": {
+        "seconds": 1.0877083333333333,
+        "peak": -10.746301751228568,
+        "rms": -26.688739064776673,
+        "loud": -19.56100945478541,
+        "edges": 73.54209703468617
+      },
+      "plop": {
+        "seconds": 0.36704166666666665,
+        "peak": -12.607431016209876,
+        "rms": -25.779264584718543,
+        "loud": -20.135140146200115,
+        "edges": 71.68096776970486
+      },
+      "dragonfly": {
+        "seconds": 1.5850416666666667,
+        "peak": -9.485884046600123,
+        "rms": -29.15927925401369,
+        "loud": -24.503215633978733,
+        "edges": 74.80251473931462
+      },
+      "warbler": {
+        "seconds": 1.9864375,
+        "peak": -13.037783408669508,
+        "rms": -21.37659355442333,
+        "loud": -19.253060404024087,
+        "edges": 71.25061537724523
+      },
+      "bittern": {
+        "seconds": 3.9330208333333334,
+        "peak": -14.521615627364724,
+        "rms": -25.232411442895476,
+        "loud": -20.275521131841963,
+        "edges": 69.76678315855001
+      },
+      "splash": {
+        "seconds": 0.8056041666666667,
+        "peak": -8.814132280374302,
+        "rms": -26.087147794695994,
+        "loud": -20.25598953919506,
+        "edges": 75.47426650554044
+      },
+      "frog-near": {
+        "seconds": 1.9594166666666666,
+        "peak": -9.26820855916492,
+        "rms": -23.706517113138542,
+        "loud": -20.231370096018,
+        "edges": 75.02019022674982
+      },
+      "heron": {
+        "seconds": 1.1543125,
+        "peak": -9.879424054043813,
+        "rms": -25.26002018228646,
+        "loud": -20.428827629030604,
+        "edges": 74.40897473187093
+      }
+    }
+  }
+}

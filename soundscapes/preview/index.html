@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QRay soundscapes</title>
+<style>
+  :root { --bg: #f6f5f1; --fg: #1d1d1b; --muted: #6b6a64; --card: #ffffff; --line: #dedcd4; --accent: #2f6b3a; --on: #ffffff; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg: #161715; --fg: #ecebe6; --muted: #9a998f; --card: #20211f; --line: #34352f; --accent: #7fc28a; --on: #10140f; }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.45 -apple-system, system-ui, "Segoe UI", sans-serif; }
+  main { max-width: 860px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 22px; margin: 0 0 4px; }
+  p.lead { color: var(--muted); margin: 0 0 18px; }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; padding: 12px 14px; background: var(--card);
+         border: 1px solid var(--line); border-radius: 10px; margin-bottom: 16px; position: sticky; top: 8px; z-index: 1; }
+  .bar label { display: flex; gap: 8px; align-items: center; color: var(--muted); }
+  #now { font-weight: 600; min-width: 12em; }
+  #status { color: var(--muted); width: 100%; font-size: 13px; min-height: 1.2em; }
+  .biome { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
+  .biome.missing { opacity: 0.55; }
+  .head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+  .head h2 { font-size: 16px; margin: 0; flex: 1 1 10em; }
+  .swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; margin-right: 6px; vertical-align: -1px; }
+  .desc { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
+  .cues { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  button { font: inherit; border: 1px solid var(--line); background: transparent; color: var(--fg); border-radius: 8px;
+           padding: 5px 12px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button.on { background: var(--accent); border-color: var(--accent); color: var(--on); }
+  button.cue { font-size: 13px; padding: 3px 9px; }
+  button.cue small { color: var(--muted); }
+  button.cue.on small { color: inherit; }
+  button:disabled { cursor: default; opacity: 0.5; }
+  input[type=range] { width: 140px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>QRay soundscapes</h1>
+  <p class="lead">Each biome's bed loops gaplessly; its cues are scattered over it at their own intervals, panned at random.
+    Serve the pack's root (<code>python3 -m http.server</code>) and open <code>/soundscapes/preview/</code>.</p>
+  <div class="bar">
+    <span id="now">Nothing playing</span>
+    <button id="stop" disabled>Stop</button>
+    <label>Volume <input id="volume" type="range" min="0" max="1" step="0.01" value="0.7"></label>
+    <label><input id="calls" type="checkbox"> Creature calls, far off</label>
+    <div id="status"></div>
+  </div>
+  <div id="list"></div>
+</main>
+<script>
+"use strict";
+const INDEX = "../index.json", BIOMES = "../../species/biomes.json", ROOT = "../";
+let ctx = null, master = null, current = null, built = {}, buffers = new Map();
+
+const $ = (id) => document.getElementById(id);
+const status = (text) => { $("status").textContent = text || ""; };
+const dbToGain = (db) => Math.pow(10, db / 20);
+const rand = (a, b) => a + Math.random() * (b - a);
+
+function audio() {
+  if (!ctx) {
+    ctx = new (window.AudioContext || window.webkitAudioContext)();
+    master = ctx.createGain();
+    master.gain.value = Number($("volume").value);
+    master.connect(ctx.destination);
+  }
+  if (ctx.state === "suspended") ctx.resume();
+  return ctx;
+}
+
+async function buffer(url) {
+  if (buffers.has(url)) return buffers.get(url);
+  const p = (async () => {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(url + ": HTTP " + res.status);
+    const data = await res.arrayBuffer();
+    // the promise form; old Safari only had callbacks, so wrap both
+    return await new Promise((ok, fail) => {
+      const r = audio().decodeAudioData(data, ok, (e) => fail(new Error(url + ": this browser cannot decode it (" + (e && e.message || "no reason given") + ")")));
+      if (r && r.then) r.then(ok, (e) => fail(new Error(url + ": this browser cannot decode it (" + (e && e.message || e) + ")")));
+    });
+  })();
+  buffers.set(url, p);
+  p.catch(() => buffers.delete(url));
+  return p;
+}
+
+function playOnce(buf, levelDb, pan, filterHz) {
+  const src = ctx.createBufferSource();
+  src.buffer = buf;
+  const g = ctx.createGain();
+  g.gain.value = dbToGain(levelDb);
+  let node = src;
+  if (filterHz) {
+    const f = ctx.createBiquadFilter();
+    f.type = "lowpass"; f.frequency.value = filterHz;
+    node.connect(f); node = f;
+  }
+  if (ctx.createStereoPanner) {
+    const p = ctx.createStereoPanner();
+    p.pan.value = pan;
+    node.connect(p); node = p;
+  }
+  node.connect(g);
+  g.connect(current ? current.gain : master);
+  src.start();
+}
+
+function stop(fade = 0.8) {
+  if (!current) return;
+  const c = current;
+  current = null;
+  c.timers.forEach(clearTimeout);
+  const t = ctx.currentTime;
+  c.gain.gain.setValueAtTime(c.gain.gain.value, t);
+  c.gain.gain.linearRampToValueAtTime(0, t + fade);
+  setTimeout(() => { try { c.source.stop(); } catch (e) {} c.gain.disconnect(); }, fade * 1000 + 100);
+  document.querySelectorAll("button.on").forEach((b) => b.classList.remove("on"));
+  $("now").textContent = "Nothing playing";
+  $("stop").disabled = true;
+}
+
+async function play(biome, part, button) {
+  audio();
+  status("Loading " + biome.name + " (" + part + ")...");
+  let bed;
+  try {
+    bed = await buffer(ROOT + biome.beds[part].file);
+  } catch (e) { status(e.message); return; }
+  stop(1.5);
+  const gain = ctx.createGain();
+  gain.gain.value = 0;
+  gain.gain.linearRampToValueAtTime(dbToGain(biome.beds[part].level || 0), ctx.currentTime + 1.5);
+  gain.connect(master);
+  const source = ctx.createBufferSource();
+  source.buffer = bed;
+  source.loop = true;                 // an AudioBuffer loop has no gap; an <audio loop> element does
+  source.connect(gain);
+  source.start();
+  current = { biome, part, gain, source, timers: [] };
+  button.classList.add("on");
+  $("now").textContent = biome.name + ", " + part;
+  $("stop").disabled = false;
+  status("");
+  const c = current;
+  for (const cue of biome.cues.filter((q) => q.beds.includes(part))) {
+    const next = () => {
+      if (current !== c) return;
+      c.timers.push(setTimeout(async () => {
+        if (current !== c) return;
+        try { playOnce(await buffer(ROOT + cue.file), cue.level, rand(-cue.spread, cue.spread)); }
+        catch (e) { status(e.message); }
+        next();
+      }, rand(cue.every[0], cue.every[1]) * 1000));
+    };
+    // the first of each comes sooner, so a listener hears them without waiting minutes
+    c.timers.push(setTimeout(async () => {
+      if (current !== c) return;
+      try { playOnce(await buffer(ROOT + cue.file), cue.level, rand(-cue.spread, cue.spread)); } catch (e) { status(e.message); }
+      next();
+    }, rand(2, Math.min(15, cue.every[0])) * 1000));
+  }
+  const callLoop = () => {
+    if (current !== c) return;
+    c.timers.push(setTimeout(async () => {
+      if (current !== c) return;
+      if ($("calls").checked && biome.calls && biome.calls.length) {
+        const url = "../../" + biome.calls[Math.floor(Math.random() * biome.calls.length)];
+        try { playOnce(await buffer(url), -14, rand(-1, 1), 2500); } catch (e) { status(e.message); }
+      }
+      callLoop();
+    }, rand(8, 25) * 1000));
+  };
+  callLoop();
+}
+
+async function fire(biome, cue) {
+  audio();
+  try { playOnce(await buffer(ROOT + cue.file), cue.level, rand(-cue.spread, cue.spread)); }
+  catch (e) { status(e.message); }
+}
+
+function render(all) {
+  const list = $("list");
+  list.textContent = "";
+  for (const info of all) {
+    const b = built[info.id];
+    const box = document.createElement("section");
+    box.className = "biome" + (b ? "" : " missing");
+    const head = document.createElement("div");
+    head.className = "head";
+    const h = document.createElement("h2");
+    const sw = document.createElement("span");
+    sw.className = "swatch";
+    sw.style.background = info.colour || "#888";
+    h.append(sw, info.name + (b ? "" : " (not built yet)"));
+    head.append(h);
+    for (const part of ["day", "night"]) {
+      const btn = document.createElement("button");
+      btn.textContent = part === "day" ? "Day" : "Night";
+      btn.disabled = !b;
+      if (b) btn.onclick = () => (current && current.biome === b && current.part === part) ? stop() : play(b, part, btn);
+      head.append(btn);
+    }
+    box.append(head);
+    const d = document.createElement("p");
+    d.className = "desc";
+    d.textContent = info.description || "";
+    box.append(d);
+    if (b) {
+      const cues = document.createElement("div");
+      cues.className = "cues";
+      for (const cue of b.cues) {
+        const btn = document.createElement("button");
+        btn.className = "cue";
+        btn.innerHTML = "";
+        btn.append(cue.id + " ");
+        const s = document.createElement("small");
+        s.textContent = cue.beds.join("+") + ", every " + cue.every[0] + "-" + cue.every[1] + " s";
+        btn.append(s);
+        btn.onclick = () => fire(b, cue);
+        cues.append(btn);
+      }
+      box.append(cues);
+    }
+    list.append(box);
+  }
+}
+
+async function load() {
+  let index = { biomes: [] }, all = [];
+  try {
+    const r = await fetch(INDEX);
+    if (r.ok) index = await r.json(); else status("No index.json yet (HTTP " + r.status + "): run build.py.");
+  } catch (e) { status("Could not read index.json: " + e.message); }
+  try {
+    const r = await fetch(BIOMES);
+    if (r.ok) all = (await r.json()).biomes;
+  } catch (e) {}
+  for (const b of index.biomes || []) built[b.id] = b;
+  if (!all.length) all = (index.biomes || []).map((b) => ({ id: b.id, name: b.name }));
+  render(all);
+}
+
+$("stop").onclick = () => stop();
+$("volume").oninput = (e) => { if (master) master.gain.value = Number(e.target.value); };
+load();
+</script>
+</body>
+</html>

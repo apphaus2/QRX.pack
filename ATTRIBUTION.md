@@ -16,6 +16,10 @@ the definitions and tables beside it (the sounds are synthesized in `species/lib
 recordings); nothing in them is sampled or traced, and the names and designs are original. The biome list uses the class codes and names of ESA
 WorldCover (its product user manual); no WorldCover data is included.
 
+Every bed and cue under `soundscapes/` was made for QRX and is dedicated to the public domain under CC0 1.0. They are
+written by `soundscapes/build.py` from the recipes beside it: noise and tones with fixed seeds, no recordings, nothing
+sampled. The biomes are ESA WorldCover's class codes and names, as for the species.
+
 ## Third-party models (referenced by URL, not copied)
 
 The bodies load these models from the Khronos Group's

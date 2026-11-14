@@ -1,0 +1,296 @@
+{
+  "id": "water",
+  "code": 80,
+  "name": "Open Water",
+  "beds": {
+    "day": {
+      "file": "beds/water-day.ogg",
+      "bytes": 139137,
+      "level": 0.0
+    },
+    "night": {
+      "file": "beds/water-night.ogg",
+      "bytes": 143667,
+      "level": 0.0
+    }
+  },
+  "cues": [
+    {
+      "id": "fish-jump",
+      "file": "cues/water-fish-jump.ogg",
+      "bytes": 2474,
+      "seconds": 0.787,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -3.0,
+      "spread": 0.8
+    },
+    {
+      "id": "gull",
+      "file": "cues/water-gull.ogg",
+      "bytes": 6128,
+      "seconds": 2.005,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        30.0,
+        90.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    },
+    {
+      "id": "duck",
+      "file": "cues/water-duck.ogg",
+      "bytes": 3851,
+      "seconds": 1.355,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        35.0,
+        100.0
+      ],
+      "level": -3.0,
+      "spread": 0.8
+    },
+    {
+      "id": "oar",
+      "file": "cues/water-oar.ogg",
+      "bytes": 2959,
+      "seconds": 0.97,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        45.0,
+        120.0
+      ],
+      "level": -4.0,
+      "spread": 0.7
+    },
+    {
+      "id": "boat-bell",
+      "file": "cues/water-boat-bell.ogg",
+      "bytes": 12198,
+      "seconds": 3.835,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        60.0,
+        150.0
+      ],
+      "level": -7.0,
+      "spread": 0.9
+    },
+    {
+      "id": "plop",
+      "file": "cues/water-plop.ogg",
+      "bytes": 1015,
+      "seconds": 0.323,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        25.0,
+        80.0
+      ],
+      "level": -3.0,
+      "spread": 0.7
+    },
+    {
+      "id": "loon",
+      "file": "cues/water-loon.ogg",
+      "bytes": 12974,
+      "seconds": 3.873,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        45.0,
+        120.0
+      ],
+      "level": -4.0,
+      "spread": 1.0
+    },
+    {
+      "id": "buoy",
+      "file": "cues/water-buoy.ogg",
+      "bytes": 13121,
+      "seconds": 3.684,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        50.0,
+        130.0
+      ],
+      "level": -6.0,
+      "spread": 0.9
+    },
+    {
+      "id": "jetty",
+      "file": "cues/water-jetty.ogg",
+      "bytes": 4276,
+      "seconds": 1.352,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        30.0,
+        90.0
+      ],
+      "level": -4.0,
+      "spread": 0.6
+    }
+  ],
+  "calls": [
+    "species/sounds/eel-call.wav",
+    "species/sounds/fish-call.wav",
+    "species/sounds/jellyfish-call.wav",
+    "species/sounds/ray-call-090-120.wav",
+    "species/sounds/ray-call.wav",
+    "species/sounds/seahorse-call.wav",
+    "species/sounds/turtle-call.wav"
+  ],
+  "build": {
+    "recipe": "5b0b1e2f37d77501",
+    "toolkit": "0525a943cd7c0716",
+    "seconds": {
+      "day": 18.8,
+      "night": 24.2,
+      "cues": 3.3,
+      "total": 57.0
+    },
+    "frames": {
+      "fish-jump": 37799,
+      "gull": 96222,
+      "duck": 65039,
+      "oar": 46580,
+      "boat-bell": 184076,
+      "plop": 15524,
+      "loon": 185887,
+      "buoy": 176830,
+      "jetty": 64887
+    },
+    "measures": {
+      "day": {
+        "seconds": 30.0,
+        "peak": -8.608898717661312,
+        "rms": -26.206384486725387,
+        "lufs": -22.543698737356248,
+        "dc": -81.42910091702619,
+        "corr": 0.6238208699300107,
+        "seam": 0.5689228003292126,
+        "slope": 0.528068274840852,
+        "bands": {
+          "<250": 22.0,
+          "250-2k": 52.5,
+          "2k-8k": 21.3,
+          ">8k": 4.2
+        },
+        "spread": 2.838379572251597,
+        "stand": 3.664921948052946,
+        "standBand": "250-2k",
+        "sourceSeam": [
+          0.208,
+          0.258
+        ]
+      },
+      "night": {
+        "seconds": 30.0,
+        "peak": -11.126262075786876,
+        "rms": -25.995486083872812,
+        "lufs": -23.80304683352657,
+        "dc": -88.56807807398366,
+        "corr": 0.7343264000225673,
+        "seam": 0.15265983030341623,
+        "slope": 0.5940954772538065,
+        "bands": {
+          "<250": 40.8,
+          "250-2k": 56.2,
+          "2k-8k": 3.0,
+          ">8k": 0.1
+        },
+        "spread": 1.8992393714336586,
+        "stand": 2.9581598843797714,
+        "standBand": "250-2k",
+        "sourceSeam": [
+          0.256,
+          0.467
+        ]
+      },
+      "fish-jump": {
+        "seconds": 0.7874791666666666,
+        "peak": -9.324638245790727,
+        "rms": -27.82205508599155,
+        "loud": -21.329715162154347,
+        "edges": 74.96376054012401
+      },
+      "gull": {
+        "seconds": 2.004625,
+        "peak": -12.932584575244011,
+        "rms": -23.94619774533103,
+        "loud": -19.229497748020844,
+        "edges": 71.35581421067073
+      },
+      "duck": {
+        "seconds": 1.3549791666666666,
+        "peak": -9.520716315671615,
+        "rms": -23.89559701805204,
+        "loud": -19.869207094882416,
+        "edges": 74.76768247024312
+      },
+      "oar": {
+        "seconds": 0.9704166666666667,
+        "peak": -8.356912121706142,
+        "rms": -26.664123677687307,
+        "loud": -20.388385993677073,
+        "edges": 75.93148666420859
+      },
+      "boat-bell": {
+        "seconds": 3.8349166666666665,
+        "peak": -12.931409774452598,
+        "rms": -25.43130267720874,
+        "loud": -19.556757972510162,
+        "edges": 71.35698901146213
+      },
+      "plop": {
+        "seconds": 0.3234166666666667,
+        "peak": -11.730844894315304,
+        "rms": -25.14366100646977,
+        "loud": -20.04924648689647,
+        "edges": 72.55755389159944
+      },
+      "loon": {
+        "seconds": 3.8726458333333333,
+        "peak": -14.415056161354387,
+        "rms": -22.52901558927522,
+        "loud": -19.381210153318783,
+        "edges": 69.87334262456035
+      },
+      "buoy": {
+        "seconds": 3.6839583333333334,
+        "peak": -12.454865943081048,
+        "rms": -25.506332892664226,
+        "loud": -19.512837772773022,
+        "edges": 71.83353284283369
+      },
+      "jetty": {
+        "seconds": 1.3518125,
+        "peak": -9.838188268097277,
+        "rms": -24.158333918704308,
+        "loud": -20.18555580706785,
+        "edges": 74.45021051781745
+      }
+    }
+  }
+}

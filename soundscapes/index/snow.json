@@ -1,0 +1,296 @@
+{
+  "id": "snow",
+  "code": 70,
+  "name": "Snowfield",
+  "beds": {
+    "day": {
+      "file": "beds/snow-day.ogg",
+      "bytes": 144951,
+      "level": 0.0
+    },
+    "night": {
+      "file": "beds/snow-night.ogg",
+      "bytes": 140821,
+      "level": -2.0
+    }
+  },
+  "cues": [
+    {
+      "id": "crack",
+      "file": "cues/snow-crack.ogg",
+      "bytes": 3010,
+      "seconds": 0.918,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        30.0,
+        90.0
+      ],
+      "level": -3.0,
+      "spread": 0.8
+    },
+    {
+      "id": "whumpf",
+      "file": "cues/snow-whumpf.ogg",
+      "bytes": 1764,
+      "seconds": 0.585,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        50.0,
+        140.0
+      ],
+      "level": -4.0,
+      "spread": 0.7
+    },
+    {
+      "id": "drip",
+      "file": "cues/snow-drip.ogg",
+      "bytes": 2842,
+      "seconds": 0.98,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        15.0,
+        45.0
+      ],
+      "level": -4.0,
+      "spread": 0.8
+    },
+    {
+      "id": "bird",
+      "file": "cues/snow-bird.ogg",
+      "bytes": 5094,
+      "seconds": 1.716,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        45.0,
+        120.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    },
+    {
+      "id": "creak",
+      "file": "cues/snow-creak.ogg",
+      "bytes": 5212,
+      "seconds": 1.863,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        35.0,
+        100.0
+      ],
+      "level": -4.0,
+      "spread": 0.8
+    },
+    {
+      "id": "groan",
+      "file": "cues/snow-groan.ogg",
+      "bytes": 9137,
+      "seconds": 3.15,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        50.0,
+        150.0
+      ],
+      "level": -4.0,
+      "spread": 0.6
+    },
+    {
+      "id": "far-crack",
+      "file": "cues/snow-far-crack.ogg",
+      "bytes": 5356,
+      "seconds": 1.769,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        40.0,
+        120.0
+      ],
+      "level": -5.0,
+      "spread": 1.0
+    },
+    {
+      "id": "tinkle",
+      "file": "cues/snow-tinkle.ogg",
+      "bytes": 5414,
+      "seconds": 1.706,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        25.0,
+        70.0
+      ],
+      "level": -6.0,
+      "spread": 0.9
+    },
+    {
+      "id": "call",
+      "file": "cues/snow-call.ogg",
+      "bytes": 8191,
+      "seconds": 2.946,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        60.0,
+        180.0
+      ],
+      "level": -7.0,
+      "spread": 1.0
+    }
+  ],
+  "calls": [
+    "species/sounds/bird-call.wav",
+    "species/sounds/fish-call.wav",
+    "species/sounds/hare-call.wav",
+    "species/sounds/jellyfish-call.wav",
+    "species/sounds/moth-call.wav",
+    "species/sounds/owl-call-090-120.wav"
+  ],
+  "build": {
+    "recipe": "397c8b4633787bef",
+    "toolkit": "0525a943cd7c0716",
+    "seconds": {
+      "day": 17.5,
+      "night": 13.0,
+      "cues": 3.6,
+      "total": 46.0
+    },
+    "frames": {
+      "crack": 44051,
+      "whumpf": 28093,
+      "drip": 47049,
+      "bird": 82384,
+      "creak": 89425,
+      "groan": 151208,
+      "far-crack": 84926,
+      "tinkle": 81907,
+      "call": 141392
+    },
+    "measures": {
+      "day": {
+        "seconds": 30.0,
+        "peak": -10.210539713263845,
+        "rms": -26.069550689532687,
+        "lufs": -20.94088056449146,
+        "dc": -95.88326550122366,
+        "corr": 0.5726035788357222,
+        "seam": 0.2403329100180293,
+        "slope": 0.16264835772925026,
+        "bands": {
+          "<250": 2.2,
+          "250-2k": 33.1,
+          "2k-8k": 24.8,
+          ">8k": 39.9
+        },
+        "spread": 1.6301847325414194,
+        "stand": 1.4757648815538857,
+        "standBand": ">8k",
+        "sourceSeam": [
+          0.25,
+          0.308
+        ]
+      },
+      "night": {
+        "seconds": 30.0,
+        "peak": -11.915933052987075,
+        "rms": -25.994855721301256,
+        "lufs": -24.01892835773243,
+        "dc": -88.66188971274417,
+        "corr": 0.47299675129031427,
+        "seam": 0.10231534367606916,
+        "slope": 0.15435633720232048,
+        "bands": {
+          "<250": 62.2,
+          "250-2k": 31.5,
+          "2k-8k": 1.2,
+          ">8k": 5.1
+        },
+        "spread": 1.8876107150859625,
+        "stand": 1.654774885050756,
+        "standBand": "<250",
+        "sourceSeam": [
+          0.061,
+          0.262
+        ]
+      },
+      "crack": {
+        "seconds": 0.9177291666666667,
+        "peak": -10.197667276528472,
+        "rms": -27.58837588094626,
+        "loud": -19.42095854209207,
+        "edges": 74.09073150938626
+      },
+      "whumpf": {
+        "seconds": 0.5852708333333333,
+        "peak": -15.498586978121065,
+        "rms": -25.375071594807505,
+        "loud": -21.556863126470883,
+        "edges": 68.78981180779367
+      },
+      "drip": {
+        "seconds": 0.9801875,
+        "peak": -12.076260036605515,
+        "rms": -29.460310972420967,
+        "loud": -20.253263981704105,
+        "edges": 72.21213874930922
+      },
+      "bird": {
+        "seconds": 1.7163333333333333,
+        "peak": -14.815740248437912,
+        "rms": -24.99657767407527,
+        "loud": -19.667905198108183,
+        "edges": 69.47265853747683
+      },
+      "creak": {
+        "seconds": 1.8630208333333333,
+        "peak": -6.802822207478662,
+        "rms": -24.342273441676163,
+        "loud": -20.91258157346369,
+        "edges": 77.48557657843608
+      },
+      "groan": {
+        "seconds": 3.150166666666667,
+        "peak": -10.828902761246066,
+        "rms": -23.95103911518472,
+        "loud": -20.56385251604949,
+        "edges": 73.45949602466867
+      },
+      "far-crack": {
+        "seconds": 1.7692916666666667,
+        "peak": -11.832724277370566,
+        "rms": -29.838205743691827,
+        "loud": -19.601066074012145,
+        "edges": 72.45567450854418
+      },
+      "tinkle": {
+        "seconds": 1.7063958333333333,
+        "peak": -8.738412394107435,
+        "rms": -25.05041199147623,
+        "loud": -18.961285922174824,
+        "edges": 75.5499863918073
+      },
+      "call": {
+        "seconds": 2.945666666666667,
+        "peak": -15.519134083562058,
+        "rms": -23.5896848104127,
+        "loud": -19.96146816739982,
+        "edges": 68.76926470235267
+      }
+    }
+  }
+}

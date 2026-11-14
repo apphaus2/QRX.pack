@@ -1,0 +1,295 @@
+{
+  "id": "farm",
+  "code": 40,
+  "name": "Farmland",
+  "beds": {
+    "day": {
+      "file": "beds/farm-day.ogg",
+      "bytes": 140209,
+      "level": 0.0
+    },
+    "night": {
+      "file": "beds/farm-night.ogg",
+      "bytes": 141666,
+      "level": 0.0
+    }
+  },
+  "cues": [
+    {
+      "id": "rooster",
+      "file": "cues/farm-rooster.ogg",
+      "bytes": 6448,
+      "seconds": 2.109,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        50.0,
+        140.0
+      ],
+      "level": -5.0,
+      "spread": 0.9
+    },
+    {
+      "id": "cow",
+      "file": "cues/farm-cow.ogg",
+      "bytes": 6762,
+      "seconds": 2.286,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -5.0,
+      "spread": 1.0
+    },
+    {
+      "id": "hens",
+      "file": "cues/farm-hens.ogg",
+      "bytes": 5682,
+      "seconds": 1.906,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        25.0,
+        70.0
+      ],
+      "level": -3.0,
+      "spread": 0.7
+    },
+    {
+      "id": "sheep-bell",
+      "file": "cues/farm-sheep-bell.ogg",
+      "bytes": 4611,
+      "seconds": 1.381,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        30.0,
+        80.0
+      ],
+      "level": -4.0,
+      "spread": 0.9
+    },
+    {
+      "id": "gate-latch",
+      "file": "cues/farm-gate-latch.ogg",
+      "bytes": 2234,
+      "seconds": 0.721,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        60.0,
+        150.0
+      ],
+      "level": -3.0,
+      "spread": 0.7
+    },
+    {
+      "id": "barn-owl",
+      "file": "cues/farm-barn-owl.ogg",
+      "bytes": 4563,
+      "seconds": 1.476,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -5.0,
+      "spread": 0.8
+    },
+    {
+      "id": "dog",
+      "file": "cues/farm-dog.ogg",
+      "bytes": 5623,
+      "seconds": 1.894,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        45.0,
+        120.0
+      ],
+      "level": -7.0,
+      "spread": 1.0
+    },
+    {
+      "id": "gate-creak",
+      "file": "cues/farm-gate-creak.ogg",
+      "bytes": 4129,
+      "seconds": 1.418,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        40.0,
+        100.0
+      ],
+      "level": -3.0,
+      "spread": 0.7
+    },
+    {
+      "id": "horse",
+      "file": "cues/farm-horse.ogg",
+      "bytes": 2572,
+      "seconds": 0.81,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        35.0,
+        90.0
+      ],
+      "level": -3.0,
+      "spread": 0.6
+    }
+  ],
+  "calls": [
+    "species/sounds/bee-call.wav",
+    "species/sounds/beetle-call.wav",
+    "species/sounds/critter-call.wav",
+    "species/sounds/hare-call-090-120.wav",
+    "species/sounds/moth-call.wav",
+    "species/sounds/owl-call.wav"
+  ],
+  "build": {
+    "recipe": "4eb20dae7cb0b2cb",
+    "toolkit": "0525a943cd7c0716",
+    "seconds": {
+      "day": 15.8,
+      "night": 14.3,
+      "cues": 3.0,
+      "total": 43.6
+    },
+    "frames": {
+      "rooster": 101229,
+      "cow": 109729,
+      "hens": 91490,
+      "sheep-bell": 66279,
+      "gate-latch": 34604,
+      "barn-owl": 70854,
+      "dog": 90904,
+      "gate-creak": 68067,
+      "horse": 38897
+    },
+    "measures": {
+      "day": {
+        "seconds": 30.0,
+        "peak": -10.421775661034339,
+        "rms": -26.018890990604085,
+        "lufs": -21.961431284687105,
+        "dc": -92.72117077451476,
+        "corr": 0.41159947635199795,
+        "seam": 0.23517557603844785,
+        "slope": 0.3797359743642961,
+        "bands": {
+          "<250": 16.0,
+          "250-2k": 46.5,
+          "2k-8k": 32.9,
+          ">8k": 4.6
+        },
+        "spread": 2.844061373809044,
+        "stand": 2.2340916337672425,
+        "standBand": "250-2k",
+        "sourceSeam": [
+          0.164,
+          0.522
+        ]
+      },
+      "night": {
+        "seconds": 30.0,
+        "peak": -11.300727911806735,
+        "rms": -25.998623684549976,
+        "lufs": -23.30062375632502,
+        "dc": -84.53334849485285,
+        "corr": 0.32853652103522474,
+        "seam": 0.21151381618771503,
+        "slope": 0.11136318607408087,
+        "bands": {
+          "<250": 49.4,
+          "250-2k": 33.7,
+          "2k-8k": 15.2,
+          ">8k": 1.7
+        },
+        "spread": 1.9061343080414126,
+        "stand": 2.5663456970098792,
+        "standBand": "2k-8k",
+        "sourceSeam": [
+          0.303,
+          0.405
+        ]
+      },
+      "rooster": {
+        "seconds": 2.1089375,
+        "peak": -12.812407141599921,
+        "rms": -22.21734296590953,
+        "loud": -19.43243493704903,
+        "edges": 71.47599164431482
+      },
+      "cow": {
+        "seconds": 2.286020833333333,
+        "peak": -12.082649852713747,
+        "rms": -23.589123437909215,
+        "loud": -20.28897710774292,
+        "edges": 72.205748933201
+      },
+      "hens": {
+        "seconds": 1.9060416666666666,
+        "peak": -12.663062680441321,
+        "rms": -25.03034266683587,
+        "loud": -19.646931848568062,
+        "edges": 71.62533610547342
+      },
+      "sheep-bell": {
+        "seconds": 1.3808125,
+        "peak": -10.827980643336812,
+        "rms": -25.44670909437022,
+        "loud": -19.4594284452486,
+        "edges": 73.46041814257792
+      },
+      "gate-latch": {
+        "seconds": 0.7209166666666667,
+        "peak": -4.3306278390924025,
+        "rms": -27.892501335212426,
+        "loud": -20.374176694967403,
+        "edges": 79.95777094682234
+      },
+      "barn-owl": {
+        "seconds": 1.476125,
+        "peak": -10.440274089242124,
+        "rms": -24.30433403352364,
+        "loud": -19.946768448689777,
+        "edges": 73.84812469667261
+      },
+      "dog": {
+        "seconds": 1.8938333333333333,
+        "peak": -10.97302777152714,
+        "rms": -27.533505399532054,
+        "loud": -19.61732648652474,
+        "edges": 73.3153710143876
+      },
+      "gate-creak": {
+        "seconds": 1.4180625,
+        "peak": -6.039706118403242,
+        "rms": -25.03240673939768,
+        "loud": -21.43405509807582,
+        "edges": 78.24869266751149
+      },
+      "horse": {
+        "seconds": 0.8103541666666667,
+        "peak": -9.570036455288793,
+        "rms": -24.342331117788788,
+        "loud": -21.13458800976472,
+        "edges": 74.71836233062595
+      }
+    }
+  }
+}

@@ -1,0 +1,294 @@
+{
+  "id": "meadow",
+  "code": 30,
+  "name": "Meadow",
+  "beds": {
+    "day": {
+      "file": "beds/meadow-day.ogg",
+      "bytes": 139552,
+      "level": 0.0
+    },
+    "night": {
+      "file": "beds/meadow-night.ogg",
+      "bytes": 154876,
+      "level": 0.0
+    }
+  },
+  "cues": [
+    {
+      "id": "lark",
+      "file": "cues/meadow-lark.ogg",
+      "bytes": 7238,
+      "seconds": 2.288,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        20.0,
+        60.0
+      ],
+      "level": -3.0,
+      "spread": 0.8
+    },
+    {
+      "id": "grasshopper",
+      "file": "cues/meadow-grasshopper.ogg",
+      "bytes": 3876,
+      "seconds": 1.466,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        25.0,
+        70.0
+      ],
+      "level": -5.0,
+      "spread": 0.8
+    },
+    {
+      "id": "bumblebee",
+      "file": "cues/meadow-bumblebee.ogg",
+      "bytes": 9430,
+      "seconds": 3.305,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        35.0,
+        100.0
+      ],
+      "level": -4.0,
+      "spread": 1.0
+    },
+    {
+      "id": "sheep-bell",
+      "file": "cues/meadow-sheep-bell.ogg",
+      "bytes": 6799,
+      "seconds": 2.2,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        45.0,
+        120.0
+      ],
+      "level": -7.0,
+      "spread": 1.0
+    },
+    {
+      "id": "pipit",
+      "file": "cues/meadow-pipit.ogg",
+      "bytes": 2135,
+      "seconds": 0.754,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        20.0,
+        60.0
+      ],
+      "level": -3.0,
+      "spread": 0.9
+    },
+    {
+      "id": "grass-rustle",
+      "file": "cues/meadow-grass-rustle.ogg",
+      "bytes": 2826,
+      "seconds": 0.871,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        35.0,
+        90.0
+      ],
+      "level": -4.0,
+      "spread": 0.8
+    },
+    {
+      "id": "owl",
+      "file": "cues/meadow-owl.ogg",
+      "bytes": 6444,
+      "seconds": 2.297,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        30.0,
+        90.0
+      ],
+      "level": -5.0,
+      "spread": 0.9
+    },
+    {
+      "id": "frog",
+      "file": "cues/meadow-frog.ogg",
+      "bytes": 5452,
+      "seconds": 1.831,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        30.0,
+        80.0
+      ],
+      "level": -4.0,
+      "spread": 0.8
+    },
+    {
+      "id": "fox",
+      "file": "cues/meadow-fox.ogg",
+      "bytes": 7458,
+      "seconds": 2.525,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        45.0,
+        120.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    }
+  ],
+  "calls": [
+    "species/sounds/bee-call-090-120.wav",
+    "species/sounds/butterfly-call.wav",
+    "species/sounds/critter-call.wav",
+    "species/sounds/lark-call.wav",
+    "species/sounds/snail-call.wav"
+  ],
+  "build": {
+    "recipe": "d27d5d4101c744d4",
+    "toolkit": "0525a943cd7c0716",
+    "seconds": {
+      "day": 24.0,
+      "night": 6.7,
+      "cues": 3.4,
+      "total": 45.0
+    },
+    "frames": {
+      "lark": 109805,
+      "grasshopper": 70382,
+      "bumblebee": 158636,
+      "sheep-bell": 105618,
+      "pipit": 36185,
+      "grass-rustle": 41808,
+      "owl": 110246,
+      "frog": 87884,
+      "fox": 121179
+    },
+    "measures": {
+      "day": {
+        "seconds": 30.0,
+        "peak": -10.05478444435862,
+        "rms": -26.143471859981556,
+        "lufs": -21.67866986912743,
+        "dc": -84.3126777795534,
+        "corr": 0.4967969183910276,
+        "seam": 0.052813199061441475,
+        "slope": 0.23617001212801159,
+        "bands": {
+          "<250": 14.9,
+          "250-2k": 38.9,
+          "2k-8k": 41.0,
+          ">8k": 5.2
+        },
+        "spread": 2.048668406532805,
+        "stand": 1.826336193432141,
+        "standBand": ">8k",
+        "sourceSeam": [
+          0.242,
+          0.338
+        ]
+      },
+      "night": {
+        "seconds": 30.0,
+        "peak": -6.84935490907698,
+        "rms": -26.015128471643465,
+        "lufs": -20.42340248388908,
+        "dc": -84.04251551361497,
+        "corr": 0.7241962989907793,
+        "seam": 0.14108846261013866,
+        "slope": 0.27546096503063555,
+        "bands": {
+          "<250": 14.5,
+          "250-2k": 7.5,
+          "2k-8k": 74.4,
+          ">8k": 3.6
+        },
+        "spread": 2.9642584522200863,
+        "stand": 2.291354634150874,
+        "standBand": "2k-8k",
+        "sourceSeam": [
+          0.011,
+          0.031
+        ]
+      },
+      "lark": {
+        "seconds": 2.2876041666666667,
+        "peak": -13.159936358489029,
+        "rms": -21.59859895217369,
+        "loud": -19.134974434071594,
+        "edges": 71.1284624274257
+      },
+      "grasshopper": {
+        "seconds": 1.4662916666666668,
+        "peak": -5.476575083365879,
+        "rms": -25.746212918747183,
+        "loud": -22.322610145239704,
+        "edges": 58.3880377211501
+      },
+      "bumblebee": {
+        "seconds": 3.3049166666666667,
+        "peak": -10.85938770166484,
+        "rms": -25.294577270080385,
+        "loud": -21.206842466974937,
+        "edges": 73.4290110842499
+      },
+      "sheep-bell": {
+        "seconds": 2.200375,
+        "peak": -9.782419924747375,
+        "rms": -28.405856861306972,
+        "loud": -19.713092929600965,
+        "edges": 74.50597886116736
+      },
+      "pipit": {
+        "seconds": 0.7538541666666667,
+        "peak": -12.582568968004765,
+        "rms": -24.076611149532795,
+        "loud": -18.428640604194932,
+        "edges": 71.70582981790997
+      },
+      "grass-rustle": {
+        "seconds": 0.871,
+        "peak": -9.237442956688707,
+        "rms": -26.73724285496805,
+        "loud": -21.480742497748363,
+        "edges": 75.05095582922603
+      },
+      "owl": {
+        "seconds": 2.2967916666666666,
+        "peak": -15.924030730235435,
+        "rms": -26.207697986868077,
+        "loud": -20.017571535968454,
+        "edges": 68.36436805567931
+      },
+      "frog": {
+        "seconds": 1.8309166666666667,
+        "peak": -9.095041892122126,
+        "rms": -25.72027585871809,
+        "loud": -20.327187672074338,
+        "edges": 75.19335689379261
+      },
+      "fox": {
+        "seconds": 2.5245625,
+        "peak": -10.775581086698132,
+        "rms": -27.50533199727998,
+        "loud": -19.534540058396082,
+        "edges": 73.51281769921661
+      }
+    }
+  }
+}

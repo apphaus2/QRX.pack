@@ -1,0 +1,295 @@
+{
+  "id": "tundra",
+  "code": 100,
+  "name": "Tundra",
+  "beds": {
+    "day": {
+      "file": "beds/tundra-day.ogg",
+      "bytes": 140044,
+      "level": 0.0
+    },
+    "night": {
+      "file": "beds/tundra-night.ogg",
+      "bytes": 139447,
+      "level": 0.0
+    }
+  },
+  "cues": [
+    {
+      "id": "ptarmigan",
+      "file": "cues/tundra-ptarmigan.ogg",
+      "bytes": 7759,
+      "seconds": 2.481,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        30.0,
+        90.0
+      ],
+      "level": -3.0,
+      "spread": 0.9
+    },
+    {
+      "id": "geese",
+      "file": "cues/tundra-geese.ogg",
+      "bytes": 7593,
+      "seconds": 2.568,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        50.0,
+        140.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    },
+    {
+      "id": "plover",
+      "file": "cues/tundra-plover.ogg",
+      "bytes": 6021,
+      "seconds": 2.197,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        25.0,
+        70.0
+      ],
+      "level": -3.0,
+      "spread": 0.9
+    },
+    {
+      "id": "mosquito",
+      "file": "cues/tundra-mosquito.ogg",
+      "bytes": 5987,
+      "seconds": 1.804,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    },
+    {
+      "id": "bog-bubble",
+      "file": "cues/tundra-bog-bubble.ogg",
+      "bytes": 1129,
+      "seconds": 0.401,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        30.0,
+        90.0
+      ],
+      "level": -5.0,
+      "spread": 0.7
+    },
+    {
+      "id": "far-wolf",
+      "file": "cues/tundra-far-wolf.ogg",
+      "bytes": 8854,
+      "seconds": 3.057,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        60.0,
+        160.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    },
+    {
+      "id": "owl-bark",
+      "file": "cues/tundra-owl-bark.ogg",
+      "bytes": 4113,
+      "seconds": 1.389,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -4.0,
+      "spread": 0.9
+    },
+    {
+      "id": "frost-tick",
+      "file": "cues/tundra-frost-tick.ogg",
+      "bytes": 1351,
+      "seconds": 0.459,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        20.0,
+        60.0
+      ],
+      "level": -4.0,
+      "spread": 0.8
+    },
+    {
+      "id": "loon",
+      "file": "cues/tundra-loon.ogg",
+      "bytes": 9995,
+      "seconds": 2.916,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        50.0,
+        140.0
+      ],
+      "level": -5.0,
+      "spread": 1.0
+    }
+  ],
+  "calls": [
+    "species/sounds/beetle-call.wav",
+    "species/sounds/butterfly-call.wav",
+    "species/sounds/critter-call.wav",
+    "species/sounds/dragonfly-call.wav",
+    "species/sounds/fish-call.wav",
+    "species/sounds/fox-call-090-120.wav"
+  ],
+  "build": {
+    "recipe": "5b556e71813c26bb",
+    "toolkit": "0525a943cd7c0716",
+    "seconds": {
+      "day": 33.8,
+      "night": 11.8,
+      "cues": 3.5,
+      "total": 60.9
+    },
+    "frames": {
+      "ptarmigan": 119096,
+      "geese": 123261,
+      "plover": 105446,
+      "mosquito": 86607,
+      "bog-bubble": 19235,
+      "far-wolf": 146749,
+      "owl-bark": 66685,
+      "frost-tick": 22032,
+      "loon": 139946
+    },
+    "measures": {
+      "day": {
+        "seconds": 30.0,
+        "peak": -11.341717579426971,
+        "rms": -26.000020279396267,
+        "lufs": -23.728953207593236,
+        "dc": -84.45070332799084,
+        "corr": 0.32115490973289057,
+        "seam": 0.5052943522905794,
+        "slope": 0.6922686687875862,
+        "bands": {
+          "<250": 57.1,
+          "250-2k": 32.7,
+          "2k-8k": 6.2,
+          ">8k": 4.0
+        },
+        "spread": 1.9928504679230166,
+        "stand": 1.8261921916844912,
+        "standBand": "<250",
+        "sourceSeam": [
+          0.177,
+          0.227
+        ]
+      },
+      "night": {
+        "seconds": 30.0,
+        "peak": -11.903400806535391,
+        "rms": -26.002542109829328,
+        "lufs": -24.144345831872887,
+        "dc": -81.04411608830681,
+        "corr": 0.28483104881438026,
+        "seam": 0.40271284543325875,
+        "slope": 0.32014734239396614,
+        "bands": {
+          "<250": 74.7,
+          "250-2k": 16.8,
+          "2k-8k": 4.5,
+          ">8k": 4.0
+        },
+        "spread": 1.5436166712409403,
+        "stand": 2.2675702186739883,
+        "standBand": "<250",
+        "sourceSeam": [
+          0.27,
+          0.578
+        ]
+      },
+      "ptarmigan": {
+        "seconds": 2.4811666666666667,
+        "peak": -6.050338865034077,
+        "rms": -25.405458883232388,
+        "loud": -20.260671768937875,
+        "edges": 78.23805992088066
+      },
+      "geese": {
+        "seconds": 2.5679375,
+        "peak": -10.637374965078546,
+        "rms": -24.89151703908462,
+        "loud": -20.07751371523728,
+        "edges": 73.65102382083619
+      },
+      "plover": {
+        "seconds": 2.1967916666666665,
+        "peak": -15.303460396114506,
+        "rms": -24.723254936038597,
+        "loud": -19.434116397521183,
+        "edges": 68.98493838980023
+      },
+      "mosquito": {
+        "seconds": 1.8043125,
+        "peak": -11.791416913164344,
+        "rms": -23.1412847736105,
+        "loud": -19.015487697672505,
+        "edges": 72.4969818727504
+      },
+      "bog-bubble": {
+        "seconds": 0.4007291666666667,
+        "peak": -13.048492774604949,
+        "rms": -25.654820462998305,
+        "loud": -20.161229425947248,
+        "edges": 71.23990601130978
+      },
+      "far-wolf": {
+        "seconds": 3.0572708333333334,
+        "peak": -15.662732149769509,
+        "rms": -23.444622430673327,
+        "loud": -20.349892312623886,
+        "edges": 68.62566663614523
+      },
+      "owl-bark": {
+        "seconds": 1.3892708333333332,
+        "peak": -9.412717748621596,
+        "rms": -27.241579574979564,
+        "loud": -20.22645306776786,
+        "edges": 74.87568103729313
+      },
+      "frost-tick": {
+        "seconds": 0.459,
+        "peak": -5.920976092043157,
+        "rms": -31.6707414211846,
+        "loud": -27.72418989498997,
+        "edges": 74.84559751275795
+      },
+      "loon": {
+        "seconds": 2.9155416666666665,
+        "peak": -14.939196595769458,
+        "rms": -21.846497878744188,
+        "loud": -19.319423043803454,
+        "edges": 69.34920219014528
+      }
+    }
+  }
+}

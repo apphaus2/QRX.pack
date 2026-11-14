@@ -1,0 +1,346 @@
+{
+  "id": "town",
+  "code": 50,
+  "name": "Town",
+  "beds": {
+    "day": {
+      "file": "beds/town-day.ogg",
+      "bytes": 139885,
+      "level": 0.0
+    },
+    "night": {
+      "file": "beds/town-night.ogg",
+      "bytes": 140092,
+      "level": 0.0
+    }
+  },
+  "cues": [
+    {
+      "id": "bicycle-bell",
+      "file": "cues/town-bicycle-bell.ogg",
+      "bytes": 4070,
+      "seconds": 1.227,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -4.0,
+      "spread": 0.8
+    },
+    {
+      "id": "pigeon",
+      "file": "cues/town-pigeon.ogg",
+      "bytes": 5111,
+      "seconds": 1.724,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        20.0,
+        60.0
+      ],
+      "level": -2.0,
+      "spread": 0.8
+    },
+    {
+      "id": "church-bell",
+      "file": "cues/town-church-bell.ogg",
+      "bytes": 9438,
+      "seconds": 2.984,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        60.0,
+        180.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    },
+    {
+      "id": "door",
+      "file": "cues/town-door.ogg",
+      "bytes": 2755,
+      "seconds": 1.087,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        45.0,
+        120.0
+      ],
+      "level": -4.0,
+      "spread": 0.7
+    },
+    {
+      "id": "ball",
+      "file": "cues/town-ball.ogg",
+      "bytes": 4446,
+      "seconds": 1.535,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        50.0,
+        140.0
+      ],
+      "level": -4.0,
+      "spread": 0.7
+    },
+    {
+      "id": "horn",
+      "file": "cues/town-horn.ogg",
+      "bytes": 3279,
+      "seconds": 1.106,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        60.0,
+        160.0
+      ],
+      "level": -9.0,
+      "spread": 1.0
+    },
+    {
+      "id": "train",
+      "file": "cues/town-train.ogg",
+      "bytes": 10049,
+      "seconds": 3.35,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        70.0,
+        180.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    },
+    {
+      "id": "cat",
+      "file": "cues/town-cat.ogg",
+      "bytes": 3392,
+      "seconds": 1.072,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        50.0,
+        140.0
+      ],
+      "level": -4.0,
+      "spread": 0.8
+    },
+    {
+      "id": "footsteps",
+      "file": "cues/town-footsteps.ogg",
+      "bytes": 8810,
+      "seconds": 3.404,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -4.0,
+      "spread": 0.6
+    },
+    {
+      "id": "wind-chime",
+      "file": "cues/town-wind-chime.ogg",
+      "bytes": 9470,
+      "seconds": 2.965,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        35.0,
+        90.0
+      ],
+      "level": -5.0,
+      "spread": 0.7
+    },
+    {
+      "id": "gutter-drip",
+      "file": "cues/town-gutter-drip.ogg",
+      "bytes": 8236,
+      "seconds": 3.26,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        30.0,
+        80.0
+      ],
+      "level": -5.0,
+      "spread": 0.6
+    }
+  ],
+  "calls": [
+    "species/sounds/bat-call.wav",
+    "species/sounds/beetle-call.wav",
+    "species/sounds/critter-call.wav",
+    "species/sounds/dragonfly-call.wav",
+    "species/sounds/fish-call.wav",
+    "species/sounds/gecko-call.wav",
+    "species/sounds/moth-call.wav",
+    "species/sounds/pigeon-call.wav",
+    "species/sounds/raven-call-090-120.wav",
+    "species/sounds/snail-call.wav",
+    "species/sounds/spider-call.wav"
+  ],
+  "build": {
+    "recipe": "40870c0206a1cb2c",
+    "toolkit": "0525a943cd7c0716",
+    "seconds": {
+      "day": 11.1,
+      "night": 14.6,
+      "cues": 5.3,
+      "total": 41.5
+    },
+    "frames": {
+      "bicycle-bell": 58886,
+      "pigeon": 82757,
+      "church-bell": 143222,
+      "door": 52199,
+      "ball": 73699,
+      "horn": 53105,
+      "train": 160817,
+      "cat": 51455,
+      "footsteps": 163410,
+      "wind-chime": 142337,
+      "gutter-drip": 156477
+    },
+    "measures": {
+      "day": {
+        "seconds": 30.0,
+        "peak": -11.213538905400016,
+        "rms": -26.209678277717494,
+        "lufs": -22.968466472484877,
+        "dc": -85.25469160873615,
+        "corr": 0.27277482602902764,
+        "seam": 0.1636842449674405,
+        "slope": 0.21793672459806457,
+        "bands": {
+          "<250": 37.3,
+          "250-2k": 41.2,
+          "2k-8k": 17.5,
+          ">8k": 4.0
+        },
+        "spread": 1.4637539282960645,
+        "stand": 2.358763338506492,
+        "standBand": "2k-8k",
+        "sourceSeam": [
+          0.093,
+          0.446
+        ]
+      },
+      "night": {
+        "seconds": 30.0,
+        "peak": -11.675773905504734,
+        "rms": -26.000652449163304,
+        "lufs": -23.642613076096136,
+        "dc": -85.44585288002767,
+        "corr": 0.5224535597094905,
+        "seam": 0.6087113513054104,
+        "slope": 0.8186151747518737,
+        "bands": {
+          "<250": 59.3,
+          "250-2k": 30.9,
+          "2k-8k": 7.6,
+          ">8k": 2.2
+        },
+        "spread": 2.102450282962117,
+        "stand": 2.5351490304901922,
+        "standBand": "<250",
+        "sourceSeam": [
+          0.234,
+          0.299
+        ]
+      },
+      "bicycle-bell": {
+        "seconds": 1.2267916666666667,
+        "peak": -9.93748502984933,
+        "rms": -24.468473585922965,
+        "loud": -19.217487636708814,
+        "edges": 74.35091375606541
+      },
+      "pigeon": {
+        "seconds": 1.7241041666666668,
+        "peak": -15.589041017358483,
+        "rms": -23.8993173659027,
+        "loud": -20.043818635603373,
+        "edges": 68.69935776855625
+      },
+      "church-bell": {
+        "seconds": 2.983791666666667,
+        "peak": -10.670815297378514,
+        "rms": -26.26088862633462,
+        "loud": -20.242498698184697,
+        "edges": 73.61758348853623
+      },
+      "door": {
+        "seconds": 1.0874791666666668,
+        "peak": -10.233758282629434,
+        "rms": -30.684100779332205,
+        "loud": -20.550872456731177,
+        "edges": 74.0546405032853
+      },
+      "ball": {
+        "seconds": 1.5353958333333333,
+        "peak": -7.607618422725403,
+        "rms": -29.46968497960406,
+        "loud": -21.321848023934766,
+        "edges": 76.68078036318933
+      },
+      "horn": {
+        "seconds": 1.1063541666666667,
+        "peak": -12.70530764266569,
+        "rms": -26.807747585138976,
+        "loud": -20.16598820168367,
+        "edges": 71.58309114324905
+      },
+      "train": {
+        "seconds": 3.3503541666666665,
+        "peak": -10.998379826737148,
+        "rms": -25.692778300183438,
+        "loud": -21.064093568808524,
+        "edges": 73.29001895917759
+      },
+      "cat": {
+        "seconds": 1.0719791666666667,
+        "peak": -11.648368797146249,
+        "rms": -22.611202322702688,
+        "loud": -19.32911036212568,
+        "edges": 72.64002998876849
+      },
+      "footsteps": {
+        "seconds": 3.404375,
+        "peak": -5.639938258379958,
+        "rms": -31.14184656502799,
+        "loud": -21.33408475186071,
+        "edges": 78.64846052753478
+      },
+      "wind-chime": {
+        "seconds": 2.9653541666666667,
+        "peak": -13.26427991095661,
+        "rms": -24.21838069292642,
+        "loud": -20.429563611063845,
+        "edges": 71.02411887495813
+      },
+      "gutter-drip": {
+        "seconds": 3.2599375,
+        "peak": -7.908713657633014,
+        "rms": -27.869881363060426,
+        "loud": -20.17852164782658,
+        "edges": 76.37968512828172
+      }
+    }
+  }
+}

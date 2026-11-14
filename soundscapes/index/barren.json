@@ -1,0 +1,319 @@
+{
+  "id": "barren",
+  "code": 60,
+  "name": "Barrens",
+  "beds": {
+    "day": {
+      "file": "beds/barren-day.ogg",
+      "bytes": 140099,
+      "level": 0.0
+    },
+    "night": {
+      "file": "beds/barren-night.ogg",
+      "bytes": 156345,
+      "level": -3.0
+    }
+  },
+  "cues": [
+    {
+      "id": "skitter",
+      "file": "cues/barren-skitter.ogg",
+      "bytes": 1263,
+      "seconds": 0.375,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        30.0,
+        90.0
+      ],
+      "level": -3.0,
+      "spread": 0.8
+    },
+    {
+      "id": "rockfall",
+      "file": "cues/barren-rockfall.ogg",
+      "bytes": 5421,
+      "seconds": 1.829,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        70.0,
+        180.0
+      ],
+      "level": -5.0,
+      "spread": 1.0
+    },
+    {
+      "id": "raven",
+      "file": "cues/barren-raven.ogg",
+      "bytes": 6001,
+      "seconds": 2.08,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -5.0,
+      "spread": 1.0
+    },
+    {
+      "id": "rattle",
+      "file": "cues/barren-rattle.ogg",
+      "bytes": 2599,
+      "seconds": 0.925,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        18.0,
+        45.0
+      ],
+      "level": -5.0,
+      "spread": 0.9
+    },
+    {
+      "id": "scuttle",
+      "file": "cues/barren-scuttle.ogg",
+      "bytes": 3112,
+      "seconds": 1.256,
+      "beds": [
+        "day",
+        "night"
+      ],
+      "every": [
+        35.0,
+        100.0
+      ],
+      "level": -4.0,
+      "spread": 0.7
+    },
+    {
+      "id": "hawk",
+      "file": "cues/barren-hawk.ogg",
+      "bytes": 4031,
+      "seconds": 1.312,
+      "beds": [
+        "day"
+      ],
+      "every": [
+        45.0,
+        130.0
+      ],
+      "level": -6.0,
+      "spread": 1.0
+    },
+    {
+      "id": "gecko",
+      "file": "cues/barren-gecko.ogg",
+      "bytes": 4272,
+      "seconds": 1.353,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        20.0,
+        60.0
+      ],
+      "level": -3.0,
+      "spread": 0.8
+    },
+    {
+      "id": "owl",
+      "file": "cues/barren-owl.ogg",
+      "bytes": 5338,
+      "seconds": 2.037,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        40.0,
+        110.0
+      ],
+      "level": -5.0,
+      "spread": 1.0
+    },
+    {
+      "id": "tick",
+      "file": "cues/barren-tick.ogg",
+      "bytes": 1951,
+      "seconds": 0.626,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        25.0,
+        80.0
+      ],
+      "level": -5.0,
+      "spread": 0.9
+    },
+    {
+      "id": "howl",
+      "file": "cues/barren-howl.ogg",
+      "bytes": 9253,
+      "seconds": 3.095,
+      "beds": [
+        "night"
+      ],
+      "every": [
+        60.0,
+        180.0
+      ],
+      "level": -7.0,
+      "spread": 1.0
+    }
+  ],
+  "calls": [
+    "species/sounds/beetle-call-090-120.wav",
+    "species/sounds/beetle-call.wav",
+    "species/sounds/bird-call.wav",
+    "species/sounds/critter-call.wav",
+    "species/sounds/lizard-call.wav",
+    "species/sounds/scorpion-call.wav"
+  ],
+  "build": {
+    "recipe": "41f35e5f035ebed2",
+    "toolkit": "0525a943cd7c0716",
+    "seconds": {
+      "day": 11.0,
+      "night": 6.5,
+      "cues": 3.2,
+      "total": 32.7
+    },
+    "frames": {
+      "skitter": 18010,
+      "rockfall": 87789,
+      "raven": 99824,
+      "rattle": 44381,
+      "scuttle": 60306,
+      "hawk": 62970,
+      "gecko": 64928,
+      "owl": 97780,
+      "tick": 30066,
+      "howl": 148570
+    },
+    "measures": {
+      "day": {
+        "seconds": 30.0,
+        "peak": -11.359343968055986,
+        "rms": -26.07387036031197,
+        "lufs": -22.203425583664735,
+        "dc": -90.33374043467204,
+        "corr": 0.3527431927836812,
+        "seam": 0.3407516435000337,
+        "slope": 0.555129431268173,
+        "bands": {
+          "<250": 22.3,
+          "250-2k": 41.1,
+          "2k-8k": 23.6,
+          ">8k": 12.9
+        },
+        "spread": 1.7214102090663026,
+        "stand": 1.2551276699676635,
+        "standBand": "<250",
+        "sourceSeam": [
+          0.038,
+          0.199
+        ]
+      },
+      "night": {
+        "seconds": 30.0,
+        "peak": -10.660860121918462,
+        "rms": -26.00471122921062,
+        "lufs": -24.124421520715778,
+        "dc": -77.74969297178265,
+        "corr": 0.4605070391158276,
+        "seam": 0.15030480558088047,
+        "slope": 0.43035801925883427,
+        "bands": {
+          "<250": 75.9,
+          "250-2k": 14.7,
+          "2k-8k": 4.3,
+          ">8k": 5.1
+        },
+        "spread": 1.900037691896184,
+        "stand": 1.6642881381423607,
+        "standBand": "<250",
+        "sourceSeam": [
+          0.352,
+          0.683
+        ]
+      },
+      "skitter": {
+        "seconds": 0.3752083333333333,
+        "peak": -4.293611883783374,
+        "rms": -27.23337365244609,
+        "loud": -23.901347923700612,
+        "edges": 79.99478690213137
+      },
+      "rockfall": {
+        "seconds": 1.8289375,
+        "peak": -9.283632321786655,
+        "rms": -25.197931066343138,
+        "loud": -20.85766041074411,
+        "edges": 75.00476646412808
+      },
+      "raven": {
+        "seconds": 2.0796666666666668,
+        "peak": -9.762822158483438,
+        "rms": -25.967007631201113,
+        "loud": -20.35701154103665,
+        "edges": 74.52557662743129
+      },
+      "rattle": {
+        "seconds": 0.9246041666666667,
+        "peak": -4.246374048979102,
+        "rms": -26.997401802775315,
+        "loud": -22.18458067105677,
+        "edges": 80.04202473693563
+      },
+      "scuttle": {
+        "seconds": 1.256375,
+        "peak": -4.31101150826785,
+        "rms": -27.518972671363482,
+        "loud": -22.00848446094858,
+        "edges": 79.97738727764688
+      },
+      "hawk": {
+        "seconds": 1.311875,
+        "peak": -14.373350465168201,
+        "rms": -22.713659072420253,
+        "loud": -19.330723046953928,
+        "edges": 69.91504832074654
+      },
+      "gecko": {
+        "seconds": 1.3526666666666667,
+        "peak": -7.153216973553382,
+        "rms": -26.21713387892127,
+        "loud": -19.607095571092366,
+        "edges": 77.13518181236135
+      },
+      "owl": {
+        "seconds": 2.0370833333333334,
+        "peak": -16.232857393707786,
+        "rms": -26.661735501583106,
+        "loud": -20.078265820417244,
+        "edges": 68.05554139220695
+      },
+      "tick": {
+        "seconds": 0.626375,
+        "peak": -4.885647120232602,
+        "rms": -30.080460694876038,
+        "loud": -24.943669385318973,
+        "edges": 79.40275166568213
+      },
+      "howl": {
+        "seconds": 3.0952083333333333,
+        "peak": -14.682509585854604,
+        "rms": -22.830948040710016,
+        "loud": -19.61795315179502,
+        "edges": 69.60588920006013
+      }
+    }
+  }
+}
