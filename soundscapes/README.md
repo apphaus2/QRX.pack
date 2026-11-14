@@ -8,11 +8,12 @@ is Ogg Opus, which SoundLib's soundscape plays.
 Everything is synthesized here from noise and tones with fixed seeds. Nothing is recorded or downloaded, so it is
 CC0 like the rest of the pack's generated sound. It is stylised on purpose.
 
-**Nobody has listened to any of it.** The numbers under "Checks" are what stands in for ears. They say a bed is at
-the right level, loops without a step, is not mono and has no single moment that stands out; they do not say it
-sounds good.
+Listen to them at **https://qrx-pack.apphaus.us/soundscapes/preview/** (the page in `preview/`, served from this
+repository's `master`): pick a biome, Day or Night, and it loops the bed and scatters the cues as an app would.
 
-Built so far: `forest`. The other ten have no recipe yet.
+All eleven biomes are built. The numbers under "Checks" stand in for ears while a recipe is written: they say a bed
+is at the right level, loops without a step, is not mono and has no single moment that stands out; they do not say
+it sounds good. Only listening does.
 
 ## Building
 
@@ -282,6 +283,9 @@ night  peak -10.2 rms -26.0  lufs -22.9  dc -71  corr 0.53  seam 0.07/0.11  spre
 ```
 
 ## Listening
+
+What is on `master` plays at https://qrx-pack.apphaus.us/soundscapes/preview/ about a minute after a push. To hear
+a build that is not pushed yet, serve the checkout:
 
 ```
 cd third_party/QRX.pack && python3 -m http.server 8000
