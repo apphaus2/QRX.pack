@@ -18,7 +18,7 @@
          border: 1px solid var(--line); border-radius: 10px; margin-bottom: 16px; position: sticky; top: 8px; z-index: 1; }
   .bar label { display: flex; gap: 8px; align-items: center; color: var(--muted); }
   #now { font-weight: 600; min-width: 12em; }
-  #status { color: var(--muted); width: 100%; font-size: 13px; min-height: 1.2em; }
+  #status, #next { color: var(--muted); width: 100%; font-size: 13px; min-height: 1.2em; }
   .biome { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; margin-bottom: 10px; }
   .biome.missing { opacity: 0.55; }
   .head { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
@@ -40,13 +40,16 @@
 <body>
 <main>
   <h1>QRay soundscapes</h1>
-  <p class="lead">Each biome's bed loops gaplessly; its cues are scattered over it at their own intervals, panned at random.
+  <p class="lead">Each biome's bed loops gaplessly; its cues are scattered over it as the apps scatter them, rarely and
+    panned at random: the first of each at a random moment up to its longest interval, then at its own intervals.
+    Press a cue's button to hear it now.
     Serve the pack's root (<code>python3 -m http.server</code>) and open <code>/soundscapes/preview/</code>.</p>
   <div class="bar">
     <span id="now">Nothing playing</span>
     <button id="stop" disabled>Stop</button>
     <label>Volume <input id="volume" type="range" min="0" max="1" step="0.01" value="0.7"></label>
     <label><input id="calls" type="checkbox"> Creature calls, far off</label>
+    <div id="next"></div>
     <div id="status"></div>
   </div>
   <div id="list"></div>
@@ -75,7 +78,7 @@ function audio() {
 async function buffer(url) {
   if (buffers.has(url)) return buffers.get(url);
   const p = (async () => {
-    const res = await fetch(url);
+    const res = await fetch(url, { cache: "no-cache" });
     if (!res.ok) throw new Error(url + ": HTTP " + res.status);
     const data = await res.arrayBuffer();
     // the promise form; old Safari only had callbacks, so wrap both
@@ -147,36 +150,49 @@ async function play(biome, part, button) {
   $("stop").disabled = false;
   status("");
   const c = current;
-  for (const cue of biome.cues.filter((q) => q.beds.includes(part))) {
-    const next = () => {
-      if (current !== c) return;
-      c.timers.push(setTimeout(async () => {
-        if (current !== c) return;
-        try { playOnce(await buffer(ROOT + cue.file), cue.level, rand(-cue.spread, cue.spread)); }
-        catch (e) { status(e.message); }
-        next();
-      }, rand(cue.every[0], cue.every[1]) * 1000));
-    };
-    // the first of each comes sooner, so a listener hears them without waiting minutes
+  c.due = {};
+  // The apps' rule: a cue first sounds at random * every.max after the bed starts, then every
+  // every.min + random * (every.max - every.min). So a start is often quiet for a while; that is meant.
+  const schedule = (cue, seconds) => {
+    if (current !== c) return;
+    c.due[cue.id] = Date.now() + seconds * 1000;
     c.timers.push(setTimeout(async () => {
       if (current !== c) return;
-      try { playOnce(await buffer(ROOT + cue.file), cue.level, rand(-cue.spread, cue.spread)); } catch (e) { status(e.message); }
-      next();
-    }, rand(2, Math.min(15, cue.every[0])) * 1000));
-  }
-  const callLoop = () => {
+      delete c.due[cue.id];
+      try { playOnce(await buffer(ROOT + cue.file), cue.level, rand(-cue.spread, cue.spread)); }
+      catch (e) { status(e.message); }
+      schedule(cue, rand(cue.every[0], cue.every[1]));
+    }, seconds * 1000));
+  };
+  for (const cue of biome.cues.filter((q) => q.beds.includes(part))) schedule(cue, Math.random() * cue.every[1]);
+  // the species' own calls, as rare as a cue: one every two to five minutes when the box is ticked
+  const callLoop = (seconds) => {
     if (current !== c) return;
+    c.due["a creature call"] = Date.now() + seconds * 1000;
     c.timers.push(setTimeout(async () => {
       if (current !== c) return;
       if ($("calls").checked && biome.calls && biome.calls.length) {
         const url = "../../" + biome.calls[Math.floor(Math.random() * biome.calls.length)];
         try { playOnce(await buffer(url), -14, rand(-1, 1), 2500); } catch (e) { status(e.message); }
       }
-      callLoop();
-    }, rand(8, 25) * 1000));
+      callLoop(rand(120, 300));
+    }, seconds * 1000));
   };
-  callLoop();
+  callLoop(rand(60, 300));
 }
+
+function countdown() {
+  const el = $("next");
+  if (!current || !current.due) { el.textContent = ""; return; }
+  const due = Object.entries(current.due).filter(([id]) => id !== "a creature call" || $("calls").checked);
+  if (!due.length) { el.textContent = "No cue is waiting."; return; }
+  due.sort((a, b) => a[1] - b[1]);
+  const [id, at] = due[0];
+  const left = Math.max(0, Math.round((at - Date.now()) / 1000));
+  el.textContent = "Next: " + id + " in " + Math.floor(left / 60) + ":" + String(left % 60).padStart(2, "0") +
+    ". Cues are rare on purpose: about one a minute or less, with quiet stretches of several minutes.";
+}
+setInterval(countdown, 1000);
 
 async function fire(biome, cue) {
   audio();
@@ -234,7 +250,7 @@ function render(all) {
 async function load() {
   let index = { biomes: [] }, all = [];
   try {
-    const r = await fetch(INDEX);
+    const r = await fetch(INDEX, { cache: "no-cache" });   // a rebuilt index shows on a reload
     if (r.ok) index = await r.json(); else status("No index.json yet (HTTP " + r.status + "): run build.py.");
   } catch (e) { status("Could not read index.json: " + e.message); }
   try {

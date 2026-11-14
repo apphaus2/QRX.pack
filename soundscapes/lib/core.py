@@ -10,12 +10,22 @@ import contextlib, math, random, zlib
 
 RATE = 48_000              # every file, bed and cue
 BED_SECONDS = 30           # a bed's length; a loop of exactly RATE * BED_SECONDS frames
-BED_RMS_DB = -26.0         # every bed is normalised to this RMS (the mean of both channels), within BED_RMS_TOLERANCE
-BED_RMS_TOLERANCE = 1.0    # dB
+BED_LUFS = -24.0           # every bed is set to this loudness (lib.measure.loudness: K-weighted, ungated), within
+BED_LUFS_TOLERANCE = 1.0   # this many dB, so one playback level suits every bed whatever its spectrum
+BED_RMS_DB = -26.0         # the nominal bed RMS that cue levels are written against (CUE_LOUD_DB is 6 dB over it).
+                           # Until 2026-11-14 every bed was normalised to it; now beds are set by loudness and their
+                           # RMS lies a little under it (dark beds nearer, bright ones up to about 2 dB under)
+BRIGHTNESS = {             # the most energy a bed may have above 2 kHz and above 8 kHz, percent of the four bands'
+    "day": (25.0, 4.0),    # total; the build softens a bed's top with shelves until it is under these
+    "night": (40.0, 4.0),
+}
 BED_PEAK_DB = -3.0         # no bed sample reaches this
 CUE_LOUD_DB = -20.0        # every cue file is normalised so its loudest 100 ms has this RMS: 6 dB over a bed's RMS
 CUE_PEAK_DB = -7.0         # and a sharper peak than that allows is bent under this by the soft limiter
 CUE_SECONDS = (0.2, 4.0)   # the shortest and longest cue
+CUE_EVERY_MIN = 60.0       # no cue may come round more often than once a minute (its `every` minimum)
+CUE_NEAR_LEVEL = -4.0      # a cue with a level above this is near: one per bed (its hero), and it must not be sharp
+CUE_SHARP_DB = 6.0         # sharp: the loudest 5 ms is this much over the loudest 100 ms (a knock, a snap, a click)
 CONTROL_RATE = 100         # points a second in a control curve (lib.control)
 
 _state = {"loop": False}
@@ -95,7 +105,7 @@ class Cue:
         self.every, self.level, self.spread = (float(every[0]), float(every[1])), float(level), float(spread)
 
 
-def cue(id, samples, beds=("day",), every=(20, 60), level=-3.0, spread=0.6):
+def cue(id, samples, beds=("day",), every=(180, 600), level=-6.0, spread=0.6):
     """A cue for `cues(s)` to return: an id (lower-case words and hyphens; the file is cues/<biome>-<id>.ogg),
     the mono samples (any level: the build trims the silence, fades the ends and sets the loudness), the beds
     it plays over ("day", "night" or both), how often ([min, max] seconds between two), its level (dB of gain

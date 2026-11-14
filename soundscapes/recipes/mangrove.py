@@ -1,173 +1,132 @@
 """Mangrove: tidal forest, roots, mud and brackish water.
 
-Day is warm, close and wet: tide water moving among the roots (a soft slosh with a gurgle in it), the mud
-popping and ticking as it drains, and a dense whine of tropical insects hanging over everything in the still
-air. Night keeps the tide, slower, thickens the insects into a pulsing chorus, and adds the fine crackle of
-snapping shrimp under the water. Crabs, birds, drips, frogs and bats are cues.
+A soft backdrop, not a portrait. Day is slow tide water among the roots, low and warm: a dark slosh with a quiet
+gurgle in it, in close, humid, still air, and a faint far haze of insects at most. Night is the same tide, slower
+and darker, with a far, thin chorus of insects over it. The mud's ticks, the birds, a drip, a splash, a frog and a
+bat are cues, and cues are rare: about one a minute or less, most of them far off. Each bed has one hero (a dove's
+soft coo by day, a night heron's "quock" by night), allowed a little nearer.
 
-The sounds that set it apart from the forest: water and mud in the middle band by day (the forest's middle band
-is wind in the crowns), and a steady high whine and shrimp crackle where the forest has leaves or crickets.
+The first version had a high insect whine, a pulsing buzz, mud ticks and (by night) a snapping-shrimp crackle in its
+beds; the owner found the beds harsh, so all of that is gone and the beds are water, low and slow.
 """
-import math
-
 from lib import *
 
 
-def whine(n, rng, freqs, q=40.0):
-    """An insect whine: white noise through narrow resonances at `freqs`, so each is a tone that wavers in pitch
-    and level by itself. (Steady sine tones were tried first: they loop exactly, but a few beating partials at
-    3-7 kHz have a crest that made the check's `seam` measure read over 1.0 under some seeds.)"""
-    return set_rms(add(*[bandpass(white(n, rng), f, q) for f in freqs]))
-
-
-def bubble(r, lo=300, hi=1100, seconds=(0.015, 0.05)):
-    """A small rising blip of water: a gurgle among roots, a pop in the mud."""
+def bubble(r, lo=200, hi=600, seconds=(0.02, 0.06)):
+    """A small, soft rising blip of water among roots."""
     d = r.uniform(*seconds)
     f = r.uniform(lo, hi)
-    return tone(d, (f, f * r.uniform(1.4, 2.0)), ((1, 1.0), (2, 0.1)), attack=0.002, release=d * 0.8, curve=2.0)
+    return tone(d, (f, f * r.uniform(1.3, 1.7)), ((1, 1.0), (2, 0.06)), attack=0.006, release=d * 0.7, curve=1.5)
 
 
-def tick(r):
-    """The mud ticking as it drains: a tiny dry click."""
-    return knock(r, r.uniform(1800, 4200), 0.018, q=3.0, body=0.0)
+def tide(s, name, every, cutoff, gurgle_count):
+    """The water among the roots: brown and pink noise kept low (the slosh's cutoff wanders slowly within
+    `cutoff`, never above about 800 Hz), and a quiet gurgle of small low bubbles that is a little busier where the
+    water moves more. Both have a floor, so a still moment of water never empties into a landmark."""
+    flow = drift(s.rng(name), s.seconds, every=every, lo=0.0, hi=1.0)
+    level = [0.7 + 0.3 * v for v in flow]           # about 3 dB from slack to moving water
+    deep = stereo(*[apply(moving_lowpass(brown(s.n, s.rng(name + "-deep-" + side), corner=80), scale(flow, 160, 320)),
+                          level) for side in "ab"], width=0.7)
+    slosh = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng(name + "-" + side)), scale(flow, *cutoff)), 150),
+                           level) for side in "ab"], width=0.75)
+    gurgle = scatter(s.n, s.rng(name + "-gurgle"), gurgle_count, bubble, level=(-14, -2), pan=(-0.9, 0.9),
+                     follow=[0.5 + 0.5 * v for v in smooth(flow, 2.0)], depth=0.6)
+    return deep, slosh, gurgle
 
 
-def tide(s, name, every, lo, hi, cutoff):
-    """The water among the roots: pink noise in the low middle band, its brightness and level wandering slowly,
-    and a gurgle of many small bubbles that is busier where the water is moving more. Both are dense and have a
-    floor, so a stretch of quiet water never empties into a landmark."""
-    flow = drift(s.rng(name), s.seconds, every=every, lo=lo, hi=hi)
-    slosh = stereo(*[apply(band(moving_lowpass(pink(s.n, s.rng(name + "-" + side)), scale(flow, *cutoff)), 180, 2400),
-                           flow) for side in "ab"], width=0.75)
-    gurgle = scatter(s.n, s.rng(name + "-gurgle"), 5000, bubble, level=(-16, -2), pan=(-0.9, 0.9),
-                     follow=[0.4 + 0.6 * v for v in smooth(flow, 1.5)], depth=0.7)
-    return slosh, gurgle
+def haze(s, name, centre, depth):
+    """Insects too far away to tell apart: a band of noise round `centre`, its level wandering slowly between
+    `depth` and 1. Faint by design: it is there only to say the air is alive."""
+    lvl = drift(s.rng(name), s.seconds, every=7.0, lo=depth, hi=1.0)
+    return stereo(*[apply(lowpass(bandpass(white(s.n, s.rng(name + "-" + side)), centre, 2.0), centre * 1.3), lvl)
+                    for side in "ab"], width=0.9)
 
 
 def day(s):
-    # Humid stillness: a dark, barely moving body of air so the bed has a floor under the water.
-    still = drift(s.rng("still"), s.seconds, every=7.0, lo=0.75, hi=0.95)
-    air = stereo(*[apply(lowpass(brown(s.n, s.rng("air-" + side), corner=80), 220), still) for side in "ab"],
+    # Humid stillness under the water: a dark, barely moving body of air.
+    still = drift(s.rng("still"), s.seconds, every=7.0, lo=0.8, hi=0.95)
+    air = stereo(*[apply(lowpass(brown(s.n, s.rng("air-" + side), corner=70), 200), still) for side in "ab"],
                  width=0.6)
-
-    slosh, gurgle = tide(s, "tide", 5.0, 0.6, 1.0, (500, 1300))
-
-    # The mud: thousands of tiny ticks and soft pops, never in a cluster big enough to hear as one event.
-    mud = scatter(s.n, s.rng("mud"), 6000, tick, level=(-20, -6), pan=(-1, 1))
-    pops = scatter(s.n, s.rng("pops"), 2500, lambda r: bubble(r, 500, 1600, (0.008, 0.02)), level=(-18, -6))
-
-    # And the drained mud's fine seething: very short, very high specks of noise. It also keeps the loop's seam
-    # clean after encoding. A bed whose energy is mostly in the middle band (the water) and has almost nothing
-    # over 8 kHz failed the `seam` check after encoding under one seed in four tried (the source loop was clean):
-    # the two sides of the seam are coded 30 s apart, and the codec's error is large next to how little such a
-    # signal moves from one sample to the next. This layer is about 4% of the energy; with it an estimate of how
-    # often the encoded seam fails fell from about the half to the forest day bed's rate.
-    seethe = lambda r: noise_burst(r, r.uniform(0.001, 0.003), lo=6000, hi=14000, attack=0.0003, release=0.001)
-    fizz = scatter(s.n, s.rng("fizz"), 9000, seethe, level=(-20, -4))
-
-    # The insect whine: a few high wavering tones, slightly apart, each side its own set, the level wandering a
-    # little; under them a band of hiss pulsing too fast to count.
-    def insect(side, base):
-        r = s.rng("whine-" + side)
-        return apply(whine(s.n, r, [base * r.uniform(0.98, 1.02) * k for k in (1.0, 1.13, 1.31)]),
-                     drift(r, s.seconds, every=6.0, lo=0.55, hi=0.9))
-    whine_pair = stereo(insect("a", 3300), insect("b", 3420), width=0.8)
-    buzz_level = drift(s.rng("buzz"), s.seconds, every=6.0, lo=0.6, hi=0.9)
-    pulse = [0.55 + 0.45 * math.sin(2 * math.pi * 140 * i / s.rate) ** 2 for i in range(s.n)]
-    buzz = stereo(*[apply([a * b for a, b in zip(bandpass(white(s.n, s.rng("buzz-" + side)), 5200, 3.0), pulse)],
-                          buzz_level) for side in "ab"], width=0.85)
-
-    return mix((air, -6), (slosh, 0), (gurgle, -10), (mud, -14), (pops, -16), (whine_pair, -9), (buzz, -10),
-               (fizz, -2))
+    deep, slosh, gurgle = tide(s, "tide", 6.0, (350, 800), 2500)
+    return mix((air, -4), (deep, -2), (slosh, 0), (gurgle, -14), (haze(s, "haze", 3000, 0.5), -30))
 
 
 def night(s):
-    # The tide, slower and a little darker.
-    slosh, gurgle = tide(s, "tide", 7.0, 0.55, 0.9, (380, 1000))
+    # The tide slower and darker; over it a thin, far insect chorus: short soft pulse trains, all of them some
+    # way off, each fading in and out on its own, so the mass thins and fills with no beat that comes round.
+    deep, slosh, gurgle = tide(s, "tide", 8.0, (260, 600), 1800)
 
-    # Snapping shrimp: a fine, bright crackle of very short clicks, uniform and dense, like fat in a pan far off.
-    shrimp_click = lambda r: noise_burst(r, r.uniform(0.0015, 0.004), lo=2500, hi=r.uniform(7000, 12000),
-                                         attack=0.0003, release=0.001)
-    shrimp = scatter(s.n, s.rng("shrimp"), 14000, shrimp_click, level=(-22, -4), pan=(-1, 1))
-
-    # A thicker insect chorus: katydid-like callers, each a short buzzy pulse train repeated on its own rate,
-    # fading in and out on its own, so the mass thins and fills without a beat that comes round.
     def katydid(r):
-        hz = r.uniform(2600, 4200)
-        pulses, each = r.randint(3, 6), r.uniform(0.012, 0.02)
-        call = seq(*[seq(tone(each, hz, ((1, 1.0), (2, 0.3), (3, 0.12)), attack=0.002, release=0.006),
-                         silence(each * 0.7)) for _ in range(pulses)])
-        call = distant(call, r.uniform(0.15, 0.7))
+        hz = r.uniform(2400, 3600)
+        pulses, each = r.randint(2, 4), r.uniform(0.014, 0.022)
+        call = seq(*[seq(tone(each, hz, ((1, 1.0), (2, 0.15)), attack=0.004, release=0.008), silence(each * 0.8))
+                     for _ in range(pulses)])
+        call = distant(call, r.uniform(0.55, 0.9))
         return lambda r2: gain(call, r2.uniform(-2, 0))
-    insects = chorus(s.n, s.rng("katydids"), voices=34, voice=katydid, rate=(1.6, 3.4), jitter=0.08,
-                     level=(-10, 0), pan=(-0.95, 0.95), presence=(0.2, 1.0), every=5.0)
+    insects = chorus(s.n, s.rng("katydids"), voices=18, voice=katydid, rate=(0.8, 1.8), jitter=0.1,
+                     level=(-10, 0), pan=(-0.95, 0.95), presence=(0.2, 1.0), every=6.0)
 
-    # Under it the steady whine stays, lower and softer than by day.
-    def insect(side, base):
-        r = s.rng("whine-" + side)
-        return apply(whine(s.n, r, [base * r.uniform(0.98, 1.02) * k for k in (1.0, 1.21)]),
-                     drift(r, s.seconds, every=7.0, lo=0.6, hi=0.9))
-    whine_pair = stereo(insect("a", 2400), insect("b", 2480), width=0.8)
+    return mix((deep, 0), (slosh, -1), (gurgle, -16), (insects, -9), (haze(s, "haze", 2800, 0.5), -26))
 
-    return mix((slosh, -1), (gurgle, -14), (shrimp, -11), (insects, -6), (whine_pair, -18))
+
+def coo(r):
+    """A dove's soft "coo-cooo, coo": round low hoots, the second long."""
+    return seq(hoot(520, 0.28, 0.95, rng=r), silence(0.12), hoot(540, 0.6, 0.9, rng=r), silence(0.35),
+               hoot(510, 0.3, 0.94, rng=r))
 
 
 def cues(s):
+    # Rare and mostly far: each bed's hero comes every 90 to 240 s, the others every 3 to 10 minutes or rarer, so a
+    # listener hears about one event a minute or less. Every cue file's loudest 100 ms is 6 dB over a nominal
+    # bed's RMS: the hero sits at -3, everything else at -6 to -9 and `distant`. Nothing sharp is near.
     r = s.rng      # r("name") is a new fixed source each call; a cue that draws in a loop keeps one
-    crab, splash, rattle, frog, bat = r("crab"), r("splash-settle"), r("rattle"), r("frog"), r("bat")
+    mud, splash, frog, bat = r("mud"), r("splash-settle"), r("frog"), r("bat")
     return [
-        # A fiddler crab's claw clicks: a few quick dry clicks, irregular, close by on the mud. Sharp clicks are
-        # bent by the build's peak limiter, so their loudest 100 ms comes out about 8 dB under other cues': level 0.
-        cue("crab", space(seq(*[seq(knock(crab, crab.uniform(2600, 3400), 0.03, q=5.0, body=0.1),
-                                    silence(crab.uniform(0.04, 0.16))) for _ in range(6)]),
-                          r("crab-space"), 0.3, 0.1),
-            beds=["day"], every=[20, 55], level=0, spread=0.7),
+        # Day's hero: a dove cooing somewhere in the canopy over the water.
+        cue("dove", space(distant(coo(r("dove")), 0.3), r("dove-space"), 0.8, 0.25),
+            beds=["day"], every=[90, 240], level=-3, spread=0.9),
 
-        # A kingfisher-like rattle: a run of short, rough, bright notes, dropping a little, from across the water.
-        cue("rattle", space(distant(seq(*[seq(tone(0.032, (3600 - 25 * i, 3300 - 25 * i),
-                                                   ((1, 1.0), (2, 0.5), (3, 0.25)), attack=0.003, release=0.012,
-                                                   breath=0.25, rng=rattle),
-                                              silence(0.028)) for i in range(14)]), 0.25),
-                            r("rattle-space"), 0.6, 0.2),
-            beds=["day"], every=[30, 80], level=-2, spread=0.9),
+        # A kingfisher-like rattle across the water: a run of short soft notes, dropping a little, far off.
+        cue("rattle", space(distant(seq(*[seq(tone(0.035, (3300 - 25 * i, 3050 - 25 * i), ((1, 1.0), (2, 0.3)),
+                                                   attack=0.006, release=0.015), silence(0.03)) for i in range(12)]),
+                                    0.7), r("rattle-space"), 0.8, 0.3),
+            beds=["day"], every=[180, 480], level=-7, spread=0.9),
 
-        # A drop falling from a leaf into still water: a bright plip and a smaller one after it. Day and night.
-        cue("drip", space(seq(bubble(r("drip-a"), 1300, 1700, (0.02, 0.03)), silence(0.11),
-                              gain(bubble(r("drip-b"), 1800, 2200, (0.012, 0.02)), -8)), r("drip-space"), 0.5, 0.2),
-            beds=["day", "night"], every=[15, 45], level=-5, spread=0.8),
-
-        # A mudskipper flopping: a soft wet slap on the mud, a second smaller one, a tick of mud.
-        cue("mudskipper", seq(noise_burst(r("flop-a"), 0.06, lo=250, hi=2500, attack=0.002, release=0.05, curve=2.0),
-                              silence(0.18),
-                              gain(noise_burst(r("flop-b"), 0.04, lo=300, hi=3000, attack=0.002, release=0.035,
-                                               curve=2.0), -5),
-                              silence(0.07), gain(tick(r("flop-c")), -10)),
-            beds=["day"], every=[40, 100], level=-5, spread=0.7),
+        # The mud: a few dull ticks and a soft pop as it drains, a little way off.
+        cue("mud", distant(seq(*[seq(knock(mud, mud.uniform(900, 1400), 0.03, q=3.0, body=0.0),
+                                     silence(mud.uniform(0.12, 0.4))) for _ in range(3)],
+                               bubble(mud, 250, 450, (0.04, 0.06))), 0.6),
+            beds=["day"], every=[240, 600], level=-8, spread=0.7),
 
         # A heron, far off over the water: two hoarse low calls.
-        cue("heron", space(distant(seq(caw(r("heron-a"), 340, 0.38), silence(0.5),
-                                       caw(r("heron-b"), 320, 0.3)), 0.6), r("heron-space"), 1.0, 0.3),
-            beds=["day"], every=[45, 120], level=-6, spread=1.0),
+        cue("heron", space(distant(seq(caw(r("heron-a"), 340, 0.38), silence(0.5), caw(r("heron-b"), 320, 0.3)), 0.75),
+                           r("heron-space"), 1.0, 0.3),
+            beds=["day"], every=[300, 900], level=-8, spread=1.0),
 
-        # A night heron's "quock": one short barked call, flat and abrupt, now and then a second.
-        cue("quock", space(distant(seq(caw(r("quock-a"), 520, 0.16), silence(0.9), gain(caw(r("quock-b"), 500, 0.14), -3)),
-                                   0.35), r("quock-space"), 0.9, 0.28),
-            beds=["night"], every=[30, 90], level=-3, spread=0.9),
+        # A drop falling from a leaf into still water, a little way off. Day and night.
+        cue("drip", space(distant(seq(bubble(r("drip-a"), 900, 1200, (0.025, 0.035)), silence(0.14),
+                                      gain(bubble(r("drip-b"), 1100, 1400, (0.015, 0.025)), -8)), 0.5),
+                          r("drip-space"), 0.6, 0.25),
+            beds=["day", "night"], every=[180, 600], level=-7, spread=0.8),
 
-        # A splash among the roots: a fish or something larger, then the water settling in bubbles.
-        cue("splash", seq(noise_burst(r("splash"), 0.18, lo=300, hi=5000, attack=0.004, release=0.15, curve=2.2),
-                          *[gain(seq(silence(splash.uniform(0.03, 0.09)), bubble(splash, 400, 1200)),
-                                 -splash.uniform(6, 16)) for _ in range(9)]),
-            beds=["night"], every=[35, 100], level=-5, spread=0.8),
+        # Night's hero: a night heron's "quock", one flat barked call and now and then a softer second.
+        cue("quock", space(distant(seq(caw(r("quock-a"), 480, 0.17), silence(0.9), gain(caw(r("quock-b"), 460, 0.15), -4)),
+                                   0.5), r("quock-space"), 1.0, 0.3),
+            beds=["night"], every=[90, 240], level=-3, spread=0.9),
 
-        # A tree frog: a nasal "quank", said four times, the last softer.
-        cue("tree-frog", space(seq(*[seq(gain(croak(frog, 1150, 0.12, pulse=90), -2 * max(0, i - 2)),
-                                         silence(0.22)) for i in range(4)]), r("frog-space"), 0.5, 0.2),
-            beds=["night"], every=[20, 60], level=-3, spread=0.8),
+        # Something slipping into the water among the roots, then the water settling in bubbles. Far.
+        cue("splash", distant(seq(noise_burst(splash, 0.2, lo=200, hi=2500, attack=0.012, release=0.17, curve=2.0),
+                                  *[gain(seq(silence(splash.uniform(0.04, 0.1)), bubble(splash, 250, 600)),
+                                         -splash.uniform(6, 16)) for _ in range(7)]), 0.55),
+            beds=["night"], every=[240, 600], level=-7, spread=0.8),
 
-        # A bat flying past: a quick flutter of soft wing beats, swelling and fading, with a faint squeak.
-        cue("bat", overlay(seq(*[seq(gain(noise_burst(bat, 0.022, lo=400, hi=3500, attack=0.004, release=0.015),
-                                          -18 * abs(i - 9) / 9), silence(0.045)) for i in range(19)]),
-                           gain(chirp(0.012, 9000, 7000), -14), 0.6),
-            beds=["night"], every=[40, 110], level=-6, spread=1.0),
+        # A tree frog some way off: a nasal "quank", three times, the last softer.
+        cue("tree-frog", space(distant(seq(*[seq(gain(croak(frog, 1000, 0.12, pulse=80), -3 * max(0, i - 1)),
+                                                 silence(0.3)) for i in range(3)]), 0.55), r("frog-space"), 0.6, 0.25),
+            beds=["night"], every=[180, 480], level=-7, spread=0.8),
+
+        # A bat passing: a quick soft flutter of wing beats, swelling and fading.
+        cue("bat", distant(seq(*[seq(gain(noise_burst(bat, 0.024, lo=300, hi=2500, attack=0.006, release=0.016),
+                                          -18 * abs(i - 9) / 9), silence(0.045)) for i in range(19)]), 0.4),
+            beds=["night"], every=[300, 900], level=-8, spread=1.0),
     ]

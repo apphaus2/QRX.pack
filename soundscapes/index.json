@@ -10,6 +10,7 @@
     "cueChannels": 1,
     "bedRmsDb": -26.0,
     "cueLoudDb": -20.0,
+    "bedLufs": -24.0,
     "level": "dB of gain to play a file at; a cue's is relative to its bed played at 0"
   },
   "biomes": [
@@ -20,135 +21,134 @@
       "beds": {
         "day": {
           "file": "beds/forest-day.ogg",
-          "bytes": 148505,
+          "bytes": 139572,
           "level": 0.0
         },
         "night": {
           "file": "beds/forest-night.ogg",
-          "bytes": 167370,
+          "bytes": 161462,
           "level": 0.0
         }
       },
       "cues": [
         {
-          "id": "woodpecker",
-          "file": "cues/forest-woodpecker.ogg",
-          "bytes": 3878,
-          "seconds": 1.238,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            35.0,
-            90.0
-          ],
-          "level": -2.0,
-          "spread": 0.8
-        },
-        {
           "id": "song-warble",
           "file": "cues/forest-song-warble.ogg",
-          "bytes": 3877,
-          "seconds": 1.223,
+          "bytes": 3941,
+          "seconds": 1.249,
           "beds": [
             "day"
           ],
           "every": [
-            12.0,
-            35.0
+            90.0,
+            240.0
           ],
-          "level": 0.0,
+          "level": -2.0,
           "spread": 0.9
         },
         {
           "id": "song-teetoo",
           "file": "cues/forest-song-teetoo.ogg",
-          "bytes": 3972,
-          "seconds": 1.243,
+          "bytes": 4157,
+          "seconds": 1.319,
           "beds": [
             "day"
           ],
           "every": [
-            20.0,
-            50.0
+            180.0,
+            420.0
           ],
-          "level": -1.0,
+          "level": -6.0,
           "spread": 0.9
         },
         {
-          "id": "twig",
-          "file": "cues/forest-twig.ogg",
-          "bytes": 900,
-          "seconds": 0.27,
-          "beds": [
-            "day",
-            "night"
-          ],
-          "every": [
-            45.0,
-            120.0
-          ],
-          "level": -1.0,
-          "spread": 0.7
-        },
-        {
-          "id": "crow",
-          "file": "cues/forest-crow.ogg",
-          "bytes": 7098,
-          "seconds": 2.302,
+          "id": "woodpecker",
+          "file": "cues/forest-woodpecker.ogg",
+          "bytes": 4173,
+          "seconds": 1.338,
           "beds": [
             "day"
           ],
           "every": [
-            45.0,
-            120.0
-          ],
-          "level": -6.0,
-          "spread": 1.0
-        },
-        {
-          "id": "owl",
-          "file": "cues/forest-owl.ogg",
-          "bytes": 7996,
-          "seconds": 2.946,
-          "beds": [
-            "night"
-          ],
-          "every": [
-            25.0,
-            70.0
-          ],
-          "level": -1.0,
-          "spread": 0.8
-        },
-        {
-          "id": "churr",
-          "file": "cues/forest-churr.ogg",
-          "bytes": 10127,
-          "seconds": 3.172,
-          "beds": [
-            "night"
-          ],
-          "every": [
-            30.0,
-            90.0
+            240.0,
+            600.0
           ],
           "level": -7.0,
           "spread": 0.8
         },
         {
-          "id": "creak",
-          "file": "cues/forest-creak.ogg",
-          "bytes": 4580,
-          "seconds": 1.526,
+          "id": "crow",
+          "file": "cues/forest-crow.ogg",
+          "bytes": 7096,
+          "seconds": 2.302,
+          "beds": [
+            "day"
+          ],
+          "every": [
+            240.0,
+            600.0
+          ],
+          "level": -8.0,
+          "spread": 1.0
+        },
+        {
+          "id": "owl",
+          "file": "cues/forest-owl.ogg",
+          "bytes": 8021,
+          "seconds": 2.946,
           "beds": [
             "night"
           ],
           "every": [
-            35.0,
-            100.0
+            90.0,
+            240.0
           ],
           "level": -2.0,
+          "spread": 0.8
+        },
+        {
+          "id": "churr",
+          "file": "cues/forest-churr.ogg",
+          "bytes": 10144,
+          "seconds": 3.172,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            180.0,
+            480.0
+          ],
+          "level": -8.0,
+          "spread": 0.8
+        },
+        {
+          "id": "creak",
+          "file": "cues/forest-creak.ogg",
+          "bytes": 4713,
+          "seconds": 1.552,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            240.0,
+            600.0
+          ],
+          "level": -7.0,
+          "spread": 0.7
+        },
+        {
+          "id": "twig",
+          "file": "cues/forest-twig.ogg",
+          "bytes": 1209,
+          "seconds": 0.373,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            300.0,
+            900.0
+          ],
+          "level": -9.0,
           "spread": 0.7
         }
       ],
@@ -168,12 +168,12 @@
       "beds": {
         "day": {
           "file": "beds/shrub-day.ogg",
-          "bytes": 140597,
+          "bytes": 139359,
           "level": 0.0
         },
         "night": {
           "file": "beds/shrub-night.ogg",
-          "bytes": 166066,
+          "bytes": 152874,
           "level": 0.0
         }
       },
@@ -181,90 +181,75 @@
         {
           "id": "quail",
           "file": "cues/shrub-quail.ogg",
-          "bytes": 4874,
-          "seconds": 1.765,
+          "bytes": 5201,
+          "seconds": 1.833,
           "beds": [
             "day"
           ],
           "every": [
-            25.0,
-            70.0
+            90.0,
+            240.0
           ],
           "level": -2.0,
           "spread": 0.9
         },
         {
-          "id": "rustle",
-          "file": "cues/shrub-rustle.ogg",
-          "bytes": 3161,
-          "seconds": 1.009,
-          "beds": [
-            "day",
-            "night"
-          ],
-          "every": [
-            30.0,
-            80.0
-          ],
-          "level": -3.0,
-          "spread": 0.8
-        },
-        {
           "id": "bee",
           "file": "cues/shrub-bee.ogg",
-          "bytes": 6712,
+          "bytes": 6831,
           "seconds": 2.344,
           "beds": [
             "day"
           ],
           "every": [
-            30.0,
-            90.0
+            180.0,
+            480.0
           ],
-          "level": -4.0,
+          "level": -6.0,
           "spread": 1.0
-        },
-        {
-          "id": "seedpod",
-          "file": "cues/shrub-seedpod.ogg",
-          "bytes": 2579,
-          "seconds": 0.844,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            40.0,
-            100.0
-          ],
-          "level": -3.0,
-          "spread": 0.7
         },
         {
           "id": "wren-scold",
           "file": "cues/shrub-wren-scold.ogg",
-          "bytes": 4224,
-          "seconds": 1.628,
+          "bytes": 2312,
+          "seconds": 0.774,
           "beds": [
             "day"
           ],
           "every": [
-            25.0,
-            75.0
+            240.0,
+            600.0
           ],
-          "level": -2.0,
+          "level": -8.0,
           "spread": 0.9
+        },
+        {
+          "id": "rustle",
+          "file": "cues/shrub-rustle.ogg",
+          "bytes": 3512,
+          "seconds": 1.104,
+          "beds": [
+            "day",
+            "night"
+          ],
+          "every": [
+            240.0,
+            600.0
+          ],
+          "level": -7.0,
+          "spread": 0.8
         },
         {
           "id": "nightjar",
           "file": "cues/shrub-nightjar.ogg",
-          "bytes": 8319,
+          "bytes": 8332,
           "seconds": 2.647,
           "beds": [
             "night"
           ],
           "every": [
-            30.0,
-            90.0
+            90.0,
+            240.0
           ],
           "level": -3.0,
           "spread": 0.8
@@ -272,14 +257,29 @@
         {
           "id": "yip",
           "file": "cues/shrub-yip.ogg",
-          "bytes": 6454,
+          "bytes": 6438,
           "seconds": 2.123,
           "beds": [
             "night"
           ],
           "every": [
-            45.0,
-            120.0
+            240.0,
+            600.0
+          ],
+          "level": -8.0,
+          "spread": 1.0
+        },
+        {
+          "id": "moth",
+          "file": "cues/shrub-moth.ogg",
+          "bytes": 2511,
+          "seconds": 0.826,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            180.0,
+            600.0
           ],
           "level": -7.0,
           "spread": 1.0
@@ -287,32 +287,17 @@
         {
           "id": "tick",
           "file": "cues/shrub-tick.ogg",
-          "bytes": 882,
-          "seconds": 0.374,
+          "bytes": 1898,
+          "seconds": 0.554,
           "beds": [
             "night"
           ],
           "every": [
-            35.0,
-            100.0
+            300.0,
+            900.0
           ],
-          "level": -5.0,
+          "level": -9.0,
           "spread": 0.7
-        },
-        {
-          "id": "moth",
-          "file": "cues/shrub-moth.ogg",
-          "bytes": 2490,
-          "seconds": 0.826,
-          "beds": [
-            "night"
-          ],
-          "every": [
-            40.0,
-            110.0
-          ],
-          "level": -6.0,
-          "spread": 1.0
         }
       ],
       "calls": [
@@ -331,12 +316,12 @@
       "beds": {
         "day": {
           "file": "beds/meadow-day.ogg",
-          "bytes": 139552,
+          "bytes": 139386,
           "level": 0.0
         },
         "night": {
           "file": "beds/meadow-night.ogg",
-          "bytes": 154876,
+          "bytes": 183506,
           "level": 0.0
         }
       },
@@ -344,137 +329,122 @@
         {
           "id": "lark",
           "file": "cues/meadow-lark.ogg",
-          "bytes": 7238,
+          "bytes": 7247,
           "seconds": 2.288,
           "beds": [
             "day"
           ],
           "every": [
-            20.0,
-            60.0
+            90.0,
+            240.0
           ],
-          "level": -3.0,
+          "level": -2.0,
           "spread": 0.8
         },
         {
           "id": "grasshopper",
           "file": "cues/meadow-grasshopper.ogg",
-          "bytes": 3876,
+          "bytes": 3931,
           "seconds": 1.466,
           "beds": [
             "day"
           ],
           "every": [
-            25.0,
-            70.0
+            240.0,
+            600.0
           ],
-          "level": -5.0,
+          "level": -7.0,
           "spread": 0.8
         },
         {
           "id": "bumblebee",
           "file": "cues/meadow-bumblebee.ogg",
-          "bytes": 9430,
+          "bytes": 9913,
           "seconds": 3.305,
           "beds": [
             "day"
           ],
           "every": [
-            35.0,
-            100.0
+            180.0,
+            600.0
           ],
-          "level": -4.0,
+          "level": -6.0,
           "spread": 1.0
         },
         {
           "id": "sheep-bell",
           "file": "cues/meadow-sheep-bell.ogg",
-          "bytes": 6799,
-          "seconds": 2.2,
+          "bytes": 6802,
+          "seconds": 2.213,
           "beds": [
             "day"
           ],
           "every": [
-            45.0,
-            120.0
+            240.0,
+            600.0
           ],
-          "level": -7.0,
+          "level": -8.0,
           "spread": 1.0
-        },
-        {
-          "id": "pipit",
-          "file": "cues/meadow-pipit.ogg",
-          "bytes": 2135,
-          "seconds": 0.754,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            20.0,
-            60.0
-          ],
-          "level": -3.0,
-          "spread": 0.9
         },
         {
           "id": "grass-rustle",
           "file": "cues/meadow-grass-rustle.ogg",
-          "bytes": 2826,
-          "seconds": 0.871,
+          "bytes": 3110,
+          "seconds": 0.97,
           "beds": [
             "day",
             "night"
           ],
           "every": [
-            35.0,
-            90.0
+            240.0,
+            600.0
           ],
-          "level": -4.0,
+          "level": -7.0,
           "spread": 0.8
         },
         {
           "id": "owl",
           "file": "cues/meadow-owl.ogg",
-          "bytes": 6444,
+          "bytes": 6446,
           "seconds": 2.297,
           "beds": [
             "night"
           ],
           "every": [
-            30.0,
-            90.0
+            90.0,
+            240.0
           ],
-          "level": -5.0,
+          "level": -3.0,
           "spread": 0.9
         },
         {
           "id": "frog",
           "file": "cues/meadow-frog.ogg",
-          "bytes": 5452,
-          "seconds": 1.831,
+          "bytes": 5555,
+          "seconds": 1.835,
           "beds": [
             "night"
           ],
           "every": [
-            30.0,
-            80.0
+            180.0,
+            480.0
           ],
-          "level": -4.0,
+          "level": -6.0,
           "spread": 0.8
         },
         {
           "id": "fox",
           "file": "cues/meadow-fox.ogg",
-          "bytes": 7458,
+          "bytes": 7474,
           "seconds": 2.525,
           "beds": [
             "night"
           ],
           "every": [
-            45.0,
-            120.0
+            240.0,
+            600.0
           ],
-          "level": -6.0,
+          "level": -8.0,
           "spread": 1.0
         }
       ],
@@ -493,12 +463,12 @@
       "beds": {
         "day": {
           "file": "beds/farm-day.ogg",
-          "bytes": 140209,
+          "bytes": 139162,
           "level": 0.0
         },
         "night": {
           "file": "beds/farm-night.ogg",
-          "bytes": 141666,
+          "bytes": 141707,
           "level": 0.0
         }
       },
@@ -512,86 +482,86 @@
             "day"
           ],
           "every": [
-            50.0,
-            140.0
+            90.0,
+            240.0
           ],
-          "level": -5.0,
+          "level": -3.0,
           "spread": 0.9
         },
         {
           "id": "cow",
           "file": "cues/farm-cow.ogg",
-          "bytes": 6762,
+          "bytes": 6758,
           "seconds": 2.286,
           "beds": [
             "day"
           ],
           "every": [
-            40.0,
-            110.0
+            180.0,
+            480.0
           ],
-          "level": -5.0,
+          "level": -6.0,
           "spread": 1.0
         },
         {
           "id": "hens",
           "file": "cues/farm-hens.ogg",
-          "bytes": 5682,
-          "seconds": 1.906,
+          "bytes": 6055,
+          "seconds": 2.033,
           "beds": [
             "day"
           ],
           "every": [
-            25.0,
-            70.0
+            240.0,
+            600.0
           ],
-          "level": -3.0,
+          "level": -7.0,
           "spread": 0.7
         },
         {
           "id": "sheep-bell",
           "file": "cues/farm-sheep-bell.ogg",
-          "bytes": 4611,
+          "bytes": 4608,
           "seconds": 1.381,
           "beds": [
             "day"
           ],
           "every": [
-            30.0,
-            80.0
+            240.0,
+            600.0
           ],
-          "level": -4.0,
+          "level": -7.0,
           "spread": 0.9
         },
         {
           "id": "gate-latch",
           "file": "cues/farm-gate-latch.ogg",
-          "bytes": 2234,
-          "seconds": 0.721,
+          "bytes": 2644,
+          "seconds": 0.848,
           "beds": [
             "day",
             "night"
           ],
           "every": [
-            60.0,
-            150.0
+            300.0,
+            900.0
           ],
-          "level": -3.0,
+          "level": -9.0,
           "spread": 0.7
         },
         {
           "id": "barn-owl",
           "file": "cues/farm-barn-owl.ogg",
-          "bytes": 4563,
-          "seconds": 1.476,
+          "bytes": 4726,
+          "seconds": 1.548,
           "beds": [
             "night"
           ],
           "every": [
-            40.0,
-            110.0
+            90.0,
+            240.0
           ],
-          "level": -5.0,
+          "level": -3.0,
           "spread": 0.8
         },
         {
@@ -603,40 +573,40 @@
             "night"
           ],
           "every": [
-            45.0,
-            120.0
+            240.0,
+            720.0
           ],
-          "level": -7.0,
+          "level": -8.0,
           "spread": 1.0
         },
         {
           "id": "gate-creak",
           "file": "cues/farm-gate-creak.ogg",
-          "bytes": 4129,
-          "seconds": 1.418,
+          "bytes": 4387,
+          "seconds": 1.474,
           "beds": [
             "night"
           ],
           "every": [
-            40.0,
-            100.0
+            300.0,
+            900.0
           ],
-          "level": -3.0,
+          "level": -8.0,
           "spread": 0.7
         },
         {
           "id": "horse",
           "file": "cues/farm-horse.ogg",
-          "bytes": 2572,
-          "seconds": 0.81,
+          "bytes": 2813,
+          "seconds": 0.904,
           "beds": [
             "night"
           ],
           "every": [
-            35.0,
-            90.0
+            180.0,
+            600.0
           ],
-          "level": -3.0,
+          "level": -6.0,
           "spread": 0.6
         }
       ],
@@ -656,42 +626,27 @@
       "beds": {
         "day": {
           "file": "beds/town-day.ogg",
-          "bytes": 139885,
+          "bytes": 139265,
           "level": 0.0
         },
         "night": {
           "file": "beds/town-night.ogg",
-          "bytes": 140092,
+          "bytes": 139604,
           "level": 0.0
         }
       },
       "cues": [
         {
-          "id": "bicycle-bell",
-          "file": "cues/town-bicycle-bell.ogg",
-          "bytes": 4070,
-          "seconds": 1.227,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            40.0,
-            110.0
-          ],
-          "level": -4.0,
-          "spread": 0.8
-        },
-        {
           "id": "pigeon",
           "file": "cues/town-pigeon.ogg",
-          "bytes": 5111,
-          "seconds": 1.724,
+          "bytes": 5560,
+          "seconds": 1.879,
           "beds": [
             "day"
           ],
           "every": [
-            20.0,
-            60.0
+            90.0,
+            240.0
           ],
           "level": -2.0,
           "spread": 0.8
@@ -706,40 +661,55 @@
             "night"
           ],
           "every": [
-            60.0,
-            180.0
+            240.0,
+            720.0
           ],
           "level": -6.0,
           "spread": 1.0
         },
         {
-          "id": "door",
-          "file": "cues/town-door.ogg",
-          "bytes": 2755,
-          "seconds": 1.087,
+          "id": "bicycle-bell",
+          "file": "cues/town-bicycle-bell.ogg",
+          "bytes": 4039,
+          "seconds": 1.231,
           "beds": [
             "day"
           ],
           "every": [
-            45.0,
-            120.0
+            240.0,
+            600.0
           ],
-          "level": -4.0,
+          "level": -7.0,
+          "spread": 0.8
+        },
+        {
+          "id": "door",
+          "file": "cues/town-door.ogg",
+          "bytes": 3116,
+          "seconds": 1.197,
+          "beds": [
+            "day"
+          ],
+          "every": [
+            300.0,
+            900.0
+          ],
+          "level": -8.0,
           "spread": 0.7
         },
         {
           "id": "ball",
           "file": "cues/town-ball.ogg",
-          "bytes": 4446,
-          "seconds": 1.535,
+          "bytes": 4851,
+          "seconds": 1.619,
           "beds": [
             "day"
           ],
           "every": [
-            50.0,
-            140.0
+            300.0,
+            900.0
           ],
-          "level": -4.0,
+          "level": -8.0,
           "spread": 0.7
         },
         {
@@ -751,11 +721,26 @@
             "day"
           ],
           "every": [
-            60.0,
-            160.0
+            480.0,
+            1200.0
           ],
           "level": -9.0,
           "spread": 1.0
+        },
+        {
+          "id": "wind-chime",
+          "file": "cues/town-wind-chime.ogg",
+          "bytes": 9619,
+          "seconds": 3.013,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            90.0,
+            240.0
+          ],
+          "level": -3.0,
+          "spread": 0.7
         },
         {
           "id": "train",
@@ -766,8 +751,8 @@
             "night"
           ],
           "every": [
-            70.0,
-            180.0
+            300.0,
+            900.0
           ],
           "level": -6.0,
           "spread": 1.0
@@ -775,61 +760,46 @@
         {
           "id": "cat",
           "file": "cues/town-cat.ogg",
-          "bytes": 3392,
-          "seconds": 1.072,
+          "bytes": 3483,
+          "seconds": 1.103,
           "beds": [
             "night"
           ],
           "every": [
-            50.0,
-            140.0
+            300.0,
+            900.0
           ],
-          "level": -4.0,
+          "level": -7.0,
           "spread": 0.8
         },
         {
           "id": "footsteps",
           "file": "cues/town-footsteps.ogg",
-          "bytes": 8810,
-          "seconds": 3.404,
+          "bytes": 9455,
+          "seconds": 3.443,
           "beds": [
             "night"
           ],
           "every": [
-            40.0,
-            110.0
+            240.0,
+            720.0
           ],
-          "level": -4.0,
+          "level": -8.0,
           "spread": 0.6
-        },
-        {
-          "id": "wind-chime",
-          "file": "cues/town-wind-chime.ogg",
-          "bytes": 9470,
-          "seconds": 2.965,
-          "beds": [
-            "night"
-          ],
-          "every": [
-            35.0,
-            90.0
-          ],
-          "level": -5.0,
-          "spread": 0.7
         },
         {
           "id": "gutter-drip",
           "file": "cues/town-gutter-drip.ogg",
-          "bytes": 8236,
-          "seconds": 3.26,
+          "bytes": 8751,
+          "seconds": 3.305,
           "beds": [
             "night"
           ],
           "every": [
-            30.0,
-            80.0
+            240.0,
+            720.0
           ],
-          "level": -5.0,
+          "level": -8.0,
           "spread": 0.6
         }
       ],
@@ -854,151 +824,135 @@
       "beds": {
         "day": {
           "file": "beds/barren-day.ogg",
-          "bytes": 140099,
+          "bytes": 138687,
           "level": 0.0
         },
         "night": {
           "file": "beds/barren-night.ogg",
-          "bytes": 156345,
+          "bytes": 148152,
           "level": -3.0
         }
       },
       "cues": [
         {
-          "id": "skitter",
-          "file": "cues/barren-skitter.ogg",
-          "bytes": 1263,
-          "seconds": 0.375,
-          "beds": [
-            "day",
-            "night"
-          ],
-          "every": [
-            30.0,
-            90.0
-          ],
-          "level": -3.0,
-          "spread": 0.8
-        },
-        {
-          "id": "rockfall",
-          "file": "cues/barren-rockfall.ogg",
-          "bytes": 5421,
-          "seconds": 1.829,
+          "id": "hawk",
+          "file": "cues/barren-hawk.ogg",
+          "bytes": 4530,
+          "seconds": 1.495,
           "beds": [
             "day"
           ],
           "every": [
-            70.0,
-            180.0
+            90.0,
+            240.0
           ],
-          "level": -5.0,
+          "level": -3.0,
           "spread": 1.0
         },
         {
           "id": "raven",
           "file": "cues/barren-raven.ogg",
-          "bytes": 6001,
+          "bytes": 5984,
           "seconds": 2.08,
           "beds": [
             "day"
           ],
           "every": [
-            40.0,
-            110.0
-          ],
-          "level": -5.0,
-          "spread": 1.0
-        },
-        {
-          "id": "rattle",
-          "file": "cues/barren-rattle.ogg",
-          "bytes": 2599,
-          "seconds": 0.925,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            18.0,
-            45.0
-          ],
-          "level": -5.0,
-          "spread": 0.9
-        },
-        {
-          "id": "scuttle",
-          "file": "cues/barren-scuttle.ogg",
-          "bytes": 3112,
-          "seconds": 1.256,
-          "beds": [
-            "day",
-            "night"
-          ],
-          "every": [
-            35.0,
-            100.0
-          ],
-          "level": -4.0,
-          "spread": 0.7
-        },
-        {
-          "id": "hawk",
-          "file": "cues/barren-hawk.ogg",
-          "bytes": 4031,
-          "seconds": 1.312,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            45.0,
-            130.0
+            180.0,
+            480.0
           ],
           "level": -6.0,
           "spread": 1.0
         },
         {
-          "id": "gecko",
-          "file": "cues/barren-gecko.ogg",
-          "bytes": 4272,
-          "seconds": 1.353,
+          "id": "rockfall",
+          "file": "cues/barren-rockfall.ogg",
+          "bytes": 5367,
+          "seconds": 1.795,
           "beds": [
+            "day"
+          ],
+          "every": [
+            300.0,
+            900.0
+          ],
+          "level": -8.0,
+          "spread": 1.0
+        },
+        {
+          "id": "rattle",
+          "file": "cues/barren-rattle.ogg",
+          "bytes": 3188,
+          "seconds": 1.078,
+          "beds": [
+            "day"
+          ],
+          "every": [
+            180.0,
+            600.0
+          ],
+          "level": -8.0,
+          "spread": 0.9
+        },
+        {
+          "id": "scuttle",
+          "file": "cues/barren-scuttle.ogg",
+          "bytes": 3715,
+          "seconds": 1.346,
+          "beds": [
+            "day",
             "night"
           ],
           "every": [
-            20.0,
-            60.0
+            240.0,
+            600.0
           ],
-          "level": -3.0,
+          "level": -8.0,
           "spread": 0.8
         },
         {
           "id": "owl",
           "file": "cues/barren-owl.ogg",
-          "bytes": 5338,
-          "seconds": 2.037,
+          "bytes": 5492,
+          "seconds": 2.075,
           "beds": [
             "night"
           ],
           "every": [
-            40.0,
-            110.0
+            90.0,
+            240.0
           ],
-          "level": -5.0,
+          "level": -2.0,
           "spread": 1.0
+        },
+        {
+          "id": "gecko",
+          "file": "cues/barren-gecko.ogg",
+          "bytes": 4632,
+          "seconds": 1.508,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            240.0,
+            600.0
+          ],
+          "level": -7.0,
+          "spread": 0.8
         },
         {
           "id": "tick",
           "file": "cues/barren-tick.ogg",
-          "bytes": 1951,
-          "seconds": 0.626,
+          "bytes": 2271,
+          "seconds": 0.695,
           "beds": [
             "night"
           ],
           "every": [
-            25.0,
-            80.0
+            300.0,
+            900.0
           ],
-          "level": -5.0,
+          "level": -9.0,
           "spread": 0.9
         },
         {
@@ -1010,8 +964,8 @@
             "night"
           ],
           "every": [
-            60.0,
-            180.0
+            240.0,
+            600.0
           ],
           "level": -7.0,
           "spread": 1.0
@@ -1033,152 +987,152 @@
       "beds": {
         "day": {
           "file": "beds/snow-day.ogg",
-          "bytes": 144951,
+          "bytes": 139517,
           "level": 0.0
         },
         "night": {
           "file": "beds/snow-night.ogg",
-          "bytes": 140821,
+          "bytes": 139034,
           "level": -2.0
         }
       },
       "cues": [
         {
-          "id": "crack",
-          "file": "cues/snow-crack.ogg",
-          "bytes": 3010,
-          "seconds": 0.918,
+          "id": "bird",
+          "file": "cues/snow-bird.ogg",
+          "bytes": 5226,
+          "seconds": 1.745,
           "beds": [
             "day"
           ],
           "every": [
-            30.0,
-            90.0
+            90.0,
+            240.0
           ],
           "level": -3.0,
-          "spread": 0.8
+          "spread": 1.0
         },
         {
           "id": "whumpf",
           "file": "cues/snow-whumpf.ogg",
-          "bytes": 1764,
-          "seconds": 0.585,
+          "bytes": 1802,
+          "seconds": 0.579,
           "beds": [
             "day",
             "night"
           ],
           "every": [
-            50.0,
-            140.0
+            180.0,
+            480.0
           ],
-          "level": -4.0,
+          "level": -6.0,
           "spread": 0.7
         },
         {
           "id": "drip",
           "file": "cues/snow-drip.ogg",
-          "bytes": 2842,
-          "seconds": 0.98,
+          "bytes": 2904,
+          "seconds": 0.999,
           "beds": [
             "day"
           ],
           "every": [
-            15.0,
-            45.0
+            180.0,
+            600.0
           ],
-          "level": -4.0,
+          "level": -7.0,
           "spread": 0.8
-        },
-        {
-          "id": "bird",
-          "file": "cues/snow-bird.ogg",
-          "bytes": 5094,
-          "seconds": 1.716,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            45.0,
-            120.0
-          ],
-          "level": -6.0,
-          "spread": 1.0
         },
         {
           "id": "creak",
           "file": "cues/snow-creak.ogg",
-          "bytes": 5212,
-          "seconds": 1.863,
+          "bytes": 5315,
+          "seconds": 1.871,
           "beds": [
             "day",
             "night"
           ],
           "every": [
-            35.0,
-            100.0
+            240.0,
+            600.0
           ],
-          "level": -4.0,
+          "level": -7.0,
           "spread": 0.8
         },
         {
-          "id": "groan",
-          "file": "cues/snow-groan.ogg",
-          "bytes": 9137,
-          "seconds": 3.15,
+          "id": "crack",
+          "file": "cues/snow-crack.ogg",
+          "bytes": 3112,
+          "seconds": 0.949,
           "beds": [
-            "night"
+            "day"
           ],
           "every": [
-            50.0,
-            150.0
+            300.0,
+            900.0
           ],
-          "level": -4.0,
-          "spread": 0.6
-        },
-        {
-          "id": "far-crack",
-          "file": "cues/snow-far-crack.ogg",
-          "bytes": 5356,
-          "seconds": 1.769,
-          "beds": [
-            "night"
-          ],
-          "every": [
-            40.0,
-            120.0
-          ],
-          "level": -5.0,
-          "spread": 1.0
-        },
-        {
-          "id": "tinkle",
-          "file": "cues/snow-tinkle.ogg",
-          "bytes": 5414,
-          "seconds": 1.706,
-          "beds": [
-            "night"
-          ],
-          "every": [
-            25.0,
-            70.0
-          ],
-          "level": -6.0,
+          "level": -9.0,
           "spread": 0.9
         },
         {
           "id": "call",
           "file": "cues/snow-call.ogg",
-          "bytes": 8191,
+          "bytes": 8132,
           "seconds": 2.946,
           "beds": [
             "night"
           ],
           "every": [
-            60.0,
-            180.0
+            90.0,
+            240.0
           ],
-          "level": -7.0,
+          "level": -2.0,
           "spread": 1.0
+        },
+        {
+          "id": "groan",
+          "file": "cues/snow-groan.ogg",
+          "bytes": 9015,
+          "seconds": 3.15,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            240.0,
+            600.0
+          ],
+          "level": -6.0,
+          "spread": 0.6
+        },
+        {
+          "id": "far-crack",
+          "file": "cues/snow-far-crack.ogg",
+          "bytes": 5331,
+          "seconds": 1.774,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            300.0,
+            900.0
+          ],
+          "level": -9.0,
+          "spread": 1.0
+        },
+        {
+          "id": "tinkle",
+          "file": "cues/snow-tinkle.ogg",
+          "bytes": 5247,
+          "seconds": 1.68,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            300.0,
+            720.0
+          ],
+          "level": -8.0,
+          "spread": 0.9
         }
       ],
       "calls": [
@@ -1197,150 +1151,149 @@
       "beds": {
         "day": {
           "file": "beds/water-day.ogg",
-          "bytes": 139137,
+          "bytes": 139441,
           "level": 0.0
         },
         "night": {
           "file": "beds/water-night.ogg",
-          "bytes": 143667,
+          "bytes": 139196,
           "level": 0.0
         }
       },
       "cues": [
         {
-          "id": "fish-jump",
-          "file": "cues/water-fish-jump.ogg",
-          "bytes": 2474,
-          "seconds": 0.787,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            40.0,
-            110.0
-          ],
-          "level": -3.0,
-          "spread": 0.8
-        },
-        {
           "id": "gull",
           "file": "cues/water-gull.ogg",
-          "bytes": 6128,
-          "seconds": 2.005,
+          "bytes": 6533,
+          "seconds": 2.139,
           "beds": [
             "day"
           ],
           "every": [
-            30.0,
-            90.0
+            90.0,
+            240.0
           ],
-          "level": -6.0,
+          "level": -3.0,
           "spread": 1.0
+        },
+        {
+          "id": "fish-jump",
+          "file": "cues/water-fish-jump.ogg",
+          "bytes": 2632,
+          "seconds": 0.844,
+          "beds": [
+            "day"
+          ],
+          "every": [
+            180.0,
+            600.0
+          ],
+          "level": -7.0,
+          "spread": 0.8
         },
         {
           "id": "duck",
           "file": "cues/water-duck.ogg",
-          "bytes": 3851,
-          "seconds": 1.355,
+          "bytes": 4150,
+          "seconds": 1.405,
           "beds": [
             "day"
           ],
           "every": [
-            35.0,
-            100.0
+            240.0,
+            600.0
           ],
-          "level": -3.0,
-          "spread": 0.8
+          "level": -6.0,
+          "spread": 0.9
         },
         {
           "id": "oar",
           "file": "cues/water-oar.ogg",
-          "bytes": 2959,
-          "seconds": 0.97,
+          "bytes": 2997,
+          "seconds": 0.991,
           "beds": [
             "day"
           ],
           "every": [
-            45.0,
-            120.0
+            240.0,
+            600.0
           ],
-          "level": -4.0,
-          "spread": 0.7
+          "level": -7.0,
+          "spread": 0.8
         },
         {
           "id": "boat-bell",
           "file": "cues/water-boat-bell.ogg",
-          "bytes": 12198,
+          "bytes": 12197,
           "seconds": 3.835,
           "beds": [
             "day"
           ],
           "every": [
-            60.0,
-            150.0
+            300.0,
+            900.0
           ],
-          "level": -7.0,
+          "level": -8.0,
           "spread": 0.9
-        },
-        {
-          "id": "plop",
-          "file": "cues/water-plop.ogg",
-          "bytes": 1015,
-          "seconds": 0.323,
-          "beds": [
-            "day",
-            "night"
-          ],
-          "every": [
-            25.0,
-            80.0
-          ],
-          "level": -3.0,
-          "spread": 0.7
         },
         {
           "id": "loon",
           "file": "cues/water-loon.ogg",
-          "bytes": 12974,
-          "seconds": 3.873,
+          "bytes": 12918,
+          "seconds": 3.872,
           "beds": [
             "night"
           ],
           "every": [
-            45.0,
-            120.0
+            90.0,
+            240.0
           ],
-          "level": -4.0,
+          "level": -2.0,
           "spread": 1.0
         },
         {
           "id": "buoy",
           "file": "cues/water-buoy.ogg",
-          "bytes": 13121,
+          "bytes": 13174,
           "seconds": 3.684,
           "beds": [
             "night"
           ],
           "every": [
-            50.0,
-            130.0
+            240.0,
+            600.0
           ],
-          "level": -6.0,
+          "level": -8.0,
           "spread": 0.9
         },
         {
-          "id": "jetty",
-          "file": "cues/water-jetty.ogg",
-          "bytes": 4276,
-          "seconds": 1.352,
+          "id": "plop",
+          "file": "cues/water-plop.ogg",
+          "bytes": 1407,
+          "seconds": 0.479,
           "beds": [
             "night"
           ],
           "every": [
-            30.0,
-            90.0
+            180.0,
+            600.0
           ],
-          "level": -4.0,
+          "level": -7.0,
+          "spread": 0.7
+        },
+        {
+          "id": "jetty",
+          "file": "cues/water-jetty.ogg",
+          "bytes": 4021,
+          "seconds": 1.279,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            240.0,
+            600.0
+          ],
+          "level": -6.0,
           "spread": 0.6
         }
       ],
@@ -1361,151 +1314,151 @@
       "beds": {
         "day": {
           "file": "beds/wetland-day.ogg",
-          "bytes": 143691,
+          "bytes": 139326,
           "level": 0.0
         },
         "night": {
           "file": "beds/wetland-night.ogg",
-          "bytes": 147566,
+          "bytes": 141435,
           "level": 0.0
         }
       },
       "cues": [
         {
-          "id": "croak",
-          "file": "cues/wetland-croak.ogg",
-          "bytes": 4203,
-          "seconds": 1.35,
+          "id": "warbler",
+          "file": "cues/wetland-warbler.ogg",
+          "bytes": 6721,
+          "seconds": 2.133,
           "beds": [
             "day"
           ],
           "every": [
-            25.0,
-            70.0
+            90.0,
+            240.0
           ],
-          "level": -2.0,
+          "level": -3.0,
+          "spread": 0.9
+        },
+        {
+          "id": "croak",
+          "file": "cues/wetland-croak.ogg",
+          "bytes": 4544,
+          "seconds": 1.473,
+          "beds": [
+            "day"
+          ],
+          "every": [
+            180.0,
+            480.0
+          ],
+          "level": -6.0,
           "spread": 0.8
         },
         {
           "id": "moorhen",
           "file": "cues/wetland-moorhen.ogg",
-          "bytes": 3315,
-          "seconds": 1.088,
+          "bytes": 3623,
+          "seconds": 1.171,
           "beds": [
             "day"
           ],
           "every": [
-            30.0,
-            90.0
+            240.0,
+            600.0
           ],
-          "level": -3.0,
+          "level": -7.0,
           "spread": 0.9
         },
         {
           "id": "plop",
           "file": "cues/wetland-plop.ogg",
-          "bytes": 1099,
-          "seconds": 0.367,
+          "bytes": 1352,
+          "seconds": 0.486,
           "beds": [
             "day",
             "night"
           ],
           "every": [
-            25.0,
-            80.0
+            240.0,
+            720.0
           ],
-          "level": -4.0,
+          "level": -7.0,
           "spread": 0.7
         },
         {
           "id": "dragonfly",
           "file": "cues/wetland-dragonfly.ogg",
-          "bytes": 4816,
+          "bytes": 4672,
           "seconds": 1.585,
           "beds": [
             "day"
           ],
           "every": [
-            40.0,
-            110.0
+            300.0,
+            900.0
           ],
-          "level": -2.0,
+          "level": -5.0,
           "spread": 1.0
-        },
-        {
-          "id": "warbler",
-          "file": "cues/wetland-warbler.ogg",
-          "bytes": 6296,
-          "seconds": 1.986,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            20.0,
-            60.0
-          ],
-          "level": -2.0,
-          "spread": 0.9
         },
         {
           "id": "bittern",
           "file": "cues/wetland-bittern.ogg",
-          "bytes": 11155,
-          "seconds": 3.933,
+          "bytes": 11194,
+          "seconds": 3.94,
           "beds": [
             "night"
           ],
           "every": [
-            45.0,
-            120.0
+            90.0,
+            240.0
           ],
-          "level": -3.0,
+          "level": -2.0,
           "spread": 0.9
         },
         {
-          "id": "splash",
-          "file": "cues/wetland-splash.ogg",
-          "bytes": 2422,
-          "seconds": 0.806,
+          "id": "frog",
+          "file": "cues/wetland-frog.ogg",
+          "bytes": 6701,
+          "seconds": 2.166,
           "beds": [
             "night"
           ],
           "every": [
-            40.0,
-            110.0
+            180.0,
+            480.0
           ],
-          "level": -3.0,
-          "spread": 0.8
-        },
-        {
-          "id": "frog-near",
-          "file": "cues/wetland-frog-near.ogg",
-          "bytes": 5925,
-          "seconds": 1.959,
-          "beds": [
-            "night"
-          ],
-          "every": [
-            30.0,
-            80.0
-          ],
-          "level": -1.0,
+          "level": -6.0,
           "spread": 0.7
         },
         {
           "id": "heron",
           "file": "cues/wetland-heron.ogg",
-          "bytes": 3346,
+          "bytes": 3339,
           "seconds": 1.154,
           "beds": [
             "night"
           ],
           "every": [
-            50.0,
-            140.0
+            240.0,
+            600.0
           ],
-          "level": -6.0,
+          "level": -8.0,
           "spread": 1.0
+        },
+        {
+          "id": "splash",
+          "file": "cues/wetland-splash.ogg",
+          "bytes": 2514,
+          "seconds": 0.847,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            300.0,
+            900.0
+          ],
+          "level": -8.0,
+          "spread": 0.8
         }
       ],
       "calls": [
@@ -1523,103 +1476,103 @@
       "beds": {
         "day": {
           "file": "beds/mangrove-day.ogg",
-          "bytes": 158843,
+          "bytes": 139824,
           "level": 0.0
         },
         "night": {
           "file": "beds/mangrove-night.ogg",
-          "bytes": 153280,
+          "bytes": 142704,
           "level": 0.0
         }
       },
       "cues": [
         {
-          "id": "crab",
-          "file": "cues/mangrove-crab.ogg",
-          "bytes": 2917,
-          "seconds": 0.943,
+          "id": "dove",
+          "file": "cues/mangrove-dove.ogg",
+          "bytes": 6281,
+          "seconds": 2.155,
           "beds": [
             "day"
           ],
           "every": [
-            20.0,
-            55.0
+            90.0,
+            240.0
           ],
-          "level": 0.0,
-          "spread": 0.7
+          "level": -3.0,
+          "spread": 0.9
         },
         {
           "id": "rattle",
           "file": "cues/mangrove-rattle.ogg",
-          "bytes": 3474,
-          "seconds": 1.098,
+          "bytes": 3664,
+          "seconds": 1.141,
           "beds": [
             "day"
           ],
           "every": [
-            30.0,
-            80.0
+            180.0,
+            480.0
           ],
-          "level": -2.0,
+          "level": -7.0,
           "spread": 0.9
         },
         {
-          "id": "drip",
-          "file": "cues/mangrove-drip.ogg",
-          "bytes": 1223,
-          "seconds": 0.378,
-          "beds": [
-            "day",
-            "night"
-          ],
-          "every": [
-            15.0,
-            45.0
-          ],
-          "level": -5.0,
-          "spread": 0.8
-        },
-        {
-          "id": "mudskipper",
-          "file": "cues/mangrove-mudskipper.ogg",
-          "bytes": 933,
-          "seconds": 0.393,
+          "id": "mud",
+          "file": "cues/mangrove-mud.ogg",
+          "bytes": 1609,
+          "seconds": 0.865,
           "beds": [
             "day"
           ],
           "every": [
-            40.0,
-            100.0
+            240.0,
+            600.0
           ],
-          "level": -5.0,
+          "level": -8.0,
           "spread": 0.7
         },
         {
           "id": "heron",
           "file": "cues/mangrove-heron.ogg",
-          "bytes": 5502,
+          "bytes": 5484,
           "seconds": 1.9,
           "beds": [
             "day"
           ],
           "every": [
-            45.0,
-            120.0
+            300.0,
+            900.0
           ],
-          "level": -6.0,
+          "level": -8.0,
           "spread": 1.0
+        },
+        {
+          "id": "drip",
+          "file": "cues/mangrove-drip.ogg",
+          "bytes": 1552,
+          "seconds": 0.5,
+          "beds": [
+            "day",
+            "night"
+          ],
+          "every": [
+            180.0,
+            600.0
+          ],
+          "level": -7.0,
+          "spread": 0.8
         },
         {
           "id": "quock",
           "file": "cues/mangrove-quock.ogg",
-          "bytes": 4986,
-          "seconds": 1.766,
+          "bytes": 5268,
+          "seconds": 1.846,
           "beds": [
             "night"
           ],
           "every": [
-            30.0,
-            90.0
+            90.0,
+            240.0
           ],
           "level": -3.0,
           "spread": 0.9
@@ -1627,46 +1580,46 @@
         {
           "id": "splash",
           "file": "cues/mangrove-splash.ogg",
-          "bytes": 2921,
-          "seconds": 1.052,
+          "bytes": 2915,
+          "seconds": 1.063,
           "beds": [
             "night"
           ],
           "every": [
-            35.0,
-            100.0
+            240.0,
+            600.0
           ],
-          "level": -5.0,
+          "level": -7.0,
           "spread": 0.8
         },
         {
           "id": "tree-frog",
           "file": "cues/mangrove-tree-frog.ogg",
-          "bytes": 4663,
-          "seconds": 1.414,
+          "bytes": 4271,
+          "seconds": 1.309,
           "beds": [
             "night"
           ],
           "every": [
-            20.0,
-            60.0
+            180.0,
+            480.0
           ],
-          "level": -3.0,
+          "level": -7.0,
           "spread": 0.8
         },
         {
           "id": "bat",
           "file": "cues/mangrove-bat.ogg",
-          "bytes": 2959,
-          "seconds": 1.266,
+          "bytes": 3143,
+          "seconds": 1.304,
           "beds": [
             "night"
           ],
           "every": [
-            40.0,
-            110.0
+            300.0,
+            900.0
           ],
-          "level": -6.0,
+          "level": -8.0,
           "spread": 1.0
         }
       ],
@@ -1685,151 +1638,136 @@
       "beds": {
         "day": {
           "file": "beds/tundra-day.ogg",
-          "bytes": 140044,
+          "bytes": 141420,
           "level": 0.0
         },
         "night": {
           "file": "beds/tundra-night.ogg",
-          "bytes": 139447,
+          "bytes": 141935,
           "level": 0.0
         }
       },
       "cues": [
         {
-          "id": "ptarmigan",
-          "file": "cues/tundra-ptarmigan.ogg",
-          "bytes": 7759,
-          "seconds": 2.481,
+          "id": "plover",
+          "file": "cues/tundra-plover.ogg",
+          "bytes": 6475,
+          "seconds": 2.326,
           "beds": [
             "day"
           ],
           "every": [
-            30.0,
-            90.0
+            90.0,
+            240.0
           ],
           "level": -3.0,
+          "spread": 0.9
+        },
+        {
+          "id": "ptarmigan",
+          "file": "cues/tundra-ptarmigan.ogg",
+          "bytes": 8068,
+          "seconds": 2.601,
+          "beds": [
+            "day"
+          ],
+          "every": [
+            180.0,
+            480.0
+          ],
+          "level": -7.0,
           "spread": 0.9
         },
         {
           "id": "geese",
           "file": "cues/tundra-geese.ogg",
-          "bytes": 7593,
+          "bytes": 7603,
           "seconds": 2.568,
           "beds": [
             "day"
           ],
           "every": [
-            50.0,
-            140.0
+            300.0,
+            900.0
           ],
-          "level": -6.0,
-          "spread": 1.0
-        },
-        {
-          "id": "plover",
-          "file": "cues/tundra-plover.ogg",
-          "bytes": 6021,
-          "seconds": 2.197,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            25.0,
-            70.0
-          ],
-          "level": -3.0,
-          "spread": 0.9
-        },
-        {
-          "id": "mosquito",
-          "file": "cues/tundra-mosquito.ogg",
-          "bytes": 5987,
-          "seconds": 1.804,
-          "beds": [
-            "day"
-          ],
-          "every": [
-            40.0,
-            110.0
-          ],
-          "level": -6.0,
+          "level": -8.0,
           "spread": 1.0
         },
         {
           "id": "bog-bubble",
           "file": "cues/tundra-bog-bubble.ogg",
-          "bytes": 1129,
-          "seconds": 0.401,
+          "bytes": 1167,
+          "seconds": 0.423,
           "beds": [
             "day",
             "night"
           ],
           "every": [
-            30.0,
-            90.0
+            180.0,
+            600.0
           ],
-          "level": -5.0,
+          "level": -7.0,
           "spread": 0.7
+        },
+        {
+          "id": "loon",
+          "file": "cues/tundra-loon.ogg",
+          "bytes": 10003,
+          "seconds": 2.915,
+          "beds": [
+            "night"
+          ],
+          "every": [
+            90.0,
+            240.0
+          ],
+          "level": -3.0,
+          "spread": 1.0
         },
         {
           "id": "far-wolf",
           "file": "cues/tundra-far-wolf.ogg",
-          "bytes": 8854,
+          "bytes": 8832,
           "seconds": 3.057,
           "beds": [
             "night"
           ],
           "every": [
-            60.0,
-            160.0
+            300.0,
+            900.0
           ],
-          "level": -6.0,
+          "level": -7.0,
           "spread": 1.0
         },
         {
           "id": "owl-bark",
           "file": "cues/tundra-owl-bark.ogg",
-          "bytes": 4113,
-          "seconds": 1.389,
+          "bytes": 4276,
+          "seconds": 1.452,
           "beds": [
             "night"
           ],
           "every": [
-            40.0,
-            110.0
+            240.0,
+            600.0
           ],
-          "level": -4.0,
+          "level": -7.0,
           "spread": 0.9
         },
         {
           "id": "frost-tick",
           "file": "cues/tundra-frost-tick.ogg",
-          "bytes": 1351,
-          "seconds": 0.459,
+          "bytes": 1551,
+          "seconds": 0.474,
           "beds": [
             "night"
           ],
           "every": [
-            20.0,
-            60.0
+            300.0,
+            900.0
           ],
-          "level": -4.0,
+          "level": -9.0,
           "spread": 0.8
-        },
-        {
-          "id": "loon",
-          "file": "cues/tundra-loon.ogg",
-          "bytes": 9995,
-          "seconds": 2.916,
-          "beds": [
-            "night"
-          ],
-          "every": [
-            50.0,
-            140.0
-          ],
-          "level": -5.0,
-          "spread": 1.0
         }
       ],
       "calls": [

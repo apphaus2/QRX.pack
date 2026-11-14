@@ -1,10 +1,11 @@
 """Town: streets, roofs, gardens and park ponds, where most people are.
 
-Day is a town heard from a garden: a low, smooth hum of the whole place, and further off the traffic as a wash
-that rises and falls like surf, never one engine; a little open air above it and garden sparrows so faint they
-are part of the texture. Nothing harsh and nothing close. Night is the same town thinned out: the hum lower and
-quieter, no traffic to speak of, the whisper of a ventilation fan on a roof nearby and the faint, steady tone of
-a streetlamp. Everything you could pick out as one thing (a bell, a pigeon, a door, a train) is a cue.
+A soft backdrop, not a portrait. Day is a town heard from a garden: a low, smooth hum of the whole place, and
+further off the traffic as a dark wash that rises and falls like surf, never one engine; a little dull open air
+above it and garden sparrows so faint they are part of the texture. Nothing harsh and nothing close. Night is the
+same town thinned out: the hum lower and quieter, the whisper of a ventilation fan on a roof nearby and the faint,
+steady tone of a streetlamp. Anything you could pick out as one thing is a cue, and cues are rare (about one a
+minute or less, most far off), each bed with one hero: a pigeon's coo by day, a wind chime by night.
 """
 import math
 
@@ -26,9 +27,10 @@ def day(s):
     wash = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("wash-" + side)), scale(wash_curve, 450, 1000)),
                                    110), wash_curve) for side in "ab"], width=0.85)
 
-    # Open air above the garden: a faint, even breath in the upper middle, so the bed is not all low.
+    # Open air above the garden: a faint, even breath in the upper middle, kept under about 3.5 kHz (the first
+    # version's reached 6 kHz).
     air_level = drift(s.rng("air"), s.seconds, every=7.0, lo=0.7, hi=1.0)
-    air = stereo(*[apply(band(pink(s.n, s.rng("air-" + side)), 1500, 6000), air_level) for side in "ab"], width=0.9)
+    air = stereo(*[apply(band(pink(s.n, s.rng("air-" + side)), 1000, 3500), air_level) for side in "ab"], width=0.9)
 
     # Garden sparrows: a dozen and a half, a garden or two away, each a soft "cheep" now and then; lower and
     # sparser than the farm's hedgerow, and far under the rest.
@@ -41,11 +43,7 @@ def day(s):
     sparrows = chorus(s.n, s.rng("sparrows"), voices=18, voice=sparrow, rate=(0.3, 0.8), jitter=0.35,
                       level=(-6, 0), pan=(-0.9, 0.9), presence=(0.3, 1.0), every=6.0)
 
-    # A trace of high air hiss, for the codec's sake (see the night bed): without it one seed in five came back
-    # with a seam at the check's limit.
-    hiss = stereo(*[highpass(blue(s.n, s.rng("hiss-" + side)), 7000) for side in "ab"], width=0.9)
-
-    return mix((hum, -10), (wash, 0), (air, -7), (sparrows, -12), (hiss, -24))
+    return mix((hum, -5), (wash, 0), (air, -12), (sparrows, -17))
 
 
 def night(s):
@@ -72,12 +70,7 @@ def night(s):
     wash = stereo(*[apply(highpass(lowpass(pink(s.n, s.rng("wash-" + side)), 500), 100), flow) for side in "ab"],
                   width=0.85)
 
-    # A trace of high air hiss. Hardly audible, but a bed with almost nothing above 8 kHz came back from the
-    # codec with a seam that failed its check (the step across the wrap is measured against the steps around it,
-    # which in a dark bed are tiny); a little energy up here gives that measure something to compare with.
-    hiss = stereo(*[highpass(blue(s.n, s.rng("hiss-" + side)), 7000) for side in "ab"], width=0.9)
-
-    return mix((hum, -2), (wash, -8), (fan, -5), (blades, -12), (lamp, -22), (hiss, -24))
+    return mix((hum, -2), (wash, -8), (fan, -5), (blades, -12), (lamp, -22))
 
 
 def bike_bell(r):
@@ -185,7 +178,7 @@ def chime(r):
     tube = ((1.0, 1.0, 0.9), (2.76, 0.25, 0.35), (5.4, 0.08, 0.15))
     out = silence(3.3)
     for _ in range(r.randint(5, 7)):
-        overlay(out, bell(r.choice(notes), 1.4, tube), r.uniform(0.0, 1.8), gain=r.uniform(0.4, 1.0))
+        overlay(out, bell(r.choice(notes), 1.4, tube, attack=0.012), r.uniform(0.0, 1.8), gain=r.uniform(0.4, 1.0))
     return out
 
 
@@ -202,30 +195,35 @@ def drip(r):
 
 
 def cues(s):
+    # Rare and mostly far: each bed's hero comes every 90 to 240 s, the others every 3 to 20 minutes, so a
+    # listener hears about one event a minute or less. The hero sits at -2 or -3; everything else is `distant`
+    # at -6 to -9. The door and the ball are knocks, so they are far and rare; the horn is the rarest.
     r = s.rng
     return [
-        cue("bicycle-bell", space(bike_bell(r("bike")), r("bike-space"), 0.6, 0.2),
-            beds=["day"], every=[40, 110], level=-4, spread=0.8),
-        cue("pigeon", space(pigeon(r("pigeon")), r("pigeon-space"), 0.5, 0.15),
-            beds=["day"], every=[20, 60], level=-2, spread=0.8),
-        # The church clock strikes by day and by night.
+        # Day's hero: a pigeon cooing on a roof, a soft rolling call with no hard edge.
+        cue("pigeon", space(pigeon(r("pigeon")), r("pigeon-space"), 0.6, 0.2),
+            beds=["day"], every=[90, 240], level=-2, spread=0.8),
+        # The church clock strikes by day and by night, across the town.
         cue("church-bell", space(church_bell(r("church")), r("church-space"), 0.9, 0.3),
-            beds=["day", "night"], every=[60, 180], level=-6, spread=1.0),
-        cue("door", space(door(r("door")), r("door-space"), 0.4, 0.15),
-            beds=["day"], every=[45, 120], level=-4, spread=0.7),
-        cue("ball", space(ball(r("ball")), r("ball-space"), 0.4, 0.15),
-            beds=["day"], every=[50, 140], level=-4, spread=0.7),
+            beds=["day", "night"], every=[240, 720], level=-6, spread=1.0),
+        cue("bicycle-bell", distant(space(bike_bell(r("bike")), r("bike-space"), 0.6, 0.25), 0.4),
+            beds=["day"], every=[240, 600], level=-7, spread=0.8),
+        cue("door", distant(space(door(r("door")), r("door-space"), 0.5, 0.25), 0.5),
+            beds=["day"], every=[300, 900], level=-8, spread=0.7),
+        cue("ball", distant(space(ball(r("ball")), r("ball-space"), 0.5, 0.25), 0.5),
+            beds=["day"], every=[300, 900], level=-8, spread=0.7),
         cue("horn", space(horn(r("horn")), r("horn-space"), 1.0, 0.35),
-            beds=["day"], every=[60, 160], level=-9, spread=1.0),
+            beds=["day"], every=[480, 1200], level=-9, spread=1.0),
 
+        # Night's hero: a wind chime on a porch, touched by a breath of wind.
+        cue("wind-chime", space(chime(r("chime")), r("chime-space"), 0.6, 0.2),
+            beds=["night"], every=[90, 240], level=-3, spread=0.7),
         cue("train", train(r("train")),
-            beds=["night"], every=[70, 180], level=-6, spread=1.0),
-        cue("cat", space(cat(r("cat")), r("cat-space"), 0.6, 0.2),
-            beds=["night"], every=[50, 140], level=-4, spread=0.8),
-        cue("footsteps", space(footsteps(r("steps")), r("steps-space"), 0.4, 0.15),
-            beds=["night"], every=[40, 110], level=-4, spread=0.6),
-        cue("wind-chime", space(chime(r("chime")), r("chime-space"), 0.5, 0.15),
-            beds=["night"], every=[35, 90], level=-5, spread=0.7),
-        cue("gutter-drip", space(drip(r("drip")), r("drip-space"), 0.4, 0.15),
-            beds=["night"], every=[30, 80], level=-5, spread=0.6),
+            beds=["night"], every=[300, 900], level=-6, spread=1.0),
+        cue("cat", distant(space(cat(r("cat")), r("cat-space"), 0.6, 0.25), 0.4),
+            beds=["night"], every=[300, 900], level=-7, spread=0.8),
+        cue("footsteps", distant(space(footsteps(r("steps")), r("steps-space"), 0.5, 0.2), 0.4),
+            beds=["night"], every=[240, 720], level=-8, spread=0.6),
+        cue("gutter-drip", distant(space(drip(r("drip")), r("drip-space"), 0.5, 0.2), 0.4),
+            beds=["night"], every=[240, 720], level=-8, spread=0.6),
     ]

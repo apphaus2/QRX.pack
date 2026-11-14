@@ -166,18 +166,24 @@ def write_ogg_opus(path, channels, pre_skip, valid, packets, serial):
         f.write(b"".join(out))
 
 
-def encode(channels, dest, bitrate, serial, tmp, context=0):
+LAP_CONTEXT = 9600   # samples (200 ms) of the loop's end given to the encoder before its first lap
+LAP_PREROLL = 9600   # samples the decoder runs before the second lap starts; RFC 7845 asks for at least 80 ms (3840)
+
+
+def encode(channels, dest, bitrate, serial, tmp, loop=False):
     """Writes `channels` (one or two lists of floats) to `dest` as Ogg Opus at about `bitrate` bits a second,
     working in the directory `tmp`, and returns its size in bytes. The file is written beside `dest` and moved
     over it, so a reader never sees half a file.
 
-    `context` (samples, for a loop): the encoder is given the loop's last `context` samples before it and its
-    first after it, and the extra is marked for the decoder to drop (a longer pre-skip, and the end granule at
-    the loop's length). So the codec codes the seam as the middle of a sound rather than as a start and an end
-    made separately, and a decoder that follows RFC 7845 returns exactly the loop."""
+    With `loop`, the encoder is given the loop twice in a row (with 200 ms of its end before the first lap and
+    200 ms of its start after the second), and the file keeps only the packets of the second lap and the 200 ms
+    before it, which the pre-skip tells the decoder to run and drop (RFC 7845's pre-roll after a seek). So the
+    first decoded sample continues the encoder's own coding of the last one, and the codec's error is
+    continuous across the wrap. Coding the start and the end separately, even with context, left two
+    independent errors meeting at the seam: in dark beds a measurable step (the README's "Encoding")."""
     n = len(channels[0])
-    if context:
-        channels = [c[n - context:] + c + c[:context] for c in channels]
+    if loop:
+        channels = [c[n - LAP_CONTEXT:] + c + c + c[:LAP_CONTEXT] for c in channels]
     base = os.path.join(tmp, os.path.basename(dest))
     wav, caf = base + ".wav", base + ".caf"
     write_wav(wav, channels)
@@ -186,11 +192,15 @@ def encode(channels, dest, bitrate, serial, tmp, context=0):
     ch, pre_skip, valid, packets = read_caf_opus(caf)
     if valid != len(channels[0]):
         raise RuntimeError("%s: afconvert kept %s of %d frames" % (dest, valid, len(channels[0])))
-    pre_skip += context
+    if loop:
+        second = pre_skip + LAP_CONTEXT + n          # the decoder's sample index where the second lap begins
+        first = (second - LAP_PREROLL) // 960        # the first packet kept
+        pre_skip = second - first * 960
+        packets = packets[first:]
     if pre_skip > 0xFFFF:
-        raise ValueError("context too long for Opus's 16-bit pre-skip")
+        raise ValueError("pre-skip too long for Opus's 16-bit field")
     end = pre_skip + n
-    packets = packets[:(end + 959) // 960]          # the packets wholly after the loop's end are not needed
+    packets = packets[:(end + 959) // 960]           # the packets wholly after the loop's end are not needed
     os.makedirs(os.path.dirname(dest), exist_ok=True)
     part = dest + ".part%d" % os.getpid()
     write_ogg_opus(part, ch, pre_skip, n, packets, serial)

@@ -1,9 +1,11 @@
 """Scrub: thickets, heath and thorn: dry, tangled and sunlit.
 
-Day is a dry wind hissing through thorn and twigs, thinner and brighter than a forest canopy (little body, most of
-it above 2 kHz), a fine ticking of twig tips, and a few cicadas whose buzz swells and fades on its own. Night is
-cooler and stiller, with a pulsing trill of tree crickets lower in pitch than the forest's chirping ones.
-Everything you could pick out as one thing (a quail, a bee, a scold, a nightjar) is a cue.
+A soft backdrop, not a portrait. Day is warm, dry air moving low over the brush: less body than under trees (no
+canopy to roar) and a soft, dry rustle of small leaves and stems a little higher than the forest's crowns, with one
+cicada far off, a thread under it all. Night is cool and still: low air, a faint breath through the brush, and tree
+crickets far away, trilling lower and longer than the forest's chirping ones. Anything you could pick out as one
+thing is a cue, and cues are rare (under one a minute) and mostly far; the hero by day is a quail, by night a
+nightjar-like whistle.
 """
 import math
 
@@ -12,136 +14,128 @@ from lib import *
 
 def pulsed(x, hz, sharp=2.0):
     """x times a pulse train of about `hz` pulses a second, a whole number of pulses over x, so a bed stays a
-    loop (memoryless, so it is seamless however the loop runs)."""
+    loop (memoryless, so it is seamless however the loop runs). The toolkit has no amplitude-pulse modulator."""
     cycles = max(1, round(hz * len(x) / RATE))
     w = 2 * math.pi * cycles / len(x)
     return [v * (0.5 + 0.5 * math.sin(w * i)) ** sharp for i, v in enumerate(x)]
 
 
-def cicadas(s, count, level):
-    """A few cicadas, each a narrow band of noise buzzing at its own pulse rate and pitch, fading in and out on its
-    own slow drift (never quite silent), so together they swell and thin with no moment that stands out."""
-    layers = []
-    for k in range(count):
-        r = s.rng("cicada-%d" % k)
-        hz = r.uniform(4600, 6600)
-        buzz = pulsed(bandpass(white(s.n, r), hz, q=r.uniform(3.0, 5.0)), r.uniform(90, 160), sharp=r.uniform(1.5, 3))
-        here = drift(r, s.seconds, every=r.uniform(6.5, 9.0), lo=0.3, hi=1.0)
-        layers.append((pan(apply(buzz, here), r.uniform(-0.8, 0.8)), r.uniform(-4, 0)))
-    left, right = mix(*layers)
-    return gain(left, level), gain(right, level)
-
-
 def day(s):
-    # A drier, quicker wind than the forest's: a new level about every 4 s and small gusts, kept shallow (the
-    # check's `stand` fires on deep swells) and with a floor.
-    calm = drift(s.rng("wind"), s.seconds, every=4.0, lo=0.0, hi=0.6)
-    g = gusts(s.rng("gusts"), s.seconds, count=10, rise=(1.8, 3.5), fall=(3.0, 6.0), size=(0.06, 0.15))
-    wind = [0.5 + 0.5 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 1.2))]
+    # The wind's shape: a slow wandering (a new level about every 5 s) with small gusts, shallow (about 4 dB) and
+    # over a floor, as the forest's.
+    calm = drift(s.rng("wind"), s.seconds, every=5.0, lo=0.0, hi=0.45)
+    g = gusts(s.rng("gusts"), s.seconds, count=8, rise=(2.5, 4.5), fall=(3.5, 7.0), size=(0.06, 0.14))
+    wind = [0.6 + 0.4 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 1.5))]
 
-    # A thin body: there is no canopy to make the low roar, just air low over the ground.
-    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=120), scale(wind, 180, 420)), wind)
+    # Air low over open ground: a lighter body than the forest's.
+    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=110), scale(wind, 160, 380)), wind)
                     for side in "ab"], width=0.6)
 
-    # The hiss: pink noise above 1.8 kHz, opening upwards as the wind rises, the sound of air through thorn.
-    hiss = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("hiss-" + side)), scale(wind, 4500, 9500)), 1800),
-                          [w ** 1.2 for w in wind]) for side in "ab"], width=0.85)
+    # The brush: pink noise from 400 Hz up to 1.1 to 2 kHz, a little higher and thinner than the forest's crowns
+    # (its dryness), but kept under the hiss the first version had.
+    brush = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("brush-" + side)), scale(wind, 1100, 2000)), 400),
+                           wind) for side in "ab"], width=0.85)
 
-    # Twig tips and dry leaves: many very short bright ticks, shorter and finer than the forest's leaves, never
-    # stopping (a floor on what they follow).
-    tick = lambda r: noise_burst(r, r.uniform(0.002, 0.008), lo=3500, hi=r.uniform(9000, 14000), attack=0.0005,
-                                 release=0.004)
-    twigs = scatter(s.n, s.rng("twigs"), 6000, tick, level=(-14, 0), pan=(-1, 1),
+    # Small dry leaves and stems: soft puffs from 1 to about 4 kHz, thicker where the wind is up, never stopping.
+    stem = lambda r: noise_burst(r, r.uniform(0.006, 0.02), lo=1000, hi=r.uniform(2800, 4200), attack=0.002,
+                                 release=0.008)
+    stems = scatter(s.n, s.rng("stems"), 4000, stem, level=(-8, 0), pan=(-1, 1),
                     follow=[0.4 + 0.6 * w for w in smooth(wind, 2.0)], depth=1.0)
 
-    return mix((body, -9), (hiss, 0), (twigs, -7), (cicadas(s, 4, 0.0), -8))
+    # One cicada far off: a narrow band at about 4.5 kHz, buzzing, fading in and out on a slow drift. A thread,
+    # far under the rest.
+    r = s.rng("cicada")
+    buzz = pulsed(bandpass(white(s.n, r), 4400, q=4.0), 120, sharp=2.0)
+    here = drift(r, s.seconds, every=8.0, lo=0.5, hi=1.0)
+    cicada = stereo(apply(buzz, here), apply(pulsed(bandpass(white(s.n, r), 4400, q=4.0), 120, 2.0), here), 0.5)
+
+    return mix((body, -8), (brush, 0), (stems, -12), (cicada, -21))
 
 
 def night(s):
-    # Cool still air: a low body that barely moves, and a faint high breath through the brush.
+    # Cool still air: a low body that barely moves, and a faint breath through the brush in the middle band.
     calm = drift(s.rng("calm"), s.seconds, every=6.5, lo=0.6, hi=0.85)
     air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=70), scale(calm, 130, 240)), calm)
                    for side in "ab"], width=0.6)
-    breath = stereo(*[apply(band(pink(s.n, s.rng("breath-" + side)), 1200, 3500), calm) for side in "ab"], width=0.8)
+    breath = stereo(*[apply(highpass(lowpass(pink(s.n, s.rng("breath-" + side)), 1100), 300), calm)
+                      for side in "ab"], width=0.8)
 
-    # Tree crickets: each caller a trill of half a second to a second, pulsing 35 to 55 times a second at about
-    # 2.6 to 3.4 kHz (lower and longer than the forest's three-pulse chirps). Many overlap, so the field pulses.
+    # Tree crickets far away: each a trill of half a second to a second at 2.4 to 3 kHz, pulsing 35 to 50 times a
+    # second, all distant and dulled. A faint presence under the air, not the body of the bed.
     def cricket(r):
-        hz, rate = r.uniform(2600, 3400), r.uniform(35, 55)
+        hz, rate = r.uniform(2400, 3000), r.uniform(35, 50)
         count = int(r.uniform(0.5, 1.0) * rate)
         call = trill(r, count=count, hz=hz, each=0.55 / rate, gap=0.45 / rate)
-        call = distant(call, r.uniform(0.15, 0.7))
+        call = distant(call, r.uniform(0.6, 0.9))
         return lambda r2: gain(call, r2.uniform(-2, 0))
     crickets = chorus(s.n, s.rng("crickets"), voices=24, voice=cricket, rate=(0.45, 0.9), jitter=0.1,
                       level=(-8, 0), pan=(-0.9, 0.9), presence=(0.2, 1.0), every=6.0)
 
-    return mix((air, 0), (breath, -15), (crickets, -4))
+    return mix((air, -3), (breath, -5), (crickets, -11))
 
 
 def cues(s):
+    # Rare and mostly far (README, "Cues are rare"): each bed's hero every 90 to 240 s, the rest every 3 to 15
+    # minutes, distant and at -6 to -9. Sharp sounds (the scold, the tick) only far and rare.
     r = s.rng
     return [
-        # A quail's three-note call, said twice: a sharp liquid note and two quick rising ones.
+        # Day's hero: a quail's three-note call, said twice: a liquid note and two quick rising ones. Whistles,
+        # so soft-edged.
         cue("quail", space(seq(*[seq(phrase(r("quail-%d" % i), shape=[(2500, 3300, 0.08), (2900, 2500, 0.05),
                                                                         (2600, 3500, 0.09)], gap=(0.11, 0.15)),
-                                     silence(0.55)) for i in range(2)]), r("quail-space"), 0.6, 0.2),
-            beds=["day"], every=[25, 70], level=-2, spread=0.9),
+                                     silence(0.55)) for i in range(2)]), r("quail-space"), 0.8, 0.22),
+            beds=["day"], every=[90, 240], level=-2, spread=0.9),
 
-        # Something small moving in the brush: a cluster of dry scratchy rustles over most of a second.
-        cue("rustle", space(rustle(r("rustle")), r("rustle-space"), 0.4, 0.12),
-            beds=["day", "night"], every=[30, 80], level=-3, spread=0.8),
+        # A bee passing some way off: a buzz that rises and falls, its pitch dropping a little.
+        cue("bee", distant(tone(2.4, [(0.0, 245), (0.5, 236), (1.0, 218)],
+                                ((1, 1.0), (2, 0.7), (3, 0.5), (4, 0.35), (5, 0.25), (6, 0.15)),
+                                attack=1.0, release=1.1, curve=1.5, vibrato=(7, 0.015), tremolo=(11, 0.25)), 0.4),
+            beds=["day"], every=[180, 480], level=-6, spread=1.0),
 
-        # A bee passing close: a buzz that rises and falls as it goes by, its pitch dropping a little.
-        cue("bee", tone(2.4, [(0.0, 245), (0.5, 236), (1.0, 218)],
-                        ((1, 1.0), (2, 0.7), (3, 0.5), (4, 0.35), (5, 0.25), (6, 0.15), (8, 0.08)),
-                        attack=1.0, release=1.1, curve=1.5, vibrato=(7, 0.015), tremolo=(11, 0.25)),
-            beds=["day"], every=[30, 90], level=-4, spread=1.0),
+        # A wren scolding a long way off: a rattling "chchchch". Sharp, so far and rare.
+        cue("wren-scold", distant(space(scold(r("scold"), 12), r("scold-space"), 0.6, 0.25), 0.7),
+            beds=["day"], every=[240, 600], level=-8, spread=0.9),
 
-        # A dry seed pod rattling: a quick run of tiny hard knocks, slowing and fading.
-        cue("seedpod", space(roll(r("seedpod"), count=18, rate=30, hz=3200, accel=-0.4, fade=0.6,
-                                  seconds_each=0.025), r("seedpod-space"), 0.4, 0.12),
-            beds=["day"], every=[40, 100], level=-3, spread=0.7),
+        # Something small moving in the brush, not near: a cluster of soft rustles; by day and by night.
+        cue("rustle", distant(space(rustle(r("rustle")), r("rustle-space"), 0.5, 0.2), 0.5),
+            beds=["day", "night"], every=[240, 600], level=-7, spread=0.8),
 
-        # A wren's scold: a harsh rattling "chchchch", twice.
-        cue("wren-scold", space(seq(scold(r("scold-a"), 14), silence(0.35), scold(r("scold-b"), 10)),
-                                r("scold-space"), 0.5, 0.15),
-            beds=["day"], every=[25, 75], level=-2, spread=0.9),
-
-        # A nightjar-like call, far off: a three-note whistle, the last note rising, said three times.
+        # Night's hero: a nightjar-like call, a three-note whistle, the last note rising, said three times.
         cue("nightjar", distant(space(seq(*[seq(phrase(r("nightjar-%d" % i), shape=[(1900, 1750, 0.06),
                                                                                   (1400, 1250, 0.12),
                                                                                   (1700, 2500, 0.22)],
                                                        gap=(0.04, 0.06)), silence(0.35)) for i in range(3)]),
-                                      r("nightjar-space"), 0.8, 0.25), 0.3),
-            beds=["night"], every=[30, 90], level=-3, spread=0.8),
+                                      r("nightjar-space"), 0.8, 0.25), 0.35),
+            beds=["night"], every=[90, 240], level=-3, spread=0.8),
 
-        # A far yip: two short rising barks and a longer one, a small dog of the wild a long way off.
+        # A far yip: two short rising barks and a longer one, a long way off.
         cue("yip", space(distant(seq(yip(r("yip-a"), 0.18), silence(0.22), yip(r("yip-b"), 0.16), silence(0.3),
-                                     yip(r("yip-c"), 0.45)), 0.65), r("yip-space"), 1.2, 0.35),
-            beds=["night"], every=[45, 120], level=-7, spread=1.0),
+                                     yip(r("yip-c"), 0.45)), 0.7), r("yip-space"), 1.2, 0.35),
+            beds=["night"], every=[240, 600], level=-8, spread=1.0),
 
-        # A pebble or twig tick: three small hard ticks, settling.
-        cue("tick", seq(knock(r("tick-a"), 2600, 0.06, q=12, body=0.2), silence(0.12),
-                        gain(knock(r("tick-b"), 2900, 0.05, q=12, body=0.2), -5), silence(0.08),
-                        gain(knock(r("tick-c"), 2750, 0.04, q=12, body=0.2), -10)),
-            beds=["night"], every=[35, 100], level=-5, spread=0.7),
+        # A moth fluttering past: soft wingbeats, about 35 a second, dulled.
+        cue("moth", distant(flutter(r("moth")), 0.3),
+            beds=["night"], every=[180, 600], level=-7, spread=1.0),
 
-        # A moth fluttering close past: soft wingbeats, about 35 a second.
-        cue("moth", flutter(r("moth")),
-            beds=["night"], every=[40, 110], level=-6, spread=1.0),
+        # A pebble settling far off: three small ticks. Sharp, so far and rarest of all.
+        cue("tick", distant(space(seq(knock(r("tick-a"), 2600, 0.06, q=12, body=0.2), silence(0.12),
+                                      gain(knock(r("tick-b"), 2900, 0.05, q=12, body=0.2), -5), silence(0.08),
+                                      gain(knock(r("tick-c"), 2750, 0.04, q=12, body=0.2), -10)),
+                                  r("tick-space"), 0.5, 0.3), 0.7),
+            beds=["night"], every=[300, 900], level=-9, spread=0.7),
     ]
 
 
 def rustle(r):
     out = silence(0.9)
     for _ in range(14):
-        overlay(out, noise_burst(r, r.uniform(0.02, 0.08), lo=1500, hi=r.uniform(6000, 9000), attack=0.003,
+        overlay(out, noise_burst(r, r.uniform(0.02, 0.08), lo=800, hi=r.uniform(3000, 4500), attack=0.006,
                                  release=0.03), r.uniform(0.0, 0.8), r.uniform(0.3, 1.0))
     return trim(out)
 
 
 def scold(r, count):
-    """A scold's rattle: rapid notes each a buzzy tone over a harsh noise."""
+    """A scold's rattle: rapid notes, each a buzzy tone over a harsh noise."""
     rate = r.uniform(20, 24)
     out = silence(count / rate + 0.05)
     for i in range(count):
@@ -158,9 +152,5 @@ def yip(r, seconds):
 
 def flutter(r):
     x = noise_burst(r, 0.8, lo=150, hi=1500, attack=0.15, release=0.3)
-    return pulsed_one_shot(x, r.uniform(32, 40))
-
-
-def pulsed_one_shot(x, hz):
-    w = 2 * math.pi * hz / RATE
+    w = 2 * math.pi * r.uniform(32, 40) / RATE
     return [v * (0.5 + 0.5 * math.sin(w * i)) ** 2 for i, v in enumerate(x)]

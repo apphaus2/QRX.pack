@@ -1,53 +1,60 @@
 """Farmland: fields, orchards, barns and hedgerows.
 
-Day is open air: a breeze over the crops (a soft, even hiss of stalks with little low body, unlike the forest's
-dark canopy wind), a tractor fields away that is felt more than heard (a low, steady, slightly wavering hum), and
-sparrows chattering in a hedgerow, so many and so far that they are a texture, not birds. Night is quiet and wide:
-still low air, the faint hush of a barn's stillness, and field crickets, lower in pitch than the forest's, all far off and lighter in the mix.
-Everything you could pick out as one thing (a rooster, a cow, a bell, a gate) is a cue.
+A soft backdrop, not a portrait. Day is open air over the fields: a low, even breath of breeze with a warm body in
+the low middle (no canopy to roar, unlike the forest's wind), the faintest brush of crops, a tractor fields away
+that is felt more than heard, and a hedgerow of sparrows so far off they are only a texture. Night is quiet and
+wide: still low air, the hollow hush of a barn's stillness, and a light chorus of field crickets, lower in pitch
+than the forest's and all far off. Anything you could pick out as one thing is a cue, and cues are rare (about one
+a minute or less, most far off), each bed with one hero: a far rooster by day, a barn owl by night.
 """
 from lib import *
 
 
 def day(s):
-    # The breeze: a slow, shallow wandering with small gusts, as in the forest (deeper swells made `stand` fire
-    # there), with a floor so a lull is quieter, never silent.
-    calm = drift(s.rng("breeze"), s.seconds, every=5.5, lo=0.0, hi=0.55)
-    g = gusts(s.rng("gusts"), s.seconds, count=7, rise=(2.5, 4.5), fall=(4.0, 7.0), size=(0.08, 0.16))
-    breeze = [0.5 + 0.5 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 1.5))]
+    # The breeze: a slow, shallow wandering with small gusts (about 4 dB from lull to swell, as the forest's), over
+    # a floor so a lull is quieter, never silent.
+    calm = drift(s.rng("breeze"), s.seconds, every=6.0, lo=0.0, hi=0.45)
+    g = gusts(s.rng("gusts"), s.seconds, count=7, rise=(3.0, 5.0), fall=(4.0, 8.0), size=(0.06, 0.12))
+    breeze = [0.6 + 0.4 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 1.5))]
 
-    # Air over open ground: pink noise kept out of the lows (an open field has no canopy to roar), its cutoff
-    # rising with the breeze. This is the main body of the bed.
-    air = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("air-" + side)), scale(breeze, 900, 2200)), 180),
+    # Air over open ground, the main body: pink noise from about 200 Hz up to a cutoff that follows the breeze
+    # between 500 Hz and 1.3 kHz. The first version opened it to 2.2 kHz and the day was the brightest of the
+    # eleven; kept here in the band a phone speaker plays, so the bed has a body there.
+    air = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("air-" + side)), scale(breeze, 500, 1300)), 200),
                          breeze) for side in "ab"], width=0.8)
 
-    # The crops: many tiny soft puffs of noise in the 1.5-5 kHz band, the stalks brushing. Darker and denser than
-    # the forest's leaves (which reach 11 kHz), following a softened breeze and never stopping.
-    stalk = lambda r: noise_burst(r, r.uniform(0.01, 0.04), lo=1500, hi=r.uniform(3500, 5500), attack=0.003,
-                                  release=0.015)
-    crops = scatter(s.n, s.rng("crops"), 5000, stalk, level=(-10, 0), pan=(-1, 1),
-                    follow=[0.4 + 0.6 * w for w in smooth(breeze, 2.5)], depth=1.0)
+    # Under it, a little dark warmth: brown noise below about 300 Hz, so the field is not thin.
+    warmth = stereo(*[apply(lowpass(brown(s.n, s.rng("warm-" + side), corner=80), 300), breeze) for side in "ab"],
+                    width=0.6)
 
-    # The tractor, fields away: narrow bands of brown noise at an engine's firing rate and its second
-    # harmonic, so it is a hum that wavers a little, as an engine under load does, but nothing like a tone that
-    # starts or stops. Its level drifts very slowly (a far engine turning at a headland).
+    # The crops: a faint, dull brush of stalks (fewer and duller puffs than the first version's, 1.2 to 4 kHz),
+    # following a softened breeze and never stopping.
+    stalk = lambda r: noise_burst(r, r.uniform(0.01, 0.04), lo=1200, hi=r.uniform(2800, 4000), attack=0.004,
+                                  release=0.02)
+    crops = scatter(s.n, s.rng("crops"), 2500, stalk, level=(-8, 0), pan=(-1, 1),
+                    follow=[0.5 + 0.5 * w for w in smooth(breeze, 2.5)], depth=1.0)
+
+    # The tractor, fields away: narrow bands of brown noise at an engine's firing rate and its harmonics, so it
+    # wavers a little, as an engine under load does, but never starts or stops. The upper two (216 and 288 Hz)
+    # are what a phone speaker can carry of it. Its level drifts very slowly (a far engine turning at a headland).
     far = drift(s.rng("engine"), s.seconds, every=9.0, lo=0.75, hi=1.0)
     engine = mix(*[(stereo(*[apply(bandpass(brown(s.n, s.rng("engine-%d-%s" % (hz, side)), corner=40), hz, q=9), far)
-                             for side in "ab"], width=0.3), lvl) for hz, lvl in ((72, 0), (144, -5), (216, -11))])
+                             for side in "ab"], width=0.3), lvl)
+                   for hz, lvl in ((72, 0), (144, -4), (216, -8), (288, -12))])
 
-    # The hedgerow: thirty sparrows, all some way off, each giving one or two quick chips over and over at its
-    # own rate, fading in and out. With this many, this far, and this quiet, no one chip stands out.
+    # The hedgerow: thirty sparrows, all a long way off and dulled by distance, each giving one or two quick
+    # chips over and over at its own rate. With this many, this far and this quiet, no one chip stands out.
     def sparrow(r):
-        hz = r.uniform(3400, 5200)
+        hz = r.uniform(3200, 4600)
         notes = r.randint(1, 2)
-        call = seq(*[seq(chirp(r.uniform(0.025, 0.05), hz * r.uniform(1.05, 1.25), hz * r.uniform(0.75, 0.95)),
+        call = seq(*[seq(chirp(r.uniform(0.025, 0.05), hz * r.uniform(1.05, 1.2), hz * r.uniform(0.8, 0.95)),
                          silence(r.uniform(0.03, 0.06))) for _ in range(notes)])
-        call = distant(call, r.uniform(0.45, 0.85))
-        return lambda r2: gain(call, r2.uniform(-4, 0))
-    hedge = chorus(s.n, s.rng("hedge"), voices=30, voice=sparrow, rate=(0.4, 1.1), jitter=0.3,
-                   level=(-12, 0), pan=(-0.9, 0.9), presence=(0.1, 1.0), every=5.0)
+        call = distant(call, r.uniform(0.7, 0.9))
+        return lambda r2: gain(call, r2.uniform(-3, 0))
+    hedge = chorus(s.n, s.rng("hedge"), voices=30, voice=sparrow, rate=(0.4, 1.0), jitter=0.3,
+                   level=(-8, 0), pan=(-0.9, 0.9), presence=(0.3, 1.0), every=6.0)
 
-    return mix((air, 0), (crops, -8), (engine, -6), (hedge, -15))
+    return mix((air, 0), (warmth, -10), (engine, -9), (crops, -16), (hedge, -22))
 
 
 def night(s):
@@ -58,7 +65,7 @@ def night(s):
 
     # The barn's stillness: a faint hollow hush in the low middle, as of air in a large wooden room nearby.
     hush_level = drift(s.rng("hush"), s.seconds, every=8.0, lo=0.7, hi=1.0)
-    hush = stereo(*[apply(band(pink(s.n, s.rng("hush-" + side)), 220, 700), hush_level) for side in "ab"], width=0.5)
+    hush = stereo(*[apply(band(pink(s.n, s.rng("hush-" + side)), 220, 900), hush_level) for side in "ab"], width=0.5)
 
     # Field crickets: lower than the forest's (about 3.3 kHz against 4.2-5.2), slower, and all of them far out
     # in the fields, so the chorus is light and even. A few near, loud callers stood out of it (`stand`); many
@@ -77,16 +84,11 @@ def night(s):
     shimmer = stereo(*[apply(band(white(s.n, s.rng("shimmer-" + side)), 2900, 3900), shimmer_level)
                        for side in "ab"], width=0.9)
 
-    # Wide open sky: a faint, even breath of air above the fields, which keeps the bed from being all rumble.
+    # Wide open sky: a faint, even breath of air above the fields, kept under 3 kHz.
     sky_level = drift(s.rng("sky"), s.seconds, every=8.0, lo=0.75, hi=1.0)
-    sky = stereo(*[apply(band(pink(s.n, s.rng("sky-" + side)), 900, 4000), sky_level) for side in "ab"], width=0.9)
+    sky = stereo(*[apply(band(pink(s.n, s.rng("sky-" + side)), 700, 3000), sky_level) for side in "ab"], width=0.9)
 
-    # A trace of high air hiss. Hardly audible, but a bed with almost nothing above 8 kHz came back from the
-    # codec with a seam that failed its check (the step across the wrap is measured against the steps around it,
-    # which in a dark bed are tiny); a little energy up here gives that measure something to compare with.
-    hiss = stereo(*[highpass(blue(s.n, s.rng("hiss-" + side)), 7000) for side in "ab"], width=0.9)
-
-    return mix((air, -2), (hush, -4), (sky, -9), (shimmer, -17), (crickets, -8), (hiss, -26))
+    return mix((air, -2), (hush, -3), (sky, -10), (shimmer, -18), (crickets, -9))
 
 
 def rooster(r):
@@ -133,10 +135,11 @@ def latch(r):
 
 
 def screech(r):
-    """A barn owl's screech, softened: a long breathy hiss with a faint pitch in it, falling away."""
-    hiss = noise_burst(r, 1.2, lo=1800, hi=5000, attack=0.08, release=0.5, curve=1.5)
-    voice = tone(1.2, (2600, 2200), harmonics=((1, 1.0), (2, 0.3)), attack=0.08, release=0.5, curve=1.5)
-    return distant(add(hiss, gain(voice, -10)), 0.55)
+    """A barn owl's screech, softened for a hero: a long breathy rasp with a faint pitch in it, rising slowly
+    and falling away, kept under about 3.5 kHz and dulled by distance."""
+    hiss = noise_burst(r, 1.3, lo=1200, hi=3500, attack=0.2, release=0.6, curve=1.5)
+    voice = tone(1.3, (2300, 1900), harmonics=((1, 1.0), (2, 0.2)), attack=0.2, release=0.6, curve=1.5)
+    return distant(add(hiss, gain(voice, -10)), 0.6)
 
 
 def bark(r):
@@ -161,26 +164,32 @@ def snort(r):
 
 
 def cues(s):
+    # Rare and mostly far: each bed's hero comes every 90 to 240 s, the others every 3 to 15 minutes, so a
+    # listener hears about one event a minute or less. The hero sits at -3; everything else is `distant` at -6
+    # to -9. The gate's latch and creak are sharp, so they are the farthest and rarest.
     r = s.rng
     return [
+        # Day's hero: a rooster far across the yard.
         cue("rooster", space(rooster(r("rooster")), r("rooster-space"), 1.0, 0.3),
-            beds=["day"], every=[50, 140], level=-5, spread=0.9),
-        cue("cow", space(moo(r("cow")), r("cow-space"), 1.0, 0.3),
-            beds=["day"], every=[40, 110], level=-5, spread=1.0),
-        cue("hens", space(hens(r("hens")), r("hens-space"), 0.5, 0.15),
-            beds=["day"], every=[25, 70], level=-3, spread=0.7),
-        cue("sheep-bell", space(sheep_bell(r("sheep-bell")), r("sheep-bell-space"), 0.8, 0.25),
-            beds=["day"], every=[30, 80], level=-4, spread=0.9),
-        # The gate's latch, by day and by night.
-        cue("gate-latch", space(latch(r("latch")), r("latch-space"), 0.5, 0.2),
-            beds=["day", "night"], every=[60, 150], level=-3, spread=0.7),
+            beds=["day"], every=[90, 240], level=-3, spread=0.9),
+        cue("cow", space(distant(moo(r("cow")), 0.3), r("cow-space"), 1.0, 0.3),
+            beds=["day"], every=[180, 480], level=-6, spread=1.0),
+        cue("hens", space(distant(hens(r("hens")), 0.4), r("hens-space"), 0.6, 0.2),
+            beds=["day"], every=[240, 600], level=-7, spread=0.7),
+        cue("sheep-bell", space(distant(sheep_bell(r("sheep-bell")), 0.4), r("sheep-bell-space"), 0.8, 0.25),
+            beds=["day"], every=[240, 600], level=-7, spread=0.9),
+        # The gate's latch, a field away, by day and by night.
+        cue("gate-latch", distant(space(latch(r("latch")), r("latch-space"), 0.6, 0.3), 0.7),
+            beds=["day", "night"], every=[300, 900], level=-9, spread=0.7),
 
+        # Night's hero: a barn owl's screech, softened and some way off.
         cue("barn-owl", space(screech(r("owl")), r("owl-space"), 1.0, 0.3),
-            beds=["night"], every=[40, 110], level=-5, spread=0.8),
+            beds=["night"], every=[90, 240], level=-3, spread=0.8),
         cue("dog", space(bark(r("dog")), r("dog-space"), 1.2, 0.35),
-            beds=["night"], every=[45, 120], level=-7, spread=1.0),
-        cue("gate-creak", space(creak(r("creak"), 1.3, rate=(20, 50), hz=(500, 1300), q=7), r("creak-space"), 0.6, 0.2),
-            beds=["night"], every=[40, 100], level=-3, spread=0.7),
-        cue("horse", space(snort(r("horse")), r("horse-space"), 0.5, 0.2),
-            beds=["night"], every=[35, 90], level=-3, spread=0.6),
+            beds=["night"], every=[240, 720], level=-8, spread=1.0),
+        cue("gate-creak", distant(space(creak(r("creak"), 1.3, rate=(20, 50), hz=(500, 1300), q=7), r("creak-space"),
+                                        0.6, 0.3), 0.6),
+            beds=["night"], every=[300, 900], level=-8, spread=0.7),
+        cue("horse", space(distant(snort(r("horse")), 0.4), r("horse-space"), 0.6, 0.25),
+            beds=["night"], every=[180, 600], level=-6, spread=0.6),
     ]
