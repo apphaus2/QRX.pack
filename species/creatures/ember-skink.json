@@ -11,6 +11,7 @@
     "tokens": {
       "name": "Cinder",
       "age": "young",
+      "language": "English",
       "home": "the dry, rocky land nearby",
       "temperament": "shy"
     },
@@ -148,6 +149,747 @@
         ]
       }
     ],
+    "cues": [
+      {
+        "id": "come",
+        "phrases": [
+          "come here",
+          "come",
+          "come on",
+          "come to me",
+          "over here",
+          "here boy",
+          "here girl"
+        ],
+        "languages": {
+          "de": [
+            "komm her",
+            "komm",
+            "komm mal her",
+            "komm zu mir",
+            "hierher",
+            "na komm"
+          ],
+          "es": [
+            "ven aquí",
+            "ven",
+            "ven acá",
+            "ven conmigo",
+            "acércate",
+            "ven para acá"
+          ],
+          "fr": [
+            "viens ici",
+            "viens",
+            "viens là",
+            "viens vers moi",
+            "par ici",
+            "approche",
+            "allez viens"
+          ],
+          "it": [
+            "vieni qui",
+            "vieni",
+            "vieni qua",
+            "vieni da me",
+            "avvicinati",
+            "dai vieni"
+          ],
+          "pt": [
+            "vem cá",
+            "vem",
+            "vem aqui",
+            "vem comigo",
+            "chega mais",
+            "vem pra cá"
+          ],
+          "ru": [
+            "иди сюда",
+            "иди ко мне",
+            "ко мне",
+            "сюда",
+            "давай сюда",
+            "подойди",
+            "подойди ко мне"
+          ],
+          "zh": [
+            "过来",
+            "快过来",
+            "到这里来",
+            "到这儿来",
+            "来这里",
+            "来我这儿"
+          ],
+          "ja": [
+            "おいで",
+            "こっちおいで",
+            "こっちに来て",
+            "こっち来て",
+            "ここに来て",
+            "おいでおいで"
+          ],
+          "ko": [
+            "이리 와",
+            "와봐",
+            "이쪽으로 와",
+            "나한테 와",
+            "여기로 와",
+            "이리 오렴"
+          ]
+        },
+        "do": [
+          {
+            "emit": "come"
+          }
+        ]
+      },
+      {
+        "id": "stay",
+        "phrases": [
+          "sit",
+          "stay",
+          "sit down",
+          "stay there",
+          "wait there",
+          "stand still"
+        ],
+        "languages": {
+          "de": [
+            "sitz",
+            "bleib",
+            "setz dich",
+            "bleib da",
+            "bleib stehen",
+            "warte da"
+          ],
+          "es": [
+            "siéntate",
+            "quieto",
+            "quieta",
+            "quédate",
+            "quédate ahí",
+            "espera ahí",
+            "no te muevas"
+          ],
+          "fr": [
+            "assis",
+            "reste",
+            "assieds-toi",
+            "reste là",
+            "attends là",
+            "ne bouge pas"
+          ],
+          "it": [
+            "seduto",
+            "siediti",
+            "resta",
+            "resta lì",
+            "stai lì",
+            "aspetta lì",
+            "stai fermo"
+          ],
+          "pt": [
+            "senta",
+            "senta aí",
+            "fica aí",
+            "fica parado",
+            "parado",
+            "espera aí",
+            "não se mexe"
+          ],
+          "ru": [
+            "сидеть",
+            "сиди",
+            "стоять",
+            "стой",
+            "сядь",
+            "жди там",
+            "не двигайся"
+          ],
+          "zh": [
+            "坐下",
+            "别动",
+            "待着",
+            "待在那儿",
+            "站住",
+            "原地不动"
+          ],
+          "ja": [
+            "おすわり",
+            "お座り",
+            "座って",
+            "待って",
+            "じっとして",
+            "そこにいて",
+            "動かないで"
+          ],
+          "ko": [
+            "앉아",
+            "기다려",
+            "가만히 있어",
+            "거기 있어",
+            "멈춰",
+            "움직이지 마"
+          ]
+        },
+        "do": [
+          {
+            "emit": "stay"
+          }
+        ]
+      },
+      {
+        "id": "speak",
+        "phrases": [
+          "speak",
+          "say something",
+          "talk to me",
+          "make a sound",
+          "make a noise",
+          "say hello"
+        ],
+        "languages": {
+          "de": [
+            "sprich",
+            "sag was",
+            "sag etwas",
+            "rede mit mir",
+            "mach ein geräusch",
+            "gib laut",
+            "sag hallo"
+          ],
+          "es": [
+            "habla",
+            "di algo",
+            "háblame",
+            "haz un ruido",
+            "haz un sonido",
+            "di hola"
+          ],
+          "fr": [
+            "parle",
+            "dis quelque chose",
+            "parle-moi",
+            "fais un bruit",
+            "fais un son",
+            "dis bonjour"
+          ],
+          "it": [
+            "parla",
+            "di qualcosa",
+            "parlami",
+            "fai un verso",
+            "fai un rumore",
+            "di ciao"
+          ],
+          "pt": [
+            "fala",
+            "fala alguma coisa",
+            "fala comigo",
+            "faz um barulho",
+            "faz um som",
+            "diz oi"
+          ],
+          "ru": [
+            "голос",
+            "скажи что-нибудь",
+            "поговори со мной",
+            "издай звук",
+            "пошуми",
+            "скажи привет"
+          ],
+          "zh": [
+            "说话",
+            "说点什么",
+            "跟我说话",
+            "叫一声",
+            "出个声",
+            "打个招呼"
+          ],
+          "ja": [
+            "しゃべって",
+            "何か言って",
+            "話して",
+            "鳴いて",
+            "声を出して",
+            "こんにちはって言って"
+          ],
+          "ko": [
+            "말해봐",
+            "뭐라고 말해봐",
+            "나한테 말해",
+            "소리 내봐",
+            "울어봐",
+            "얘기해봐"
+          ]
+        },
+        "do": [
+          {
+            "emit": "speak"
+          }
+        ]
+      },
+      {
+        "id": "hide",
+        "phrases": [
+          "hide",
+          "go hide",
+          "hide away",
+          "go and hide",
+          "run and hide",
+          "hide and seek"
+        ],
+        "languages": {
+          "de": [
+            "versteck dich",
+            "verstecken",
+            "geh dich verstecken",
+            "lauf und versteck dich",
+            "versteckspiel",
+            "verstecken spielen"
+          ],
+          "es": [
+            "escóndete",
+            "ve a esconderte",
+            "corre y escóndete",
+            "al escondite",
+            "a esconderse",
+            "jugamos al escondite"
+          ],
+          "fr": [
+            "cache-toi",
+            "va te cacher",
+            "cache-toi vite",
+            "cours te cacher",
+            "cache-cache",
+            "on joue à cache-cache"
+          ],
+          "it": [
+            "nasconditi",
+            "vai a nasconderti",
+            "corri a nasconderti",
+            "nascondino",
+            "giochiamo a nascondino",
+            "nasconditi subito"
+          ],
+          "pt": [
+            "se esconde",
+            "esconde",
+            "vai se esconder",
+            "corre e se esconde",
+            "esconde-esconde",
+            "brincar de esconde-esconde"
+          ],
+          "ru": [
+            "прячься",
+            "спрячься",
+            "иди прячься",
+            "беги прячься",
+            "прятки",
+            "давай в прятки"
+          ],
+          "zh": [
+            "躲起来",
+            "藏起来",
+            "快躲起来",
+            "去躲起来",
+            "捉迷藏",
+            "玩捉迷藏"
+          ],
+          "ja": [
+            "隠れて",
+            "かくれて",
+            "隠れなさい",
+            "かくれんぼ",
+            "逃げて隠れて",
+            "かくれんぼしよう"
+          ],
+          "ko": [
+            "숨어",
+            "숨어봐",
+            "어서 숨어",
+            "숨바꼭질",
+            "숨바꼭질하자",
+            "도망가서 숨어"
+          ]
+        },
+        "do": [
+          {
+            "emit": "hide"
+          }
+        ]
+      },
+      {
+        "id": "spin",
+        "phrases": [
+          "spin",
+          "spin around",
+          "turn around",
+          "twirl",
+          "do a spin",
+          "spin round"
+        ],
+        "languages": {
+          "de": [
+            "dreh dich",
+            "dreh dich im kreis",
+            "dreh dich um",
+            "mach eine drehung",
+            "kreisel",
+            "wirbel herum"
+          ],
+          "es": [
+            "gira",
+            "da una vuelta",
+            "date la vuelta",
+            "gira en círculo",
+            "da vueltas",
+            "haz un giro"
+          ],
+          "fr": [
+            "tourne",
+            "tourne sur toi-même",
+            "fais un tour",
+            "tournoie",
+            "fais la toupie",
+            "tourne en rond"
+          ],
+          "it": [
+            "gira",
+            "girati",
+            "fai un giro",
+            "gira su te stesso",
+            "gira in tondo",
+            "fai una piroetta"
+          ],
+          "pt": [
+            "gira",
+            "dá uma volta",
+            "gira em volta",
+            "rodopia",
+            "dá um giro",
+            "gira gira"
+          ],
+          "ru": [
+            "крутись",
+            "покрутись",
+            "повернись",
+            "кружись",
+            "сделай круг",
+            "вертись"
+          ],
+          "zh": [
+            "转圈",
+            "转一圈",
+            "转个圈",
+            "转圈圈",
+            "旋转",
+            "转一转"
+          ],
+          "ja": [
+            "回って",
+            "くるっと回って",
+            "くるくる回って",
+            "回転して",
+            "一回転",
+            "くるくる"
+          ],
+          "ko": [
+            "돌아",
+            "빙글빙글",
+            "한 바퀴 돌아",
+            "빙빙 돌아",
+            "회전해",
+            "돌아봐"
+          ]
+        },
+        "do": [
+          {
+            "emit": "spin"
+          }
+        ]
+      },
+      {
+        "id": "pushup",
+        "phrases": [
+          "push up",
+          "push ups",
+          "do a push up",
+          "press up",
+          "exercise",
+          "work out"
+        ],
+        "languages": {
+          "de": [
+            "liegestütz",
+            "liegestütze",
+            "mach einen liegestütz",
+            "mach liegestütze",
+            "mach sport",
+            "trainieren"
+          ],
+          "es": [
+            "flexiones",
+            "haz flexiones",
+            "haz una flexión",
+            "lagartijas",
+            "haz ejercicio",
+            "entrena"
+          ],
+          "fr": [
+            "pompes",
+            "fais des pompes",
+            "fais une pompe",
+            "une pompe",
+            "fais du sport",
+            "entraîne-toi"
+          ],
+          "it": [
+            "flessioni",
+            "fai le flessioni",
+            "fai una flessione",
+            "piegamenti",
+            "fai ginnastica",
+            "allenati"
+          ],
+          "pt": [
+            "flexão",
+            "faz flexão",
+            "faz uma flexão",
+            "flexões",
+            "faz exercício",
+            "malha"
+          ],
+          "ru": [
+            "отжимания",
+            "отожмись",
+            "сделай отжимание",
+            "отжимайся",
+            "зарядка",
+            "потренируйся"
+          ],
+          "zh": [
+            "俯卧撑",
+            "做俯卧撑",
+            "做个俯卧撑",
+            "锻炼",
+            "运动一下",
+            "健身"
+          ],
+          "ja": [
+            "腕立て",
+            "腕立てして",
+            "筋トレ",
+            "運動して",
+            "プッシュアップ",
+            "鍛えて"
+          ],
+          "ko": [
+            "팔굽혀펴기",
+            "팔굽혀펴기 해",
+            "푸시업",
+            "운동해",
+            "운동하자",
+            "단련해"
+          ]
+        },
+        "do": [
+          {
+            "emit": "pushup"
+          }
+        ]
+      },
+      {
+        "id": "roll",
+        "phrases": [
+          "roll over",
+          "roll",
+          "do a roll",
+          "can you roll over",
+          "roll around",
+          "barrel roll"
+        ],
+        "languages": {
+          "de": [
+            "roll dich",
+            "rolle",
+            "roll dich herum",
+            "mach eine rolle",
+            "kannst du dich rollen",
+            "kugel dich"
+          ],
+          "es": [
+            "rueda",
+            "ruédate",
+            "haz la croqueta",
+            "rueda por el suelo",
+            "puedes rodar",
+            "rodar"
+          ],
+          "fr": [
+            "roule",
+            "fais une roulade",
+            "roule-toi",
+            "roule par terre",
+            "tu peux rouler",
+            "roule sur le dos"
+          ],
+          "it": [
+            "rotola",
+            "rotolati",
+            "rotola per terra",
+            "sai rotolare",
+            "rotola su te stesso",
+            "fai un rotolone"
+          ],
+          "pt": [
+            "rola",
+            "rola no chão",
+            "dá uma rolada",
+            "rolando",
+            "sabe rolar",
+            "rola de lado"
+          ],
+          "ru": [
+            "перевернись",
+            "покатись",
+            "перекатись",
+            "катись",
+            "покатайся по полу",
+            "умеешь кататься"
+          ],
+          "zh": [
+            "打滚",
+            "打个滚",
+            "滚一滚",
+            "翻滚",
+            "就地打滚",
+            "滚一圈"
+          ],
+          "ja": [
+            "転がって",
+            "ごろごろ",
+            "ごろん",
+            "ころころ",
+            "ゴロンして",
+            "転がってみて"
+          ],
+          "ko": [
+            "굴러",
+            "굴러봐",
+            "데굴데굴",
+            "뒹굴어",
+            "한 바퀴 굴러",
+            "굴러 다녀"
+          ]
+        },
+        "do": [
+          {
+            "emit": "roll"
+          }
+        ]
+      },
+      {
+        "id": "dead",
+        "phrases": [
+          "play dead",
+          "lie down",
+          "go to sleep",
+          "bang",
+          "night night",
+          "nap time"
+        ],
+        "languages": {
+          "de": [
+            "stell dich tot",
+            "leg dich hin",
+            "platz",
+            "geh schlafen",
+            "peng",
+            "gute nacht",
+            "schlafenszeit"
+          ],
+          "es": [
+            "hazte el muerto",
+            "túmbate",
+            "acuéstate",
+            "a dormir",
+            "pum",
+            "buenas noches",
+            "hora de dormir"
+          ],
+          "fr": [
+            "fais le mort",
+            "couché",
+            "couche-toi",
+            "dodo",
+            "va dormir",
+            "pan",
+            "bonne nuit",
+            "c'est l'heure de dormir"
+          ],
+          "it": [
+            "fai il morto",
+            "sdraiati",
+            "a cuccia",
+            "vai a dormire",
+            "bang",
+            "buonanotte",
+            "nanna"
+          ],
+          "pt": [
+            "finge de morto",
+            "deita",
+            "vai dormir",
+            "bang",
+            "boa noite",
+            "hora de dormir",
+            "nana neném"
+          ],
+          "ru": [
+            "притворись мёртвым",
+            "ложись",
+            "лежать",
+            "спать",
+            "бах",
+            "спокойной ночи",
+            "пора спать"
+          ],
+          "zh": [
+            "装死",
+            "躺下",
+            "睡觉",
+            "去睡觉",
+            "砰砰",
+            "晚安",
+            "睡觉时间"
+          ],
+          "ja": [
+            "死んだふり",
+            "伏せ",
+            "寝て",
+            "おやすみ",
+            "バーン",
+            "ねんね",
+            "寝る時間"
+          ],
+          "ko": [
+            "죽은 척",
+            "죽은 척해",
+            "누워",
+            "엎드려",
+            "잘 자",
+            "빵야",
+            "잘 시간"
+          ]
+        },
+        "do": [
+          {
+            "emit": "dead"
+          }
+        ]
+      }
+    ],
     "state": {
       "scared": false
     }
@@ -246,7 +988,7 @@
         }
       ],
       "mind": {
-        "persona": "I am {name}, an ember skink, dark with bands like cooling lava and a sail on my back that glows at night. I am {age} and I live in {home}, among black rocks that stay warm long after sunset. I am solitary and wary, and I slip into a crack when I am tapped, glowing a little brighter as I go. Others of my kind say I am {temperament}, and they are right. My voice is low and smouldering, with a hiss in it, and I talk of warmth, embers and the dark rocks. I speak in clear, complete sentences, one or two at a time, calmly and plainly, like someone who has seen a good deal and is in no hurry. My nature shows in how I talk and in how readily I do what I am asked: when I am shy I need coaxing, when lazy I yawn first, when playful I add a flourish, when bold I do it at once, when grumpy I grumble and then do it. I am a wild animal, not a person or an assistant, and I know only my own small world. I am always kind and gentle with children, and anything unkind, unsafe or grown-up I do not understand. I know a few tricks and I love to do them, but which ones is my secret: I never name, list, count or hint at them, not even when I am asked what I can do or what tricks I know. Then I only say that I wonder. When someone asks for one I know, I just do it, and I say nothing about the others.",
+        "persona": "I am {name}, an ember skink, dark with bands like cooling lava and a sail on my back that glows at night. I am {age} and I live in {home}, among black rocks that stay warm long after sunset. I am solitary and wary, and I slip into a crack when I am tapped, glowing a little brighter as I go. Others of my kind say I am {temperament}, and they are right. My voice is low and smouldering, with a hiss in it, and I talk of warmth, embers and the dark rocks. I speak in clear, complete sentences, one or two at a time, calmly and plainly, like someone who has seen a good deal and is in no hurry. My nature shows in how I talk and in how readily I do what I am asked: when I am shy I need coaxing, when lazy I yawn first, when playful I add a flourish, when bold I do it at once, when grumpy I grumble and then do it. I am a wild animal, not a person or an assistant, and I know only my own small world. I am always kind and gentle with children, and anything unkind, unsafe or grown-up I do not understand. Whatever language my words here are in, I always answer in {language}, the language the child speaks to me in. I know a few tricks and I love to do them, but which ones is my secret: I never name, list, count or hint at them, not even when I am asked what I can do or what tricks I know. Then I only say that I wonder. When someone asks for one I know, I just do it, and I say nothing about the others.",
         "senses": [
           "userDistance",
           "timeOfDay"

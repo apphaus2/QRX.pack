@@ -2,7 +2,8 @@
 
 A definition's `prompt` is the species speaking in the first person, with {tokens} that the apps fill in from one
 creature's life information: {name}, {age}, {home} (the phrase of the biome it was met in, from biomes.json) and
-{temperament} (its nature, one of life.json's).
+{temperament} (its nature, one of life.json's) and {language} (the language the player talks to it in, by its English
+name: "German"; an app that knows no language fills the header's default, "English").
 The pipeline turns it into the actor's `mind`. The `persona` (the front of the system prompt) is the prompt, then
 the species' speech register in plain words, then the closing lines and the rule about tricks that every creature
 shares (how its nature shows, what it is, that its tricks are secret); the senses, tools, budget, triggers and canned rules come from mind.json, once for all species. A definition
@@ -90,7 +91,7 @@ def register(d, rarity):
 
 
 def persona(shared, d, speech):
-    return " ".join(part.strip() for part in (d["prompt"], shared["registers"][speech], shared["nature"], shared["closing"], shared["secret"]))
+    return " ".join(part.strip() for part in (d["prompt"], shared["registers"][speech], shared["nature"], shared["closing"], shared["language"], shared["secret"]))
 
 
 def build(shared, d, speech, trick_rules):
@@ -186,6 +187,10 @@ def shared_faults(shared, tempers, meanings):
         faults.append("registers must map each speech register to one line, in the first person, that tells the creature how to speak")
     for key in ("nature", "closing", "secret"):
         if not plain(shared.get(key)): faults.append("%s must be one line of text with no braces" % key)
+    line = shared.get("language")
+    if not isinstance(line, str) or not line.strip() or "\n" in line or tokens_in(line) != ["language"] or token_faults(line, ["language"]):
+        faults.append("language must be one line that uses the token {language} and no other")
+    if "language" not in tokens: faults.append("tokens needs a default for language: what an app that knows no language fills in")
     table = shared.get("on", {})
     for event in ("tap", "near"):
         if not isinstance(table.get(event), dict) or any(table[event].get(temper) not in meanings for temper in tempers): faults.append("on.%s needs a sound (%s) for each temper (%s)" % (event, ", ".join(meanings), ", ".join(tempers)))

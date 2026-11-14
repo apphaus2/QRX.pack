@@ -21,6 +21,7 @@ from lib.gltf import inspect                              # noqa: E402
 from lib import mind as minds                            # noqa: E402
 from lib import sounds as voices                         # noqa: E402
 from lib import tricks                                   # noqa: E402
+from lib import languages                                # noqa: E402
 
 GENERATOR = "QRX species/build.py"
 PACK = "https://qrx-pack.apphaus.us/"              # where this repository is served: every address the build writes starts here
@@ -86,6 +87,10 @@ class Data:
         self.tokens = minds.known_tokens(self.mind)
         self.definitions = self.read_definitions()
         self.check_life()
+        self.languages = languages.read(HERE)     # every other language's cue phrases, and the names as their recognisers write them
+        signatures = [d["signature"]["id"] for d in self.definitions.values() if isinstance(d.get("signature"), dict) and isinstance(d["signature"].get("id"), str)]
+        self.names = list(self.life["names"]) + [d["name"] for d in self.definitions.values() if isinstance(d.get("name"), str)]
+        for fault in languages.table_faults(self.languages, list(self.tricks.get("tricks", {})) + signatures, self.names): self.faults.append(fault)
 
     def fault(self, where, message):
         self.faults.append("%s: %s" % (where, message))
@@ -243,7 +248,10 @@ class Data:
         behaviour = d.get("behaviour", {})
         if behaviour.get("temper", "shy") not in TEMPERS: bad("behaviour.temper is one of %s" % ", ".join(TEMPERS))
         if archetype and rarity and not self.faults:
-            for fault in tricks.species_faults(self.tricks, d, archetype, rarity): bad("tricks: " + fault)
+            found = tricks.species_faults(self.tricks, d, archetype, rarity)
+            for fault in found: bad("tricks: " + fault)
+            if not found:
+                for fault in languages.species_faults(self.languages, tricks.known(self.tricks, d, archetype, rarity)): bad("cues: " + fault)
         for key in behaviour:
             if key not in ("temper", "distance", "seconds", "watch"): bad("unknown behaviour key \"%s\"" % key)
         return faults
@@ -311,7 +319,7 @@ def build_document(data, d, made, model_base, sound_base):
     return {
         "_ui": {"version": 1, "habitat": d["habitat"], "species": d["id"], "rarity": d["rarity"], "biome": d["biomes"][0], "biomes": list(d["biomes"]),
                 "tokens": minds.header_tokens(data.mind, d, data.biomes), "homes": minds.homes(d, data.biomes),
-                "tricks": tricks.header(data.tricks, d, known), "state": state},
+                "tricks": tricks.header(data.tricks, d, known), "cues": languages.header(data.languages, tricks.header(data.tricks, d, known)), "state": state},
         "type": "Scene",
         "anchor": habitat["anchor"],
         "bounds": {"min": list(wild["min"]), "max": list(wild["max"])},
@@ -414,6 +422,7 @@ def build_all(data, model_base, sound_base):
     }
     outputs["index.json"] = dump(index)
     outputs["ROSTER.md"] = roster(data, index).encode("utf-8")
+    outputs["names.json"] = dump(languages.names_file(data.languages, data.names))
     return outputs, faults
 
 
@@ -548,7 +557,7 @@ def check_outputs(data, outputs, model_base, sound_base):
         archetype, rarity = data.archetypes[d["archetype"]], data.rarities[d["rarity"]]
         known = tricks.known(data.tricks, d, archetype, rarity)
         expected = {"habitat": d["habitat"], "species": sid, "rarity": d["rarity"], "biome": d["biomes"][0], "biomes": d["biomes"],
-                    "tokens": minds.header_tokens(data.mind, d, data.biomes), "homes": minds.homes(d, data.biomes), "tricks": tricks.header(data.tricks, d, known)}
+                    "tokens": minds.header_tokens(data.mind, d, data.biomes), "homes": minds.homes(d, data.biomes), "tricks": tricks.header(data.tricks, d, known), "cues": languages.header(data.languages, tricks.header(data.tricks, d, known))}
         for key, value in expected.items():
             if header.get(key) != value: bad("_ui.%s is %r, not %r" % (key, header.get(key), value))
         if doc.get("type") != "Scene": bad("type is not Scene")

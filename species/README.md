@@ -57,7 +57,8 @@ reserved.json            ids and names QRX.pack already uses
 life.json                what a spawned creature's own name, age and temperament are drawn from
 mind.json                what every creature's mind shares: token defaults, speech registers, closing lines, budget,
                          canned rules, which sound a tap or an approach gets
-tricks.json              every trick: its phrases, and what a behaviour trick does
+tricks.json              every trick (cue): its English phrases, and what a behaviour trick does
+languages/<code>.json    the nine other languages: each cue's phrases, and (ru, zh, ja, ko) how each name is written
 sounds.json              the voices: a synthesized sound for each of four meanings
 definitions/<biome>/     the source of truth: one <id>.json per species, in its home biome's folder
 lib/shapes.py            parts: ellipsoids, tubes, lofts, fins, wing sheets; vectors and quaternions
@@ -66,6 +67,7 @@ lib/builder.py           what an archetype builds with: colours, patterns, clips
 lib/behaviour.py         tempers: what a creature does when tapped
 lib/mind.py              the mind written into each document, and what --check holds it to
 lib/tricks.py            which tricks a species knows, their handlers and the rules that hear them
+lib/languages.py         the language tables: how the matcher reads a phrase, what --check holds them to, _ui.cues
 lib/sounds.py            the sound synthesizers and the WAV writer and reader
 lib/archetypes/*.py      one module per kind of animal
 creatures/<id>.json      built: the creature's scene document
@@ -73,10 +75,11 @@ models/<id>.glb          built: its model
 sounds/<voice>-<meaning>.wav   built: the sounds
 index.json               built: the catalog
 ROSTER.md                built: every species by biome, with its chance there
+names.json               built: every name of the pack and how a recogniser in another language may write it
 preview/index.html       every model in a browser
 ```
 
-`creatures/`, `models/`, `sounds/`, `index.json` and `ROSTER.md` are written by `build.py` and checked in. Do not edit them:
+`creatures/`, `models/`, `sounds/`, `index.json`, `ROSTER.md` and `names.json` are written by `build.py` and checked in. Do not edit them:
 `--check` compares them byte for byte with what the definitions build.
 
 ## A definition
@@ -275,6 +278,11 @@ A prompt is written once for the species and filled in for the individual. A tok
 | `{age}` | a ready phrase for its age | "I am" | `7 months old` | `young` (`tokens.age` in `mind.json`) |
 | `{home}` | the `home` phrase of the biome it was met in | "I live in" | `the thickets nearby` (met in `shrub`) | the home biome's phrase, `the woods nearby` |
 | `{temperament}` | its nature, one of `life.json`'s | "I am" | `bold` | the species' typical one: its definition's `temperament`, or its archetype's (`temperaments` in `mind.json`) |
+| `{language}` | the English name of the language the player talks in | "answer in" | `German` (the app's listening language) | `English` (`tokens.language` in `mind.json`) |
+
+`{language}` is used once, by the line every persona shares (`language` in `mind.json`): "Whatever language my
+words here are in, I always answer in {language}, the language the child speaks to me in." The prompt stays
+English; the model answers in the player's language. An app that fills no language leaves the default, English.
 
 The document's header carries what an app needs to fill them with nothing else to hand: `tokens` is what each token
 reads as for a creature with no life information, and `homes` maps every biome the species is found in to its
@@ -310,7 +318,7 @@ prompt gives the voice its character (what it sounds like, what it talks about);
 
 ```json
 "mind": {
-  "persona": "<the prompt> <its register> <how a nature shows> <what it is> <its tricks are secret>",
+  "persona": "<the prompt> <its register> <how a nature shows> <what it is> <answer in {language}> <its tricks are secret>",
   "senses": ["userDistance", "timeOfDay"],
   "tools": ["say", "sound", "lookAt", "play", "emit"],
   "budget": { "tokens": 8000, "perTurn": 1000, "cooldown": 8 },
@@ -471,6 +479,69 @@ rules only when no model answers): the model is told the clip names and to do a 
 relied on, so an app should match the header's phrases itself before it lets the mind hear.
 
 "Fetch" is not here: it needs something to fetch, and a creature's scene has only the creature.
+
+## Cues in other languages
+
+QRay listens in ten languages, and a creature must be asked in the one the player speaks. "Cue" is the new word for
+a trick (the owner's choice, 2026-11-13: new keys and files carry it; the rest is renamed later). English is
+`tricks.json` and the legendaries' `signature` phrases, as before. Each other language has a table,
+`languages/<code>.json` (`de`, `es`, `fr`, `it`, `pt` for Brazil, `ru`, `zh` Simplified, `ja`, `ko`), keyed by the
+same ids:
+
+```json
+{ "language": "de", "checked": false, "about": "...",
+  "cues": { "come": ["komm her", "komm", "komm mal her", "komm zu mir", "hierher", "na komm"], "...": [],
+            "snow": ["lass es schneien", "schnee", "schneefall", "bring den schnee", "schnee bitte", "es soll schneien"] },
+  "names": { "Hazel": ["Хейзел", "Хэйзел"] } }
+```
+
+- **`cues`**: every ordinary cue and every signature, four to eight phrases each, lower case, written as that
+  language's recogniser writes it (Simplified characters, Japanese kanji and kana, Hangul, Cyrillic). Accents,
+  capitals, punctuation, ё and katakana against hiragana are the matcher's business, not the table's: write each
+  phrase once. Chinese and Japanese phrases have no spaces; a Chinese, Japanese or Korean phrase is two characters or
+  more, because in those languages a phrase is found as characters inside what was said.
+- **`names`** (ru, zh, ja, ko): every name of the pack (`life.json`'s pool and each species' template name), as a
+  recogniser of that script most likely writes it; two forms where it could go two ways. Korean leaves out a name of
+  one syllable. `build.py` gathers them into `names.json`, which QRX's core carries a copy of.
+- **`checked`**: `false` until a native speaker has read the table. **All nine were machine-written on 2026-11-13
+  and none has been checked.** Per language, what a native speaker should look at first:
+  - `de`: the separable verbs and "mal" ("komm mal her"), whether a child says "Platz" or "leg dich hin" to a small
+    animal, and the names, which a German recogniser may write as German words ("Hasel", "Moos").
+  - `es`: Spain's forms (the tag is es-ES): "vale", "tráeme", "túmbate"; whether Latin American players need "ven
+    acá" and "acuéstate" more.
+  - `fr`: "tape m'en cinq", "fais le gros", the cache-cache phrases.
+  - `it`: "a cuccia", "fai il morto", "di ciao" (the recogniser's "dì" or "di'").
+  - `pt`: Brazilian forms (pt-BR): "vem cá", "fica aí", "dá tchau"; "nana neném".
+  - `ru`: imperative and perfective forms ("прыгай" / "прыгни"), and the Cyrillic names, with their case endings.
+  - `zh`: the transliterations of the names (several are guesses: 黑兹尔 or 海泽尔 for Hazel), and whether a recogniser
+    writes "这儿" or "这里".
+  - `ja`: kanji against kana in each phrase (the matcher folds katakana and hiragana, not kanji and kana: "回って" is
+    found, "まわって" is not), and the katakana names.
+  - `ko`: the endings ("와", "와봐", "와요"), and the Hangul names.
+
+In a document every cue appears twice: in `_ui.tricks`, English only, exactly as before, for the apps that read only
+that; and in `_ui.cues`, the same entry with `languages`, its phrases by language code, which apps from 2026-11-13 read
+first and fall back to English from:
+
+```json
+"_ui": { "tricks": [ { "id": "come", "phrases": ["come here", "come", ...], "do": [ { "emit": "come" } ] } ],
+         "cues":   [ { "id": "come", "phrases": ["come here", "come", ...],
+                       "languages": { "de": ["komm her", ...], "ja": ["おいで", ...], "...": [] },
+                       "do": [ { "emit": "come" } ] } ] }
+```
+
+The id and the `do` are one for all languages. `_ui.tricks` can be dropped when no app in use reads only it: the
+apps before 2026-11-13 do, and so do creatures they keep, whose documents are fetched again by URL, so not before
+every installed app reads `cues` (the next store builds and a while after). A document grows by about 13 KB with the
+nine languages (bark skink: 10 KB to 23 KB).
+
+`--check` refuses a table that misses a cue or names one that does not exist, a phrase that is not lower case
+letters, spaces, apostrophes or hyphens, a phrase listed twice as the matcher reads it, a one-character phrase in
+Chinese, Japanese or Korean, and, for every species and every language, a phrase of one cue standing inside a phrase
+of another cue the species knows (as words; as characters in Chinese, Japanese and Korean).
+
+**Adding a language** is a table here, its code in `lib/languages.py` (`CODES`, and `SCRIPTS` when it is written in
+another script) and in QRX's `SpeechLanguage` and core (`LANGUAGES`), then a rebuild.
 
 **Adding a trick later** is all it takes to teach every creature of a species: add it to `tricks.json`, animate it
 in the archetype (or give it a `do`), list it in the archetype's `TRICKS` or a definition's `tricks`, rebuild and
