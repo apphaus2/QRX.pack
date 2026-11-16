@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scout test</title>
+<style>
+  :root { --bg: #f4f3ef; --card: #fff; --ink: #1d1d1f; --muted: #6b6b70; --line: #e2e0da; --bad: #b3261e; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #18181a; --card: #222225; --ink: #ececee; --muted: #9a9aa0; --line: #333337; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 20px 16px 48px; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, sans-serif; }
+  h1 { font-size: 20px; margin: 0 0 6px; }
+  p, ol { margin: 0 0 10px; max-width: 760px; color: var(--muted); }
+  ol { padding-left: 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; max-width: 760px; }
+  .facts { color: var(--muted); font-size: 12.5px; margin-bottom: 8px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .view { position: relative; aspect-ratio: 1; background: #cfd6c4; border-radius: 8px; overflow: hidden; }
+  .view canvas { width: 100%; height: 100%; display: block; }
+  .view .tag { position: absolute; left: 6px; top: 6px; font-size: 11px; background: rgba(255,255,255,.85); color: #222; border-radius: 6px; padding: 1px 6px; }
+  .view .err { position: absolute; inset: auto 6px 6px 6px; font-size: 11px; color: var(--bad); background: rgba(255,255,255,.9); border-radius: 6px; padding: 2px 6px; }
+  .clips { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0; }
+  .clips button { font: inherit; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); cursor: pointer; }
+  details { border: 1px solid var(--line); border-radius: 8px; margin-top: 10px; }
+  summary { cursor: pointer; padding: 8px 10px; font-weight: 600; }
+  .code { text-align: center; padding: 10px; font-size: 11.5px; color: var(--muted); }
+  .code div { background: #fff; padding: 8px; border-radius: 8px; display: inline-block; }
+  .code svg { width: 200px; height: 200px; display: block; }
+  .code a { display: block; color: var(--muted); word-break: break-all; margin-top: 6px; }
+</style>
+</head>
+<body>
+<h1>Scout test</h1>
+<p>The street terrier with his art meshes (texture bot, QRX.pack <code>animals</code> 1721be7, wired in 4382fbb).
+One document, which names <code>street-terrier.glb</code>: phones and TVs load that file (meshopt, 16-bit positions,
+KTX2 textures). A Quest build with JsonScene's <code>modelSuffix</code> asks for <code>street-terrier.quest.glb</code>
+first (plain geometry, KTX2). A Quest build without it loads the meshopt file and stops: install the new build first.</p>
+<ol>
+  <li>On the Quest (the build with <code>modelSuffix</code>), the iPhone or the Android phone, open the code and scan it.</li>
+  <li>Scout should stand on the code, textured, and walk. Say "shake" and "roll over" to see his two clips.</li>
+</ol>
+<div class="card">
+  <div class="facts" id="facts">Loading…</div>
+  <div class="pair" id="pair"></div>
+  <div class="clips" id="clips"></div>
+  <details><summary>Scout's code</summary><div class="code" id="code"></div></details>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
+
+const BASE = "https://qrx-pack.apphaus.us/species/preview/scout/";
+const doc = BASE + "street-terrier.json";
+const qr = qrcode(0, "M"); qr.addData(doc); qr.make();
+document.getElementById("code").innerHTML = `<div>${qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true })}</div><a href="${doc}">${doc}</a>`;
+
+const views = [];
+window.scoutTest = { loaded: [], failed: [] };
+let ktx2 = null;
+
+function view(host, url, label) {
+  const box = document.createElement("div"); box.className = "view";
+  box.innerHTML = `<span class="tag">${label}</span>`;
+  host.appendChild(box);
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  box.prepend(renderer.domElement);
+  if (!ktx2) ktx2 = new KTX2Loader().setTranscoderPath("https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/").detectSupport(renderer);
+  const loader = new GLTFLoader().setKTX2Loader(ktx2).setMeshoptDecoder(MeshoptDecoder);
+  const scene = new THREE.Scene();
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x6a6a5a, 2.2));
+  const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(1, 2, 1.5); scene.add(sun);
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 20);
+  const v = { renderer, scene, camera, box, mixer: null, clips: [], pivot: new THREE.Group() };
+  scene.add(v.pivot);
+  loader.load(url, gltf => {
+    const model = gltf.scene;
+    // Framed by his known size (0.25 m long, 0.155 m tall): three's box of a skinned mesh whose positions are 16-bit
+    // integers, dequantized by its node, comes out wrong.
+    model.position.set(0, -0.078, 0);
+    v.pivot.add(model);
+    const d = 0.25 * 2.4;
+    camera.position.set(d * 0.8, d * 0.4, d * 0.7); camera.lookAt(0, 0, 0);
+    v.mixer = new THREE.AnimationMixer(model);
+    v.clips = gltf.animations;
+    play(v, "walk");
+    window.scoutTest.loaded.push(url);
+  }, undefined, error => {
+    box.insertAdjacentHTML("beforeend", `<span class="err">Did not load: ${String(error.message || error)}</span>`);
+    window.scoutTest.failed.push(url);
+  });
+  views.push(v);
+}
+
+function play(v, name) {
+  const clip = v.clips.find(c => c.name === name); if (!clip || !v.mixer) return;
+  v.mixer.stopAllAction();
+  const action = v.mixer.clipAction(clip);
+  const loops = name === "walk" || name === "idle";
+  action.setLoop(loops ? THREE.LoopRepeat : THREE.LoopOnce, Infinity); action.clampWhenFinished = !loops;
+  action.reset().play();
+  if (!loops) v.mixer.addEventListener("finished", function back() { v.mixer.removeEventListener("finished", back); play(v, "walk"); });
+}
+
+const pair = document.getElementById("pair");
+view(pair, "street-terrier.glb", "Phones and TVs (meshopt)");
+view(pair, "street-terrier.quest.glb", "Quest copy (plain)");
+for (const name of ["idle", "walk", "shake", "roll"]) {
+  const b = document.createElement("button"); b.textContent = name;
+  b.onclick = () => views.forEach(v => play(v, name));
+  document.getElementById("clips").appendChild(b);
+}
+const sizes = await Promise.all(["street-terrier.glb", "street-terrier.quest.glb"].map(async f => (await fetch(f, { method: "HEAD", cache: "no-store" })).headers.get("content-length")));
+document.getElementById("facts").textContent = `7,598 triangles, 22 bones, 0.25 m long. Phones' file ${Math.round(sizes[0] / 1024) || 300} KB, Quest copy ${Math.round(sizes[1] / 1024) || 531} KB.`;
+
+const clock = new THREE.Clock();
+(function frame() {
+  const dt = clock.getDelta(), t = clock.elapsedTime;
+  for (const v of views) {
+    const w = v.box.clientWidth, h = v.box.clientHeight;
+    if (v.renderer.domElement.width !== Math.round(w * v.renderer.getPixelRatio())) { v.renderer.setSize(w, h, false); v.camera.aspect = w / h; v.camera.updateProjectionMatrix(); }
+    v.pivot.rotation.y = t * 0.4;
+    v.mixer?.update(dt);
+    v.renderer.render(v.scene, v.camera);
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>
