@@ -6,6 +6,7 @@ rewrites the table in species/art/README.md.
     python3 species/art/intake.py <id> ... --dry-run      check only, file nothing
     python3 species/art/intake.py --table                 rewrite README.md's table from what is filed
     python3 species/art/intake.py <id> --look DIR         the filed cutout on flat gray, written to DIR (never the repo)
+    python3 species/art/intake.py <id> --mesh mesh.glb --quest mesh.quest.glb ...   a second, optional mesh for the Quest
 
 Any one of --full, --cutout and --mesh may be given alone (a mesh can arrive after its images). A file already
 filed is replaced only with --replace. Faults stop the intake; notes are printed and filed with it.
@@ -19,7 +20,11 @@ What is checked (rules from TerraLib's IMAGING.md, sections 3 to 5, and from wha
            triangles, vertices, the box it fills, its textures and their sizes, whether it is skinned and its clips;
            extensions it requires that the apps are not known to read are a fault. Size, triangles and texture size
            over the limits below are notes, not faults, until the owner sets them (art/README.md, open questions)
-Uses Pillow for the images (the system python3 on this Mac has it).
+  quest    mesh.quest.glb, optional: the same model for the Quest, checked with the same rules as the mesh
+A mesh may be packed by gltfpack: EXT_meshopt_compression views are decoded here (modes ATTRIBUTES, TRIANGLES and
+INDICES, in plain Python), KHR_mesh_quantization positions are measured through the transform that undoes them, and a
+KHR_texture_basisu image is read from its KTX2 header (size, ETC1S or UASTC) rather than by Pillow.
+Uses Pillow for the images (the system python3 on this Mac has it); no other dependency.
 """
 import argparse, datetime, hashlib, json, os, shutil, struct, sys
 
@@ -32,7 +37,8 @@ FULL_MIN = 1024              # px on the long side
 EDGE = 2                     # px of clear border the cutout must have on every side
 ONE_SUBJECT = 0.97           # share of the opaque pixels the largest region must hold
 LIMITS = {"bytes": 1024 * 1024, "triangles": 8000, "texture": 1024}     # SPEC.md section 3 (seven out at once on the Quest); the owner decides
-KNOWN_EXTENSIONS = set()     # nothing is required-safe until a device has shown it (KHR_mesh_quantization: preview/quantized/)
+KNOWN_EXTENSIONS = {"EXT_meshopt_compression", "KHR_mesh_quantization", "KHR_texture_basisu", "KHR_texture_transform"}   # what gltfpack writes (owner, 2026-11-16)
+KTX2_MAGIC = b"\xabKTX 20\xbb\r\n\x1a\n"
 
 GLB_MAGIC, CHUNK_JSON, CHUNK_BIN = 0x46546C67, 0x4E4F534A, 0x004E4942
 COMPONENT = {5120: ("b", 1), 5121: ("B", 1), 5122: ("h", 2), 5123: ("H", 2), 5125: ("I", 4), 5126: ("f", 4)}
@@ -122,7 +128,9 @@ def accessor_values(gltf, binary, index):
     a = gltf["accessors"][index]
     if "bufferView" not in a: return [0] * a["count"] * WIDTH[a["type"]]          # sparse or all zero: not read here
     view = gltf["bufferViews"][a["bufferView"]]
-    if view.get("buffer", 0) != 0: raise ValueError("accessor %d is in an external buffer" % index)
+    meshopt = view.get("extensions", {}).get("EXT_meshopt_compression")
+    if meshopt: binary, view = meshopt_view(binary, meshopt), {"byteOffset": 0, "byteLength": meshopt["count"] * meshopt["byteStride"], "byteStride": view.get("byteStride")}
+    elif view.get("buffer", 0) != 0: raise ValueError("accessor %d is in an external buffer" % index)
     fmt, size = COMPONENT[a["componentType"]]
     width, count = WIDTH[a["type"]], a["count"]
     stride = view.get("byteStride") or size * width
@@ -132,6 +140,187 @@ def accessor_values(gltf, binary, index):
     out = []
     for k in range(count): out.extend(struct.unpack_from("<%d%s" % (width, fmt), binary, start + k * stride))
     return out
+
+
+def meshopt_view(binary, ext):
+    """The bytes of an EXT_meshopt_compression view, decoded (its filter, if any, is left undone: the checks need no values)."""
+    if ext.get("buffer", 0) != 0: raise ValueError("a compressed view is in an external buffer")
+    data = binary[ext.get("byteOffset", 0):ext.get("byteOffset", 0) + ext["byteLength"]]
+    if len(data) != ext["byteLength"]: raise ValueError("a compressed view runs past its buffer")
+    count, stride, mode = ext["count"], ext["byteStride"], ext.get("mode", "ATTRIBUTES")
+    if count < 1 or stride < 1 or not data: raise ValueError("an empty or invalid meshopt view")
+    if mode == "ATTRIBUTES":
+        if stride % 4 or stride > 256: raise ValueError("invalid meshopt attribute stride")
+        return decode_vertices(data, count, stride)
+    if stride not in (2, 4): raise ValueError("invalid meshopt index stride")
+    values = decode_triangles(data, count) if mode == "TRIANGLES" else decode_indices(data, count) if mode == "INDICES" else None
+    if values is None: raise ValueError("unknown meshopt mode %s" % mode)
+    if max(values, default=0) >= 1 << (8 * stride): raise ValueError("a decoded index does not fit its %d bytes" % stride)
+    return struct.pack("<%d%s" % (count, "H" if stride == 2 else "I"), *values)
+
+
+def decode_vertices(data, count, stride):
+    """meshopt mode 0 (EXT_meshopt_compression, appendix A)."""
+    if data[0] != 0xA0: raise ValueError("meshopt attribute stream has header 0x%02x, not 0xa0" % data[0])
+    if len(data) < 1 + max(stride, 32): raise ValueError("meshopt attribute stream is too short")
+    tail = len(data) - max(stride, 32)            # the tail is padded to 32 bytes; the baseline element ends it
+    last = bytearray(data[len(data) - stride:])
+    out = bytearray(count * stride)
+    pos, done = 1, 0
+    block = min((8192 // stride) & ~15, 256)
+    while done < count:
+        n = min(count - done, block); groups = (n + 15) // 16
+        for k in range(stride):
+            head = data[pos:pos + (groups + 3) // 4]; pos += (groups + 3) // 4
+            deltas = []
+            for g in range(groups):
+                bits = (head[g // 4] >> (2 * (g % 4))) & 3
+                if bits == 0: deltas += [0] * 16; continue
+                if bits == 3: deltas += list(data[pos:pos + 16]); pos += 16; continue
+                width = 2 if bits == 1 else 4
+                packed = data[pos:pos + 16 * width // 8]; pos += 16 * width // 8
+                values = []
+                for byte in packed:
+                    values += [(byte >> s) & 3 for s in (6, 4, 2, 0)] if width == 2 else [byte >> 4, byte & 15]
+                for v in values:
+                    if v == (1 << width) - 1: v = data[pos]; pos += 1
+                    deltas.append(v)
+            value = last[k]
+            for e in range(n):
+                d = deltas[e]; value = (value + ((~(d >> 1)) if d & 1 else (d >> 1))) & 0xFF
+                out[(done + e) * stride + k] = value
+            last[k] = value
+        done += n
+        if pos > tail: raise ValueError("meshopt attribute stream overruns its tail")
+    if pos != tail: raise ValueError("meshopt attribute stream has bytes left over")
+    return bytes(out)
+
+
+def _varint(data, pos):
+    value = shift = 0
+    while True:
+        byte = data[pos]; pos += 1; value |= (byte & 0x7F) << shift; shift += 7
+        if shift > 35: raise ValueError("meshopt varint exceeds 32 bits")
+        if byte < 0x80: return value, pos
+
+
+def decode_triangles(data, count):
+    """meshopt mode 1 (EXT_meshopt_compression, appendix A)."""
+    if data[0] != 0xE1: raise ValueError("meshopt triangle stream has header 0x%02x, not 0xe1" % data[0])
+    if count % 3: raise ValueError("meshopt triangle stream count is not a multiple of 3")
+    aux = data[-16:]; codes = data[1:1 + count // 3]; pos = 1 + count // 3
+    if len(data) < 1 + count // 3 + 16: raise ValueError("meshopt triangle stream is too short")
+    edges, verts, out = [(0, 0)] * 16, [0] * 16, []
+    state = {"next": 0, "last": 0}
+    def index(pos):
+        v, pos = _varint(data, pos); state["last"] = (state["last"] + ((~(v >> 1)) if v & 1 else (v >> 1))) & 0xFFFFFFFF; return state["last"], pos
+    def push_edge(a, b): edges.insert(0, (a, b)); edges.pop()
+    def push_vert(v): verts.insert(0, v); verts.pop()
+    for code in codes:
+        hi, lo = code >> 4, code & 15
+        if hi < 15:
+            a, b = edges[hi]
+            if lo == 0: c = state["next"]; state["next"] += 1; push_vert(c)
+            elif lo < 13: c = verts[lo]
+            elif lo < 15: c = (state["last"] + (-1 if lo == 13 else 1)) & 0xFFFFFFFF; state["last"] = c; push_vert(c)
+            else: c, pos = index(pos); push_vert(c)
+            push_edge(c, b); push_edge(a, c)
+        else:
+            if lo < 14:
+                zw = aux[lo]; z, w = zw >> 4, zw & 15
+                a = state["next"]; state["next"] += 1
+                if z == 0: b = state["next"]; state["next"] += 1
+                else: b = verts[z - 1]
+                if w == 0: c = state["next"]; state["next"] += 1
+                else: c = verts[w - 1]
+                push_vert(a)
+                if z == 0: push_vert(b)
+                if w == 0: push_vert(c)
+            else:
+                zw = data[pos]; pos += 1
+                if zw == 0: state["next"] = 0
+                z, w = zw >> 4, zw & 15
+                if lo == 14: a = state["next"]; state["next"] += 1
+                else: a, pos = index(pos)
+                if z == 0: b = state["next"]; state["next"] += 1
+                elif z < 15: b = verts[z - 1]
+                else: b, pos = index(pos)
+                if w == 0: c = state["next"]; state["next"] += 1
+                elif w < 15: c = verts[w - 1]
+                else: c, pos = index(pos)
+                push_vert(a)
+                if z in (0, 15): push_vert(b)
+                if w in (0, 15): push_vert(c)
+            push_edge(b, a); push_edge(c, b); push_edge(a, c)
+        out += [a, b, c]
+    if pos != len(data) - 16: raise ValueError("meshopt triangle stream has %d bytes left over" % (len(data) - 16 - pos))
+    return out
+
+
+def decode_indices(data, count):
+    """meshopt mode 2 (EXT_meshopt_compression, appendix A)."""
+    if data[0] != 0xD1: raise ValueError("meshopt index stream has header 0x%02x, not 0xd1" % data[0])
+    last, pos, out = [0, 0], 1, []
+    for _ in range(count):
+        v, pos = _varint(data, pos); base = v & 1
+        last[base] = (last[base] + ((~(v >> 2)) if v & 2 else (v >> 2))) & 0xFFFFFFFF; out.append(last[base])
+    if pos != len(data) - 4: raise ValueError("meshopt index stream has %d bytes left over" % (len(data) - 4 - pos))
+    return out
+
+
+def ktx2_facts(raw):
+    """Size and encoding of a KTX2 texture (KHR_texture_basisu), from its header and data format descriptor."""
+    if raw[:12] != KTX2_MAGIC or len(raw) < 80: raise ValueError("an image/ktx2 texture is not a KTX2 file")
+    vk_format, _, width, height, depth, layers, faces, levels, scheme = struct.unpack_from("<9I", raw, 12)
+    if vk_format != 0 or not width or not height or depth or layers or faces != 1 or not levels:
+        raise ValueError("KHR_texture_basisu needs a non-empty 2D Basis texture")
+    if levels > max(width, height).bit_length() or len(raw) < 80 + 24 * levels: raise ValueError("invalid KTX2 level index")
+    dfd_offset, dfd_length = struct.unpack_from("<2I", raw, 48)
+    if dfd_offset < 80 + 24 * levels or dfd_length < 28 or dfd_offset + dfd_length > len(raw): raise ValueError("KTX2 data format descriptor is out of range")
+    model = raw[dfd_offset + 12]
+    kind = {163: "ETC1S", 166: "UASTC"}.get(model)
+    if kind is None or (kind == "ETC1S" and scheme != 1) or (kind == "UASTC" and scheme not in (0, 2)):
+        raise ValueError("unsupported KTX2 Basis encoding or supercompression")
+    for i in range(levels):
+        offset, length, _ = struct.unpack_from("<3Q", raw, 80 + 24 * i)
+        if not length or offset < 80 + 24 * levels or offset + length > len(raw): raise ValueError("KTX2 mip level is out of range")
+    return {"format": "KTX2 %s" % kind, "size": [width, height], "levels": levels, "supercompression": {0: "none", 1: "BasisLZ", 2: "Zstandard"}[scheme]}
+
+
+def node_matrices(gltf):
+    """Each node's world matrix (row-major 4x4 lists), from translation/rotation/scale or matrix."""
+    def local(n):
+        if "matrix" in n: m = n["matrix"]; return [[m[c * 4 + r] for c in range(4)] for r in range(4)]
+        x, y, z, w = n.get("rotation", [0, 0, 0, 1]); sx, sy, sz = n.get("scale", [1, 1, 1]); t = n.get("translation", [0, 0, 0])
+        r = [[1 - 2 * (y * y + z * z), 2 * (x * y - z * w), 2 * (x * z + y * w)], [2 * (x * y + z * w), 1 - 2 * (x * x + z * z), 2 * (y * z - x * w)], [2 * (x * z - y * w), 2 * (y * z + x * w), 1 - 2 * (x * x + y * y)]]
+        return [[r[i][0] * sx, r[i][1] * sy, r[i][2] * sz, t[i]] for i in range(3)] + [[0, 0, 0, 1]]
+    parent = {c: i for i, n in enumerate(gltf.get("nodes", [])) for c in n.get("children", [])}
+    world = {}
+    def get(i):
+        if i not in world: world[i] = matmul(get(parent[i]), local(gltf["nodes"][i])) if i in parent else local(gltf["nodes"][i])
+        return world[i]
+    return get
+
+
+def matmul(a, b): return [[sum(a[i][k] * b[k][j] for k in range(4)) for j in range(4)] for i in range(4)]
+
+
+def dequantized_box(gltf, binary, mesh_index, lo, hi, normalized):
+    """KHR_mesh_quantization: the box of quantized positions in metres, through the mesh node's transform, or for a
+    skinned mesh through its first joint's bind (world x inverse bind matrix), which is what undoes the quantization."""
+    if normalized: lo, hi = [v / normalized for v in lo], [v / normalized for v in hi]
+    world = node_matrices(gltf)
+    nodes = [i for i, n in enumerate(gltf.get("nodes", [])) if n.get("mesh") == mesh_index]
+    if not nodes: return lo, hi
+    node = gltf["nodes"][nodes[0]]
+    if "skin" in node:
+        skin = gltf["skins"][node["skin"]]
+        ibm = accessor_values(gltf, binary, skin["inverseBindMatrices"])[:16] if "inverseBindMatrices" in skin else [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
+        m = matmul(world(skin["joints"][0]), [[ibm[c * 4 + r] for c in range(4)] for r in range(4)])
+    else: m = world(nodes[0])
+    corners = [[(lo, hi)[(k >> i) & 1][i] for i in range(3)] for k in range(8)]
+    moved = [[sum(m[r][c] * p[c] for c in range(3)) + m[r][3] for r in range(3)] for p in corners]
+    return [min(p[i] for p in moved) for i in range(3)], [max(p[i] for p in moved) for i in range(3)]
 
 
 def check_mesh(path):
@@ -156,8 +345,11 @@ def check_mesh(path):
                 position = gltf["accessors"][attributes["POSITION"]]
                 count = position["count"]
                 vertices += count
+                plo, phi = position["min"], position["max"]
+                if "KHR_mesh_quantization" in gltf.get("extensionsUsed", []) and (position["componentType"] != 5126 or any(n.get("mesh") == m and ("scale" in n or "translation" in n or "matrix" in n) for n in gltf.get("nodes", []))):
+                    plo, phi = dequantized_box(gltf, binary, m, plo, phi, {5120: 127, 5121: 255, 5122: 32767, 5123: 65535}.get(position["componentType"]) if position.get("normalized") else 0)
                 for i in range(3):
-                    lo[i] = min(lo[i], position["min"][i]); hi[i] = max(hi[i], position["max"][i])
+                    lo[i] = min(lo[i], plo[i]); hi[i] = max(hi[i], phi[i])
                 if "TEXCOORD_0" not in attributes: uv = False
                 if "JOINTS_0" in attributes and "WEIGHTS_0" in attributes: skinned = True
                 if "indices" in prim:
@@ -171,6 +363,7 @@ def check_mesh(path):
             if "bufferView" not in image: faults.append("image %d is outside the file (%s): everything must be inside the .glb" % (i, image.get("uri", "?")[:40])); continue
             view = gltf["bufferViews"][image["bufferView"]]
             raw = binary[view.get("byteOffset", 0):view.get("byteOffset", 0) + view["byteLength"]]
+            if image.get("mimeType") == "image/ktx2" or raw[:12] == KTX2_MAGIC: textures.append(dict(ktx2_facts(raw), bytes=len(raw))); continue
             import io
             with Image.open(io.BytesIO(raw)) as im: textures.append({"format": im.format, "size": [im.width, im.height], "bytes": len(raw)})
         facts.update(triangles=triangles, vertices=vertices, box=[[round(c, 4) for c in lo], [round(c, 4) for c in hi]],
@@ -189,7 +382,7 @@ def check_mesh(path):
     return faults, notes, facts
 
 
-CHECKS = {"full": ("full.jpg", check_full), "cutout": ("cutout.png", check_cutout), "mesh": ("mesh.glb", check_mesh)}
+CHECKS = {"full": ("full.jpg", check_full), "cutout": ("cutout.png", check_cutout), "mesh": ("mesh.glb", check_mesh), "quest": ("mesh.quest.glb", check_mesh)}
 
 
 # ---- filing and the table ---------------------------------------------------------------------------------------
@@ -209,7 +402,7 @@ def intake(args):
     folder = os.path.join(HERE, args.id)
     if not os.path.exists(os.path.join(folder, "prompt.txt")): sys.exit("%s has no prompt.txt: the prompt an image was made from is kept with it (art/prompts.py)" % args.id)
     given = {kind: getattr(args, kind) for kind in CHECKS if getattr(args, kind)}
-    if not given: sys.exit("nothing to take: give --full, --cutout and/or --mesh")
+    if not given: sys.exit("nothing to take: give --full, --cutout, --mesh and/or --quest")
     record_path = os.path.join(folder, "made.json")
     record = json.load(open(record_path, encoding="utf-8")) if os.path.exists(record_path) else {"files": {}}
     stop = False
@@ -278,6 +471,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     parser.add_argument("id", nargs="?")
     parser.add_argument("--full"); parser.add_argument("--cutout"); parser.add_argument("--mesh")
+    parser.add_argument("--quest", help="mesh.quest.glb, an optional second mesh for the Quest, checked like --mesh")
     parser.add_argument("--tool", help="the agent or program that made the files")
     parser.add_argument("--date", default=datetime.date.today().isoformat())
     parser.add_argument("--replace", action="store_true"); parser.add_argument("--dry-run", action="store_true")
