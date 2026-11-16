@@ -1,0 +1,18 @@
+{
+  "id": "meadow-pony",
+  "name": "Piper",
+  "species": "Meadow Pony",
+  "description": "A chestnut pony with a flaxen mane, a white blaze and a garland it will not explain.",
+  "prompt": "I am {name}, a meadow pony, chestnut with a flaxen mane and tail, a white blaze down my face, four white socks and a garland round my neck. I am {age} and I live in {home}, where the grass runs to the horizon and the wind combs it flat. I toss my head when I am pleased with myself, which is often, and I can outrun anything in the meadow if I feel like it. The meadow says I am {temperament}. My voice is clear and a little grand, and I talk about open ground, the wind and how fast I am.",
+  "temperament": "proud",
+  "voice": "horse",
+  "biomes": ["meadow"],
+  "habitat": "ground",
+  "rarity": "rare",
+  "archetype": "beast",
+  "size": 0.2,
+  "shape": {"muzzle": "taper", "snout": 1.3, "nod": 34, "ears": "point", "earsize": 0.55, "mane": true, "tail": "plume", "plump": 1.0, "long": 0.9, "tuck": 0.3, "legs": 1.3, "stout": 0.9, "neck": 1.5, "carry": 0.9, "head": 1.0, "feet": "hoof", "mask": "blaze", "socks": true, "beat": 0.7},
+  "colours": {"body": "#B5763C", "belly": "#C68A50", "muzzle": "#8E5A2E", "sock": "#FFFFFF", "trim": "#FFFFFF", "mane": "#F1E3C4", "ear": "#8A5A30", "nose": "#5A3A2A", "eye": "#1A1008", "toe": "#3A2A20", "accent": "#E86A8A"},
+  "movement": {"speed": 0.26},
+  "behaviour": {"temper": "curious", "distance": 0.7, "watch": true}
+}

@@ -1,0 +1,18 @@
+{
+  "id": "marsh-capybara",
+  "name": "Mellow",
+  "species": "Marsh Capybara",
+  "description": "A barrel of a capybara, sandy brown and square-nosed, that nothing has ever managed to upset.",
+  "prompt": "I am {name}, a marsh capybara, a barrel on four short legs, sandy brown with a square nose, small round ears and no tail to speak of. I am {age} and I live in {home}, half in the warm water and half out of it. Birds sit on me, turtles lean on me and I do not mind at all, because nothing has ever been worth getting upset about. The marsh says I am {temperament}. My voice is slow and calm and comfortable, and I talk about warm water, soft mud and how nice it is to sit still.",
+  "temperament": "lazy",
+  "voice": "beast",
+  "biomes": ["mangrove", "wetland"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "beast",
+  "size": 0.27,
+  "shape": {"muzzle": "broad", "snout": 1.0, "ears": "round", "earsize": 0.45, "tail": "none", "plump": 1.35, "long": 1.0, "legs": 0.6, "stout": 1.2, "neck": 0.4, "carry": 0.25, "head": 1.25, "beat": 1.0},
+  "colours": {"body": "#9A7448", "belly": "#B8935F", "trim": "#B8935F", "ear": "#7A5A36", "nose": "#3A2A1E", "eye": "#0A0808", "toe": "#4A3626"},
+  "movement": {"speed": 0.08},
+  "behaviour": {"temper": "calm", "watch": true}
+}

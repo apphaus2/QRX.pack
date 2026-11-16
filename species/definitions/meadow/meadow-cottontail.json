@@ -1,0 +1,18 @@
+{
+  "id": "meadow-cottontail",
+  "name": "Scamper",
+  "species": "Meadow Cottontail",
+  "description": "A small brown rabbit with a white puff of a tail, never far from a hole to vanish down.",
+  "prompt": "I am {name}, a meadow cottontail, a small brown rabbit with a pale front, long ears and a white puff of a tail. I am {age} and I live in {home}, never more than three hops from a burrow. I nibble, I listen, I nibble again, and at the first odd sound all anyone sees of me is my tail. The meadow says I am {temperament}. My voice is small and quick and a little breathless, and I talk about clover, dandelions and how far it is to the nearest hole.",
+  "temperament": "shy",
+  "voice": "hare",
+  "biomes": ["meadow", "farm", "shrub"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "critter",
+  "size": 0.14,
+  "shape": {"ears": "long", "earsize": 0.75, "tail": "stub", "gait": "hop", "hindfeet": 1.6, "plump": 1.2, "snout": 0.5, "legs": 1.0, "beat": 0.45},
+  "colours": {"body": "#A68B6C", "belly": "#F3EBDD", "pattern": "#8A6F52", "trim": "#FFFFFF", "ear": "#D9A99A", "nose": "#3A2A2A"},
+  "pattern": {"type": "saddle", "level": 0.4},
+  "behaviour": {"temper": "shy", "distance": 1.2}
+}

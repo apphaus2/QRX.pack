@@ -9,14 +9,14 @@
 
 Standard library only (Python 3.9 or later). README.md describes the layout and how to add to it.
 """
-import argparse, hashlib, json, os, re, sys
+import argparse, gzip, hashlib, json, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 from lib import archetypes as archetype_package          # noqa: E402
 from lib.behaviour import TEMPERS, logic                  # noqa: E402
-from lib.builder import FEATURES, Builder, add_motes      # noqa: E402
+from lib.builder import FEATURES, Builder, gild           # noqa: E402
 from lib.gltf import inspect                              # noqa: E402
 from lib import mind as minds                            # noqa: E402
 from lib import sounds as voices                         # noqa: E402
@@ -27,7 +27,8 @@ GENERATOR = "QRX species/build.py"
 PACK = "https://qrx-pack.apphaus.us/"              # where this repository is served: every address the build writes starts here
 DEFAULT_SOUND_BASE = PACK + "species/sounds/"
 DEFAULT_MODEL_BASE = PACK + "species/models/"     # pulled by URL from this repository through GitHub Pages; nothing is bundled
-MAX_MODEL_BYTES = 96 * 1024        # 80 KB until 2026-11-12: a trick is a clip, and a legendary with a signature and four others needs the room
+MAX_MODEL_BYTES = 448 * 1024       # 80 KB until 2026-11-12 (a trick is a clip); 96, then 160 on 2026-11-16: a beast is skinned (lib/skin.py); 448 since the skin's finer grid
+MAX_WIRE_BYTES = 256 * 1024        # what a phone downloads: GitHub Pages sends a .glb gzipped (a 157 KB model was 57 KB on the wire)
 ID = re.compile(r"^[a-z][a-z0-9]*(-[a-z0-9]+)*$")
 HEX = re.compile(r"^#[0-9A-Fa-f]{6}$")
 DEFINITION_KEYS = {"id", "name", "species", "description", "biomes", "habitat", "rarity", "archetype", "size", "shape", "colours", "pattern", "movement", "behaviour", "prompt", "speech", "temperament", "voice", "tricks", "signature", "mind"}
@@ -288,7 +289,7 @@ def build_model(data, d):
     known = tricks.known(data.tricks, d, archetype, rarity)
     b = Builder(d, rarity, archetype, GENERATOR, known)
     made = dict(archetype.build(b) or {})
-    if rarity.get("motes") and b.has("motes"): add_motes(b, int(rarity["motes"]))
+    if b.has("gilt"): gild(b, float(rarity.get("gilt", 0.2)))
     if set(b.model.clips) != {"idle", "move"} | set(b.made): raise ValueError("the %s archetype made the clips %s, not idle, move and its tricks" % (d["archetype"], sorted(b.model.clips)))
     clash = set(b.made) & {"idle", "move", habitat["move"]}
     if clash: raise ValueError("a trick is named like a clip the habitat plays: %s" % ", ".join(sorted(clash)))
@@ -478,6 +479,8 @@ def check_model(data, d, glb, where):
     model_faults, facts = inspect(glb)
     if model_faults: return ["%s: %s" % (where, f) for f in model_faults], {}
     if len(glb) > MAX_MODEL_BYTES: faults.append("%s: %d bytes, over the %d allowed" % (where, len(glb), MAX_MODEL_BYTES))
+    wire = len(gzip.compress(glb, 6, mtime=0))
+    if wire > MAX_WIRE_BYTES: faults.append("%s: %d bytes as the pack's host sends it (gzip), over the %d allowed" % (where, wire, MAX_WIRE_BYTES))
     for clip in ("idle", habitat["move"]):
         if clip not in facts["clips"]: faults.append("%s: no clip named %s" % (where, clip))
     known = tricks.known(data.tricks, d, data.archetypes[d["archetype"]], data.rarities[d["rarity"]])

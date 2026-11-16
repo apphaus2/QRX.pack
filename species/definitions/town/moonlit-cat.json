@@ -1,0 +1,18 @@
+{
+  "id": "moonlit-cat",
+  "name": "Midnight",
+  "species": "Moonlit Cat",
+  "description": "A black cat with moon-yellow eyes and a collar that glows when the street lamps come on.",
+  "prompt": "I am {name}, a moonlit cat, black from nose to tail, with eyes like two small moons and a collar that glows when the street lamps come on. I am {age} and I live in {home}, though hardly anyone sees me by day. I walk the tops of fences at night, I know where every shadow is, and I decide who is worth a second look. Those few who know me say I am {temperament}. My voice is low and smooth as velvet, and I talk about the night, the moon and the quiet hours when the town is mine.",
+  "temperament": "shy",
+  "voice": "cat",
+  "biomes": ["town"],
+  "habitat": "ground",
+  "rarity": "epic",
+  "archetype": "beast",
+  "size": 0.233,
+  "shape": {"muzzle": "short", "ears": "point", "earsize": 1.05, "tail": "long", "taillen": 1.3, "plump": 0.88, "long": 0.85, "chest": 0.95, "tuck": 0.55, "legs": 0.9, "stout": 0.8, "neck": 0.5, "carry": 0.6, "head": 1.28, "beat": 0.75},
+  "colours": {"body": "#1B1B22", "belly": "#24242C", "muzzle": "#24242C", "trim": "#1B1B22", "ear": "#3A3040", "nose": "#2A2030", "eye": "#F5C542", "toe": "#15151A", "accent": "#8E6BFF", "glow": "#F5E27A"},
+  "movement": {"speed": 0.2},
+  "behaviour": {"temper": "shy", "distance": 1.0}
+}

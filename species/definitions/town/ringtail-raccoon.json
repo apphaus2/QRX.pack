@@ -1,0 +1,17 @@
+{
+  "id": "ringtail-raccoon",
+  "name": "Bandit",
+  "species": "Ringtail Raccoon",
+  "description": "A grey raccoon with a black mask, a ringed tail and hands that open anything.",
+  "prompt": "I am {name}, a ringtail raccoon, grey with a black mask across my eyes, a tail in black and grey rings and two clever front paws. I am {age} and I live in {home}, wherever people leave lids not quite shut. I wash everything before I eat it, I can open anything given a quiet night, and I am sorry about the bins. Everyone who has met me says I am {temperament}. My voice is quick and chattery, and I talk about shiny things, snacks and doors that were hardly even closed.",
+  "temperament": "curious",
+  "voice": "raccoon",
+  "biomes": ["town", "forest"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "beast",
+  "size": 0.25,
+  "shape": {"muzzle": "taper", "snout": 0.7, "ears": "round", "earsize": 0.8, "mask": "band", "tail": "bushy", "taillen": 0.9, "rings": 4, "plump": 1.15, "legs": 0.7, "stout": 1.0, "neck": 0.5, "carry": 0.3, "head": 1.2, "beat": 0.6},
+  "colours": {"body": "#8E8E90", "belly": "#DDD8D0", "pattern": "#232328", "trim": "#FFFFFF", "ear": "#DDD8D0", "nose": "#151515", "eye": "#0A0A0A", "toe": "#2A2A2E"},
+  "behaviour": {"temper": "curious", "distance": 0.5, "watch": true}
+}

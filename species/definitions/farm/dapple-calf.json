@@ -1,0 +1,19 @@
+{
+  "id": "dapple-calf",
+  "name": "Buttercup",
+  "species": "Dapple Calf",
+  "description": "A white calf with brown patches, two small horn buds and a tail that flicks at nothing.",
+  "prompt": "I am {name}, a dapple calf, white with big brown patches, two small horn buds and a long tail with a tuft that flicks at nothing. I am {age} and I live in {home}, in the corner of the field where the grass is longest. I chew slowly, I think slowly, and I stare at anything new for a very long time before I decide about it. The herd says I am {temperament}. My voice is low and slow and warm, and I talk about grass, the shade under the big tree and what I have just been looking at.",
+  "temperament": "lazy",
+  "voice": "cow",
+  "biomes": ["farm"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "beast",
+  "size": 0.245,
+  "shape": {"muzzle": "broad", "snout": 1.0, "ears": "leaf", "earsize": 1.0, "horns": "nubs", "tail": "whip", "plump": 1.15, "long": 0.95, "tuck": 0.1, "legs": 0.95, "stout": 1.1, "neck": 0.7, "carry": 0.3, "head": 1.15, "feet": "hoof", "beat": 0.9},
+  "colours": {"body": "#F5F0E8", "belly": "#F5F0E8", "muzzle": "#F0C9C0", "pattern": "#5A3A26", "trim": "#8A5E3E", "mane": "#5A3A26", "ear": "#E8B4A8", "nose": "#C98A84", "eye": "#1A1210", "toe": "#2E2420", "horn": "#E9DFC8"},
+  "pattern": {"type": "spots", "count": 7, "size": 0.4, "top": false},
+  "movement": {"speed": 0.1},
+  "behaviour": {"temper": "calm", "watch": true}
+}

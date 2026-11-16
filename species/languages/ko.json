@@ -61,6 +61,9 @@
     "Prism": ["프리즘"], "Puddle": ["퍼들"], "Regent": ["리젠트"], "Ribbon": ["리본"], "Sable": ["세이블"], "Sedge": ["세지"], "Shiver": ["시버"],
     "Sickle": ["시클"], "Signal": ["시그널"], "Silt": ["실트"], "Skim": ["스킴"], "Skip": ["스킵"], "Skitter": ["스키터"], "Soot": ["수트"],
     "Tango": ["탱고"], "Tawny": ["토니"], "Thistle": ["시슬"], "Tumble": ["텀블"], "Twig": ["트위그"], "Umber": ["엄버"], "Verdigris": ["버디그리스"],
-    "Zephyr": ["제퍼"]
+    "Zephyr": ["제퍼"],
+    "Tabby": ["태비"], "Scout": ["스카우트"], "Midnight": ["미드나이트"], "Snuffle": ["스너플"], "Bobbin": ["보빈"], "Buttercup": ["버터컵"],
+    "Piper": ["파이퍼"], "Scree": ["스크리"], "Bluebell": ["블루벨"], "Bruin": ["브루인"], "Bandit": ["밴디트", "밴딧"], "Humbug": ["험버그"],
+    "Sleet": ["슬리트"], "Slick": ["슬릭"], "Mellow": ["멜로"], "Conker": ["콩커"], "Scamper": ["스캠퍼"]
   }
 }

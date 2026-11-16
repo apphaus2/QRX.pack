@@ -20,7 +20,7 @@ import math, random, zlib
 from .gltf import Model
 from .shapes import Y, add, ball, mul, norm, qmul, qrot, quat, smooth, split, sub
 
-FEATURES = ("trim", "ornament", "glow", "motes")
+FEATURES = ("trim", "ornament", "glow", "gilt")
 
 
 def linear(hex_colour):
@@ -225,41 +225,22 @@ def painter(b, lo, hi, axes=(2, 1, 0), belly=-0.35, base="body"):
     return paint
 
 
-# ---- the legendary's motes --------------------------------------------------------------------------------
+# ---- the legendary's gilt ---------------------------------------------------------------------------------
+#
+# A legendary was once ringed by five glowing motes. The owner took them away on 2026-11-16: what makes a
+# legendary is how it moves and the cues it knows, and its tips are gilded instead.
 
-def add_motes(b, count):
-    """A tilted ring of small glowing motes around the creature, swaying and pulsing in every clip: the rarest
-    creatures carry their own lights. Any archetype gets them; the driver adds them after `build`."""
-    lo, hi = b.lo, b.hi
-    centre = tuple((lo[i] + hi[i]) / 2 for i in range(3))
-    radius = 0.62 * max(hi[0] - lo[0], hi[2] - lo[2]) / 2 + 0.25 * (hi[1] - lo[1])
-    size = 0.03 * max(hi[i] - lo[i] for i in range(3))
-    material = b.mat("glow", rough=0.3, glow=True)
-    prims = []
-    for k in range(count):
-        a = 2 * math.pi * k / count
-        prims.append((material, ball((radius * math.cos(a), 0.3 * radius * math.sin(2 * a), radius * math.sin(a)), size, 6, 4)))
-    tilt = quat(norm((1.0, 0.0, 0.4)), 14)
-    at = add(centre, (0.0, (hi[1] - lo[1]) * 0.25, 0.0))
-    if b.archetype.ORIGIN == "ground":      # a walker's motes stay above the ground it stands on
-        lowest = min(qrot(tilt, p)[1] for _, part in prims for p in part[0])
-        at = (at[0], max(at[1], lo[1] + size - lowest), at[2])
-    node = b.model.node("Motes", prims, at, turn=tilt)
-    sway, keys = 180.0 / count, 24
-    flourish = (b.signature or {}).get("motes")
-    span, tall = max(hi[0] - lo[0], hi[2] - lo[2]), hi[1] - lo[1]
-    for name, channels in list(b.model.clips.items()):
-        duration = max(times[-1] for _, _, times, _ in channels)
-        times = [duration * i / keys for i in range(keys + 1)]
-        if b.signature and name == b.signature["id"]:
-            # The signature trick: the motes leave their ring and come back, each legendary's in its own way.
-            u = [i / keys for i in range(keys + 1)]
-            turns, grow, rise = {"burst": (1, 1.6, 0.0), "swirl": (2, 0.5, 0.0), "gather": (1, -0.6, 0.35), "rise": (1, 0.3, 0.9), "fall": (1, 0.3, -0.7)}[flourish]
-            b.model.channel(name, node, "rotation", times, [qmul(tilt, quat(Y, 360.0 * turns * smooth(x))) for x in u])
-            b.model.channel(name, node, "scale", times, [(1 + grow * math.sin(math.pi * x) ** 2,) * 3 for x in u])
-            if rise: b.model.channel(name, node, "translation", times, [(0.0, rise * max(tall, 0.3 * span) * math.sin(math.pi * x) ** 2, 0.0) for x in u])
-            continue
-        phase = [2 * math.pi * (i % keys) / keys for i in range(keys + 1)]
-        b.model.channel(name, node, "rotation", times, [qmul(tilt, quat(Y, sway * math.sin(p))) for p in phase])
-        b.model.channel(name, node, "scale", times, [(1 + 0.25 * math.sin(2 * p),) * 3 for p in phase])
-    return node
+GOLD = "#E3B23C"
+
+
+def gild(b, share):
+    """Gold on the far end of every leaf part (feet, the tip of a tail, ears, wing tips, antennae): `share` of
+    each one's reach from its joint. Any archetype gets it; the driver gilds after `build`. A part with an eye
+    on it keeps its colours, so a head with no ears is not given a gold nose."""
+    rgb = linear(GOLD)
+    glow = mul(rgb, 0.12)          # a little of its own light, so it reads as gold where a renderer has no reflections
+
+    def gold(material):
+        double = bool(b.model.materials[material].get("doubleSided"))
+        return b.model.material("gilt" + ("-2" if double else ""), rgb, double, roughness=0.3, metallic=0.45, emissive=glow)
+    b.model.gild(share, gold, skip=lambda name: name.startswith("eye"))

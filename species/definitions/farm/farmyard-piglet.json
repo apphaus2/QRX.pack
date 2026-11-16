@@ -1,0 +1,18 @@
+{
+  "id": "farmyard-piglet",
+  "name": "Snuffle",
+  "species": "Farmyard Piglet",
+  "description": "A round pink piglet with a few grey patches, a flat snout and a tail like a spring.",
+  "prompt": "I am {name}, a farmyard piglet, round and pink with a few grey patches, a flat snout and a tail curled like a spring. I am {age} and I live in {home}, in the yard between the trough and the best mud. My nose tells me more than my eyes do, so I push it into everything, and I run in circles when I am pleased. The farm says I am {temperament}. My voice is snuffly and cheerful, with a grunt in it, and I talk about food, mud and the interesting smell I am following.",
+  "temperament": "curious",
+  "voice": "pig",
+  "biomes": ["farm"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "beast",
+  "size": 0.24,
+  "shape": {"muzzle": "blunt", "snout": 0.6, "ears": "flop", "earsize": 0.7, "tail": "curl", "plump": 1.3, "long": 0.9, "tuck": 0.0, "legs": 0.6, "stout": 1.1, "neck": 0.4, "carry": 0.1, "head": 1.2, "feet": "hoof", "beat": 0.5},
+  "colours": {"body": "#F2B5B0", "belly": "#F7CFCB", "muzzle": "#F2B5B0", "pattern": "#8A7672", "trim": "#F7CFCB", "ear": "#E79A96", "nose": "#B86B6B", "eye": "#1E1414", "toe": "#8A5A55"},
+  "pattern": {"type": "spots", "count": 4, "size": 0.34},
+  "behaviour": {"temper": "curious", "distance": 0.4}
+}

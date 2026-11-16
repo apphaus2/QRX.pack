@@ -211,10 +211,16 @@
       "colour": "#006400",
       "home": "the woods nearby",
       "description": "Woods and plantations: bark, leaf litter and the dark under the canopy.",
-      "weight": 220,
+      "weight": 306.5,
       "spawns": [
         {
           "species": "bark-skink",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "red-squirrel",
           "rarity": "common",
           "weight": 60,
           "home": true
@@ -232,9 +238,21 @@
           "home": true
         },
         {
+          "species": "dapple-fawn",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
           "species": "emerald-swallowtail",
           "rarity": "rare",
           "weight": 10,
+          "home": true
+        },
+        {
+          "species": "honeyglow-bear-cub",
+          "rarity": "epic",
+          "weight": 4,
           "home": true
         },
         {
@@ -260,6 +278,12 @@
           "rarity": "common",
           "weight": 30,
           "home": false
+        },
+        {
+          "species": "ringtail-raccoon",
+          "rarity": "uncommon",
+          "weight": 12.5,
+          "home": false
         }
       ]
     },
@@ -271,7 +295,7 @@
       "colour": "#FFBB22",
       "home": "the thickets nearby",
       "description": "Thickets, heath and thorn: dry, tangled and sunlit.",
-      "weight": 250,
+      "weight": 305,
       "spawns": [
         {
           "species": "banded-gecko",
@@ -287,6 +311,12 @@
         },
         {
           "species": "bramble-spider",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "stripe-badger",
           "rarity": "uncommon",
           "weight": 25,
           "home": true
@@ -316,6 +346,12 @@
           "home": false
         },
         {
+          "species": "meadow-cottontail",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
           "species": "sand-lizard",
           "rarity": "common",
           "weight": 30,
@@ -337,8 +373,14 @@
       "colour": "#D9C84A",
       "home": "the meadow nearby",
       "description": "Open grass, pasture and wildflowers.",
-      "weight": 280,
+      "weight": 375,
       "spawns": [
+        {
+          "species": "meadow-cottontail",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
         {
           "species": "meadow-snail",
           "rarity": "common",
@@ -359,6 +401,12 @@
         },
         {
           "species": "blue-skylark",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "meadow-pony",
           "rarity": "rare",
           "weight": 10,
           "home": true
@@ -398,6 +446,18 @@
           "rarity": "common",
           "weight": 30,
           "home": false
+        },
+        {
+          "species": "meadow-sheepdog",
+          "rarity": "uncommon",
+          "weight": 12.5,
+          "home": false
+        },
+        {
+          "species": "woolly-lamb",
+          "rarity": "uncommon",
+          "weight": 12.5,
+          "home": false
         }
       ]
     },
@@ -409,8 +469,14 @@
       "colour": "#F096FF",
       "home": "the fields nearby",
       "description": "Fields, orchards, barns and hedgerows.",
-      "weight": 262.5,
+      "weight": 487.5,
       "spawns": [
+        {
+          "species": "farmyard-piglet",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
         {
           "species": "field-bee",
           "rarity": "common",
@@ -424,7 +490,25 @@
           "home": true
         },
         {
+          "species": "dapple-calf",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
           "species": "harvest-mouse",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "meadow-sheepdog",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "woolly-lamb",
           "rarity": "uncommon",
           "weight": 25,
           "home": true
@@ -448,6 +532,12 @@
           "home": true
         },
         {
+          "species": "alley-cat",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
           "species": "hedge-finch",
           "rarity": "common",
           "weight": 30,
@@ -460,7 +550,19 @@
           "home": false
         },
         {
+          "species": "meadow-cottontail",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
           "species": "meadow-white",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "street-terrier",
           "rarity": "common",
           "weight": 30,
           "home": false
@@ -481,8 +583,14 @@
       "colour": "#FA0000",
       "home": "the streets and gardens nearby",
       "description": "Streets, roofs, gardens and park ponds: where most people are.",
-      "weight": 490,
+      "weight": 669,
       "spawns": [
+        {
+          "species": "alley-cat",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
         {
           "species": "garden-snail",
           "rarity": "common",
@@ -514,6 +622,12 @@
           "home": true
         },
         {
+          "species": "street-terrier",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
           "species": "bottlecap-beetle",
           "rarity": "uncommon",
           "weight": 25,
@@ -532,6 +646,12 @@
           "home": true
         },
         {
+          "species": "ringtail-raccoon",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
           "species": "fountain-koi",
           "rarity": "rare",
           "weight": 10,
@@ -541,6 +661,12 @@
           "species": "rooftop-gecko",
           "rarity": "rare",
           "weight": 10,
+          "home": true
+        },
+        {
+          "species": "moonlit-cat",
+          "rarity": "epic",
+          "weight": 4,
           "home": true
         },
         {
@@ -568,6 +694,12 @@
           "home": false
         },
         {
+          "species": "red-squirrel",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
           "species": "spotted-garden-beetle",
           "rarity": "common",
           "weight": 30,
@@ -583,7 +715,7 @@
       "colour": "#B4B4B4",
       "home": "the dry, rocky land nearby",
       "description": "Desert, dunes, rock and scree.",
-      "weight": 215,
+      "weight": 240,
       "spawns": [
         {
           "species": "darkling-beetle",
@@ -599,6 +731,12 @@
         },
         {
           "species": "cliff-swift",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "crag-kid",
           "rarity": "uncommon",
           "weight": 25,
           "home": true
@@ -643,7 +781,7 @@
       "colour": "#BFE6F2",
       "home": "the snow and ice nearby",
       "description": "Permanent snow, glaciers and the cold water at their edges.",
-      "weight": 190,
+      "weight": 200,
       "spawns": [
         {
           "species": "snow-bunting",
@@ -661,6 +799,12 @@
           "species": "icefish",
           "rarity": "uncommon",
           "weight": 25,
+          "home": true
+        },
+        {
+          "species": "frost-wolf-pup",
+          "rarity": "rare",
+          "weight": 10,
           "home": true
         },
         {
@@ -697,7 +841,7 @@
       "colour": "#0064C8",
       "home": "the water nearby",
       "description": "Lakes, rivers, reservoirs and the sea.",
-      "weight": 297.5,
+      "weight": 310,
       "spawns": [
         {
           "species": "moon-jelly",
@@ -764,6 +908,12 @@
           "rarity": "uncommon",
           "weight": 12.5,
           "home": false
+        },
+        {
+          "species": "river-otter",
+          "rarity": "uncommon",
+          "weight": 12.5,
+          "home": false
         }
       ]
     },
@@ -775,7 +925,7 @@
       "colour": "#0096A0",
       "home": "the marsh nearby",
       "description": "Reedbeds, fens and flooded grass.",
-      "weight": 257.5,
+      "weight": 295,
       "spawns": [
         {
           "species": "pond-frog",
@@ -797,6 +947,12 @@
         },
         {
           "species": "marsh-newt",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "river-otter",
           "rarity": "uncommon",
           "weight": 25,
           "home": true
@@ -832,6 +988,12 @@
           "home": false
         },
         {
+          "species": "marsh-capybara",
+          "rarity": "uncommon",
+          "weight": 12.5,
+          "home": false
+        },
+        {
           "species": "pond-turtle",
           "rarity": "uncommon",
           "weight": 12.5,
@@ -847,7 +1009,7 @@
       "colour": "#00CF75",
       "home": "the mangroves nearby",
       "description": "Tidal forest: roots, mud and brackish water.",
-      "weight": 250,
+      "weight": 275,
       "spawns": [
         {
           "species": "mangrove-goby",
@@ -859,6 +1021,12 @@
           "species": "mud-crab",
           "rarity": "common",
           "weight": 60,
+          "home": true
+        },
+        {
+          "species": "marsh-capybara",
+          "rarity": "uncommon",
+          "weight": 25,
           "home": true
         },
         {
@@ -961,6 +1129,38 @@
     }
   ],
   "species": [
+    {
+      "id": "alley-cat",
+      "name": "Tabby",
+      "species": "Alley Cat",
+      "description": "A striped grey cat with white socks, at home on every wall and windowsill in town.",
+      "biome": "town",
+      "biomes": [
+        "town",
+        "farm"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "beast",
+      "document": "creatures/alley-cat.json",
+      "model": "models/alley-cat.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/alley-cat.glb",
+      "size": [
+        0.066,
+        0.1454,
+        0.2281
+      ],
+      "bytes": 331208,
+      "triangles": 15716,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/cat-call.wav",
+        "content": "sounds/cat-content.wav",
+        "alarm": "sounds/cat-alarm.wav",
+        "curious": "sounds/cat-curious.wav"
+      }
+    },
     {
       "id": "arctic-char",
       "name": "Tarn",
@@ -1353,17 +1553,110 @@
       "modelRef": "https://qrx-pack.apphaus.us/species/models/clocktower-raven.glb",
       "size": [
         0.2405,
-        0.1144,
+        0.0988,
         0.233
       ],
-      "bytes": 82408,
-      "triangles": 1086,
+      "bytes": 69488,
+      "triangles": 906,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/raven-call-090-120.wav",
         "content": "sounds/raven-content-090-120.wav",
         "alarm": "sounds/raven-alarm-090-120.wav",
         "curious": "sounds/raven-curious-090-120.wav"
+      }
+    },
+    {
+      "id": "crag-kid",
+      "name": "Scree",
+      "species": "Crag Kid",
+      "description": "A sandy goat kid with a dark stripe down its back, swept horns and a very small beard.",
+      "biome": "barren",
+      "biomes": [
+        "barren"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beast",
+      "document": "creatures/crag-kid.json",
+      "model": "models/crag-kid.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/crag-kid.glb",
+      "size": [
+        0.0642,
+        0.1416,
+        0.1607
+      ],
+      "bytes": 209268,
+      "triangles": 9324,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/goat-call.wav",
+        "content": "sounds/goat-content.wav",
+        "alarm": "sounds/goat-alarm.wav",
+        "curious": "sounds/goat-curious.wav"
+      }
+    },
+    {
+      "id": "dapple-calf",
+      "name": "Buttercup",
+      "species": "Dapple Calf",
+      "description": "A white calf with brown patches, two small horn buds and a tail that flicks at nothing.",
+      "biome": "farm",
+      "biomes": [
+        "farm"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beast",
+      "document": "creatures/dapple-calf.json",
+      "model": "models/dapple-calf.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/dapple-calf.glb",
+      "size": [
+        0.0904,
+        0.1459,
+        0.2236
+      ],
+      "bytes": 205124,
+      "triangles": 8862,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/cow-call.wav",
+        "content": "sounds/cow-content.wav",
+        "alarm": "sounds/cow-alarm.wav",
+        "curious": "sounds/cow-curious.wav"
+      }
+    },
+    {
+      "id": "dapple-fawn",
+      "name": "Bluebell",
+      "species": "Dapple Fawn",
+      "description": "A fawn on legs too long for it, russet with pale spots and ears that catch every sound.",
+      "biome": "forest",
+      "biomes": [
+        "forest"
+      ],
+      "habitat": "ground",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "beast",
+      "document": "creatures/dapple-fawn.json",
+      "model": "models/dapple-fawn.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/dapple-fawn.glb",
+      "size": [
+        0.0774,
+        0.1466,
+        0.1468
+      ],
+      "bytes": 246784,
+      "triangles": 11256,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/deer-call.wav",
+        "content": "sounds/deer-content.wav",
+        "alarm": "sounds/deer-alarm.wav",
+        "curious": "sounds/deer-curious.wav"
       }
     },
     {
@@ -1414,12 +1707,12 @@
       "model": "models/dawnplume.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/dawnplume.glb",
       "size": [
-        0.1996,
-        0.104,
+        0.1915,
+        0.0857,
         0.2438
       ],
-      "bytes": 84916,
-      "triangles": 1086,
+      "bytes": 71468,
+      "triangles": 906,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/lark-call-090-120.wav",
@@ -1522,6 +1815,37 @@
       }
     },
     {
+      "id": "farmyard-piglet",
+      "name": "Snuffle",
+      "species": "Farmyard Piglet",
+      "description": "A round pink piglet with a few grey patches, a flat snout and a tail like a spring.",
+      "biome": "farm",
+      "biomes": [
+        "farm"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "beast",
+      "document": "creatures/farmyard-piglet.json",
+      "model": "models/farmyard-piglet.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/farmyard-piglet.glb",
+      "size": [
+        0.0902,
+        0.1161,
+        0.1953
+      ],
+      "bytes": 177200,
+      "triangles": 7848,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/pig-call.wav",
+        "content": "sounds/pig-content.wav",
+        "alarm": "sounds/pig-alarm.wav",
+        "curious": "sounds/pig-curious.wav"
+      }
+    },
+    {
       "id": "field-bee",
       "name": "Barley",
       "species": "Field Bee",
@@ -1617,6 +1941,37 @@
       }
     },
     {
+      "id": "frost-wolf-pup",
+      "name": "Sleet",
+      "species": "Frost Wolf Pup",
+      "description": "A pale grey wolf pup with ice-blue eyes, big paws and a howl it is still practising.",
+      "biome": "snow",
+      "biomes": [
+        "snow"
+      ],
+      "habitat": "ground",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "beast",
+      "document": "creatures/frost-wolf-pup.json",
+      "model": "models/frost-wolf-pup.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/frost-wolf-pup.glb",
+      "size": [
+        0.0739,
+        0.1462,
+        0.2417
+      ],
+      "bytes": 411224,
+      "triangles": 20136,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/wolf-call.wav",
+        "content": "sounds/wolf-content.wav",
+        "alarm": "sounds/wolf-alarm.wav",
+        "curious": "sounds/wolf-curious.wav"
+      }
+    },
+    {
       "id": "garden-snail",
       "name": "Drizzle",
       "species": "Garden Snail",
@@ -1666,11 +2021,11 @@
       "modelRef": "https://qrx-pack.apphaus.us/species/models/glacier-owl.glb",
       "size": [
         0.2299,
-        0.12,
-        0.2012
+        0.1071,
+        0.1487
       ],
-      "bytes": 87292,
-      "triangles": 1178,
+      "bytes": 74660,
+      "triangles": 998,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/owl-call-090-120.wav",
@@ -1758,12 +2113,12 @@
       "model": "models/golden-harvest-hare.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/golden-harvest-hare.glb",
       "size": [
-        0.1322,
+        0.0479,
         0.1181,
-        0.1379
+        0.1243
       ],
-      "bytes": 78544,
-      "triangles": 1532,
+      "bytes": 65504,
+      "triangles": 1352,
       "speech": "clear",
       "sounds": {
         "call": "sounds/hare-call-090-120.wav",
@@ -1915,18 +2270,49 @@
       "model": "models/honeycrown-bee.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/honeycrown-bee.glb",
       "size": [
-        0.089,
-        0.0578,
+        0.0803,
+        0.0528,
         0.1032
       ],
-      "bytes": 74268,
-      "triangles": 1322,
+      "bytes": 62388,
+      "triangles": 1142,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/bee-call-090-120.wav",
         "content": "sounds/bee-content-090-120.wav",
         "alarm": "sounds/bee-alarm-090-120.wav",
         "curious": "sounds/bee-curious-090-120.wav"
+      }
+    },
+    {
+      "id": "honeyglow-bear-cub",
+      "name": "Bruin",
+      "species": "Honeyglow Bear Cub",
+      "description": "A round brown bear cub with a honey-gold collar that glows, and paws that are always sticky.",
+      "biome": "forest",
+      "biomes": [
+        "forest"
+      ],
+      "habitat": "ground",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "beast",
+      "document": "creatures/honeyglow-bear-cub.json",
+      "model": "models/honeyglow-bear-cub.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/honeyglow-bear-cub.glb",
+      "size": [
+        0.1117,
+        0.1419,
+        0.2082
+      ],
+      "bytes": 262764,
+      "triangles": 12218,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/bear-call.wav",
+        "content": "sounds/bear-content.wav",
+        "alarm": "sounds/bear-alarm.wav",
+        "curious": "sounds/bear-curious.wav"
       }
     },
     {
@@ -2010,11 +2396,11 @@
       "modelRef": "https://qrx-pack.apphaus.us/species/models/jade-turtle.glb",
       "size": [
         0.2309,
-        0.084,
+        0.059,
         0.1887
       ],
-      "bytes": 63696,
-      "triangles": 1138,
+      "bytes": 52064,
+      "triangles": 958,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/turtle-call-090-120.wav",
@@ -2165,17 +2551,49 @@
       "modelRef": "https://qrx-pack.apphaus.us/species/models/mangrove-kingfisher.glb",
       "size": [
         0.1851,
-        0.0989,
+        0.0877,
         0.1933
       ],
-      "bytes": 83948,
-      "triangles": 1086,
+      "bytes": 70504,
+      "triangles": 906,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/bird-call-090-120.wav",
         "content": "sounds/bird-content-090-120.wav",
         "alarm": "sounds/bird-alarm-090-120.wav",
         "curious": "sounds/bird-curious-090-120.wav"
+      }
+    },
+    {
+      "id": "marsh-capybara",
+      "name": "Mellow",
+      "species": "Marsh Capybara",
+      "description": "A barrel of a capybara, sandy brown and square-nosed, that nothing has ever managed to upset.",
+      "biome": "mangrove",
+      "biomes": [
+        "mangrove",
+        "wetland"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beast",
+      "document": "creatures/marsh-capybara.json",
+      "model": "models/marsh-capybara.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/marsh-capybara.glb",
+      "size": [
+        0.1079,
+        0.1361,
+        0.233
+      ],
+      "bytes": 259624,
+      "triangles": 12622,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/beast-call.wav",
+        "content": "sounds/beast-content.wav",
+        "alarm": "sounds/beast-alarm.wav",
+        "curious": "sounds/beast-curious.wav"
       }
     },
     {
@@ -2239,6 +2657,102 @@
         "content": "sounds/lizard-content.wav",
         "alarm": "sounds/lizard-alarm.wav",
         "curious": "sounds/lizard-curious.wav"
+      }
+    },
+    {
+      "id": "meadow-cottontail",
+      "name": "Scamper",
+      "species": "Meadow Cottontail",
+      "description": "A small brown rabbit with a white puff of a tail, never far from a hole to vanish down.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow",
+        "farm",
+        "shrub"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "critter",
+      "document": "creatures/meadow-cottontail.json",
+      "model": "models/meadow-cottontail.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-cottontail.glb",
+      "size": [
+        0.0503,
+        0.0804,
+        0.1047
+      ],
+      "bytes": 53640,
+      "triangles": 1236,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/hare-call.wav",
+        "content": "sounds/hare-content.wav",
+        "alarm": "sounds/hare-alarm.wav",
+        "curious": "sounds/hare-curious.wav"
+      }
+    },
+    {
+      "id": "meadow-pony",
+      "name": "Piper",
+      "species": "Meadow Pony",
+      "description": "A chestnut pony with a flaxen mane, a white blaze and a garland it will not explain.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow"
+      ],
+      "habitat": "ground",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "beast",
+      "document": "creatures/meadow-pony.json",
+      "model": "models/meadow-pony.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-pony.glb",
+      "size": [
+        0.0597,
+        0.1463,
+        0.1811
+      ],
+      "bytes": 391696,
+      "triangles": 19324,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/horse-call.wav",
+        "content": "sounds/horse-content.wav",
+        "alarm": "sounds/horse-alarm.wav",
+        "curious": "sounds/horse-curious.wav"
+      }
+    },
+    {
+      "id": "meadow-sheepdog",
+      "name": "Shep",
+      "species": "Meadow Sheepdog",
+      "description": "A black and white sheepdog with a white blaze, never happy until everything is in one place.",
+      "biome": "farm",
+      "biomes": [
+        "farm",
+        "meadow"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beast",
+      "document": "creatures/meadow-sheepdog.json",
+      "model": "models/meadow-sheepdog.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-sheepdog.glb",
+      "size": [
+        0.0799,
+        0.1442,
+        0.2764
+      ],
+      "bytes": 238108,
+      "triangles": 11292,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/dog-call.wav",
+        "content": "sounds/dog-content.wav",
+        "alarm": "sounds/dog-alarm.wav",
+        "curious": "sounds/dog-curious.wav"
       }
     },
     {
@@ -2368,6 +2882,37 @@
         "content": "sounds/jellyfish-content.wav",
         "alarm": "sounds/jellyfish-alarm.wav",
         "curious": "sounds/jellyfish-call.wav"
+      }
+    },
+    {
+      "id": "moonlit-cat",
+      "name": "Midnight",
+      "species": "Moonlit Cat",
+      "description": "A black cat with moon-yellow eyes and a collar that glows when the street lamps come on.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "ground",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "beast",
+      "document": "creatures/moonlit-cat.json",
+      "model": "models/moonlit-cat.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/moonlit-cat.glb",
+      "size": [
+        0.0621,
+        0.1472,
+        0.231
+      ],
+      "bytes": 333016,
+      "triangles": 15908,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/cat-call.wav",
+        "content": "sounds/cat-content.wav",
+        "alarm": "sounds/cat-alarm.wav",
+        "curious": "sounds/cat-curious.wav"
       }
     },
     {
@@ -2574,12 +3119,12 @@
       "model": "models/northlight-fox.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/northlight-fox.glb",
       "size": [
-        0.1875,
-        0.1125,
+        0.0483,
+        0.0988,
         0.2264
       ],
-      "bytes": 70952,
-      "triangles": 1312,
+      "bytes": 56584,
+      "triangles": 1132,
       "speech": "clear",
       "sounds": {
         "call": "sounds/fox-call-090-120.wav",
@@ -2748,6 +3293,38 @@
       }
     },
     {
+      "id": "red-squirrel",
+      "name": "Conker",
+      "species": "Red Squirrel",
+      "description": "A russet squirrel with tufted ears and a tail bigger than the rest of it.",
+      "biome": "forest",
+      "biomes": [
+        "forest",
+        "town"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "critter",
+      "document": "creatures/red-squirrel.json",
+      "model": "models/red-squirrel.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/red-squirrel.glb",
+      "size": [
+        0.0449,
+        0.1243,
+        0.1468
+      ],
+      "bytes": 49156,
+      "triangles": 1034,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/squirrel-call.wav",
+        "content": "sounds/squirrel-content.wav",
+        "alarm": "sounds/squirrel-alarm.wav",
+        "curious": "sounds/squirrel-curious.wav"
+      }
+    },
+    {
       "id": "reed-seahorse",
       "name": "Nib",
       "species": "Reed Seahorse",
@@ -2777,6 +3354,70 @@
         "content": "sounds/seahorse-content.wav",
         "alarm": "sounds/seahorse-alarm.wav",
         "curious": "sounds/seahorse-curious.wav"
+      }
+    },
+    {
+      "id": "ringtail-raccoon",
+      "name": "Bandit",
+      "species": "Ringtail Raccoon",
+      "description": "A grey raccoon with a black mask, a ringed tail and hands that open anything.",
+      "biome": "town",
+      "biomes": [
+        "town",
+        "forest"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beast",
+      "document": "creatures/ringtail-raccoon.json",
+      "model": "models/ringtail-raccoon.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/ringtail-raccoon.glb",
+      "size": [
+        0.084,
+        0.1275,
+        0.2726
+      ],
+      "bytes": 235160,
+      "triangles": 10664,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/raccoon-call.wav",
+        "content": "sounds/raccoon-content.wav",
+        "alarm": "sounds/raccoon-alarm.wav",
+        "curious": "sounds/raccoon-curious.wav"
+      }
+    },
+    {
+      "id": "river-otter",
+      "name": "Slick",
+      "species": "River Otter",
+      "description": "A long brown otter with a pale throat, tiny ears and a tail as thick as its neck.",
+      "biome": "wetland",
+      "biomes": [
+        "wetland",
+        "water"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beast",
+      "document": "creatures/river-otter.json",
+      "model": "models/river-otter.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/river-otter.glb",
+      "size": [
+        0.0659,
+        0.0867,
+        0.2954
+      ],
+      "bytes": 284164,
+      "triangles": 13902,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/otter-call.wav",
+        "content": "sounds/otter-content.wav",
+        "alarm": "sounds/otter-alarm.wav",
+        "curious": "sounds/otter-curious.wav"
       }
     },
     {
@@ -3111,12 +3752,12 @@
       "model": "models/starlit-ray.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/starlit-ray.glb",
       "size": [
-        0.1693,
-        0.0809,
+        0.1617,
+        0.019,
         0.247
       ],
-      "bytes": 75336,
-      "triangles": 1392,
+      "bytes": 62116,
+      "triangles": 1212,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/ray-call-090-120.wav",
@@ -3157,6 +3798,69 @@
       }
     },
     {
+      "id": "street-terrier",
+      "name": "Scout",
+      "species": "Street Terrier",
+      "description": "A scruffy tan terrier with a brown saddle, white paws and a tail that never stops.",
+      "biome": "town",
+      "biomes": [
+        "town",
+        "farm"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "beast",
+      "document": "creatures/street-terrier.json",
+      "model": "models/street-terrier.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/street-terrier.glb",
+      "size": [
+        0.0787,
+        0.1377,
+        0.2301
+      ],
+      "bytes": 207232,
+      "triangles": 9516,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/dog-call.wav",
+        "content": "sounds/dog-content.wav",
+        "alarm": "sounds/dog-alarm.wav",
+        "curious": "sounds/dog-curious.wav"
+      }
+    },
+    {
+      "id": "stripe-badger",
+      "name": "Humbug",
+      "species": "Stripe Badger",
+      "description": "A low, broad grey badger with a white stripe down its face and no patience at all.",
+      "biome": "shrub",
+      "biomes": [
+        "shrub"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beast",
+      "document": "creatures/stripe-badger.json",
+      "model": "models/stripe-badger.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/stripe-badger.glb",
+      "size": [
+        0.1019,
+        0.1191,
+        0.2624
+      ],
+      "bytes": 243600,
+      "triangles": 11292,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/bear-call.wav",
+        "content": "sounds/bear-content.wav",
+        "alarm": "sounds/bear-alarm.wav",
+        "curious": "sounds/bear-curious.wav"
+      }
+    },
+    {
       "id": "sun-scarab",
       "name": "Sol",
       "species": "Sun Scarab",
@@ -3173,12 +3877,12 @@
       "model": "models/sun-scarab.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/sun-scarab.glb",
       "size": [
-        0.0947,
-        0.0566,
+        0.0882,
+        0.0498,
         0.113
       ],
-      "bytes": 58560,
-      "triangles": 908,
+      "bytes": 44700,
+      "triangles": 728,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/beetle-call-090-120.wav",
@@ -3204,12 +3908,12 @@
       "model": "models/sunfrill-lizard.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/sunfrill-lizard.glb",
       "size": [
-        0.1893,
-        0.1006,
+        0.1106,
+        0.0539,
         0.2621
       ],
-      "bytes": 63468,
-      "triangles": 814,
+      "bytes": 51308,
+      "triangles": 634,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/lizard-call-090-120.wav",
@@ -3373,6 +4077,38 @@
         "content": "sounds/critter-content.wav",
         "alarm": "sounds/critter-alarm.wav",
         "curious": "sounds/critter-curious.wav"
+      }
+    },
+    {
+      "id": "woolly-lamb",
+      "name": "Bobbin",
+      "species": "Woolly Lamb",
+      "description": "A lamb in a cream fleece far too big for it, with a black face and four black legs.",
+      "biome": "farm",
+      "biomes": [
+        "farm",
+        "meadow"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beast",
+      "document": "creatures/woolly-lamb.json",
+      "model": "models/woolly-lamb.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/woolly-lamb.glb",
+      "size": [
+        0.0791,
+        0.1319,
+        0.2013
+      ],
+      "bytes": 240992,
+      "triangles": 11514,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/sheep-call.wav",
+        "content": "sounds/sheep-content.wav",
+        "alarm": "sounds/sheep-alarm.wav",
+        "curious": "sounds/sheep-curious.wav"
       }
     }
   ]

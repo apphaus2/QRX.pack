@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QRay creature gallery</title>
+<!--
+  Every creature, large, turning and walking, for reviewing them: mark each one Keep or Redo, write a note, and
+  copy the marks out as text. Serve the species folder and open /preview/gallery.html:
+
+      cd species && python3 -m http.server 8000        then http://localhost:8000/preview/gallery.html
+
+  It reads ../index.json when it loads (and again on Reload), so it needs no change when models are rebuilt.
+  The species that were in the pack at the pin b8ee7fc (the first 77) are listed below as ORIGINAL; any other
+  species in index.json is shown as new. Marks are kept in this browser only (localStorage); "Copy marks" is the
+  way to hand them to someone. three.js comes from jsDelivr, pinned.
+-->
+<style>
+  :root { --ink: #1c2330; --soft: #5b6676; --line: #dfe4ea; --page: #f4f6f8; --card: #ffffff; --keep: #2f9e5b; --redo: #d1453b; --new: #e08a00; }
+  @media (prefers-color-scheme: dark) { :root { --ink: #e8ecf1; --soft: #9aa6b5; --line: #2c3442; --page: #12161d; --card: #1a202a; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.4 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { position: sticky; top: 0; z-index: 3; background: var(--page); border-bottom: 1px solid var(--line); padding: 10px 16px; }
+  h1 { font-size: 17px; margin: 0 0 4px; }
+  h1 small { font-weight: 400; color: var(--soft); margin-left: 8px; }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+  .row > span.label { color: var(--soft); width: 52px; font-size: 12px; }
+  button { font: inherit; font-size: 12px; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--page); border-color: var(--ink); }
+  input[type=search] { font: inherit; font-size: 12px; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); background: var(--card); color: var(--ink); width: 160px; }
+  #status { color: var(--soft); font-size: 12px; margin-left: auto; }
+  main { padding: 4px 16px 64px; }
+  section h2 { font-size: 16px; margin: 22px 0 4px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  section h2 i { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+  section h2 small { font-weight: 400; color: var(--soft); font-size: 13px; }
+  section.new > h2 { color: var(--new); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--size, 300px), 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 2px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+  .card.keep { border-color: var(--keep); }
+  .card.redo { border-color: var(--redo); }
+  .view { aspect-ratio: 4 / 3; position: relative; cursor: zoom-in; }
+  .view.water { background: linear-gradient(#2aa7bf, #073553); }
+  .view.ground { background: linear-gradient(#cfd8c4, #8d9a7c); }
+  .view.air { background: linear-gradient(#8fa6d8, #d9b4bd); }
+  .view .badge { position: absolute; top: 8px; left: 8px; z-index: 1; background: var(--new); color: #fff; font-size: 11px; font-weight: 700; border-radius: 999px; padding: 1px 8px; }
+  .text { padding: 8px 10px 10px; display: flex; flex-direction: column; gap: 6px; }
+  .name { font-weight: 650; font-size: 15px; }
+  .name small { font-weight: 400; color: var(--soft); font-size: 12px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 4px; }
+  .tag { font-size: 11px; border-radius: 999px; padding: 1px 7px; border: 1px solid var(--line); color: var(--soft); }
+  .tag.rarity { color: #fff; border-color: transparent; }
+  .about { color: var(--soft); font-size: 12px; }
+  .marks { display: flex; gap: 6px; align-items: center; }
+  .marks button.keep[aria-pressed="true"] { background: var(--keep); border-color: var(--keep); color: #fff; }
+  .marks button.redo[aria-pressed="true"] { background: var(--redo); border-color: var(--redo); color: #fff; }
+  textarea.note { width: 100%; min-height: 44px; resize: vertical; font: inherit; font-size: 12px; color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: 8px; padding: 5px 7px; }
+  canvas#stage { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; }
+  dialog { border: 1px solid var(--line); border-radius: 12px; background: var(--card); color: var(--ink); padding: 14px; width: min(760px, calc(100vw - 32px)); }
+  dialog::backdrop { background: rgba(0, 0, 0, 0.55); }
+  dialog textarea { width: 100%; height: 50vh; font: 12px/1.45 ui-monospace, Menlo, monospace; color: var(--ink); background: var(--page); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+  dialog .row { justify-content: flex-end; }
+  #big { width: min(1100px, calc(100vw - 32px)); padding: 0; overflow: hidden; }
+  #big .bigview { width: 100%; aspect-ratio: 16 / 10; display: block; }
+  #big .bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 8px 12px; }
+  #big .bar b { margin-right: auto; }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header>
+  <h1>QRay creature gallery <small id="count"></small></h1>
+  <div class="row"><span class="label">Show</span>
+    <span id="which"></span>
+    <input type="search" id="search" placeholder="Find a name or species">
+  </div>
+  <div class="row"><span class="label">View</span>
+    <button data-angle="turn" aria-pressed="true">Turning</button><button data-angle="side" aria-pressed="false">Side</button><button data-angle="three" aria-pressed="false">Three-quarter</button><button data-angle="front" aria-pressed="false">Front</button><button data-angle="top" aria-pressed="false">Above</button>
+    <span style="width:10px"></span>
+    <button data-clip="move" aria-pressed="true">Walking</button><button data-clip="idle" aria-pressed="false">Idle</button><button data-clip="still" aria-pressed="false">Standing still</button>
+    <span style="width:10px"></span>
+    <button data-size="220" aria-pressed="false">Small</button><button data-size="300" aria-pressed="true">Medium</button><button data-size="440" aria-pressed="false">Large</button>
+  </div>
+  <div class="row"><span class="label">Marks</span>
+    <span id="tally" style="font-size:12px;color:var(--soft)"></span>
+    <button id="copy">Copy marks</button><button id="paste">Paste marks</button><button id="reload" title="Read index.json and every model again, after a rebuild">Reload models</button>
+    <span id="status"></span>
+  </div>
+</header>
+<main id="main"></main>
+<canvas id="stage"></canvas>
+
+<dialog id="out">
+  <p style="margin:0 0 8px">These are your marks as text. Copy them and paste them to Claude.</p>
+  <textarea id="outText" readonly></textarea>
+  <div class="row"><button id="outCopy">Copy to clipboard</button><button id="outClose">Close</button></div>
+</dialog>
+<dialog id="in">
+  <p style="margin:0 0 8px">Paste marks copied from this page. Lines that name a creature replace its mark and note.</p>
+  <textarea id="inText"></textarea>
+  <div class="row"><button id="inApply">Apply</button><button id="inClose">Cancel</button></div>
+</dialog>
+<dialog id="big">
+  <canvas class="bigview"></canvas>
+  <div class="bar"><b id="bigName"></b>
+    <button data-bigclip="move">Walking</button><button data-bigclip="idle">Idle</button><button data-bigclip="still">Standing still</button>
+    <span style="font-size:12px;color:var(--soft)">Drag to turn, scroll to zoom</span>
+    <button id="bigClose">Close</button></div>
+</dialog>
+
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+// The 77 species in the pack at the pin b8ee7fc. Anything else in index.json is new.
+const ORIGINAL = new Set(("arctic-char arctic-skipper aurora-eel banded-gecko bark-skink blue-skylark boreal-emerald bottlecap-beetle bramble-spider " +
+  "cellar-spider chimney-bat cliff-swift clocktower-raven darkling-beetle dawnplume dusk-bat ember-skink emerald-swallowtail field-bee fountain-koi " +
+  "frost-jelly garden-snail glacier-owl glasswing glowspot-frog golden-harvest-hare granary-owl harvest-moon-moth harvest-mouse hedge-finch " +
+  "honeycrown-bee house-mouse icefish jade-turtle lamp-moth lantern-jelly longfoot-jerboa mangrove-goby mangrove-kingfisher marsh-eel marsh-newt " +
+  "meadow-snail meadow-vole meadow-white moon-jelly moss-beetle mossglow-stag-beetle mud-crab mud-ray neon-darter nightshade-moth northlight-fox " +
+  "one-claw-crab pond-frog pond-goldfish pond-skimmer pond-turtle reed-seahorse rock-scorpion rooftop-gecko ruby-darter sand-lizard sand-minnow " +
+  "snow-bunting snow-moth snowshoe-hare speckled-ray spotted-garden-beetle starlit-ray street-pigeon sun-scarab sunfrill-lizard thornback-hedgehog " +
+  "thorny-seahorse tundra-lemming violet-fantail wood-mouse").split(" "));
+
+const STORE = "qray-gallery-marks";
+const marks = (() => { try { return JSON.parse(localStorage.getItem(STORE) || "{}"); } catch (e) { return {}; } })();   // id -> {mark, note}
+function save() { try { localStorage.setItem(STORE, JSON.stringify(marks)); } catch (e) {} tally(); }
+
+const state = { which: "all", angle: "turn", clip: "move", search: "" };
+let index = null, stamp = Date.now();
+const views = [];
+const loader = new GLTFLoader();
+const status = document.getElementById("status");
+let loaded = 0, failed = 0;
+
+// ---- the header ----
+const whichRow = document.getElementById("which");
+for (const [id, label] of [["all", "Everything"], ["new", "New only"], ["original", "The first 77"], ["unmarked", "Not marked yet"], ["keep", "Keep"], ["redo", "Redo"]]) {
+  const b = document.createElement("button");
+  b.textContent = label; b.dataset.which = id; b.setAttribute("aria-pressed", String(state.which === id));
+  b.onclick = () => { state.which = id; for (const o of whichRow.children) o.setAttribute("aria-pressed", String(o === b)); layout(); };
+  whichRow.appendChild(b); whichRow.append(" ");
+}
+document.getElementById("search").oninput = e => { state.search = e.target.value.trim().toLowerCase(); layout(); };
+function group(attr, apply) {
+  const buttons = document.querySelectorAll(`[data-${attr}]`);
+  for (const b of buttons) b.onclick = () => { for (const o of buttons) o.setAttribute("aria-pressed", String(o === b)); apply(b.dataset[attr]); };
+}
+group("angle", v => { state.angle = v; for (const view of views) aim(view); });
+group("clip", v => { state.clip = v; for (const view of views) play(view); });
+group("size", v => document.documentElement.style.setProperty("--size", v + "px"));
+document.getElementById("reload").onclick = () => start();
+
+// ---- one creature in a viewport ----
+function play(view, clip = state.clip) {
+  if (!view.mixer) return;
+  const wanted = clip === "idle" ? "idle" : clip === "move" ? view.move : null;
+  for (const [name, action] of Object.entries(view.actions)) { if (name === wanted) action.reset().play(); else action.stop(); }
+  if (!wanted) view.mixer.setTime(0);
+}
+
+const ANGLES = { side: -Math.PI / 2, three: -Math.PI / 4, front: 0 };
+function aim(view) {
+  const r = view.reach;
+  if (!r) return;
+  if (state.angle === "top") { view.camera.position.set(0, r * 1.05, r * 0.35); }
+  else { view.camera.position.set(0, r * 0.30, r); }
+  view.camera.lookAt(0, 0, 0);
+  if (state.angle in ANGLES) view.pivot.rotation.y = ANGLES[state.angle];
+  else if (state.angle === "top") view.pivot.rotation.y = -Math.PI / 4;
+}
+
+function shadow(width) {
+  const c = document.createElement("canvas"); c.width = c.height = 64;
+  const g = c.getContext("2d"), grad = g.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grad.addColorStop(0, "rgba(0,0,0,0.35)"); grad.addColorStop(1, "rgba(0,0,0,0)");
+  g.fillStyle = grad; g.fillRect(0, 0, 64, 64);
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, width), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(c), transparent: true, depthWrite: false }));
+  mesh.rotation.x = -Math.PI / 2;
+  return mesh;
+}
+
+function stage(s) {
+  const scene = new THREE.Scene();
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x51483f, 1.4));
+  const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+  sun.position.set(1.5, 3, 2.5);
+  scene.add(sun);
+  const fill = new THREE.DirectionalLight(0xffffff, 0.6);
+  fill.position.set(-2, 1, -1.5);
+  scene.add(fill);
+  const camera = new THREE.PerspectiveCamera(30, 4 / 3, 0.005, 20);
+  const pivot = new THREE.Group();
+  scene.add(pivot);
+  return { scene, camera, pivot, mixer: null, actions: {}, id: s.id, move: null, reach: 0 };
+}
+
+function show(view, gltf, s) {
+  const box = new THREE.Box3().setFromObject(gltf.scene);
+  const centre = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
+  gltf.scene.position.sub(centre);
+  view.pivot.add(gltf.scene);
+  if (s.habitat === "ground") {
+    const disc = shadow(Math.max(size.x, size.z) * 1.5);
+    disc.position.y = -size.y / 2 + 0.0005;
+    view.pivot.add(disc);
+  }
+  view.reach = Math.max(size.x, size.y, size.z) * 2.15 + 0.02;
+  view.mixer = new THREE.AnimationMixer(gltf.scene);
+  for (const clip of gltf.animations) { view.actions[clip.name] = view.mixer.clipAction(clip); if (["swim", "walk", "fly"].includes(clip.name)) view.move = clip.name; }
+  aim(view);
+  play(view);
+}
+
+// Models load a few at a time: python's http.server answers one request at a time and drops a flood of them.
+const queue = [];
+let running = 0;
+function enqueue(job) { queue.push(job); pump(); }
+function pump() { while (running < 4 && queue.length) { running++; queue.shift()().then(() => { running--; pump(); }); } }
+function report() { status.textContent = `${loaded} of ${views.length} models loaded` + (failed ? `, ${failed} failed` : ""); }
+const url = path => `../${path}?v=${stamp}`;      // a fresh copy after every reload, never the browser's cached one
+
+function load(s, done) {
+  const attempt = left => loader.load(url(s.model), gltf => done(gltf), undefined, error => {
+    if (left > 0) return setTimeout(() => attempt(left - 1), 400);
+    done(null, error);
+  });
+  attempt(2);
+}
+
+// ---- cards ----
+function where(s) {
+  const home = index.biomes.find(b => b.id === s.biome);
+  const row = home && home.spawns.find(r => r.species === s.id);
+  const chance = row ? 100 * row.weight / home.weight : 0;
+  const also = s.biomes.slice(1).map(id => (index.biomes.find(b => b.id === id) || { name: id }).name);
+  return { home, chance, also };
+}
+
+function card(s) {
+  const element = document.createElement("div");
+  const m = marks[s.id] || {};
+  element.className = "card" + (m.mark ? " " + m.mark : "");
+  const r = index.rarities.find(x => x.id === s.rarity) || { name: s.rarity, colour: "#888" };
+  const w = where(s);
+  const isNew = !ORIGINAL.has(s.id);
+  element.innerHTML = `<div class="view ${s.habitat}">${isNew ? '<span class="badge">NEW</span>' : ""}</div><div class="text">
+    <div class="name">${s.name} <small>${s.species} &middot; ${s.id}</small></div>
+    <div class="tags"><span class="tag rarity" style="background:${r.colour}">${r.name}</span>
+      <span class="tag" title="its home biome, and its chance there when something spawns">${w.home ? w.home.name : s.biome} ${w.chance.toFixed(w.chance < 1 ? 2 : 1)}%</span>
+      ${w.also.length ? `<span class="tag" title="also found in">also ${w.also.join(", ")}</span>` : ""}
+      <span class="tag">${s.habitat}</span><span class="tag">${s.archetype}</span></div>
+    <div class="about">${s.description}<br>${(Math.max(...s.size) * 100).toFixed(1)} cm long, ${(s.size[1] * 100).toFixed(1)} cm tall, ${(s.bytes / 1024).toFixed(0)} KB, ${s.triangles} triangles</div>
+    <div class="marks"><button class="keep" aria-pressed="${m.mark === "keep"}">Keep</button><button class="redo" aria-pressed="${m.mark === "redo"}">Redo</button></div>
+    <textarea class="note" placeholder="A note: what is wrong, what to change"></textarea></div>`;
+  const note = element.querySelector(".note");
+  note.value = m.note || "";
+  note.oninput = () => { marks[s.id] = Object.assign(marks[s.id] || {}, { note: note.value }); save(); };
+  for (const kind of ["keep", "redo"]) {
+    const button = element.querySelector("button." + kind);
+    button.onclick = () => {
+      const entry = marks[s.id] = marks[s.id] || {};
+      entry.mark = entry.mark === kind ? null : kind;
+      element.className = "card" + (entry.mark ? " " + entry.mark : "");
+      for (const k of ["keep", "redo"]) element.querySelector("button." + k).setAttribute("aria-pressed", String(entry.mark === k));
+      save();
+    };
+  }
+  const box = element.querySelector(".view");
+  const view = stage(s);
+  view.element = box;
+  views.push(view);
+  box.onclick = () => enlarge(s);
+  enqueue(() => new Promise(done => load(s, (gltf, error) => {
+    if (!views.includes(view)) return done();       // laid out again while this one loaded
+    if (gltf) { show(view, gltf, s); loaded++; }
+    else { failed++; box.insertAdjacentHTML("beforeend", `<p style="padding:12px">could not load ${s.model}</p>`); console.error(s.model, error); }
+    report(); done();
+  })));
+  return element;
+}
+
+function wanted(s) {
+  const m = (marks[s.id] || {}).mark;
+  if (state.which === "new" && ORIGINAL.has(s.id)) return false;
+  if (state.which === "original" && !ORIGINAL.has(s.id)) return false;
+  if (state.which === "unmarked" && m) return false;
+  if ((state.which === "keep" || state.which === "redo") && m !== state.which) return false;
+  if (state.search && !(s.name + " " + s.species + " " + s.id).toLowerCase().includes(state.search)) return false;
+  return true;
+}
+
+function layout() {
+  const main = document.getElementById("main");
+  main.textContent = "";
+  views.length = 0; queue.length = 0; loaded = failed = 0;
+  const rarityOrder = Object.fromEntries(index.rarities.map((r, i) => [r.id, i]));
+  const biomeOrder = Object.fromEntries(index.biomes.map((b, i) => [b.id, i]));
+  const order = (a, b) => (biomeOrder[a.biome] - biomeOrder[b.biome]) || (rarityOrder[a.rarity] - rarityOrder[b.rarity]) || a.name.localeCompare(b.name);
+  const fresh = index.species.filter(s => !ORIGINAL.has(s.id)).sort(order);
+  const groups = [];
+  if (fresh.length) groups.push({ title: `New creatures <small>${fresh.length}, not in the pack at b8ee7fc; by home biome, then rarity</small>`, cls: "new", list: fresh });
+  for (const biome of index.biomes) {
+    const list = index.species.filter(s => ORIGINAL.has(s.id) && s.biome === biome.id).sort(order);
+    if (list.length) groups.push({ title: `<i style="background:${biome.colour}"></i>${biome.name} <small>the first 77: ${list.length} at home here</small>`, cls: "", list });
+  }
+  let shown = 0;
+  for (const g of groups) {
+    const list = g.list.filter(wanted);
+    if (!list.length) continue;
+    const section = document.createElement("section");
+    section.className = g.cls;
+    section.innerHTML = `<h2>${g.title}</h2>`;
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    for (const s of list) { grid.appendChild(card(s)); shown++; }
+    section.appendChild(grid);
+    main.appendChild(section);
+  }
+  if (!shown) main.innerHTML = `<p style="color:var(--soft);margin-top:24px">Nothing to show with this choice.</p>`;
+  document.getElementById("count").textContent = `${index.species.length} creatures, ${fresh.length} new; ${shown} shown`;
+  report();
+}
+
+function tally() {
+  if (!index) return;
+  const ids = new Set(index.species.map(s => s.id));
+  let keep = 0, redo = 0;
+  for (const [id, m] of Object.entries(marks)) { if (!ids.has(id)) continue; if (m.mark === "keep") keep++; if (m.mark === "redo") redo++; }
+  document.getElementById("tally").textContent = `${keep} keep, ${redo} redo, ${index.species.length - keep - redo} not marked`;
+}
+
+// ---- marks as text ----
+function text() {
+  const lines = [], ids = index.species.map(s => s.id);
+  let keep = 0, redo = 0;
+  const line = (word, s, m) => `${word} ${s.id} (${s.name}, ${s.species})` + (m.note && m.note.trim() ? ": " + m.note.trim().replace(/\s*\n\s*/g, " / ") : "");
+  for (const word of ["REDO", "KEEP", "NOTE"]) {
+    for (const s of index.species) {
+      const m = marks[s.id] || {};
+      if (word === "REDO" && m.mark === "redo") { lines.push(line(word, s, m)); redo++; }
+      if (word === "KEEP" && m.mark === "keep") { lines.push(line(word, s, m)); keep++; }
+      if (word === "NOTE" && !m.mark && m.note && m.note.trim()) lines.push(line(word, s, m));
+    }
+  }
+  const head = `QRay creature gallery marks, ${new Date().toISOString().slice(0, 10)}: ${redo} redo, ${keep} keep, ${ids.length - keep - redo} not marked, of ${ids.length}`;
+  return [head, ...lines].join("\n") + "\n";
+}
+const out = document.getElementById("out"), inn = document.getElementById("in");
+document.getElementById("copy").onclick = () => { document.getElementById("outText").value = text(); out.showModal(); };
+document.getElementById("outCopy").onclick = async e => {
+  const area = document.getElementById("outText");
+  try { await navigator.clipboard.writeText(area.value); e.target.textContent = "Copied"; }
+  catch (error) { area.select(); document.execCommand("copy"); e.target.textContent = "Copied"; }
+  setTimeout(() => e.target.textContent = "Copy to clipboard", 1500);
+};
+document.getElementById("outClose").onclick = () => out.close();
+document.getElementById("paste").onclick = () => { document.getElementById("inText").value = ""; inn.showModal(); };
+document.getElementById("inClose").onclick = () => inn.close();
+document.getElementById("inApply").onclick = () => {
+  for (const raw of document.getElementById("inText").value.split("\n")) {
+    const hit = raw.trim().match(/^(KEEP|REDO|NOTE) ([a-z0-9-]+)(?: \([^)]*\))?(?:: (.*))?$/);
+    if (!hit) continue;
+    marks[hit[2]] = { mark: hit[1] === "NOTE" ? null : hit[1].toLowerCase(), note: hit[3] || "" };
+  }
+  save(); inn.close(); layout();
+};
+
+// ---- the large view ----
+const big = document.getElementById("big"), bigCanvas = big.querySelector("canvas");
+const bigRenderer = new THREE.WebGLRenderer({ canvas: bigCanvas, antialias: true, alpha: true });
+bigRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+let bigView = null, bigControls = null;
+function enlarge(s) {
+  document.getElementById("bigName").textContent = `${s.name}, ${s.species} (${s.id})`;
+  bigCanvas.style.background = getComputedStyle(views.find(v => v.id === s.id).element).backgroundImage;
+  bigView = stage(s);
+  big.showModal();
+  load(s, gltf => {
+    if (!gltf) return;
+    show(bigView, gltf, s);
+    bigView.camera.position.set(bigView.reach * 0.62, bigView.reach * 0.28, bigView.reach * 0.62);
+    bigView.pivot.rotation.y = 0;
+    if (bigControls) bigControls.dispose();
+    bigControls = new OrbitControls(bigView.camera, bigCanvas);
+    bigControls.target.set(0, 0, 0);
+    bigControls.update();
+  });
+}
+for (const b of document.querySelectorAll("[data-bigclip]")) b.onclick = () => bigView && play(bigView, b.dataset.bigclip);
+document.getElementById("bigClose").onclick = () => big.close();
+big.addEventListener("close", () => { bigView = null; });
+
+// ---- drawing: one renderer for every card, each card's view a viewport of the same canvas ----
+const canvas = document.getElementById("stage");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const clock = new THREE.Clock();
+function frame() {
+  const dt = Math.min(clock.getDelta(), 0.1);
+  const width = canvas.clientWidth, height = canvas.clientHeight;
+  if (canvas.width !== Math.floor(width * renderer.getPixelRatio()) || canvas.height !== Math.floor(height * renderer.getPixelRatio())) renderer.setSize(width, height, false);
+  renderer.setScissorTest(false);
+  renderer.clear();
+  renderer.setScissorTest(true);
+  const top = document.querySelector("header").getBoundingClientRect().bottom;
+  for (const view of views) {
+    const rect = view.element.getBoundingClientRect();
+    if (rect.bottom < top || rect.top > height || rect.right < 0 || rect.left > width || !rect.width) continue;
+    if (view.mixer && state.clip !== "still") view.mixer.update(dt);
+    if (state.angle === "turn") view.pivot.rotation.y += dt * 0.45;
+    const y0 = Math.max(rect.top, top);
+    renderer.setViewport(rect.left, height - rect.bottom, rect.width, rect.height);
+    renderer.setScissor(rect.left, height - rect.bottom, rect.width, rect.bottom - y0);
+    view.camera.aspect = rect.width / rect.height;
+    view.camera.updateProjectionMatrix();
+    renderer.render(view.scene, view.camera);
+  }
+  if (bigView && big.open) {
+    const w = bigCanvas.clientWidth, h = bigCanvas.clientHeight;
+    if (bigCanvas.width !== Math.floor(w * bigRenderer.getPixelRatio())) bigRenderer.setSize(w, h, false);
+    if (bigView.mixer) bigView.mixer.update(dt);
+    bigView.camera.aspect = w / h;
+    bigView.camera.updateProjectionMatrix();
+    bigRenderer.render(bigView.scene, bigView.camera);
+  }
+  requestAnimationFrame(frame);
+}
+
+async function start() {
+  stamp = Date.now();
+  status.textContent = "reading index.json";
+  try {
+    const answer = await fetch("../index.json?v=" + stamp, { cache: "no-store" });
+    if (!answer.ok) throw new Error(answer.status);
+    index = await answer.json();
+  } catch (error) { status.textContent = "could not read ../index.json (" + error.message + ")"; return; }
+  layout();
+  tally();
+}
+start();
+frame();
+window.qray = { views, state, marks, get index() { return index; } };     // for looking at the page from the console
+</script>
+</body>
+</html>

@@ -64,6 +64,9 @@
     "Regent": ["里根特"], "Ribbon": ["里本"], "Sable": ["塞布尔"], "Sedge": ["赛吉"], "Shiver": ["希弗"], "Sickle": ["西克尔"], "Signal": ["西格纳尔"],
     "Silt": ["西尔特"], "Skim": ["斯基姆"], "Skip": ["斯基普"], "Skitter": ["斯基特"], "Sol": ["索尔"], "Soot": ["苏特"], "Tango": ["探戈"],
     "Tarn": ["塔恩"], "Tawny": ["托尼"], "Thistle": ["西斯尔"], "Tumble": ["坦布尔"], "Twig": ["特维格"], "Umber": ["昂伯"], "Verdigris": ["维迪格里"],
-    "Zephyr": ["泽菲尔"]
+    "Zephyr": ["泽菲尔"],
+    "Tabby": ["塔比"], "Scout": ["斯卡特", "斯考特"], "Shep": ["谢普"], "Midnight": ["米德奈特"], "Snuffle": ["斯纳弗"], "Bobbin": ["博宾"],
+    "Buttercup": ["巴特卡普"], "Piper": ["派珀"], "Scree": ["斯克里"], "Bluebell": ["布鲁贝尔"], "Bruin": ["布鲁因"], "Bandit": ["班迪特"],
+    "Humbug": ["汉巴格"], "Sleet": ["斯利特"], "Slick": ["斯利克"], "Mellow": ["梅洛"], "Conker": ["康克"], "Scamper": ["斯坎珀"]
   }
 }
