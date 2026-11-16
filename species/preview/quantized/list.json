@@ -10,7 +10,9 @@
       "worstMm": 0.0018,
       "was": "https://qrx-pack.apphaus.us/species/models/street-terrier.glb",
       "meshopt": 96008,
-      "meshoptGzip": 76356
+      "meshoptGzip": 76356,
+      "draco": 60612,
+      "dracoGzip": 30602
     },
     {
       "id": "meadow-pony",
@@ -21,7 +23,9 @@
       "worstMm": 0.0015,
       "was": "https://qrx-pack.apphaus.us/species/models/meadow-pony.glb",
       "meshopt": 205840,
-      "meshoptGzip": 175522
+      "meshoptGzip": 175522,
+      "draco": 93564,
+      "dracoGzip": 60271
     },
     {
       "id": "northlight-fox",
@@ -32,7 +36,9 @@
       "worstMm": 0.0011,
       "was": "https://qrx-pack.apphaus.us/species/models/northlight-fox.glb",
       "meshopt": 31360,
-      "meshoptGzip": 15600
+      "meshoptGzip": 15600,
+      "draco": 30276,
+      "dracoGzip": 9935
     },
     {
       "id": "pond-goldfish",
@@ -43,7 +49,9 @@
       "worstMm": 0.001,
       "was": "https://qrx-pack.apphaus.us/species/models/pond-goldfish.glb",
       "meshopt": 21240,
-      "meshoptGzip": 11612
+      "meshoptGzip": 11612,
+      "draco": 16008,
+      "dracoGzip": 6480
     },
     {
       "id": "glacier-owl",
@@ -54,7 +62,9 @@
       "worstMm": 0.001,
       "was": "https://qrx-pack.apphaus.us/species/models/glacier-owl.glb",
       "meshopt": 43320,
-      "meshoptGzip": 18118
+      "meshoptGzip": 18118,
+      "draco": 50096,
+      "dracoGzip": 12215
     },
     {
       "id": "sun-scarab",
@@ -65,7 +75,9 @@
       "worstMm": 0.0013,
       "was": "https://qrx-pack.apphaus.us/species/models/sun-scarab.glb",
       "meshopt": 29640,
-      "meshoptGzip": 13667
+      "meshoptGzip": 13667,
+      "draco": 26724,
+      "dracoGzip": 9265
     }
   ]
 }
