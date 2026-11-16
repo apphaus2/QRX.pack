@@ -187,6 +187,20 @@ skin's finer grid) and at most 256 KB as GitHub Pages sends it, gzipped (the lar
 clips `idle` and the habitat's moving clip, both looping, and a one-shot clip for each trick the species animates. A walker's origin is on the ground under it, a swimmer's or flier's at mid-body. Plain coloured
 materials (no textures), emissive for the glow.
 
+**A creature with art** (`art/<id>/mesh.glb` filed by `art/intake.py`, art/README.md; the first was the street
+terrier, 2026-11-16) ships its art instead of the generated model, with two files: `models/<id>.glb` is `mesh.glb`
+(meshopt, 16-bit positions, KTX2 ETC1S textures) for the phones and TVs, and `models/<id>.quest.glb` is
+`mesh.quest.glb` (plain geometry, KTX2), which the Quest asks for first (JsonScene's `modelSuffix` ".quest"):
+Meta's reader stops the app on meshopt, 16-bit positions and Draco. The document names only `models/<id>.glb`. The
+build reads both with intake's reader and checks: each at most intake's 1 MB, the Quest copy requiring only what
+the Spatial SDK reads (`KHR_texture_basisu`, `KHR_texture_transform`, `KHR_materials_unlit`), the same clips and box
+in both, idle, the moving clip and a clip for every trick the archetype animates, nothing else, and the habitat's
+size and origin. The archetype still gives the sockets (their nodes must be in the mesh), and each trick waits as
+long as the art's clip of it. Its `index.json` entry adds `quest`, `questBytes` and `art: true`. The 448 KB and
+256 KB gzip limits are the generated models'; KTX2 barely gzips (the terrier's 300 KB is 268 KB on the wire).
+Until every Quest build that may meet it asks for `.quest` copies, an art creature must not reach the pack's
+`master`: an older Quest build would load the meshopt file and stop.
+
 **`index.json`**, for an app choosing a spawn:
 
 ```

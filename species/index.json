@@ -3815,19 +3815,22 @@
       "model": "models/street-terrier.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/street-terrier.glb",
       "size": [
-        0.0787,
-        0.1377,
-        0.2301
+        0.0545,
+        0.1549,
+        0.25
       ],
-      "bytes": 207232,
-      "triangles": 9516,
+      "bytes": 307288,
+      "triangles": 7598,
       "speech": "little",
       "sounds": {
         "call": "sounds/dog-call.wav",
         "content": "sounds/dog-content.wav",
         "alarm": "sounds/dog-alarm.wav",
         "curious": "sounds/dog-curious.wav"
-      }
+      },
+      "quest": "models/street-terrier.quest.glb",
+      "questBytes": 544064,
+      "art": true
     },
     {
       "id": "stripe-badger",
