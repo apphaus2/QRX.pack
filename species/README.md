@@ -592,9 +592,10 @@ clip is missing there and the trick plays its sound and nothing else.
   node names (the iOS loader finds animation targets by name), the clips the habitat plays present and no others,
   every clip's keys rising from 0 with the last key equal to the first (so it loops), unit quaternions; its
   longest side within the habitat's `size`; the box it sweeps through every clip no more than half the habitat's
-  bounds on any axis; a walker's lowest point on the ground, a swimmer's or flier's origin inside its body; its
+  bounds across and along (no height limit since 2026-11-16: it was half the habitat's height, 0.15 m for a
+  walker); a walker's lowest point on the ground, a swimmer's or flier's origin inside its body; its
   eyes not in the rear third (it faces +Z); at most 448 KB, and 256 KB gzipped; a trick's clip may fling it about but not further than
-  the habitat is wide, tall or deep;
+  the habitat is wide or deep;
 - **a document**: the header keys, one mobile actor, the model reference under the recorded base, animations that
   name clips the model has and a model with no clip the body does not declare, sockets that name nodes it has,
   altitude inside the bounds, state it binds declared; `tokens` holding exactly the known tokens with the template's

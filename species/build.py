@@ -516,10 +516,11 @@ def check_model(data, d, glb, where):
     if not habitat["size"][0] <= longest <= habitat["size"][1]:
         faults.append("%s: its longest side is %.3f m; a %s creature is %.2f to %.2f m" % (where, longest, d["habitat"], habitat["size"][0], habitat["size"][1]))
     # The clips that loop (idle and the moving one) must keep the creature compact; a trick may fling it about,
-    # but not out of the habitat.
+    # but not out of the habitat. Across and along only: there is no height limit (the owner, 2026-11-16; it was half
+    # the TV habitat's height, 0.15 m for a walker). A creature too tall for a TV's habitat is the TV's to handle.
     looping = [facts["clips"][clip]["swept"] for clip in ("idle", habitat["move"]) if clip in facts["clips"]]
     swept = [[min([lo[i]] + [box[0][i] for box in looping]) for i in range(3)], [max([hi[i]] + [box[1][i] for box in looping]) for i in range(3)]]
-    for axis, i in (("wide", 0), ("tall", 1), ("long", 2)):
+    for axis, i in (("wide", 0), ("long", 2)):
         room = habitat["bounds"]["max"][i] - habitat["bounds"]["min"][i]
         if swept[1][i] - swept[0][i] > room / 2: faults.append("%s: %.3f m %s in motion, over half the %s's %.2f m" % (where, swept[1][i] - swept[0][i], axis, habitat["name"], room))
         for clip, measured in facts["clips"].items():
