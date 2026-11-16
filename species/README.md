@@ -591,9 +591,9 @@ clip is missing there and the trick plays its sound and nothing else.
   accessor in bounds, unit normals, indices in range, triangles wound to face the way their normals do, unique
   node names (the iOS loader finds animation targets by name), the clips the habitat plays present and no others,
   every clip's keys rising from 0 with the last key equal to the first (so it loops), unit quaternions; its
-  longest side within the habitat's `size`; the box it sweeps through every clip no more than half the habitat's
-  bounds across and along (no height limit since 2026-11-16: it was half the habitat's height, 0.15 m for a
-  walker); a walker's lowest point on the ground, a swimmer's or flier's origin inside its body; its
+  longest side at least the habitat's smallest `size` (no largest, and no limit on how much of the habitat it fills,
+  since 2026-11-16: it was 0.26 to 0.30 m and half the habitat's box in motion; a creature too big for a TV's
+  habitat is the TV's to handle); a walker's lowest point on the ground, a swimmer's or flier's origin inside its body; its
   eyes not in the rear third (it faces +Z); at most 448 KB, and 256 KB gzipped; a trick's clip may fling it about but not further than
   the habitat is wide or deep;
 - **a document**: the header keys, one mobile actor, the model reference under the recorded base, animations that
