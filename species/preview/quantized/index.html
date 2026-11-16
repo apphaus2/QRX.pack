@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Packed model test</title>
+<style>
+  :root { --bg: #f4f3ef; --card: #fff; --ink: #1d1d1f; --muted: #6b6b70; --line: #e2e0da; --ok: #2f8a4c; --bad: #b3261e; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #18181a; --card: #222225; --ink: #ececee; --muted: #9a9aa0; --line: #333337; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 20px 16px 48px; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, sans-serif; }
+  h1 { font-size: 20px; margin: 0 0 6px; }
+  p { margin: 0 0 10px; max-width: 760px; color: var(--muted); }
+  code { font-size: 12.5px; }
+  ol { max-width: 760px; color: var(--muted); padding-left: 20px; margin: 0 0 18px; }
+  .grid { display: grid; gap: 14px; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+  .card h2 { font-size: 15px; margin: 0 0 2px; }
+  .facts { color: var(--muted); font-size: 12.5px; margin-bottom: 8px; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .view { position: relative; aspect-ratio: 1; background: #cfd6c4; border-radius: 8px; overflow: hidden; }
+  .view canvas { width: 100%; height: 100%; display: block; }
+  .view .tag { position: absolute; left: 6px; top: 6px; font-size: 11px; background: rgba(255,255,255,.85); color: #222; border-radius: 6px; padding: 1px 6px; }
+  .view .err { position: absolute; inset: auto 6px 6px 6px; font-size: 11px; color: var(--bad); background: rgba(255,255,255,.9); border-radius: 6px; padding: 2px 6px; }
+  .codes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+  .code { text-align: center; font-size: 11.5px; color: var(--muted); }
+  .code div { background: #fff; padding: 8px; border-radius: 8px; display: inline-block; }
+  .codes details { border: 1px solid var(--line); border-radius: 8px; }
+  .codes summary { cursor: pointer; padding: 8px 10px; font-weight: 600; font-size: 13px; color: var(--ink); }
+  .codes details[open] summary { border-bottom: 1px solid var(--line); }
+  .code { padding: 10px; }
+  .code svg { width: 180px; height: 180px; display: block; }
+  .code a { display: block; color: var(--muted); word-break: break-all; margin-top: 6px; }
+  .ok { color: var(--ok); } .bad { color: var(--bad); }
+</style>
+</head>
+<body>
+<h1>Packed model test</h1>
+<p>Each creature twice: on the left as <code>build.py</code> writes it, on the right rewritten with
+<code>KHR_mesh_quantization</code> (positions as 16-bit integers, normals as 8-bit ones). This browser reads both,
+so the two should look the same here. The question is whether the Quest and the Android phone can read the right one.</p>
+<ol>
+  <li>Open one code at a time: QRay reads every code it can see, and opening one closes the others.</li>
+  <li>In QRay, scan a <b>control</b> code first. It is the model exactly as built: if it does not appear, the device is not reaching this page's files, and the test says nothing yet.</li>
+  <li>Then scan the same creature's <b>packed</b> code. It appears and walks: the device reads the packed format. Nothing, or a crash: it does not.</li>
+</ol>
+<div class="grid" id="grid"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+
+const kb = n => (n / 1024).toFixed(0) + " KB";
+const pct = (a, b) => Math.round(100 * (1 - b / a)) + "%";
+const loader = new GLTFLoader();
+const views = [];
+window.packedTest = { loaded: [], failed: [] };
+
+function code(text) {
+  const qr = qrcode(0, "M"); qr.addData(text); qr.make();
+  return qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true });
+}
+
+function view(host, url, label) {
+  const box = document.createElement("div"); box.className = "view";
+  box.innerHTML = `<span class="tag">${label}</span>`;
+  host.appendChild(box);
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  box.prepend(renderer.domElement);
+  const scene = new THREE.Scene();
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x6a6a5a, 2.2));
+  const sun = new THREE.DirectionalLight(0xffffff, 1.6); sun.position.set(1, 2, 1.5); scene.add(sun);
+  const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 20);
+  const v = { renderer, scene, camera, box, mixer: null, pivot: new THREE.Group() };
+  scene.add(v.pivot);
+  loader.load(url, gltf => {
+    const model = gltf.scene;
+    const bounds = new THREE.Box3().setFromObject(model);
+    const size = bounds.getSize(new THREE.Vector3()), centre = bounds.getCenter(new THREE.Vector3());
+    model.position.sub(centre);
+    v.pivot.add(model);
+    const d = Math.max(size.x, size.y, size.z) * 2.6;
+    camera.position.set(d * 0.75, d * 0.45, d * 0.75); camera.lookAt(0, 0, 0);
+    const walk = gltf.animations.find(a => ["walk", "swim", "fly"].includes(a.name)) || gltf.animations[0];
+    if (walk) { v.mixer = new THREE.AnimationMixer(model); v.mixer.clipAction(walk).play(); }
+    window.packedTest.loaded.push(url);
+  }, undefined, error => {
+    box.insertAdjacentHTML("beforeend", `<span class="err">Did not load: ${String(error.message || error)}</span>`);
+    window.packedTest.failed.push(url);
+  });
+  views.push(v);
+}
+
+const list = await (await fetch("list.json", { cache: "no-store" })).json();
+const grid = document.getElementById("grid");
+for (const m of list.models) {
+  const card = document.createElement("div"); card.className = "card";
+  const test = list.base + "preview/quantized/" + m.id + ".json";
+  const control = list.base + "preview/quantized/" + m.id + "-control.json";
+  card.innerHTML = `<h2>${m.id}</h2>
+    <div class="facts">${kb(m.bytes)} to ${kb(m.quantized)} on disk (${pct(m.bytes, m.quantized)} less),
+      ${kb(m.gzip)} to ${kb(m.quantizedGzip)} downloaded (${pct(m.gzip, m.quantizedGzip)} less);
+      no vertex moved more than ${m.worstMm} mm</div>
+    <div class="pair"></div>
+    <div class="codes">
+      <details><summary>Control code (scan first)</summary><div class="code"><div>${code(control)}</div><a href="${control}">${control}</a></div></details>
+      <details><summary>Packed code (scan second)</summary><div class="code"><div>${code(test)}</div><a href="${test}">${test}</a></div></details>
+    </div>`;
+  grid.appendChild(card);
+  const pair = card.querySelector(".pair");
+  view(pair, m.id + "-control.glb", "As built");
+  view(pair, m.id + ".glb", "Packed");
+}
+
+// QRay reads every code in view, so only one code is open at a time: opening one closes the rest.
+document.addEventListener("toggle", event => {
+  if (!event.target.open) return;
+  for (const other of document.querySelectorAll(".codes details[open]")) if (other !== event.target) other.open = false;
+}, true);
+
+const clock = new THREE.Clock();
+function frame() {
+  const dt = clock.getDelta(), t = clock.elapsedTime;
+  for (const v of views) {
+    const w = v.box.clientWidth, h = v.box.clientHeight;
+    if (v.renderer.domElement.width !== Math.round(w * v.renderer.getPixelRatio())) { v.renderer.setSize(w, h, false); v.camera.aspect = w / h; v.camera.updateProjectionMatrix(); }
+    v.pivot.rotation.y = t * 0.4;
+    v.mixer?.update(dt);
+    v.renderer.render(v.scene, v.camera);
+  }
+  requestAnimationFrame(frame);
+}
+frame();
+</script>
+</body>
+</html>

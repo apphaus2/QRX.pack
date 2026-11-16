@@ -1,0 +1,59 @@
+{
+  "base": "https://qrx-pack.apphaus.us/species/",
+  "models": [
+    {
+      "id": "street-terrier",
+      "bytes": 207232,
+      "gzip": 81958,
+      "quantized": 146164,
+      "quantizedGzip": 59517,
+      "worstMm": 0.0018,
+      "was": "https://qrx-pack.apphaus.us/species/models/street-terrier.glb"
+    },
+    {
+      "id": "meadow-pony",
+      "bytes": 391696,
+      "gzip": 199487,
+      "quantized": 269908,
+      "quantizedGzip": 141440,
+      "worstMm": 0.0015,
+      "was": "https://qrx-pack.apphaus.us/species/models/meadow-pony.glb"
+    },
+    {
+      "id": "northlight-fox",
+      "bytes": 56584,
+      "gzip": 14694,
+      "quantized": 44816,
+      "quantizedGzip": 12614,
+      "worstMm": 0.0011,
+      "was": "https://qrx-pack.apphaus.us/species/models/northlight-fox.glb"
+    },
+    {
+      "id": "pond-goldfish",
+      "bytes": 34180,
+      "gzip": 11632,
+      "quantized": 26808,
+      "quantizedGzip": 9917,
+      "worstMm": 0.001,
+      "was": "https://qrx-pack.apphaus.us/species/models/pond-goldfish.glb"
+    },
+    {
+      "id": "glacier-owl",
+      "bytes": 74660,
+      "gzip": 16427,
+      "quantized": 63704,
+      "quantizedGzip": 13803,
+      "worstMm": 0.001,
+      "was": "https://qrx-pack.apphaus.us/species/models/glacier-owl.glb"
+    },
+    {
+      "id": "sun-scarab",
+      "bytes": 44700,
+      "gzip": 12493,
+      "quantized": 37120,
+      "quantizedGzip": 10721,
+      "worstMm": 0.0013,
+      "was": "https://qrx-pack.apphaus.us/species/models/sun-scarab.glb"
+    }
+  ]
+}
