@@ -43,7 +43,9 @@ first (plain geometry, KTX2). A Quest build without it loads the meshopt file an
   <div class="facts" id="facts">Loading…</div>
   <div class="pair" id="pair"></div>
   <div class="clips" id="clips"></div>
-  <details><summary>Scout's code</summary><div class="code" id="code"></div></details>
+  <details><summary>Scout's code (Quest copy with ETC1S: crashed the Quest)</summary><div class="code" id="code"></div></details>
+  <details><summary>Quest test 1: UASTC texture (8a4bfd0)</summary><div class="code" id="code-uastc"></div></details>
+  <details><summary>Quest test 2: JPEG texture (8a4bfd0)</summary><div class="code" id="code-jpeg"></div></details>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
@@ -63,6 +65,13 @@ const BASE = "https://qrx-pack.apphaus.us/species/preview/scout/";
 const doc = BASE + "street-terrier.json";
 const qr = qrcode(0, "M"); qr.addData(doc); qr.make();
 document.getElementById("code").innerHTML = `<div>${qr.createSvgTag({ cellSize: 4, margin: 0, scalable: true })}</div><a href="${doc}">${doc}</a>`;
+for (const v of ["uastc", "jpeg"]) {
+  const url = BASE + v + "/street-terrier.json";
+  const q = qrcode(0, "M"); q.addData(url); q.make();
+  document.getElementById("code-" + v).innerHTML = `<div>${q.createSvgTag({ cellSize: 4, margin: 0, scalable: true })}</div><a href="${url}">${url}</a>`;
+}
+// QRay reads every code in view: opening one closes the others.
+document.addEventListener("toggle", e => { if (e.target.open) for (const o of document.querySelectorAll("details[open]")) if (o !== e.target) o.open = false; }, true);
 
 const views = [];
 window.scoutTest = { loaded: [], failed: [] };
