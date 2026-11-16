@@ -8,7 +8,9 @@
       "quantized": 146164,
       "quantizedGzip": 59517,
       "worstMm": 0.0018,
-      "was": "https://qrx-pack.apphaus.us/species/models/street-terrier.glb"
+      "was": "https://qrx-pack.apphaus.us/species/models/street-terrier.glb",
+      "meshopt": 96008,
+      "meshoptGzip": 76356
     },
     {
       "id": "meadow-pony",
@@ -17,7 +19,9 @@
       "quantized": 269908,
       "quantizedGzip": 141440,
       "worstMm": 0.0015,
-      "was": "https://qrx-pack.apphaus.us/species/models/meadow-pony.glb"
+      "was": "https://qrx-pack.apphaus.us/species/models/meadow-pony.glb",
+      "meshopt": 205840,
+      "meshoptGzip": 175522
     },
     {
       "id": "northlight-fox",
@@ -26,7 +30,9 @@
       "quantized": 44816,
       "quantizedGzip": 12614,
       "worstMm": 0.0011,
-      "was": "https://qrx-pack.apphaus.us/species/models/northlight-fox.glb"
+      "was": "https://qrx-pack.apphaus.us/species/models/northlight-fox.glb",
+      "meshopt": 31360,
+      "meshoptGzip": 15600
     },
     {
       "id": "pond-goldfish",
@@ -35,7 +41,9 @@
       "quantized": 26808,
       "quantizedGzip": 9917,
       "worstMm": 0.001,
-      "was": "https://qrx-pack.apphaus.us/species/models/pond-goldfish.glb"
+      "was": "https://qrx-pack.apphaus.us/species/models/pond-goldfish.glb",
+      "meshopt": 21240,
+      "meshoptGzip": 11612
     },
     {
       "id": "glacier-owl",
@@ -44,7 +52,9 @@
       "quantized": 63704,
       "quantizedGzip": 13803,
       "worstMm": 0.001,
-      "was": "https://qrx-pack.apphaus.us/species/models/glacier-owl.glb"
+      "was": "https://qrx-pack.apphaus.us/species/models/glacier-owl.glb",
+      "meshopt": 43320,
+      "meshoptGzip": 18118
     },
     {
       "id": "sun-scarab",
@@ -53,7 +63,9 @@
       "quantized": 37120,
       "quantizedGzip": 10721,
       "worstMm": 0.0013,
-      "was": "https://qrx-pack.apphaus.us/species/models/sun-scarab.glb"
+      "was": "https://qrx-pack.apphaus.us/species/models/sun-scarab.glb",
+      "meshopt": 29640,
+      "meshoptGzip": 13667
     }
   ]
 }

@@ -23,7 +23,7 @@ packing: a position p is stored as round((p - centre) / reach * 32767), so the c
 stored / 32767 * reach. Normals are stored as round(n * 127). Indices and every animation key are copied as they
 were; the animated nodes are the same nodes, so every clip still finds its targets.
 """
-import copy, gzip, json, math, os, re, shutil, struct, sys
+import copy, gzip, json, math, os, re, shutil, struct, subprocess, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPECIES = os.path.dirname(HERE)
@@ -152,15 +152,33 @@ def main(ids):
                      "quantized": len(glb), "quantizedGzip": len(gzip.compress(glb, 6, mtime=0)), "worstMm": round(worst * 1000, 4), "was": was})
         r = rows[-1]
         print("%-16s %7d -> %7d bytes, gzip %7d -> %7d, worst vertex moved %.3f mm" % (creature, r["bytes"], r["quantized"], r["gzip"], r["quantizedGzip"], r["worstMm"]))
+        if GLTFPACK:
+            # EXT_meshopt_compression, positions and normals kept as floats (-noq: no quantization, which the Quest
+            # refuses), named nodes and materials kept (-kn -km: clips and sockets find nodes by name).
+            packed = os.path.join(OUT, creature + "-meshopt.glb")
+            subprocess.run(["node", GLTFPACK, "-i", os.path.join(SPECIES, "models", creature + ".glb"), "-o", packed, "-cc", "-noq", "-kn", "-km"],
+                           cwd=OUT, check=True, stdout=subprocess.DEVNULL)
+            squeezed = open(packed, "rb").read()
+            meshopt, _ = document(source, BASE + "preview/quantized/%s-meshopt.glb" % creature)
+            with open(os.path.join(OUT, creature + "-meshopt.json"), "w", encoding="utf-8") as f: json.dump(with_own_sounds(meshopt), f, ensure_ascii=False, indent=2); f.write("\n")
+            r.update(meshopt=len(squeezed), meshoptGzip=len(gzip.compress(squeezed, 6, mtime=0)))
+            print("%-16s %7d -> %7d bytes, gzip %7d -> %7d (meshopt)" % ("", r["bytes"], r["meshopt"], r["gzip"], r["meshoptGzip"]))
     with open(os.path.join(OUT, "list.json"), "w", encoding="utf-8") as f: json.dump({"base": BASE, "models": rows}, f, indent=2); f.write("\n")
 
 
 # Where the pack's species/ folder is served. By default the pack's own site, so the test folder, once published,
 # works on any device with internet; --base http://localhost:8778/ for the preview server on this Mac.
 BASE = "https://qrx-pack.apphaus.us/species/"
+# gltfpack's cli.js (npm `gltfpack`, MIT, from meshoptimizer): with --gltfpack PATH it also writes <id>-meshopt.glb
+# and <id>-meshopt.json, the model with EXT_meshopt_compression.
+GLTFPACK = None
 
 if __name__ == "__main__":
     args = sys.argv[1:]
+    if "--gltfpack" in args:
+        at = args.index("--gltfpack")
+        GLTFPACK = os.path.abspath(args[at + 1])
+        del args[at:at + 2]
     if "--base" in args:
         at = args.index("--base")
         BASE = args[at + 1].rstrip("/") + "/"
