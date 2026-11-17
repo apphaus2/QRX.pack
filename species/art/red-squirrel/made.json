@@ -1,0 +1,111 @@
+{
+  "files": {
+    "mesh.glb": {
+      "from": "mesh.glb",
+      "sha256": "bb6c6801b8a6505222b96ea63db332a5d08da0943c82f18bdb77cbb8ae507055",
+      "tool": "make.py trellis-template",
+      "date": "2026-11-17",
+      "notes": [],
+      "facts": {
+        "bytes": 1201576,
+        "extensionsUsed": [
+          "KHR_mesh_quantization",
+          "EXT_meshopt_compression",
+          "KHR_texture_transform",
+          "KHR_texture_basisu"
+        ],
+        "triangles": 9601,
+        "vertices": 8555,
+        "box": [
+          [
+            -0.0188,
+            -0.0,
+            -0.075
+          ],
+          [
+            0.0188,
+            0.0812,
+            0.075
+          ]
+        ],
+        "size": [
+          0.0377,
+          0.0812,
+          0.15
+        ],
+        "textures": [
+          {
+            "format": "KTX2 UASTC",
+            "size": [
+              1024,
+              1024
+            ],
+            "levels": 11,
+            "supercompression": "Zstandard",
+            "bytes": 1051023
+          }
+        ],
+        "skinned": true,
+        "joints": 22,
+        "clips": [
+          "idle",
+          "jump",
+          "spin",
+          "walk"
+        ]
+      }
+    },
+    "mesh.quest.glb": {
+      "from": "mesh.quest.glb",
+      "sha256": "ed798fdce395de32480f4842d5033a198f15169eee34229be5c8ee855b749a0e",
+      "tool": "make.py trellis-template",
+      "date": "2026-11-17",
+      "notes": [],
+      "facts": {
+        "bytes": 1489648,
+        "extensionsUsed": [
+          "KHR_texture_basisu"
+        ],
+        "triangles": 9601,
+        "vertices": 8555,
+        "box": [
+          [
+            -0.0188,
+            -0.0,
+            -0.075
+          ],
+          [
+            0.0188,
+            0.0812,
+            0.075
+          ]
+        ],
+        "size": [
+          0.0377,
+          0.0812,
+          0.15
+        ],
+        "textures": [
+          {
+            "format": "KTX2 UASTC",
+            "size": [
+              1024,
+              1024
+            ],
+            "levels": 11,
+            "supercompression": "Zstandard",
+            "bytes": 1051023
+          }
+        ],
+        "skinned": true,
+        "joints": 22,
+        "clips": [
+          "idle",
+          "jump",
+          "spin",
+          "walk"
+        ]
+      }
+    }
+  }
+}
