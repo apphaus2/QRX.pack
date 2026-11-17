@@ -120,9 +120,17 @@ on TRELLIS seed 2.
 flyer 12 (butterflies, moths, dragonflies), crawler 13 (beetles, bees, spiders, scorpion, crabs), soft 5 (jellies,
 snails). Each shape has MeshTool's `steps/blender_rig_<shape>.py` and `steps/blender_clips_<shape>.py` (the four-legged use
 `blender_rig.py` and `blender_clips.py`).
-- Meshed and cleaned: 47 of 77. **Next: granary-owl**, then the 29 after it. To resume, run for each id not yet
-  meshed: `python third_party/MeshTool/make.py <id> --to clean --keep-strands` (one at a time; a creature already done is skipped in seconds).
-  A list: `python -c "import json,os;d=json.load(open('species/art/meshtool.json'));print(' '.join(k for k in d['creatures'] if not os.path.exists('species/art/%s/work/hunyuan-template/clean.blend'%k)))"`.
+- Meshed and cleaned: **all 77** (the last 30 in WSL on 2026-11-17, each looked at on a contact sheet of the clean
+  step's four views). Each mesh took 154 to 189 s here against 150 to 205 s (mean 160) on F:. The mesh is GPU-bound,
+  so ext4 changed nothing. All on seed 1234 except three:
+  - granary-owl on **seed 3**: seeds 1234 and 2 both made a third foot between the legs.
+  - lamp-moth on **seed 2**: seed 1234's wings came out warped and uneven.
+  - snow-moth stays on seed 1234 (seed 2 was tried; its body was lumpier).
+  The other seeds are kept beside them in `work/` as `raw-hunyuan-seed<N>.glb` and `hunyuan-template-seed<N>/`.
+  A moth meshed standing on its edge is fine: the flyer rig lays every insect flat by its thin side. Judge the
+  shape, not which way it stands.
+  To find any id not yet meshed: `python -c "import json,os;d=json.load(open('species/art/meshtool.json'));print(' '.join(k for k in d['creatures'] if not os.path.exists('species/art/%s/work/hunyuan-template/clean.blend'%k)))"`.
+- **Next: rig.** For each creature below not yet rigged: `make.py <id> --from rig --to check --keep-strands` (CPU only).
 - Rigged and checked so far (check passes, nothing filed): fish arctic-char, aurora-eel, mud-ray, reed-seahorse;
   bird blue-skylark, chimney-bat; flyer emerald-swallowtail, pond-skimmer; crawler darkling-beetle, bramble-spider,
   mud-crab, field-bee; soft moon-jelly, garden-snail; four-legged banded-gecko, pond-frog. The rest: rig them
@@ -169,9 +177,16 @@ committed in the submodule and pushed to MeshTool first, then the pack's pointer
 - **TRELLIS's build:** nvdiffrast v0.3.3, kaolin 0.17.0 for torch 2.5.1/cu124, spconv and diff-gaussian-rasterization are
   compiled by setup.sh with `TORCH_CUDA_ARCH_LIST=8.6`; its log is `~/qrx-art/setup-trellis.log`.
 - **Hunyuan** crashed once with a torch state_dict TypeError (ringtail-raccoon, seed 3); another seed went through.
+- **Hunyuan hangs in WSL** now and then: twice in 33 meshes (mangrove-kingfisher, one-claw-crab) it stopped partway
+  through "Volume Decoding", one CPU core busy, the GPU idle, the log still. Killed and rerun on the same seed, both
+  went through. A queue should run a watchdog that kills a mesh step whose `mesh-hunyuan.log` is quiet for 8
+  minutes (a working one writes every second).
+- **User-level Python packages:** a `~/.local/lib/python3.10` copied from an old Ubuntu put huggingface-hub 2.2.0
+  ahead of hy3d's 0.30.2 and broke Hunyuan's transformers 4.46.0. That folder is gone, and make.py now runs every
+  step with `PYTHONNOUSERSITE=1` (MeshTool 97f1c06). Keep hy3d at huggingface-hub 0.30.2 and transformers 4.46.0.
 - **Writing files:** keep LF line endings; a CRLF rewrite once made a 585-line diff.
 - **Needs the owner's eye:** every contact sheet before filing; the 18 and everything after them on a phone and on
-  the Quest (none has been seen on a device); granary-owl's picture may still hide one leg.
+  the Quest (none has been seen on a device).
 
 ## 6. Git in WSL
 
