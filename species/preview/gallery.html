@@ -83,6 +83,8 @@
     <span style="width:10px"></span>
     <button data-clip="move" aria-pressed="true">Walking</button><button data-clip="idle" aria-pressed="false">Idle</button><button data-clip="still" aria-pressed="false">Standing still</button>
     <span style="width:10px"></span>
+    <button id="hires" aria-pressed="true" title="Off, a creature with art shows its simpler model (models/&lt;id&gt;.low.glb), as the apps do with Hi-res creatures off">Hi-res</button>
+    <span style="width:10px"></span>
     <button data-size="220" aria-pressed="false">Small</button><button data-size="300" aria-pressed="true">Medium</button><button data-size="440" aria-pressed="false">Large</button>
   </div>
   <div class="row"><span class="label">Marks</span>
@@ -162,6 +164,7 @@ group("angle", v => { state.angle = v; for (const view of views) aim(view); });
 group("clip", v => { state.clip = v; for (const view of views) play(view); });
 group("size", v => document.documentElement.style.setProperty("--size", v + "px"));
 document.getElementById("reload").onclick = () => start();
+document.getElementById("hires").onclick = e => { lowRes = !lowRes; e.target.setAttribute("aria-pressed", String(!lowRes)); start(); };
 
 // ---- one creature in a viewport ----
 function play(view, clip = state.clip) {
@@ -219,7 +222,7 @@ function measure(gltf, s) {
 }
 
 function show(view, gltf, s) {
-  const { centre, size } = measure(gltf, s);
+  const { centre, size } = measure(gltf, showsArt(s) ? s : null);
   gltf.scene.position.sub(centre);
   view.pivot.add(gltf.scene);
   if (s.habitat === "ground") {
@@ -242,8 +245,13 @@ function pump() { while (running < 4 && queue.length) { running++; queue.shift()
 function report() { status.textContent = `${loaded} of ${views.length} models loaded` + (failed ? `, ${failed} failed` : ""); }
 const url = path => `../${path}?v=${stamp}`;      // a fresh copy after every reload, never the browser's cached one
 
+// Hi-res off: the art animals' simpler models (models/<id>.low.glb), as the apps show them with "Hi-res creatures" off.
+let lowRes = false;
+const showsArt = s => s.art && !(lowRes && s.low);
+
 function load(s, done) {
-  const attempt = left => loader.load(url(s.model), gltf => done(gltf), undefined, error => {
+  const file = lowRes && s.low ? s.low : s.model;
+  const attempt = left => loader.load(url(file), gltf => done(gltf), undefined, error => {
     if (left > 0) return setTimeout(() => attempt(left - 1), 400);
     done(null, error);
   });
