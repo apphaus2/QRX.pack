@@ -87,13 +87,14 @@ base() {
 hunyuan() {
     say "Hunyuan3D 2.1"
     clone "$HUNYUAN_REPO" "$ART_HOME/src/Hunyuan3D-2.1" "$HUNYUAN_COMMIT"
-    # Python 3.10, not 3.11: its requirements pin bpy==4.0, whose wheel is for 3.10 only.
+    # Python 3.10 as Hunyuan3D 2.1 was made on. Its bpy==4.0 is left out (PyPI no longer serves it); bpy only turned the
+    # painted OBJ into a GLB, which mesh_hunyuan.py does with trimesh.
     env_create hy3d python=3.10 pip cuda-toolkit=12.4.1 gxx_linux-64=12 gcc_linux-64=12 ninja         xorg-libx11 xorg-libxi xorg-libxxf86vm xorg-libxfixes xorg-libxrender xorg-libxext xorg-libsm libxkbcommon libglvnd libgl
     local src=$ART_HOME/src/Hunyuan3D-2.1
     in_env hy3d pip install -q --index-url https://download.pytorch.org/whl/cu124 torch==2.5.1 torchvision==0.20.1 torchaudio==2.5.1
     # Its requirements without the two mirrors in China and without deepspeed and the demo's web server (training and gradio only).
-    grep -vE "^--extra-index-url|^deepspeed|^gradio|^fastapi|^uvicorn" "$src/requirements.txt" > "$TMPDIR/hy3d-requirements.txt"
-    in_env hy3d pip install -q -r "$TMPDIR/hy3d-requirements.txt"
+    grep -vE "^--extra-index-url|^deepspeed|^gradio|^fastapi|^uvicorn|^bpy" "$src/requirements.txt" > "$TMPDIR/hy3d-requirements.txt"
+    in_env hy3d pip install -q -r "$TMPDIR/hy3d-requirements.txt" "setuptools<81"     # pytorch-lightning 1.9 needs pkg_resources
     export TORCH_CUDA_ARCH_LIST=8.6 MAX_JOBS=12
     (cd "$src/hy3dpaint/custom_rasterizer" && in_env hy3d pip install -q --no-build-isolation -e .)
     (cd "$src/hy3dpaint/DifferentiableRenderer" && in_env hy3d bash compile_mesh_painter.sh)
@@ -105,11 +106,24 @@ hunyuan() {
 trellis() {
     say TRELLIS
     clone "$TRELLIS_REPO" "$ART_HOME/src/TRELLIS" "$TRELLIS_COMMIT"
-    env_create trellis python=3.10 pip cuda-toolkit=12.4.1 gxx_linux-64=12 gcc_linux-64=12 ninja
+    env_create trellis python=3.10 pip cuda-toolkit=12.4.1 gxx_linux-64=12 gcc_linux-64=12 ninja libusb xorg-libx11 xorg-libxext xorg-libsm libglvnd libgl   # libusb: open3d
     local src=$ART_HOME/src/TRELLIS
     in_env trellis pip install -q --index-url https://download.pytorch.org/whl/cu124 torch==2.5.1 torchvision==0.20.1
     export TORCH_CUDA_ARCH_LIST=8.6 MAX_JOBS=12
-    (cd "$src" && in_env trellis bash setup.sh --basic --xformers --spconv --mipgaussian --nvdiffrast --kaolin)
+    # Its setup.sh for the plain packages only: it builds the CUDA extensions in isolated pip builds that cannot see
+    # torch, so they are built here with --no-build-isolation.
+    (cd "$src" && in_env trellis bash setup.sh --basic)
+    in_env trellis pip install -q xformers==0.0.28.post3 --index-url https://download.pytorch.org/whl/cu124
+    in_env trellis pip install -q spconv-cu124 "numpy<2"
+    in_env trellis pip install -q kaolin==0.17.0 -f https://nvidia-kaolin.s3.us-east-2.amazonaws.com/torch-2.5.1_cu124.html
+    local ext=$ART_HOME/src/trellis-ext
+    mkdir -p "$ext"
+    [ -d "$ext/nvdiffrast" ] || git clone -q https://github.com/NVlabs/nvdiffrast.git "$ext/nvdiffrast"
+    git -C "$ext/nvdiffrast" checkout -q v0.3.3
+    in_env trellis pip install -q --no-build-isolation "$ext/nvdiffrast"
+    [ -d "$ext/mip-splatting" ] || git clone -q --recursive https://github.com/autonomousvision/mip-splatting.git "$ext/mip-splatting"
+    in_env trellis pip install -q --no-build-isolation "$ext/mip-splatting/submodules/diff-gaussian-rasterization"
+    in_env trellis python -c "import torch, xformers, spconv, nvdiffrast.torch, diff_gaussian_rasterization, kaolin; print('trellis env ok', torch.__version__)"
 }
 
 unirig() {

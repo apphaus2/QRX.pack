@@ -130,6 +130,14 @@ tex = nodes.new("ShaderNodeTexImage"); tex.image = image
 material.node_tree.links.new(tex.outputs["Color"], bsdf.inputs["Base Color"])
 low.data.materials.clear(); low.data.materials.append(material)
 nodes.active = tex
+# Only the base colour is baked: a source material left metallic (glTF's default when none is written, as trimesh
+# does) bakes black as diffuse, so the high mesh's materials are made non-metallic first.
+for slot in high.material_slots:
+    if slot.material and slot.material.use_nodes:
+        for node in slot.material.node_tree.nodes:
+            if node.type == "BSDF_PRINCIPLED":
+                for link in list(node.inputs["Metallic"].links): slot.material.node_tree.links.remove(link)
+                node.inputs["Metallic"].default_value = 0.0
 scene = common.cycles(16)
 bake = scene.render.bake
 bake.use_selected_to_active = True; bake.use_pass_direct = False; bake.use_pass_indirect = False; bake.use_pass_color = True

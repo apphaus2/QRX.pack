@@ -48,7 +48,8 @@ def mesh_objects():
 
 
 def bounds(objects):
-    points = [o.matrix_world @ Vector(c) for o in objects for c in o.bound_box]
+    """From the vertices themselves: an object's bound_box is cached and stays stale after mesh.transform()."""
+    points = [o.matrix_world @ v.co for o in objects for v in o.data.vertices]
     lo = Vector((min(p.x for p in points), min(p.y for p in points), min(p.z for p in points)))
     hi = Vector((max(p.x for p in points), max(p.y for p in points), max(p.z for p in points)))
     return lo, hi

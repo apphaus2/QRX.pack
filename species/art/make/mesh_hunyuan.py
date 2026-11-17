@@ -27,19 +27,24 @@ try:
 except Exception as error: print("make: torchvision fix not applied:", error)
 
 work = os.path.dirname(out)
-shape_path = out.replace(".glb", "-shape.glb")
+shape_path = out.replace(".glb", "-shape-%d.glb" % seed)
 image = Image.open(image_path).convert("RGBA")
 
 t = time.time()
-from hy3dshape.pipelines import Hunyuan3DDiTFlowMatchingPipeline   # noqa: E402
-local = pinned_download(repo_id="tencent/Hunyuan3D-2.1", allow_patterns=["hunyuan3d-dit-v2-1/*", "hunyuan3d-paintpbr-v2-1/*", "*.json"])
-shape = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained(local)     # an absolute path: smart_load_model reads it as it is
-mesh = shape(image=image, generator=torch.Generator("cuda").manual_seed(seed), num_inference_steps=50, octree_resolution=384)[0]
-mesh.export(shape_path)
-print("make: shape %d faces in %.0f s, peak %.1f GB" % (len(mesh.faces), time.time() - t, torch.cuda.max_memory_allocated() / 2**30))
-del shape, mesh; gc.collect(); torch.cuda.empty_cache(); torch.cuda.reset_peak_memory_stats()
+if os.path.exists(shape_path) and os.path.getmtime(shape_path) > os.path.getmtime(image_path):
+    print("make: the shape for seed %d is already made: %s" % (seed, shape_path))
+else:
+  from hy3dshape.pipelines import Hunyuan3DDiTFlowMatchingPipeline   # noqa: E402
+  local = pinned_download(repo_id="tencent/Hunyuan3D-2.1", allow_patterns=["hunyuan3d-dit-v2-1/*", "hunyuan3d-paintpbr-v2-1/*", "*.json"])
+  shape = Hunyuan3DDiTFlowMatchingPipeline.from_pretrained(local)     # an absolute path: smart_load_model reads it as it is
+  mesh = shape(image=image, generator=torch.Generator("cuda").manual_seed(seed), num_inference_steps=50, octree_resolution=384)[0]
+  mesh.export(shape_path)
+  print("make: shape %d faces in %.0f s, peak %.1f GB" % (len(mesh.faces), time.time() - t, torch.cuda.max_memory_allocated() / 2**30))
+  del shape, mesh; gc.collect(); torch.cuda.empty_cache(); torch.cuda.reset_peak_memory_stats()
 
 t = time.time()
+import types                                             # noqa: E402
+sys.modules.setdefault("bpy", types.ModuleType("bpy"))   # imported by mesh_utils for its OBJ-to-GLB only, which save_glb=False never calls
 from textureGenPipeline import Hunyuan3DPaintPipeline, Hunyuan3DPaintConfig  # noqa: E402
 conf = Hunyuan3DPaintConfig(6, 512)
 conf.realesrgan_ckpt_path = os.path.join(src, "hy3dpaint/ckpt/RealESRGAN_x4plus.pth")
@@ -50,7 +55,8 @@ paint = Hunyuan3DPaintPipeline(conf)
 paint_dir = os.path.join(work, "hunyuan-paint")
 os.makedirs(paint_dir, exist_ok=True)
 shutil.copyfile(shape_path, os.path.join(paint_dir, "shape.glb"))
-result = paint(mesh_path=os.path.join(paint_dir, "shape.glb"), image_path=image, output_mesh_path=os.path.join(paint_dir, "textured.obj"), save_glb=True)
-glb = os.path.splitext(result if isinstance(result, str) else os.path.join(paint_dir, "textured.obj"))[0] + ".glb"
-shutil.copyfile(glb, out)
+result = paint(mesh_path=os.path.join(paint_dir, "shape.glb"), image_path=image, output_mesh_path=os.path.join(paint_dir, "textured.obj"), save_glb=False)
+import trimesh                                           # noqa: E402  the OBJ (base colour in its .mtl) to one GLB
+textured = trimesh.load(result if isinstance(result, str) else os.path.join(paint_dir, "textured.obj"), process=False)
+textured.export(out)
 print("make: paint in %.0f s, peak %.1f GB -> %s" % (time.time() - t, torch.cuda.max_memory_allocated() / 2**30, out))

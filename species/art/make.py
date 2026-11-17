@@ -81,6 +81,10 @@ class Run:
         if env_name:
             env["LD_LIBRARY_PATH"] = os.path.join(ART_HOME, "mamba", "envs", env_name, "lib") + ":" + env.get("LD_LIBRARY_PATH", "")   # bpy's X11 libs
             env["CUDA_HOME"] = os.path.join(ART_HOME, "mamba", "envs", env_name)
+            # Conda's CUDA keeps its headers and libraries under targets/: for extensions compiled on first use (nvdiffrast).
+            targets = os.path.join(env["CUDA_HOME"], "targets", "x86_64-linux")
+            env["CPATH"] = os.path.join(targets, "include") + ":" + env.get("CPATH", "")
+            env["LIBRARY_PATH"] = os.path.join(targets, "lib") + ":" + os.path.join(targets, "lib", "stubs") + ":" + env.get("LIBRARY_PATH", "")
             env["MAMBA_ROOT_PREFIX"] = os.path.join(ART_HOME, "mamba")
             command = [MAMBA, "run", "-n", env_name] + command
         if command[0] == BLENDER:
