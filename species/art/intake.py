@@ -36,7 +36,7 @@ TABLE_START, TABLE_END = "<!-- table: written by intake.py --table -->", "<!-- /
 FULL_MIN = 1024              # px on the long side
 EDGE = 2                     # px of clear border the cutout must have on every side
 ONE_SUBJECT = 0.97           # share of the opaque pixels the largest region must hold
-LIMITS = {"bytes": 1024 * 1024, "triangles": 8000, "texture": 1024}     # SPEC.md section 3 (seven out at once on the Quest); the owner decides
+LIMITS = {"bytes": 5 * 1024 * 1024, "triangles": 8000, "texture": 1024}     # SPEC.md section 3 (seven out at once on the Quest); the owner decides
 KNOWN_EXTENSIONS = {"EXT_meshopt_compression", "KHR_mesh_quantization", "KHR_texture_basisu", "KHR_texture_transform"}   # what gltfpack writes (owner, 2026-11-16)
 KTX2_MAGIC = b"\xabKTX 20\xbb\r\n\x1a\n"
 

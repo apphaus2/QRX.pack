@@ -585,7 +585,9 @@ def check_art(data, d, glb, quest, where):
         extra = sorted(set(f["clips"]) - {"idle", habitat["move"]} - set(known))
         if extra: faults.append("%s: clips nothing plays: %s" % (name, ", ".join(extra)))
     if sorted(results[""][0]["clips"]) != sorted(facts["clips"]): faults.append("%s and its Quest copy have different clips" % where)
-    if results[""][0]["box"] != facts["box"]: faults.append("%s and its Quest copy are not the same size" % where)
+    # Within a millimetre: the phones' 16-bit positions round the Quest copy's floats by a tenth of one.
+    if any(abs(p - q) > 0.001 for a, b in zip(results[""][0]["box"], facts["box"]) for p, q in zip(a, b)):
+        faults.append("%s and its Quest copy are not the same size" % where)
     lo, hi = facts["box"]
     longest = max(hi[i] - lo[i] for i in range(3))
     if longest < habitat["size"][0]:        # no largest size (check_model)

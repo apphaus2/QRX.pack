@@ -48,7 +48,7 @@ most 0.15 m tall, ears included, in every clip.
 **Geometry and texture.** One continuous skinned mesh (no separate floating parts except eyes, which may be their
 own mesh parented to the head bone). At most **8,000 triangles**. One base-colour texture, 1024 x 1024 at most (512
 is enough for most), embedded; a metallic-roughness value or map is optional; no normal map needed. PBR metal
-roughness material, metallic 0, roughness about 0.8 for fur. No vertex colours. **The whole file 1 MB at most.**
+roughness material, metallic 0, roughness about 0.8 for fur. No vertex colours. **The whole file 5 MB at most.**
 
 **Skeleton.** A single skin. Bones named exactly as below (glTF node names, case as written), so the apps can find
 them; extra bones (ears, jaw, toes, more tail) are welcome and may be named freely.

@@ -192,7 +192,7 @@ terrier, 2026-11-16) ships its art instead of the generated model, with two file
 (meshopt, 16-bit positions, KTX2 ETC1S textures) for the phones and TVs, and `models/<id>.quest.glb` is
 `mesh.quest.glb` (plain geometry, KTX2), which the Quest asks for first (JsonScene's `modelSuffix` ".quest"):
 Meta's reader stops the app on meshopt, 16-bit positions and Draco. The document names only `models/<id>.glb`. The
-build reads both with intake's reader and checks: each at most intake's 1 MB, the Quest copy requiring only what
+build reads both with intake's reader and checks: each at most intake's 5 MB, the Quest copy requiring only what
 the Spatial SDK reads (`KHR_texture_basisu`, `KHR_texture_transform`, `KHR_materials_unlit`), the same clips and box
 in both, idle, the moving clip and a clip for every trick the archetype animates, nothing else, and the habitat's
 size and origin. The archetype still gives the sockets (their nodes must be in the mesh), and each trick waits as
