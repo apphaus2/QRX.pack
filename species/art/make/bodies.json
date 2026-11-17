@@ -27,21 +27,33 @@
    "bones": [
     "Root",
     "Body",
-    "Head"
+    "Head",
+    "Tail1"
    ]
   },
   "bird": {
    "bones": [
     "Root",
     "Body",
-    "Head"
+    "Head",
+    "Tail1",
+    "WingL",
+    "WingLTip",
+    "WingR",
+    "WingRTip"
    ]
   },
   "flyer": {
    "bones": [
     "Root",
     "Body",
-    "Head"
+    "Head",
+    "Abdomen1",
+    "Abdomen2",
+    "WingFL",
+    "WingFR",
+    "WingBL",
+    "WingBR"
    ]
   },
   "crawler": {
