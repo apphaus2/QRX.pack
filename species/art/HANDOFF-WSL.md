@@ -1,0 +1,189 @@
+# Handoff: the art pipeline, from F: to WSL (2026-11-17)
+
+For a new Claude Code session started inside WSL, in `~/src/`, after the clone. It replaces the Windows session that
+built this pipeline; from the moment you take over, that session no longer edits this repo. Everything you need is
+in this file and the files it names. Talk to the owner after each run before going on.
+
+## 1. Where things are
+
+| what | where |
+| --- | --- |
+| this repo (the art work) | `~/src/QRX.pack`, branch `art-pipeline-local` (cloned from the F: checkout) |
+| MeshTool (where the pipeline is moving) | `~/src/MeshTool` |
+| each creature's work files (gitignored) | `~/src/QRX.pack/species/art/<id>/work/` (copied from F:) |
+| tools home | `~/qrx-art` (`ART_HOME`), 78 GB |
+| micromamba | `~/qrx-art/bin/micromamba`, root `~/qrx-art/mamba` |
+| environments | `~/qrx-art/mamba/envs/`: `art` (BiRefNet cutouts, intake, checks; 6 GB), `hy3d` (Hunyuan3D 2.1; 13 GB), `trellis` (TRELLIS; 14 GB), `unirig` (UniRig; 14 GB), `blenderlibs` (X libraries Blender needs) |
+| model weights | Hugging Face cache `~/qrx-art/hf` (`HF_HOME`), 36 GB; torch hub `~/.cache/torch` |
+| model code and built CUDA extensions | `~/qrx-art/src/` (Hunyuan3D-2.1 with its compiled rasterizer and mesh painter, TRELLIS, trellis-ext with nvdiffrast, UniRig) |
+| Blender 4.5.16 LTS (Linux) | `~/qrx-art/blender/blender` |
+| gltfpack 1.3 (Linux) | `~/qrx-art/bin/gltfpack` |
+| scratch | `~/qrx-art/tmp` (make.py's `TMPDIR`) |
+| the GPU | one RTX 3090, 24 GB. Hunyuan peaks at 22 GB: one creature meshes at a time |
+
+You rarely activate an environment by hand: make.py runs each step in its own environment
+(`micromamba run -n <env>`) and Blender with `blenderlibs` on its library path. By hand:
+`~/qrx-art/mamba/envs/art/bin/python ...`, or `eval "$(~/qrx-art/bin/micromamba shell hook -s bash)"; micromamba activate hy3d`.
+`species/art/setup.sh` is what installed all of it (pinned commits and versions); rerun it only to rebuild.
+
+A copy of this file stays on F: in the Windows checkout: `F:\_GITHUB\apphaus2\QRX.pack\species\art\HANDOFF-WSL.md`.
+
+## 2. The clone (skip if the owner already did it)
+
+```
+mkdir -p ~/src
+git clone -b art-pipeline-local /mnt/f/_GITHUB/apphaus2/QRX.pack ~/src/QRX.pack
+git clone /mnt/f/_GITHUB/apphaus2/MeshTool ~/src/MeshTool
+for r in QRX.pack MeshTool; do
+  git -C ~/src/$r remote rename origin windows
+  git -C ~/src/$r remote add origin https://github.com/apphaus2/$r.git
+done
+git config --global core.autocrlf false
+cd /mnt/f/_GITHUB/apphaus2/QRX.pack/species/art
+for d in */work; do mkdir -p ~/src/QRX.pack/species/art/"${d%/work}"; rsync -a "$d" ~/src/QRX.pack/species/art/"${d%/work}"/; done
+```
+
+- No `.gitattributes` and no Git LFS in either repo; every tracked text file is already LF. (GridLib uses LFS:
+  set that up only when GridLib is cloned.)
+- The work folders: 95 of them, 3.1 GB. The only other ignored files are `__pycache__`, not copied.
+- Check before running anything: `git -C ~/src/QRX.pack log --oneline -1` matches the F: checkout's HEAD;
+  `git status --short` is empty in both; `ls ~/src/QRX.pack/species/art/*/work/hunyuan-template/clean.blend | wc -l`
+  is 65 (the 18 made and 47 of the new 77); `diff -rq /mnt/f/_GITHUB/apphaus2/QRX.pack/species/art ~/src/QRX.pack/species/art -x __pycache__`
+  prints nothing.
+- Paths: no tracked file names `/mnt/f`; make.py finds its steps from its own folder and its tools from
+  `~/qrx-art`, so it runs unchanged. Only the old session's throwaway shell scripts named `/mnt/f` (the queue script
+  and the shape agents' `run.sh`/`sheet.sh` helpers); they are not in the repo. Write new ones with `~/src/QRX.pack`.
+
+## 3. The goal and the rules
+
+**Goal.** Make every creature in `species/art/<id>/` end to end on this machine, from its picture to two rigged,
+animated models the apps load, then move the pipeline into MeshTool for QRX.pack, TerraLib and GridLib.
+
+**The standard** (the owner's; `build.py` fails a delivery that breaks it):
+- Phones: `<id>.glb` = `gltfpack -cc -tc -tu -kn -km`: meshopt geometry, UASTC KTX2 textures, names and clips kept.
+- Quest: `<id>.quest.glb` = `gltfpack -noq -tc -tu -kn -km`: plain float geometry and UASTC. Never meshopt (`-c`),
+  never quantization, Draco or ETC1S: Meta's reader stops QRay on each.
+- One skin, at most 4 weights per vertex, every vertex weighted, clips in place (`Root` never moves), each cue starts
+  and ends in the rest pose, idle and the move clip loop.
+- Bones (SPEC.md section 3): every shape has `Root`, `Body`, `Head` (the apps hang the back and mouth sockets on Body
+  and Head). Four-legged: also `Chest`, `Neck`, `Tail1..3`, `Leg/Shin/Foot` + `FL FR BL BR`. The other shapes'
+  required bones are in `make/bodies.json`.
+- Clip names: each creature's `prompt.md` `| clips |` row; the species documents name what the apps play.
+- About 10,000 triangles: **a soft guideline, not a limit** (the owner raised it from 8,000 and made it soft:
+  "Go over if it makes sense"). The clean step decimates to 9,500. One texture, 1024 px at most. 5 MB a file at most.
+
+**Rules.**
+- Nothing a player reads has an em dash. QRay is the public name; QRX is the code name.
+- Never write API keys or tokens into a repo.
+- Ask before any download over a few GB.
+- Talk to the owner after each run before going on.
+- Don't overwrite or delete any `species/models/<id>.low.glb`, and keep build.py's checks from failing them.
+- Git: the owner's latest word is "Nothing in branches. Everything goes to master", and the pack's master took the
+  pipeline at their word (fe04932). The pack is public and published by GitHub Pages at `https://qrx-pack.apphaus.us/`
+  about a minute after a push: push only when the owner says so. `art-pipeline-local` holds one more commit
+  (ca09e52), not pushed.
+
+## 4. Where the work stands
+
+**make.py** (`species/art/make.py`; `--help` lists everything). Steps, each skipped when its output exists:
+`render, cutout, mesh, clean, rig, clips, pack, check`. A creature with a kept `cutout.png` starts at mesh.
+```
+python species/art/make.py <id> --keep-strands                 # every step not done
+python species/art/make.py <id> --from rig --to check          # redo rig onward (CPU only)
+python species/art/make.py <id> --from mesh --mesh-seed 2      # a fresh mesh with another seed (GPU)
+python species/art/make.py <id> --file                         # after check passes: intake.py files mesh.glb, mesh.quest.glb, made.json
+python species/build.py                                         # writes models/<id>.glb and .quest.glb, keeps the drawn one as .low.glb
+```
+Run it with `~/qrx-art/mamba/envs/art/bin/python`. `--keep-strands` meshes the cutout as it is; without it thin
+strands are cut off first (good for a stray line, bad for legs, wings, antennae, tentacles, tails).
+
+**Choices made.**
+- Mesher: **Hunyuan3D 2.1** (the owner's pick). TRELLIS stays as the fallback: the red squirrel's curled tail came out
+  a lump on four Hunyuan seeds and right on TRELLIS seed 2. A bad mesh (fused paws, a fake tail, debris) is a mesh
+  problem: try other seeds before touching the cleanup.
+- Rigger: the **Blender template rig** (`--rigger template`, the default), one script per body shape. UniRig was
+  compared on the first animals and is still wired in (`--rigger unirig`) but nothing uses it.
+- Render: Grok made every picture (native 1280x720, no crop, no upscale; 16:9 is fine). make.py's own render step
+  (FLUX.1-schnell) is unused: it needs a Hugging Face login and about 30 GB.
+- Cutouts: the 77 new ones were made here with BiRefNet (`--only cutout`, then copied over `cutout.png`); they keep
+  thin parts better than Grok's. Grok's cellar-spider and lantern-jelly were kept; for the four dragonflies ours were
+  kept, because Grok's see-through wings are half under 50% alpha and would mesh with holes.
+
+**Filed and published.** The 18 four-legged art animals (alley-cat ... woolly-lamb) are filed and on the pack's
+master: 17 Hunyuan (street-terrier, honeyglow-bear-cub, ringtail-raccoon on seed 2, the rest 1234) and red-squirrel
+on TRELLIS seed 2.
+
+**The 77 new creatures.** Body shapes in `make/bodies.json`: quadruped 21, fish 14, bird 12 (two of them bats),
+flyer 12 (butterflies, moths, dragonflies), crawler 13 (beetles, bees, spiders, scorpion, crabs), soft 5 (jellies,
+snails). Each shape has `make/blender_rig_<shape>.py` and `make/blender_clips_<shape>.py` (the four-legged use
+`blender_rig.py` and `blender_clips.py`).
+- Meshed and cleaned: 47 of 77. **Next: granary-owl**, then the 29 after it. To resume, run for each id not yet
+  meshed: `make.py <id> --to clean --keep-strands` (one at a time; a creature already done is skipped in seconds).
+  A list: `python -c "import json,os;d=json.load(open('species/art/make/bodies.json'));print(' '.join(k for k in d['creatures'] if not os.path.exists('species/art/%s/work/hunyuan-template/clean.blend'%k)))"`.
+- Rigged and checked so far (check passes, nothing filed): fish arctic-char, aurora-eel, mud-ray, reed-seahorse;
+  bird blue-skylark, chimney-bat; flyer emerald-swallowtail, pond-skimmer; crawler darkling-beetle, bramble-spider,
+  mud-crab, field-bee; soft moon-jelly, garden-snail; four-legged banded-gecko, pond-frog. The rest: rig them
+  (`--from rig --to check --keep-strands`), make a contact sheet of each clip, show the owner, then file.
+- The four-legged rig and clips were finished by an agent that died before reporting. Their edits are committed as
+  ca09e52 and checked: street-terrier rigged again comes out byte for byte the same as the published one (the 18 are
+  pinned in `MADE_BEFORE`), banded-gecko rigs as a sprawled lizard, pond-frog as a sitting frog (`SQUAT`). The other
+  19 four-legged animals have not been run; no clip has been looked at.
+
+**build.py.** `standard_faults` checks the standard above on both copies. The owner added the old drawn models back
+as `species/models/<id>.low.glb` for a Hi-res on/off option (the apps' "Hi-res creatures", the gallery's Hi-res
+button); build.py writes and keeps them. Never fail or delete them.
+
+**Gallery.** `species/preview/gallery.html` (published with the pack) shows every model turning and walking. Serve
+`species/` locally (`python -m http.server 8735 -d species`) to look before anything is pushed.
+
+**MeshTool** (`https://github.com/apphaus2/MeshTool`, private, master 7c18ad5): code only, no assets. It has the
+README and `archetypes/terra` (the natural look: QRX.pack, TerraLib) and `archetypes/grid` (flat-shaded, glowing edge
+lines: GridLib, whose engine side is TronX), each with `archetype.json` and a README; grid is a plan. Planned, at the
+owner's yes: move make.py, `make/`, setup.sh, intake.py, SPEC.md, PIPELINE.md and RIGGING.md into MeshTool; make.py
+then takes a project checkout and its archetype; QRX.pack, TerraLib and GridLib each take MeshTool as a submodule in
+`third_party/`. All three use the body rigs (GridLib's world has animals too). QRX.pack is public and served by Pages
+and MeshTool is private: check the first Pages publish after the submodule goes in.
+
+## 5. Known problems and what needs the owner's eye
+
+- **The clean step's auto turn is wrong for some shapes.** It lays the longest side along the body axis: a bat's
+  wingspan, a spider's leg span, a top-down insect's wingspan. The fish, bird, flyer, crawler and soft rig scripts each
+  detect this and turn the mesh themselves, and log it; the clean step should be fixed (`blender_clean.py` or
+  `--turn` per creature), and `clean.glb` still faces the wrong way for those.
+- **Size is the longest side.** A bat's or butterfly's brief size lands on its wingspan, so the body comes out small.
+  The owner has not said whether a dragonfly's size means body length.
+- **The clips step renders its look and pose pictures with Cycles on the GPU** (`common.look`). The shape scripts
+  switch theirs to the CPU; the four-legged one does not. Don't render while Hunyuan is meshing.
+- **Quaternion sign flips.** Blender's exporter wrote sign-flipped rotation keys for Body and Abdomen on the flyer;
+  its clips script patches them after export. The four-legged clips may have the same flips (a one-frame twitch);
+  not checked.
+- **Birds:** the folded wings are separate thin sheets over the body (one mesh, one skin, but separate islands), and
+  the wing bones scale up to 1.45 as they open. No app has been seen playing a scale track.
+- **Heights:** flips and jumps of long bodies go over SPEC's 0.15 m (a ray reaches 0.19 m).
+- **Leg split:** about a 3 mm hole stays at each slit end on five of the 18, between the legs.
+- **bpy:** Hunyuan's requirements pin `bpy==4.0`, which PyPI no longer serves; setup.sh leaves it out and
+  mesh_hunyuan.py writes the GLB with trimesh instead.
+- **TRELLIS's build:** nvdiffrast v0.3.3, kaolin 0.17.0 for torch 2.5.1/cu124, spconv and diff-gaussian-rasterization are
+  compiled by setup.sh with `TORCH_CUDA_ARCH_LIST=8.6`; its log is `~/qrx-art/setup-trellis.log`.
+- **Hunyuan** crashed once with a torch state_dict TypeError (ringtail-raccoon, seed 3); another seed went through.
+- **Writing files:** keep LF line endings; a CRLF rewrite once made a 585-line diff.
+- **Needs the owner's eye:** every contact sheet before filing; the 18 and everything after them on a phone and on
+  the Quest (none has been seen on a device); granary-owl's picture may still hide one leg.
+
+## 6. Git in WSL
+
+- Push with Windows' Git Credential Manager, already signed in on this machine:
+  `git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"`.
+  (Or `apt install gh` and `gh auth login`, which needs the owner once.) SSH does not work.
+- The F: checkouts (`F:\_GITHUB\apphaus2\QRX.pack`, `F:\_GITHUB\apphaus2\MeshTool`) stay for Windows tools and are
+  read-only from now on: work only in `~/src`. Keep F: in step by pulling there after a push (or straight from WSL:
+  `git pull \\wsl.localhost\Ubuntu-24.04\home\smorey2\src\QRX.pack`). The 3.1 GB of work folders on F: can be deleted
+  once this clone is checked, at the owner's word.
+
+## 7. A first message for the owner to paste
+
+```
+Read species/art/HANDOFF-WSL.md in ~/src/QRX.pack and take over the art pipeline from it. First check the clone
+as its section 2 says and tell me what you find. Then resume meshing the remaining creatures one at a time, starting
+with granary-owl, and stop after the first one to show me how long it took here compared with F:.
+```
