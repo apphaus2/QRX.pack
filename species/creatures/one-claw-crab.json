@@ -1096,7 +1096,7 @@
             "play": "wave"
           },
           {
-            "wait": 1.4
+            "wait": 1.6
           },
           {
             "behave": "none"
@@ -1116,7 +1116,7 @@
             "play": "spin"
           },
           {
-            "wait": 1.1
+            "wait": 1.5
           },
           {
             "behave": "none"
@@ -1136,7 +1136,7 @@
             "play": "dance"
           },
           {
-            "wait": 1.5
+            "wait": 2
           },
           {
             "behave": "none"

@@ -8,7 +8,7 @@ Tumble: A green turtle that basks on logs and slips in at the first footstep.
 | rarity | uncommon |
 | habitat | water (swims) |
 | size | **0.15 m** long |
-| clips | `idle`, `swim`, `spin`, `wave` |
+| clips | `idle`, `swim`, `spin`, `wave`, `hide` |
 | status | render and cutout made; no mesh yet |
 
 ## Render prompt (`full.jpg`)

@@ -847,7 +847,7 @@
             "play": "hide"
           },
           {
-            "wait": 3.0
+            "wait": 2.6
           },
           {
             "behave": "none"
@@ -867,7 +867,7 @@
             "play": "dance"
           },
           {
-            "wait": 2.0
+            "wait": 2.4
           },
           {
             "behave": "none"

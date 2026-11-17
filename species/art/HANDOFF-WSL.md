@@ -139,10 +139,16 @@ snails). Each shape has MeshTool's `steps/blender_rig_<shape>.py` and `steps/ble
   now weights again at about a metre when it leaves more than 2% of the vertices without a bone; and a stale-reference
   crash in the leg cleanup (mangrove-kingfisher) is fixed. The 18 made before still rig byte for byte the same: all 36
   of their packed files match the sha256 in their `made.json`.
-- **Next: the owner looks at every clip**, then file the ones approved (`make.py <id> --file`), run `species/build.py`,
-  look in the gallery and push. Contact sheets of every clip (picture, rigged mesh, two moments of each clip) are on
-  the private review page https://claude.ai/artifact/VRxPmS8beVdYxQP5hkteqP. Things seen there to look at: birds' wings
-  smear as they open (blue-skylark); boreal-emerald's wings render nearly black.
+- **Filed, built and published: all 77** (2026-11-17; the owner: "dont wait for review"). build.py asked three more
+  things of them, now in MeshTool fa3dce4: the 45 that swim or fly (listed under `centre` in `meshtool.json`) have
+  their origin at mid-body; the two turtles have the archetype's `hide` clip (added to their `prompt.md` clips rows);
+  the three jellies have a `Bell` node for their mouth socket. build.py keeps every `species/models/<id>.low.glb`
+  already on disk as it is and draws one only for a creature without (the owner: no need to rebuild ones already
+  there; new species need theirs).
+  Contact sheets of every clip: the private review page https://claude.ai/artifact/VRxPmS8beVdYxQP5hkteqP (made
+  before the centring; the clips are the same). Seen there, still to look at: birds' wings smear as they open
+  (blue-skylark); boreal-emerald's wings render nearly black.
+- **Next:** the owner's look at the 77 on a phone and the Quest, and in the gallery.
 
 **build.py.** `standard_faults` checks the standard above on both copies. The owner added the old drawn models back
 as `species/models/<id>.low.glb` for a Hi-res on/off option (the apps' "Hi-res creatures", the gallery's Hi-res

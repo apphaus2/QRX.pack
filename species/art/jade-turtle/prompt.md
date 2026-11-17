@@ -8,7 +8,7 @@ Lotus: A turtle with a shell like carved jade, older than the marsh it swims in.
 | rarity | legendary |
 | habitat | water (swims) |
 | size | **0.18 m** long |
-| clips | `idle`, `swim`, `spin`, `wave`, `dance`, `bloom` |
+| clips | `idle`, `swim`, `spin`, `wave`, `dance`, `bloom`, `hide` |
 | status | render and cutout made; no mesh yet |
 
 ## Render prompt (`full.jpg`)

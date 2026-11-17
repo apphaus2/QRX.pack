@@ -1002,7 +1002,7 @@
             "play": "spin"
           },
           {
-            "wait": 1.2
+            "wait": 1.5
           },
           {
             "behave": "none"

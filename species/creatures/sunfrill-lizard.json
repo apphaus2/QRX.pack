@@ -1346,7 +1346,7 @@
             "play": "spin"
           },
           {
-            "wait": 1.1
+            "wait": 1.5
           },
           {
             "behave": "none"
@@ -1386,7 +1386,7 @@
             "play": "roll"
           },
           {
-            "wait": 1.2
+            "wait": 1.6
           },
           {
             "behave": "none"
@@ -1406,7 +1406,7 @@
             "play": "dead"
           },
           {
-            "wait": 2.6
+            "wait": 3.0
           },
           {
             "behave": "none"
@@ -1426,7 +1426,7 @@
             "play": "sunfrill"
           },
           {
-            "wait": 1.5
+            "wait": 2.4
           },
           {
             "sound": "content"

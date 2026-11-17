@@ -1223,7 +1223,7 @@
             "play": "spin"
           },
           {
-            "wait": 1.1
+            "wait": 1.5
           },
           {
             "behave": "none"
@@ -1243,7 +1243,7 @@
             "play": "dead"
           },
           {
-            "wait": 2.6
+            "wait": 3.0
           },
           {
             "behave": "none"
@@ -1263,7 +1263,7 @@
             "play": "dance"
           },
           {
-            "wait": 1.4
+            "wait": 2
           },
           {
             "behave": "none"
@@ -1283,7 +1283,7 @@
             "play": "jump"
           },
           {
-            "wait": 0.7
+            "wait": 1
           },
           {
             "behave": "none"

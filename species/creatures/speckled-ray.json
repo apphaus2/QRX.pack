@@ -979,7 +979,7 @@
             "play": "spin"
           },
           {
-            "wait": 1.2
+            "wait": 1.6
           },
           {
             "behave": "none"
@@ -999,7 +999,7 @@
             "play": "flip"
           },
           {
-            "wait": 1.3
+            "wait": 1.8
           },
           {
             "behave": "none"

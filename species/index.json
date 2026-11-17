@@ -1183,19 +1183,24 @@
       "model": "models/arctic-char.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/arctic-char.glb",
       "size": [
-        0.069,
-        0.0829,
-        0.1585
+        0.0416,
+        0.0468,
+        0.14
       ],
-      "bytes": 38452,
-      "triangles": 908,
+      "bytes": 977532,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/fish-call.wav",
         "content": "sounds/fish-content.wav",
         "alarm": "sounds/fish-alarm.wav",
         "curious": "sounds/fish-curious.wav"
-      }
+      },
+      "quest": "models/arctic-char.quest.glb",
+      "questBytes": 1242516,
+      "art": true,
+      "low": "models/arctic-char.low.glb",
+      "lowBytes": 38452
     },
     {
       "id": "arctic-skipper",
@@ -1214,19 +1219,24 @@
       "model": "models/arctic-skipper.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/arctic-skipper.glb",
       "size": [
-        0.1085,
-        0.0262,
-        0.0803
+        0.12,
+        0.0232,
+        0.0538
       ],
-      "bytes": 36716,
-      "triangles": 740,
+      "bytes": 1173256,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/butterfly-call.wav",
         "content": "sounds/butterfly-content.wav",
         "alarm": "sounds/butterfly-alarm.wav",
         "curious": "sounds/butterfly-call.wav"
-      }
+      },
+      "quest": "models/arctic-skipper.quest.glb",
+      "questBytes": 1487432,
+      "art": true,
+      "low": "models/arctic-skipper.low.glb",
+      "lowBytes": 36716
     },
     {
       "id": "aurora-eel",
@@ -1245,19 +1255,24 @@
       "model": "models/aurora-eel.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/aurora-eel.glb",
       "size": [
-        0.0567,
-        0.0454,
-        0.2411
+        0.034,
+        0.0346,
+        0.24
       ],
-      "bytes": 83428,
-      "triangles": 1054,
+      "bytes": 825024,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/eel-call.wav",
         "content": "sounds/eel-content.wav",
         "alarm": "sounds/eel-alarm.wav",
         "curious": "sounds/eel-curious.wav"
-      }
+      },
+      "quest": "models/aurora-eel.quest.glb",
+      "questBytes": 1071568,
+      "art": true,
+      "low": "models/aurora-eel.low.glb",
+      "lowBytes": 83428
     },
     {
       "id": "banded-gecko",
@@ -1277,19 +1292,24 @@
       "model": "models/banded-gecko.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/banded-gecko.glb",
       "size": [
-        0.0861,
-        0.0283,
-        0.1872
+        0.069,
+        0.0535,
+        0.2
       ],
-      "bytes": 42708,
-      "triangles": 624,
+      "bytes": 967572,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/gecko-call.wav",
         "content": "sounds/gecko-content.wav",
         "alarm": "sounds/gecko-alarm.wav",
         "curious": "sounds/gecko-curious.wav"
-      }
+      },
+      "quest": "models/banded-gecko.quest.glb",
+      "questBytes": 1215968,
+      "art": true,
+      "low": "models/banded-gecko.low.glb",
+      "lowBytes": 42708
     },
     {
       "id": "bark-skink",
@@ -1309,19 +1329,24 @@
       "model": "models/bark-skink.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/bark-skink.glb",
       "size": [
-        0.0926,
-        0.0307,
-        0.2324
+        0.0734,
+        0.0397,
+        0.22
       ],
-      "bytes": 41804,
-      "triangles": 624,
+      "bytes": 929684,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/lizard-call.wav",
         "content": "sounds/lizard-content.wav",
         "alarm": "sounds/lizard-alarm.wav",
         "curious": "sounds/lizard-curious.wav"
-      }
+      },
+      "quest": "models/bark-skink.quest.glb",
+      "questBytes": 1171720,
+      "art": true,
+      "low": "models/bark-skink.low.glb",
+      "lowBytes": 41804
     },
     {
       "id": "blue-skylark",
@@ -1340,19 +1365,24 @@
       "model": "models/blue-skylark.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/blue-skylark.glb",
       "size": [
-        0.166,
-        0.0685,
-        0.1823
+        0.0716,
+        0.1376,
+        0.16
       ],
-      "bytes": 62004,
-      "triangles": 906,
+      "bytes": 945664,
+      "triangles": 12996,
       "speech": "simple",
       "sounds": {
         "call": "sounds/lark-call.wav",
         "content": "sounds/lark-content.wav",
         "alarm": "sounds/lark-alarm.wav",
         "curious": "sounds/lark-curious.wav"
-      }
+      },
+      "quest": "models/blue-skylark.quest.glb",
+      "questBytes": 1291368,
+      "art": true,
+      "low": "models/blue-skylark.low.glb",
+      "lowBytes": 62004
     },
     {
       "id": "boreal-emerald",
@@ -1371,19 +1401,24 @@
       "model": "models/boreal-emerald.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/boreal-emerald.glb",
       "size": [
-        0.1471,
-        0.0255,
-        0.1361
+        0.15,
+        0.0286,
+        0.103
       ],
-      "bytes": 57228,
-      "triangles": 696,
+      "bytes": 852220,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/dragonfly-call.wav",
         "content": "sounds/dragonfly-content.wav",
         "alarm": "sounds/dragonfly-alarm.wav",
         "curious": "sounds/dragonfly-call.wav"
-      }
+      },
+      "quest": "models/boreal-emerald.quest.glb",
+      "questBytes": 1142616,
+      "art": true,
+      "low": "models/boreal-emerald.low.glb",
+      "lowBytes": 57228
     },
     {
       "id": "bottlecap-beetle",
@@ -1402,19 +1437,24 @@
       "model": "models/bottlecap-beetle.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/bottlecap-beetle.glb",
       "size": [
-        0.0641,
-        0.0272,
-        0.0822
+        0.0606,
+        0.0271,
+        0.08
       ],
-      "bytes": 39888,
-      "triangles": 668,
+      "bytes": 1242448,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/beetle-call.wav",
         "content": "sounds/beetle-content.wav",
         "alarm": "sounds/beetle-alarm.wav",
         "curious": "sounds/beetle-call.wav"
-      }
+      },
+      "quest": "models/bottlecap-beetle.quest.glb",
+      "questBytes": 1544312,
+      "art": true,
+      "low": "models/bottlecap-beetle.low.glb",
+      "lowBytes": 39888
     },
     {
       "id": "bramble-spider",
@@ -1433,19 +1473,24 @@
       "model": "models/bramble-spider.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/bramble-spider.glb",
       "size": [
-        0.0698,
-        0.0255,
-        0.0673
+        0.075,
+        0.0355,
+        0.0698
       ],
-      "bytes": 40064,
-      "triangles": 724,
+      "bytes": 1382496,
+      "triangles": 9609,
       "speech": "little",
       "sounds": {
         "call": "sounds/spider-call.wav",
         "content": "sounds/spider-content.wav",
         "alarm": "sounds/spider-alarm.wav",
         "curious": "sounds/spider-call.wav"
-      }
+      },
+      "quest": "models/bramble-spider.quest.glb",
+      "questBytes": 1734452,
+      "art": true,
+      "low": "models/bramble-spider.low.glb",
+      "lowBytes": 40064
     },
     {
       "id": "cellar-spider",
@@ -1464,19 +1509,24 @@
       "model": "models/cellar-spider.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/cellar-spider.glb",
       "size": [
-        0.0987,
-        0.029,
-        0.0855
+        0.085,
+        0.0268,
+        0.075
       ],
-      "bytes": 38572,
-      "triangles": 724,
+      "bytes": 959584,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/spider-call.wav",
         "content": "sounds/spider-content.wav",
         "alarm": "sounds/spider-alarm.wav",
         "curious": "sounds/spider-call.wav"
-      }
+      },
+      "quest": "models/cellar-spider.quest.glb",
+      "questBytes": 1270852,
+      "art": true,
+      "low": "models/cellar-spider.low.glb",
+      "lowBytes": 38572
     },
     {
       "id": "chimney-bat",
@@ -1495,19 +1545,24 @@
       "model": "models/chimney-bat.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/chimney-bat.glb",
       "size": [
-        0.16,
-        0.0356,
-        0.0591
+        0.1602,
+        0.0812,
+        0.0804
       ],
-      "bytes": 49876,
-      "triangles": 864,
+      "bytes": 996980,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/bat-call.wav",
         "content": "sounds/bat-content.wav",
         "alarm": "sounds/bat-alarm.wav",
         "curious": "sounds/bat-curious.wav"
-      }
+      },
+      "quest": "models/chimney-bat.quest.glb",
+      "questBytes": 1301868,
+      "art": true,
+      "low": "models/chimney-bat.low.glb",
+      "lowBytes": 49876
     },
     {
       "id": "cliff-swift",
@@ -1526,19 +1581,24 @@
       "model": "models/cliff-swift.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/cliff-swift.glb",
       "size": [
-        0.2588,
-        0.0571,
-        0.1435
+        0.0684,
+        0.0984,
+        0.2
       ],
-      "bytes": 55568,
-      "triangles": 900,
+      "bytes": 1028656,
+      "triangles": 10836,
       "speech": "little",
       "sounds": {
         "call": "sounds/bird-call.wav",
         "content": "sounds/bird-content.wav",
         "alarm": "sounds/bird-alarm.wav",
         "curious": "sounds/bird-curious.wav"
-      }
+      },
+      "quest": "models/cliff-swift.quest.glb",
+      "questBytes": 1329840,
+      "art": true,
+      "low": "models/cliff-swift.low.glb",
+      "lowBytes": 55568
     },
     {
       "id": "clocktower-raven",
@@ -1557,19 +1617,24 @@
       "model": "models/clocktower-raven.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/clocktower-raven.glb",
       "size": [
-        0.2405,
-        0.0988,
-        0.233
+        0.0796,
+        0.157,
+        0.22
       ],
-      "bytes": 69488,
-      "triangles": 906,
+      "bytes": 1049960,
+      "triangles": 11904,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/raven-call-090-120.wav",
         "content": "sounds/raven-content-090-120.wav",
         "alarm": "sounds/raven-alarm-090-120.wav",
         "curious": "sounds/raven-curious-090-120.wav"
-      }
+      },
+      "quest": "models/clocktower-raven.quest.glb",
+      "questBytes": 1474164,
+      "art": true,
+      "low": "models/clocktower-raven.low.glb",
+      "lowBytes": 69488
     },
     {
       "id": "crag-kid",
@@ -1696,19 +1761,24 @@
       "model": "models/darkling-beetle.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/darkling-beetle.glb",
       "size": [
-        0.0507,
-        0.0292,
-        0.0719
+        0.062,
+        0.0346,
+        0.07
       ],
-      "bytes": 39072,
-      "triangles": 668,
+      "bytes": 234708,
+      "triangles": 9504,
       "speech": "little",
       "sounds": {
         "call": "sounds/beetle-call.wav",
         "content": "sounds/beetle-content.wav",
         "alarm": "sounds/beetle-alarm.wav",
         "curious": "sounds/beetle-call.wav"
-      }
+      },
+      "quest": "models/darkling-beetle.quest.glb",
+      "questBytes": 619432,
+      "art": true,
+      "low": "models/darkling-beetle.low.glb",
+      "lowBytes": 39072
     },
     {
       "id": "dawnplume",
@@ -1727,19 +1797,24 @@
       "model": "models/dawnplume.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/dawnplume.glb",
       "size": [
-        0.1915,
-        0.0857,
-        0.2438
+        0.076,
+        0.1,
+        0.2
       ],
-      "bytes": 71468,
-      "triangles": 906,
+      "bytes": 975424,
+      "triangles": 11492,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/lark-call-090-120.wav",
         "content": "sounds/lark-content-090-120.wav",
         "alarm": "sounds/lark-alarm-090-120.wav",
         "curious": "sounds/lark-curious-090-120.wav"
-      }
+      },
+      "quest": "models/dawnplume.quest.glb",
+      "questBytes": 1324300,
+      "art": true,
+      "low": "models/dawnplume.low.glb",
+      "lowBytes": 71468
     },
     {
       "id": "dusk-bat",
@@ -1759,18 +1834,23 @@
       "modelRef": "https://qrx-pack.apphaus.us/species/models/dusk-bat.glb",
       "size": [
         0.18,
-        0.044,
-        0.0664
+        0.066,
+        0.097
       ],
-      "bytes": 49872,
-      "triangles": 864,
+      "bytes": 864436,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/bat-call.wav",
         "content": "sounds/bat-content.wav",
         "alarm": "sounds/bat-alarm.wav",
         "curious": "sounds/bat-curious.wav"
-      }
+      },
+      "quest": "models/dusk-bat.quest.glb",
+      "questBytes": 1127764,
+      "art": true,
+      "low": "models/dusk-bat.low.glb",
+      "lowBytes": 49872
     },
     {
       "id": "ember-skink",
@@ -1789,19 +1869,24 @@
       "model": "models/ember-skink.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/ember-skink.glb",
       "size": [
-        0.101,
-        0.056,
-        0.2419
+        0.0748,
+        0.0404,
+        0.24
       ],
-      "bytes": 47160,
-      "triangles": 627,
+      "bytes": 903268,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/lizard-call.wav",
         "content": "sounds/lizard-content.wav",
         "alarm": "sounds/lizard-alarm.wav",
         "curious": "sounds/lizard-curious.wav"
-      }
+      },
+      "quest": "models/ember-skink.quest.glb",
+      "questBytes": 1152976,
+      "art": true,
+      "low": "models/ember-skink.low.glb",
+      "lowBytes": 47160
     },
     {
       "id": "emerald-swallowtail",
@@ -1820,19 +1905,24 @@
       "model": "models/emerald-swallowtail.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/emerald-swallowtail.glb",
       "size": [
-        0.1875,
-        0.0407,
-        0.1689
+        0.19,
+        0.031,
+        0.0944
       ],
-      "bytes": 40608,
-      "triangles": 744,
+      "bytes": 1061924,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/butterfly-call.wav",
         "content": "sounds/butterfly-content.wav",
         "alarm": "sounds/butterfly-alarm.wav",
         "curious": "sounds/butterfly-call.wav"
-      }
+      },
+      "quest": "models/emerald-swallowtail.quest.glb",
+      "questBytes": 1371500,
+      "art": true,
+      "low": "models/emerald-swallowtail.low.glb",
+      "lowBytes": 40608
     },
     {
       "id": "farmyard-piglet",
@@ -1889,19 +1979,24 @@
       "model": "models/field-bee.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/field-bee.glb",
       "size": [
-        0.0625,
-        0.0339,
-        0.0787
+        0.0648,
+        0.0374,
+        0.07
       ],
-      "bytes": 41748,
-      "triangles": 746,
+      "bytes": 1067756,
+      "triangles": 9520,
       "speech": "little",
       "sounds": {
         "call": "sounds/bee-call.wav",
         "content": "sounds/bee-content.wav",
         "alarm": "sounds/bee-alarm.wav",
         "curious": "sounds/bee-curious.wav"
-      }
+      },
+      "quest": "models/field-bee.quest.glb",
+      "questBytes": 1350116,
+      "art": true,
+      "low": "models/field-bee.low.glb",
+      "lowBytes": 41748
     },
     {
       "id": "fountain-koi",
@@ -1920,19 +2015,24 @@
       "model": "models/fountain-koi.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/fountain-koi.glb",
       "size": [
-        0.0738,
-        0.0753,
-        0.1932
+        0.0556,
+        0.0634,
+        0.15
       ],
-      "bytes": 39812,
-      "triangles": 910,
+      "bytes": 870056,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/fish-call.wav",
         "content": "sounds/fish-content.wav",
         "alarm": "sounds/fish-alarm.wav",
         "curious": "sounds/fish-curious.wav"
-      }
+      },
+      "quest": "models/fountain-koi.quest.glb",
+      "questBytes": 1152404,
+      "art": true,
+      "low": "models/fountain-koi.low.glb",
+      "lowBytes": 39812
     },
     {
       "id": "frost-jelly",
@@ -1951,19 +2051,24 @@
       "model": "models/frost-jelly.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/frost-jelly.glb",
       "size": [
-        0.101,
-        0.1473,
-        0.1011
+        0.0536,
+        0.12,
+        0.0542
       ],
-      "bytes": 81980,
-      "triangles": 1016,
+      "bytes": 1069596,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/jellyfish-call.wav",
         "content": "sounds/jellyfish-content.wav",
         "alarm": "sounds/jellyfish-alarm.wav",
         "curious": "sounds/jellyfish-call.wav"
-      }
+      },
+      "quest": "models/frost-jelly.quest.glb",
+      "questBytes": 1401820,
+      "art": true,
+      "low": "models/frost-jelly.low.glb",
+      "lowBytes": 81980
     },
     {
       "id": "frost-wolf-pup",
@@ -2019,19 +2124,24 @@
       "model": "models/garden-snail.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/garden-snail.glb",
       "size": [
-        0.0257,
-        0.0537,
-        0.0927
+        0.0294,
+        0.0331,
+        0.09
       ],
-      "bytes": 44748,
-      "triangles": 940,
+      "bytes": 1211928,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/snail-call.wav",
         "content": "sounds/snail-content.wav",
         "alarm": "sounds/snail-call.wav",
         "curious": "sounds/snail-curious.wav"
-      }
+      },
+      "quest": "models/garden-snail.quest.glb",
+      "questBytes": 1520520,
+      "art": true,
+      "low": "models/garden-snail.low.glb",
+      "lowBytes": 44748
     },
     {
       "id": "glacier-owl",
@@ -2050,19 +2160,24 @@
       "model": "models/glacier-owl.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/glacier-owl.glb",
       "size": [
-        0.2299,
-        0.1071,
-        0.1487
+        0.1494,
+        0.209,
+        0.22
       ],
-      "bytes": 74660,
-      "triangles": 998,
+      "bytes": 1241628,
+      "triangles": 13088,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/owl-call-090-120.wav",
         "content": "sounds/owl-content-090-120.wav",
         "alarm": "sounds/owl-alarm-090-120.wav",
         "curious": "sounds/owl-curious-090-120.wav"
-      }
+      },
+      "quest": "models/glacier-owl.quest.glb",
+      "questBytes": 1674716,
+      "art": true,
+      "low": "models/glacier-owl.low.glb",
+      "lowBytes": 74660
     },
     {
       "id": "glasswing",
@@ -2081,19 +2196,24 @@
       "model": "models/glasswing.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/glasswing.glb",
       "size": [
-        0.1836,
-        0.0364,
-        0.1512
+        0.17,
+        0.0334,
+        0.0656
       ],
-      "bytes": 41048,
-      "triangles": 744,
+      "bytes": 1209552,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/butterfly-call.wav",
         "content": "sounds/butterfly-content.wav",
         "alarm": "sounds/butterfly-alarm.wav",
         "curious": "sounds/butterfly-call.wav"
-      }
+      },
+      "quest": "models/glasswing.quest.glb",
+      "questBytes": 1531768,
+      "art": true,
+      "low": "models/glasswing.low.glb",
+      "lowBytes": 41048
     },
     {
       "id": "glowspot-frog",
@@ -2112,19 +2232,24 @@
       "model": "models/glowspot-frog.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/glowspot-frog.glb",
       "size": [
-        0.0996,
-        0.0535,
-        0.0811
+        0.0944,
+        0.0465,
+        0.095
       ],
-      "bytes": 66448,
-      "triangles": 1292,
+      "bytes": 1249172,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/frog-call.wav",
         "content": "sounds/frog-content.wav",
         "alarm": "sounds/frog-alarm.wav",
         "curious": "sounds/frog-curious.wav"
-      }
+      },
+      "quest": "models/glowspot-frog.quest.glb",
+      "questBytes": 1518004,
+      "art": true,
+      "low": "models/glowspot-frog.low.glb",
+      "lowBytes": 66448
     },
     {
       "id": "golden-harvest-hare",
@@ -2143,19 +2268,24 @@
       "model": "models/golden-harvest-hare.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/golden-harvest-hare.glb",
       "size": [
-        0.0479,
-        0.1181,
-        0.1243
+        0.1046,
+        0.16,
+        0.1534
       ],
-      "bytes": 65504,
-      "triangles": 1352,
+      "bytes": 1033668,
+      "triangles": 9637,
       "speech": "clear",
       "sounds": {
         "call": "sounds/hare-call-090-120.wav",
         "content": "sounds/hare-content-090-120.wav",
         "alarm": "sounds/hare-alarm-090-120.wav",
         "curious": "sounds/hare-curious-090-120.wav"
-      }
+      },
+      "quest": "models/golden-harvest-hare.quest.glb",
+      "questBytes": 1333404,
+      "art": true,
+      "low": "models/golden-harvest-hare.low.glb",
+      "lowBytes": 65504
     },
     {
       "id": "granary-owl",
@@ -2174,19 +2304,24 @@
       "model": "models/granary-owl.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/granary-owl.glb",
       "size": [
-        0.2031,
-        0.0887,
-        0.1284
+        0.1118,
+        0.1652,
+        0.1898
       ],
-      "bytes": 66292,
-      "triangles": 998,
+      "bytes": 1360568,
+      "triangles": 11500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/owl-call.wav",
         "content": "sounds/owl-content.wav",
         "alarm": "sounds/owl-alarm.wav",
         "curious": "sounds/owl-curious.wav"
-      }
+      },
+      "quest": "models/granary-owl.quest.glb",
+      "questBytes": 1755520,
+      "art": true,
+      "low": "models/granary-owl.low.glb",
+      "lowBytes": 66292
     },
     {
       "id": "harvest-moon-moth",
@@ -2205,19 +2340,24 @@
       "model": "models/harvest-moon-moth.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/harvest-moon-moth.glb",
       "size": [
-        0.1958,
-        0.0353,
-        0.1103
+        0.18,
+        0.0312,
+        0.0926
       ],
-      "bytes": 42292,
-      "triangles": 756,
+      "bytes": 1156624,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/moth-call.wav",
         "content": "sounds/moth-content.wav",
         "alarm": "sounds/moth-alarm.wav",
         "curious": "sounds/moth-call.wav"
-      }
+      },
+      "quest": "models/harvest-moon-moth.quest.glb",
+      "questBytes": 1458348,
+      "art": true,
+      "low": "models/harvest-moon-moth.low.glb",
+      "lowBytes": 42292
     },
     {
       "id": "harvest-mouse",
@@ -2236,19 +2376,24 @@
       "model": "models/harvest-mouse.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/harvest-mouse.glb",
       "size": [
-        0.027,
-        0.0382,
-        0.1252
+        0.0218,
+        0.0263,
+        0.095
       ],
-      "bytes": 51332,
-      "triangles": 1098,
+      "bytes": 892648,
+      "triangles": 9522,
       "speech": "little",
       "sounds": {
         "call": "sounds/critter-call.wav",
         "content": "sounds/critter-content.wav",
         "alarm": "sounds/critter-alarm.wav",
         "curious": "sounds/critter-curious.wav"
-      }
+      },
+      "quest": "models/harvest-mouse.quest.glb",
+      "questBytes": 1145948,
+      "art": true,
+      "low": "models/harvest-mouse.low.glb",
+      "lowBytes": 51332
     },
     {
       "id": "hedge-finch",
@@ -2269,19 +2414,24 @@
       "model": "models/hedge-finch.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/hedge-finch.glb",
       "size": [
-        0.1352,
-        0.0457,
-        0.1068
+        0.0576,
+        0.093,
+        0.14
       ],
-      "bytes": 52164,
-      "triangles": 900,
+      "bytes": 1219708,
+      "triangles": 12368,
       "speech": "little",
       "sounds": {
         "call": "sounds/bird-call.wav",
         "content": "sounds/bird-content.wav",
         "alarm": "sounds/bird-alarm.wav",
         "curious": "sounds/bird-curious.wav"
-      }
+      },
+      "quest": "models/hedge-finch.quest.glb",
+      "questBytes": 1587696,
+      "art": true,
+      "low": "models/hedge-finch.low.glb",
+      "lowBytes": 52164
     },
     {
       "id": "honeycrown-bee",
@@ -2300,19 +2450,24 @@
       "model": "models/honeycrown-bee.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/honeycrown-bee.glb",
       "size": [
-        0.0803,
-        0.0528,
-        0.1032
+        0.0888,
+        0.0512,
+        0.09
       ],
-      "bytes": 62388,
-      "triangles": 1142,
+      "bytes": 1131344,
+      "triangles": 9500,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/bee-call-090-120.wav",
         "content": "sounds/bee-content-090-120.wav",
         "alarm": "sounds/bee-alarm-090-120.wav",
         "curious": "sounds/bee-curious-090-120.wav"
-      }
+      },
+      "quest": "models/honeycrown-bee.quest.glb",
+      "questBytes": 1444168,
+      "art": true,
+      "low": "models/honeycrown-bee.low.glb",
+      "lowBytes": 62388
     },
     {
       "id": "honeyglow-bear-cub",
@@ -2368,19 +2523,24 @@
       "model": "models/house-mouse.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/house-mouse.glb",
       "size": [
-        0.0299,
-        0.0425,
-        0.1237
+        0.0268,
+        0.0322,
+        0.1
       ],
-      "bytes": 48332,
-      "triangles": 1098,
+      "bytes": 1085712,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/critter-call.wav",
         "content": "sounds/critter-content.wav",
         "alarm": "sounds/critter-alarm.wav",
         "curious": "sounds/critter-curious.wav"
-      }
+      },
+      "quest": "models/house-mouse.quest.glb",
+      "questBytes": 1398652,
+      "art": true,
+      "low": "models/house-mouse.low.glb",
+      "lowBytes": 48332
     },
     {
       "id": "icefish",
@@ -2399,19 +2559,24 @@
       "model": "models/icefish.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/icefish.glb",
       "size": [
-        0.0601,
-        0.0542,
-        0.119
+        0.013,
+        0.035,
+        0.12
       ],
-      "bytes": 45208,
-      "triangles": 910,
+      "bytes": 910704,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/fish-call.wav",
         "content": "sounds/fish-content.wav",
         "alarm": "sounds/fish-alarm.wav",
         "curious": "sounds/fish-curious.wav"
-      }
+      },
+      "quest": "models/icefish.quest.glb",
+      "questBytes": 1183828,
+      "art": true,
+      "low": "models/icefish.low.glb",
+      "lowBytes": 45208
     },
     {
       "id": "jade-turtle",
@@ -2430,19 +2595,24 @@
       "model": "models/jade-turtle.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/jade-turtle.glb",
       "size": [
-        0.2309,
-        0.059,
-        0.1887
+        0.1088,
+        0.0644,
+        0.18
       ],
-      "bytes": 52064,
-      "triangles": 958,
+      "bytes": 1283884,
+      "triangles": 9500,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/turtle-call-090-120.wav",
         "content": "sounds/turtle-content-090-120.wav",
         "alarm": "sounds/turtle-alarm-090-120.wav",
         "curious": "sounds/turtle-curious-090-120.wav"
-      }
+      },
+      "quest": "models/jade-turtle.quest.glb",
+      "questBytes": 1569744,
+      "art": true,
+      "low": "models/jade-turtle.low.glb",
+      "lowBytes": 52064
     },
     {
       "id": "lamp-moth",
@@ -2461,19 +2631,24 @@
       "model": "models/lamp-moth.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/lamp-moth.glb",
       "size": [
-        0.1297,
-        0.0255,
-        0.0797
+        0.1304,
+        0.0656,
+        0.0992
       ],
-      "bytes": 37808,
-      "triangles": 756,
+      "bytes": 1188680,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/moth-call.wav",
         "content": "sounds/moth-content.wav",
         "alarm": "sounds/moth-alarm.wav",
         "curious": "sounds/moth-call.wav"
-      }
+      },
+      "quest": "models/lamp-moth.quest.glb",
+      "questBytes": 1493708,
+      "art": true,
+      "low": "models/lamp-moth.low.glb",
+      "lowBytes": 37808
     },
     {
       "id": "lantern-jelly",
@@ -2492,19 +2667,24 @@
       "model": "models/lantern-jelly.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/lantern-jelly.glb",
       "size": [
-        0.101,
-        0.1325,
-        0.1011
+        0.0722,
+        0.12,
+        0.0788
       ],
-      "bytes": 71092,
-      "triangles": 944,
+      "bytes": 1559204,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/jellyfish-call.wav",
         "content": "sounds/jellyfish-content.wav",
         "alarm": "sounds/jellyfish-alarm.wav",
         "curious": "sounds/jellyfish-call.wav"
-      }
+      },
+      "quest": "models/lantern-jelly.quest.glb",
+      "questBytes": 2021012,
+      "art": true,
+      "low": "models/lantern-jelly.low.glb",
+      "lowBytes": 71092
     },
     {
       "id": "longfoot-jerboa",
@@ -2523,19 +2703,24 @@
       "model": "models/longfoot-jerboa.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/longfoot-jerboa.glb",
       "size": [
-        0.0389,
-        0.0791,
-        0.1749
+        0.0807,
+        0.0732,
+        0.13
       ],
-      "bytes": 59100,
-      "triangles": 1374,
+      "bytes": 1337320,
+      "triangles": 9569,
       "speech": "little",
       "sounds": {
         "call": "sounds/critter-call.wav",
         "content": "sounds/critter-content.wav",
         "alarm": "sounds/critter-alarm.wav",
         "curious": "sounds/critter-curious.wav"
-      }
+      },
+      "quest": "models/longfoot-jerboa.quest.glb",
+      "questBytes": 1683528,
+      "art": true,
+      "low": "models/longfoot-jerboa.low.glb",
+      "lowBytes": 59100
     },
     {
       "id": "mangrove-goby",
@@ -2554,19 +2739,24 @@
       "model": "models/mangrove-goby.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/mangrove-goby.glb",
       "size": [
-        0.0551,
-        0.0511,
-        0.1091
+        0.0236,
+        0.0398,
+        0.11
       ],
-      "bytes": 36384,
-      "triangles": 911,
+      "bytes": 1073944,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/fish-call.wav",
         "content": "sounds/fish-content.wav",
         "alarm": "sounds/fish-alarm.wav",
         "curious": "sounds/fish-curious.wav"
-      }
+      },
+      "quest": "models/mangrove-goby.quest.glb",
+      "questBytes": 1339524,
+      "art": true,
+      "low": "models/mangrove-goby.low.glb",
+      "lowBytes": 36384
     },
     {
       "id": "mangrove-kingfisher",
@@ -2585,19 +2775,24 @@
       "model": "models/mangrove-kingfisher.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/mangrove-kingfisher.glb",
       "size": [
-        0.1851,
-        0.0877,
-        0.1933
+        0.0674,
+        0.1134,
+        0.2
       ],
-      "bytes": 70504,
-      "triangles": 906,
+      "bytes": 1050668,
+      "triangles": 12024,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/bird-call-090-120.wav",
         "content": "sounds/bird-content-090-120.wav",
         "alarm": "sounds/bird-alarm-090-120.wav",
         "curious": "sounds/bird-curious-090-120.wav"
-      }
+      },
+      "quest": "models/mangrove-kingfisher.quest.glb",
+      "questBytes": 1364856,
+      "art": true,
+      "low": "models/mangrove-kingfisher.low.glb",
+      "lowBytes": 70504
     },
     {
       "id": "marsh-capybara",
@@ -2654,19 +2849,24 @@
       "model": "models/marsh-eel.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/marsh-eel.glb",
       "size": [
-        0.0158,
-        0.0299,
-        0.2109
+        0.0272,
+        0.0282,
+        0.21
       ],
-      "bytes": 60196,
-      "triangles": 766,
+      "bytes": 1063040,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/eel-call.wav",
         "content": "sounds/eel-content.wav",
         "alarm": "sounds/eel-alarm.wav",
         "curious": "sounds/eel-curious.wav"
-      }
+      },
+      "quest": "models/marsh-eel.quest.glb",
+      "questBytes": 1303748,
+      "art": true,
+      "low": "models/marsh-eel.low.glb",
+      "lowBytes": 60196
     },
     {
       "id": "marsh-newt",
@@ -2685,19 +2885,24 @@
       "model": "models/marsh-newt.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/marsh-newt.glb",
       "size": [
-        0.0635,
-        0.0238,
-        0.1837
+        0.072,
+        0.0315,
+        0.17
       ],
-      "bytes": 39336,
-      "triangles": 624,
+      "bytes": 1050544,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/lizard-call.wav",
         "content": "sounds/lizard-content.wav",
         "alarm": "sounds/lizard-alarm.wav",
         "curious": "sounds/lizard-curious.wav"
-      }
+      },
+      "quest": "models/marsh-newt.quest.glb",
+      "questBytes": 1294720,
+      "art": true,
+      "low": "models/marsh-newt.low.glb",
+      "lowBytes": 39336
     },
     {
       "id": "meadow-cottontail",
@@ -2828,19 +3033,24 @@
       "model": "models/meadow-snail.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-snail.glb",
       "size": [
-        0.0243,
-        0.0492,
-        0.0876
+        0.0336,
+        0.0321,
+        0.085
       ],
-      "bytes": 39524,
-      "triangles": 940,
+      "bytes": 974368,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/snail-call.wav",
         "content": "sounds/snail-content.wav",
         "alarm": "sounds/snail-call.wav",
         "curious": "sounds/snail-curious.wav"
-      }
+      },
+      "quest": "models/meadow-snail.quest.glb",
+      "questBytes": 1239948,
+      "art": true,
+      "low": "models/meadow-snail.low.glb",
+      "lowBytes": 39524
     },
     {
       "id": "meadow-vole",
@@ -2860,19 +3070,24 @@
       "model": "models/meadow-vole.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-vole.glb",
       "size": [
-        0.0359,
-        0.0403,
-        0.0766
+        0.0892,
+        0.0392,
+        0.1
       ],
-      "bytes": 51292,
-      "triangles": 1098,
+      "bytes": 1119532,
+      "triangles": 9542,
       "speech": "little",
       "sounds": {
         "call": "sounds/critter-call.wav",
         "content": "sounds/critter-content.wav",
         "alarm": "sounds/critter-alarm.wav",
         "curious": "sounds/critter-curious.wav"
-      }
+      },
+      "quest": "models/meadow-vole.quest.glb",
+      "questBytes": 1427744,
+      "art": true,
+      "low": "models/meadow-vole.low.glb",
+      "lowBytes": 51292
     },
     {
       "id": "meadow-white",
@@ -2893,19 +3108,24 @@
       "model": "models/meadow-white.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-white.glb",
       "size": [
-        0.1381,
-        0.03,
-        0.0937
+        0.14,
+        0.0494,
+        0.0766
       ],
-      "bytes": 34620,
-      "triangles": 740,
+      "bytes": 1171040,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/butterfly-call.wav",
         "content": "sounds/butterfly-content.wav",
         "alarm": "sounds/butterfly-alarm.wav",
         "curious": "sounds/butterfly-call.wav"
-      }
+      },
+      "quest": "models/meadow-white.quest.glb",
+      "questBytes": 1502424,
+      "art": true,
+      "low": "models/meadow-white.low.glb",
+      "lowBytes": 34620
     },
     {
       "id": "moon-jelly",
@@ -2925,19 +3145,24 @@
       "model": "models/moon-jelly.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/moon-jelly.glb",
       "size": [
-        0.0926,
-        0.1038,
-        0.0927
+        0.066,
+        0.11,
+        0.0888
       ],
-      "bytes": 57156,
-      "triangles": 784,
+      "bytes": 1262964,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/jellyfish-call.wav",
         "content": "sounds/jellyfish-content.wav",
         "alarm": "sounds/jellyfish-alarm.wav",
         "curious": "sounds/jellyfish-call.wav"
-      }
+      },
+      "quest": "models/moon-jelly.quest.glb",
+      "questBytes": 1607756,
+      "art": true,
+      "low": "models/moon-jelly.low.glb",
+      "lowBytes": 57156
     },
     {
       "id": "moonlit-cat",
@@ -2992,19 +3217,24 @@
       "model": "models/moss-beetle.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/moss-beetle.glb",
       "size": [
-        0.0521,
-        0.0232,
-        0.0668
+        0.053,
+        0.0314,
+        0.065
       ],
-      "bytes": 37332,
-      "triangles": 668,
+      "bytes": 1309936,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/beetle-call.wav",
         "content": "sounds/beetle-content.wav",
         "alarm": "sounds/beetle-alarm.wav",
         "curious": "sounds/beetle-call.wav"
-      }
+      },
+      "quest": "models/moss-beetle.quest.glb",
+      "questBytes": 1621460,
+      "art": true,
+      "low": "models/moss-beetle.low.glb",
+      "lowBytes": 37332
     },
     {
       "id": "mossglow-stag-beetle",
@@ -3023,19 +3253,24 @@
       "model": "models/mossglow-stag-beetle.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/mossglow-stag-beetle.glb",
       "size": [
-        0.0882,
-        0.0393,
-        0.1336
+        0.11,
+        0.0494,
+        0.1066
       ],
-      "bytes": 43636,
-      "triangles": 764,
+      "bytes": 1234820,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/beetle-call.wav",
         "content": "sounds/beetle-content.wav",
         "alarm": "sounds/beetle-alarm.wav",
         "curious": "sounds/beetle-call.wav"
-      }
+      },
+      "quest": "models/mossglow-stag-beetle.quest.glb",
+      "questBytes": 1572808,
+      "art": true,
+      "low": "models/mossglow-stag-beetle.low.glb",
+      "lowBytes": 43636
     },
     {
       "id": "mud-crab",
@@ -3055,19 +3290,24 @@
       "model": "models/mud-crab.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/mud-crab.glb",
       "size": [
-        0.0955,
-        0.0427,
-        0.1211
+        0.0716,
+        0.0342,
+        0.12
       ],
-      "bytes": 48404,
-      "triangles": 780,
+      "bytes": 1188896,
+      "triangles": 9607,
       "speech": "little",
       "sounds": {
         "call": "sounds/crab-call.wav",
         "content": "sounds/crab-content.wav",
         "alarm": "sounds/crab-alarm.wav",
         "curious": "sounds/crab-curious.wav"
-      }
+      },
+      "quest": "models/mud-crab.quest.glb",
+      "questBytes": 1505592,
+      "art": true,
+      "low": "models/mud-crab.low.glb",
+      "lowBytes": 48404
     },
     {
       "id": "mud-ray",
@@ -3086,19 +3326,24 @@
       "model": "models/mud-ray.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/mud-ray.glb",
       "size": [
-        0.1561,
-        0.0213,
-        0.1931
+        0.095,
+        0.0234,
+        0.19
       ],
-      "bytes": 52652,
-      "triangles": 1102,
+      "bytes": 770136,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/ray-call.wav",
         "content": "sounds/ray-content.wav",
         "alarm": "sounds/ray-alarm.wav",
         "curious": "sounds/ray-call.wav"
-      }
+      },
+      "quest": "models/mud-ray.quest.glb",
+      "questBytes": 1016012,
+      "art": true,
+      "low": "models/mud-ray.low.glb",
+      "lowBytes": 52652
     },
     {
       "id": "neon-darter",
@@ -3117,19 +3362,24 @@
       "model": "models/neon-darter.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/neon-darter.glb",
       "size": [
-        0.1471,
-        0.0255,
-        0.1361
+        0.15,
+        0.0322,
+        0.1188
       ],
-      "bytes": 56960,
-      "triangles": 696,
+      "bytes": 993808,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/dragonfly-call.wav",
         "content": "sounds/dragonfly-content.wav",
         "alarm": "sounds/dragonfly-alarm.wav",
         "curious": "sounds/dragonfly-call.wav"
-      }
+      },
+      "quest": "models/neon-darter.quest.glb",
+      "questBytes": 1279484,
+      "art": true,
+      "low": "models/neon-darter.low.glb",
+      "lowBytes": 56960
     },
     {
       "id": "nightshade-moth",
@@ -3148,19 +3398,24 @@
       "model": "models/nightshade-moth.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/nightshade-moth.glb",
       "size": [
-        0.1695,
-        0.0333,
-        0.1042
+        0.1702,
+        0.0346,
+        0.0814
       ],
-      "bytes": 41772,
-      "triangles": 756,
+      "bytes": 1196968,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/moth-call.wav",
         "content": "sounds/moth-content.wav",
         "alarm": "sounds/moth-alarm.wav",
         "curious": "sounds/moth-call.wav"
-      }
+      },
+      "quest": "models/nightshade-moth.quest.glb",
+      "questBytes": 1521640,
+      "art": true,
+      "low": "models/nightshade-moth.low.glb",
+      "lowBytes": 41772
     },
     {
       "id": "northlight-fox",
@@ -3179,19 +3434,24 @@
       "model": "models/northlight-fox.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/northlight-fox.glb",
       "size": [
-        0.0483,
-        0.0988,
-        0.2264
+        0.0388,
+        0.0977,
+        0.17
       ],
-      "bytes": 56584,
-      "triangles": 1132,
+      "bytes": 814020,
+      "triangles": 9530,
       "speech": "clear",
       "sounds": {
         "call": "sounds/fox-call-090-120.wav",
         "content": "sounds/fox-content-090-120.wav",
         "alarm": "sounds/fox-alarm-090-120.wav",
         "curious": "sounds/fox-curious-090-120.wav"
-      }
+      },
+      "quest": "models/northlight-fox.quest.glb",
+      "questBytes": 1079484,
+      "art": true,
+      "low": "models/northlight-fox.low.glb",
+      "lowBytes": 56584
     },
     {
       "id": "one-claw-crab",
@@ -3210,19 +3470,24 @@
       "model": "models/one-claw-crab.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/one-claw-crab.glb",
       "size": [
-        0.1188,
-        0.0463,
-        0.1255
+        0.1084,
+        0.0563,
+        0.1301
       ],
-      "bytes": 53148,
-      "triangles": 830,
+      "bytes": 1338748,
+      "triangles": 9702,
       "speech": "simple",
       "sounds": {
         "call": "sounds/crab-call.wav",
         "content": "sounds/crab-content.wav",
         "alarm": "sounds/crab-alarm.wav",
         "curious": "sounds/crab-curious.wav"
-      }
+      },
+      "quest": "models/one-claw-crab.quest.glb",
+      "questBytes": 1687352,
+      "art": true,
+      "low": "models/one-claw-crab.low.glb",
+      "lowBytes": 53148
     },
     {
       "id": "pond-frog",
@@ -3242,19 +3507,24 @@
       "model": "models/pond-frog.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/pond-frog.glb",
       "size": [
-        0.0891,
-        0.0378,
-        0.0726
+        0.0808,
+        0.0417,
+        0.085
       ],
-      "bytes": 56828,
-      "triangles": 1128,
+      "bytes": 1230296,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/frog-call.wav",
         "content": "sounds/frog-content.wav",
         "alarm": "sounds/frog-alarm.wav",
         "curious": "sounds/frog-curious.wav"
-      }
+      },
+      "quest": "models/pond-frog.quest.glb",
+      "questBytes": 1506268,
+      "art": true,
+      "low": "models/pond-frog.low.glb",
+      "lowBytes": 56828
     },
     {
       "id": "pond-goldfish",
@@ -3273,19 +3543,24 @@
       "model": "models/pond-goldfish.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/pond-goldfish.glb",
       "size": [
-        0.0531,
-        0.0671,
-        0.1144
+        0.0486,
+        0.0538,
+        0.11
       ],
-      "bytes": 34180,
-      "triangles": 910,
+      "bytes": 1049008,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/fish-call.wav",
         "content": "sounds/fish-content.wav",
         "alarm": "sounds/fish-alarm.wav",
         "curious": "sounds/fish-curious.wav"
-      }
+      },
+      "quest": "models/pond-goldfish.quest.glb",
+      "questBytes": 1314356,
+      "art": true,
+      "low": "models/pond-goldfish.low.glb",
+      "lowBytes": 34180
     },
     {
       "id": "pond-skimmer",
@@ -3306,19 +3581,24 @@
       "model": "models/pond-skimmer.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/pond-skimmer.glb",
       "size": [
-        0.1373,
-        0.0238,
-        0.1185
+        0.14,
+        0.0294,
+        0.0944
       ],
-      "bytes": 45596,
-      "triangles": 632,
+      "bytes": 1286296,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/dragonfly-call.wav",
         "content": "sounds/dragonfly-content.wav",
         "alarm": "sounds/dragonfly-alarm.wav",
         "curious": "sounds/dragonfly-call.wav"
-      }
+      },
+      "quest": "models/pond-skimmer.quest.glb",
+      "questBytes": 1608140,
+      "art": true,
+      "low": "models/pond-skimmer.low.glb",
+      "lowBytes": 45596
     },
     {
       "id": "pond-turtle",
@@ -3338,19 +3618,24 @@
       "model": "models/pond-turtle.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/pond-turtle.glb",
       "size": [
-        0.1924,
-        0.0356,
-        0.1572
+        0.1048,
+        0.0554,
+        0.15
       ],
-      "bytes": 44576,
-      "triangles": 910,
+      "bytes": 1342448,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/turtle-call.wav",
         "content": "sounds/turtle-content.wav",
         "alarm": "sounds/turtle-alarm.wav",
         "curious": "sounds/turtle-curious.wav"
-      }
+      },
+      "quest": "models/pond-turtle.quest.glb",
+      "questBytes": 1629612,
+      "art": true,
+      "low": "models/pond-turtle.low.glb",
+      "lowBytes": 44576
     },
     {
       "id": "red-squirrel",
@@ -3407,19 +3692,24 @@
       "model": "models/reed-seahorse.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/reed-seahorse.glb",
       "size": [
-        0.0322,
-        0.1167,
-        0.0597
+        0.0226,
+        0.11,
+        0.048
       ],
-      "bytes": 52360,
-      "triangles": 775,
+      "bytes": 1289716,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/seahorse-call.wav",
         "content": "sounds/seahorse-content.wav",
         "alarm": "sounds/seahorse-alarm.wav",
         "curious": "sounds/seahorse-curious.wav"
-      }
+      },
+      "quest": "models/reed-seahorse.quest.glb",
+      "questBytes": 1589244,
+      "art": true,
+      "low": "models/reed-seahorse.low.glb",
+      "lowBytes": 52360
     },
     {
       "id": "ringtail-raccoon",
@@ -3512,19 +3802,24 @@
       "model": "models/rock-scorpion.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/rock-scorpion.glb",
       "size": [
-        0.0919,
-        0.0595,
-        0.0983
+        0.0678,
+        0.0542,
+        0.11
       ],
-      "bytes": 71812,
-      "triangles": 1146,
+      "bytes": 1211008,
+      "triangles": 9656,
       "speech": "little",
       "sounds": {
         "call": "sounds/scorpion-call.wav",
         "content": "sounds/scorpion-content.wav",
         "alarm": "sounds/scorpion-alarm.wav",
         "curious": "sounds/scorpion-call.wav"
-      }
+      },
+      "quest": "models/rock-scorpion.quest.glb",
+      "questBytes": 1532584,
+      "art": true,
+      "low": "models/rock-scorpion.low.glb",
+      "lowBytes": 71812
     },
     {
       "id": "rooftop-gecko",
@@ -3543,19 +3838,24 @@
       "model": "models/rooftop-gecko.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/rooftop-gecko.glb",
       "size": [
-        0.0916,
-        0.0346,
-        0.2016
+        0.0677,
+        0.0409,
+        0.2
       ],
-      "bytes": 43048,
-      "triangles": 632,
+      "bytes": 999020,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/gecko-call.wav",
         "content": "sounds/gecko-content.wav",
         "alarm": "sounds/gecko-alarm.wav",
         "curious": "sounds/gecko-curious.wav"
-      }
+      },
+      "quest": "models/rooftop-gecko.quest.glb",
+      "questBytes": 1256296,
+      "art": true,
+      "low": "models/rooftop-gecko.low.glb",
+      "lowBytes": 43048
     },
     {
       "id": "ruby-darter",
@@ -3574,19 +3874,24 @@
       "model": "models/ruby-darter.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/ruby-darter.glb",
       "size": [
-        0.1714,
-        0.0272,
-        0.1452
+        0.16,
+        0.0254,
+        0.0782
       ],
-      "bytes": 56764,
-      "triangles": 696,
+      "bytes": 1120268,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/dragonfly-call.wav",
         "content": "sounds/dragonfly-content.wav",
         "alarm": "sounds/dragonfly-alarm.wav",
         "curious": "sounds/dragonfly-call.wav"
-      }
+      },
+      "quest": "models/ruby-darter.quest.glb",
+      "questBytes": 1413100,
+      "art": true,
+      "low": "models/ruby-darter.low.glb",
+      "lowBytes": 56764
     },
     {
       "id": "sand-lizard",
@@ -3606,19 +3911,24 @@
       "model": "models/sand-lizard.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/sand-lizard.glb",
       "size": [
-        0.0914,
-        0.0294,
-        0.1914
+        0.0604,
+        0.0432,
+        0.21
       ],
-      "bytes": 38836,
-      "triangles": 624,
+      "bytes": 803928,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/lizard-call.wav",
         "content": "sounds/lizard-content.wav",
         "alarm": "sounds/lizard-alarm.wav",
         "curious": "sounds/lizard-curious.wav"
-      }
+      },
+      "quest": "models/sand-lizard.quest.glb",
+      "questBytes": 1047384,
+      "art": true,
+      "low": "models/sand-lizard.low.glb",
+      "lowBytes": 38836
     },
     {
       "id": "sand-minnow",
@@ -3638,19 +3948,24 @@
       "model": "models/sand-minnow.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/sand-minnow.glb",
       "size": [
-        0.0448,
-        0.043,
-        0.0976
+        0.0216,
+        0.0374,
+        0.1
       ],
-      "bytes": 36720,
-      "triangles": 908,
+      "bytes": 964060,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/fish-call.wav",
         "content": "sounds/fish-content.wav",
         "alarm": "sounds/fish-alarm.wav",
         "curious": "sounds/fish-curious.wav"
-      }
+      },
+      "quest": "models/sand-minnow.quest.glb",
+      "questBytes": 1229924,
+      "art": true,
+      "low": "models/sand-minnow.low.glb",
+      "lowBytes": 36720
     },
     {
       "id": "snow-bunting",
@@ -3670,19 +3985,24 @@
       "model": "models/snow-bunting.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/snow-bunting.glb",
       "size": [
-        0.1396,
-        0.0515,
-        0.0986
+        0.0606,
+        0.0928,
+        0.14
       ],
-      "bytes": 52192,
-      "triangles": 900,
+      "bytes": 781640,
+      "triangles": 12344,
       "speech": "little",
       "sounds": {
         "call": "sounds/bird-call.wav",
         "content": "sounds/bird-content.wav",
         "alarm": "sounds/bird-alarm.wav",
         "curious": "sounds/bird-curious.wav"
-      }
+      },
+      "quest": "models/snow-bunting.quest.glb",
+      "questBytes": 1101164,
+      "art": true,
+      "low": "models/snow-bunting.low.glb",
+      "lowBytes": 52192
     },
     {
       "id": "snow-moth",
@@ -3701,19 +4021,24 @@
       "model": "models/snow-moth.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/snow-moth.glb",
       "size": [
-        0.1332,
-        0.0281,
-        0.0797
+        0.1302,
+        0.0406,
+        0.1194
       ],
-      "bytes": 37592,
-      "triangles": 756,
+      "bytes": 1072772,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/moth-call.wav",
         "content": "sounds/moth-content.wav",
         "alarm": "sounds/moth-alarm.wav",
         "curious": "sounds/moth-call.wav"
-      }
+      },
+      "quest": "models/snow-moth.quest.glb",
+      "questBytes": 1347624,
+      "art": true,
+      "low": "models/snow-moth.low.glb",
+      "lowBytes": 37592
     },
     {
       "id": "snowshoe-hare",
@@ -3732,19 +4057,24 @@
       "model": "models/snowshoe-hare.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/snowshoe-hare.glb",
       "size": [
-        0.0561,
-        0.103,
-        0.1122
+        0.0596,
+        0.1351,
+        0.15
       ],
-      "bytes": 57604,
-      "triangles": 1352,
+      "bytes": 812256,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/hare-call.wav",
         "content": "sounds/hare-content.wav",
         "alarm": "sounds/hare-alarm.wav",
         "curious": "sounds/hare-curious.wav"
-      }
+      },
+      "quest": "models/snowshoe-hare.quest.glb",
+      "questBytes": 1059228,
+      "art": true,
+      "low": "models/snowshoe-hare.low.glb",
+      "lowBytes": 57604
     },
     {
       "id": "speckled-ray",
@@ -3763,19 +4093,24 @@
       "model": "models/speckled-ray.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/speckled-ray.glb",
       "size": [
-        0.173,
-        0.0224,
-        0.2032
+        0.1266,
+        0.0258,
+        0.2
       ],
-      "bytes": 53948,
-      "triangles": 1102,
+      "bytes": 741680,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/ray-call.wav",
         "content": "sounds/ray-content.wav",
         "alarm": "sounds/ray-alarm.wav",
         "curious": "sounds/ray-call.wav"
-      }
+      },
+      "quest": "models/speckled-ray.quest.glb",
+      "questBytes": 984964,
+      "art": true,
+      "low": "models/speckled-ray.low.glb",
+      "lowBytes": 53948
     },
     {
       "id": "spotted-garden-beetle",
@@ -3796,19 +4131,24 @@
       "model": "models/spotted-garden-beetle.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/spotted-garden-beetle.glb",
       "size": [
-        0.066,
-        0.0301,
-        0.077
+        0.075,
+        0.0386,
+        0.0728
       ],
-      "bytes": 37136,
-      "triangles": 668,
+      "bytes": 816444,
+      "triangles": 9537,
       "speech": "little",
       "sounds": {
         "call": "sounds/beetle-call.wav",
         "content": "sounds/beetle-content.wav",
         "alarm": "sounds/beetle-alarm.wav",
         "curious": "sounds/beetle-call.wav"
-      }
+      },
+      "quest": "models/spotted-garden-beetle.quest.glb",
+      "questBytes": 1117904,
+      "art": true,
+      "low": "models/spotted-garden-beetle.low.glb",
+      "lowBytes": 37136
     },
     {
       "id": "starlit-ray",
@@ -3827,19 +4167,24 @@
       "model": "models/starlit-ray.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/starlit-ray.glb",
       "size": [
-        0.1617,
-        0.019,
-        0.247
+        0.1574,
+        0.0234,
+        0.17
       ],
-      "bytes": 62116,
-      "triangles": 1212,
+      "bytes": 626172,
+      "triangles": 9500,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/ray-call-090-120.wav",
         "content": "sounds/ray-content-090-120.wav",
         "alarm": "sounds/ray-alarm-090-120.wav",
         "curious": "sounds/ray-call-090-120.wav"
-      }
+      },
+      "quest": "models/starlit-ray.quest.glb",
+      "questBytes": 876448,
+      "art": true,
+      "low": "models/starlit-ray.low.glb",
+      "lowBytes": 62116
     },
     {
       "id": "street-pigeon",
@@ -3858,19 +4203,24 @@
       "model": "models/street-pigeon.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/street-pigeon.glb",
       "size": [
-        0.1795,
-        0.0647,
-        0.1307
+        0.067,
+        0.1252,
+        0.18
       ],
-      "bytes": 52192,
-      "triangles": 900,
+      "bytes": 986636,
+      "triangles": 12016,
       "speech": "little",
       "sounds": {
         "call": "sounds/pigeon-call.wav",
         "content": "sounds/pigeon-content.wav",
         "alarm": "sounds/pigeon-alarm.wav",
         "curious": "sounds/pigeon-curious.wav"
-      }
+      },
+      "quest": "models/street-pigeon.quest.glb",
+      "questBytes": 1302280,
+      "art": true,
+      "low": "models/street-pigeon.low.glb",
+      "lowBytes": 52192
     },
     {
       "id": "street-terrier",
@@ -3962,19 +4312,24 @@
       "model": "models/sun-scarab.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/sun-scarab.glb",
       "size": [
-        0.0882,
-        0.0498,
-        0.113
+        0.1071,
+        0.0465,
+        0.1101
       ],
-      "bytes": 44700,
-      "triangles": 728,
+      "bytes": 1465100,
+      "triangles": 9500,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/beetle-call-090-120.wav",
         "content": "sounds/beetle-content-090-120.wav",
         "alarm": "sounds/beetle-alarm-090-120.wav",
         "curious": "sounds/beetle-call-090-120.wav"
-      }
+      },
+      "quest": "models/sun-scarab.quest.glb",
+      "questBytes": 1896344,
+      "art": true,
+      "low": "models/sun-scarab.low.glb",
+      "lowBytes": 44700
     },
     {
       "id": "sunfrill-lizard",
@@ -3993,19 +4348,24 @@
       "model": "models/sunfrill-lizard.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/sunfrill-lizard.glb",
       "size": [
-        0.1106,
-        0.0539,
-        0.2621
+        0.0758,
+        0.0691,
+        0.2601
       ],
-      "bytes": 51308,
-      "triangles": 634,
+      "bytes": 966532,
+      "triangles": 9500,
       "speech": "thoughtful",
       "sounds": {
         "call": "sounds/lizard-call-090-120.wav",
         "content": "sounds/lizard-content-090-120.wav",
         "alarm": "sounds/lizard-alarm-090-120.wav",
         "curious": "sounds/lizard-curious-090-120.wav"
-      }
+      },
+      "quest": "models/sunfrill-lizard.quest.glb",
+      "questBytes": 1279564,
+      "art": true,
+      "low": "models/sunfrill-lizard.low.glb",
+      "lowBytes": 51308
     },
     {
       "id": "thornback-hedgehog",
@@ -4024,19 +4384,24 @@
       "model": "models/thornback-hedgehog.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/thornback-hedgehog.glb",
       "size": [
-        0.0727,
-        0.0714,
-        0.0937
+        0.0611,
+        0.0728,
+        0.1299
       ],
-      "bytes": 63808,
-      "triangles": 1520,
+      "bytes": 1489792,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/hedgehog-call.wav",
         "content": "sounds/hedgehog-content.wav",
         "alarm": "sounds/hedgehog-alarm.wav",
         "curious": "sounds/hedgehog-curious.wav"
-      }
+      },
+      "quest": "models/thornback-hedgehog.quest.glb",
+      "questBytes": 1871584,
+      "art": true,
+      "low": "models/thornback-hedgehog.low.glb",
+      "lowBytes": 63808
     },
     {
       "id": "thorny-seahorse",
@@ -4055,19 +4420,24 @@
       "model": "models/thorny-seahorse.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/thorny-seahorse.glb",
       "size": [
-        0.0381,
-        0.1492,
-        0.0754
+        0.014,
+        0.13,
+        0.0694
       ],
-      "bytes": 61396,
-      "triangles": 845,
+      "bytes": 951876,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/seahorse-call.wav",
         "content": "sounds/seahorse-content.wav",
         "alarm": "sounds/seahorse-alarm.wav",
         "curious": "sounds/seahorse-curious.wav"
-      }
+      },
+      "quest": "models/thorny-seahorse.quest.glb",
+      "questBytes": 1214984,
+      "art": true,
+      "low": "models/thorny-seahorse.low.glb",
+      "lowBytes": 61396
     },
     {
       "id": "tundra-lemming",
@@ -4087,19 +4457,24 @@
       "model": "models/tundra-lemming.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/tundra-lemming.glb",
       "size": [
-        0.0389,
-        0.0417,
-        0.0632
+        0.0444,
+        0.0482,
+        0.1
       ],
-      "bytes": 46872,
-      "triangles": 1004,
+      "bytes": 1153268,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/critter-call.wav",
         "content": "sounds/critter-content.wav",
         "alarm": "sounds/critter-alarm.wav",
         "curious": "sounds/critter-curious.wav"
-      }
+      },
+      "quest": "models/tundra-lemming.quest.glb",
+      "questBytes": 1404036,
+      "art": true,
+      "low": "models/tundra-lemming.low.glb",
+      "lowBytes": 46872
     },
     {
       "id": "violet-fantail",
@@ -4118,19 +4493,24 @@
       "model": "models/violet-fantail.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/violet-fantail.glb",
       "size": [
-        0.0653,
-        0.1265,
-        0.1668
+        0.0392,
+        0.08,
+        0.13
       ],
-      "bytes": 41688,
-      "triangles": 911,
+      "bytes": 972860,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/fish-call.wav",
         "content": "sounds/fish-content.wav",
         "alarm": "sounds/fish-alarm.wav",
         "curious": "sounds/fish-curious.wav"
-      }
+      },
+      "quest": "models/violet-fantail.quest.glb",
+      "questBytes": 1239376,
+      "art": true,
+      "low": "models/violet-fantail.low.glb",
+      "lowBytes": 41688
     },
     {
       "id": "wood-mouse",
@@ -4150,19 +4530,24 @@
       "model": "models/wood-mouse.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/wood-mouse.glb",
       "size": [
-        0.0329,
-        0.0461,
-        0.1317
+        0.0338,
+        0.033,
+        0.11
       ],
-      "bytes": 49872,
-      "triangles": 1098,
+      "bytes": 1223356,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/critter-call.wav",
         "content": "sounds/critter-content.wav",
         "alarm": "sounds/critter-alarm.wav",
         "curious": "sounds/critter-curious.wav"
-      }
+      },
+      "quest": "models/wood-mouse.quest.glb",
+      "questBytes": 1533044,
+      "art": true,
+      "low": "models/wood-mouse.low.glb",
+      "lowBytes": 49872
     },
     {
       "id": "woolly-lamb",

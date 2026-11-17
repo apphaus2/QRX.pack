@@ -1,0 +1,111 @@
+{
+  "files": {
+    "mesh.glb": {
+      "from": "mesh.glb",
+      "sha256": "34d0936b4ece6b3af788f9fd9e398361dc400b664e2316c0b2d5f2b55adc2a38",
+      "tool": "make.py hunyuan-template",
+      "date": "2026-11-17",
+      "notes": [],
+      "facts": {
+        "bytes": 996980,
+        "extensionsUsed": [
+          "KHR_mesh_quantization",
+          "EXT_meshopt_compression",
+          "KHR_texture_transform",
+          "KHR_texture_basisu"
+        ],
+        "triangles": 9500,
+        "vertices": 9040,
+        "box": [
+          [
+            -0.0801,
+            -0.0406,
+            -0.0402
+          ],
+          [
+            0.0801,
+            0.0406,
+            0.0402
+          ]
+        ],
+        "size": [
+          0.1601,
+          0.0812,
+          0.0804
+        ],
+        "textures": [
+          {
+            "format": "KTX2 UASTC",
+            "size": [
+              1024,
+              1024
+            ],
+            "levels": 11,
+            "supercompression": "Zstandard",
+            "bytes": 863328
+          }
+        ],
+        "skinned": true,
+        "joints": 8,
+        "clips": [
+          "flip",
+          "fly",
+          "idle",
+          "spin"
+        ]
+      }
+    },
+    "mesh.quest.glb": {
+      "from": "mesh.quest.glb",
+      "sha256": "93d25cba257d28e708b76a5d21b0a45980611a938fec77b1fa33dc10d1f13517",
+      "tool": "make.py hunyuan-template",
+      "date": "2026-11-17",
+      "notes": [],
+      "facts": {
+        "bytes": 1301868,
+        "extensionsUsed": [
+          "KHR_texture_basisu"
+        ],
+        "triangles": 9500,
+        "vertices": 9040,
+        "box": [
+          [
+            -0.0801,
+            -0.0406,
+            -0.0402
+          ],
+          [
+            0.0801,
+            0.0406,
+            0.0402
+          ]
+        ],
+        "size": [
+          0.1601,
+          0.0812,
+          0.0804
+        ],
+        "textures": [
+          {
+            "format": "KTX2 UASTC",
+            "size": [
+              1024,
+              1024
+            ],
+            "levels": 11,
+            "supercompression": "Zstandard",
+            "bytes": 863328
+          }
+        ],
+        "skinned": true,
+        "joints": 8,
+        "clips": [
+          "flip",
+          "fly",
+          "idle",
+          "spin"
+        ]
+      }
+    }
+  }
+}

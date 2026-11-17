@@ -1223,7 +1223,7 @@
             "play": "dance"
           },
           {
-            "wait": 1.0
+            "wait": 2
           },
           {
             "behave": "none"
@@ -1243,7 +1243,7 @@
             "play": "spin"
           },
           {
-            "wait": 1.0
+            "wait": 1.2
           },
           {
             "behave": "none"
@@ -1263,7 +1263,7 @@
             "play": "flip"
           },
           {
-            "wait": 1.0
+            "wait": 1
           },
           {
             "behave": "none"
@@ -1283,7 +1283,7 @@
             "play": "crown"
           },
           {
-            "wait": 1.0
+            "wait": 2.2
           },
           {
             "sound": "content"

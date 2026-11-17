@@ -983,7 +983,7 @@
             "play": "spin"
           },
           {
-            "wait": 1.2
+            "wait": 1.6
           },
           {
             "behave": "none"
@@ -1003,7 +1003,7 @@
             "play": "bow"
           },
           {
-            "wait": 1.2
+            "wait": 1.8
           },
           {
             "behave": "none"

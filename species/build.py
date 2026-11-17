@@ -421,6 +421,11 @@ def build_all(data, model_base, sound_base):
         outputs["models/%s.glb" % d["id"]] = glb
         if art:
             outputs[quest_path("models/%s.glb" % d["id"])] = art[1]
+            # A .low.glb already on disk is kept as it is (the owner, 2026-11-17: no need to rebuild ones already there);
+            # only a creature without one gets the low-poly model drawn now.
+            kept = os.path.join(HERE, low_path("models/%s.glb" % d["id"]))
+            if os.path.exists(kept):
+                with open(kept, "rb") as f: low = f.read()
             outputs[low_path("models/%s.glb" % d["id"])] = low
         outputs["creatures/%s.json" % d["id"]] = dump(document)
         box = facts["box"]

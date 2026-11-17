@@ -980,7 +980,7 @@
             "play": "spin"
           },
           {
-            "wait": 1.0
+            "wait": 1.5
           },
           {
             "behave": "none"
@@ -1000,7 +1000,7 @@
             "play": "dance"
           },
           {
-            "wait": 1.0
+            "wait": 2
           },
           {
             "behave": "none"

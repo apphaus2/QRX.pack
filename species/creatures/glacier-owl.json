@@ -1341,7 +1341,7 @@
             "play": "headturn"
           },
           {
-            "wait": 1.8
+            "wait": 2
           },
           {
             "behave": "none"
@@ -1361,7 +1361,7 @@
             "play": "spin"
           },
           {
-            "wait": 0.9
+            "wait": 1.4
           },
           {
             "behave": "none"
@@ -1381,7 +1381,7 @@
             "play": "bow"
           },
           {
-            "wait": 1.0
+            "wait": 1.6
           },
           {
             "behave": "none"
@@ -1401,7 +1401,7 @@
             "play": "dance"
           },
           {
-            "wait": 1.0
+            "wait": 2
           },
           {
             "behave": "none"
@@ -1421,7 +1421,7 @@
             "play": "snow"
           },
           {
-            "wait": 1.8
+            "wait": 2.6
           },
           {
             "sound": "content"

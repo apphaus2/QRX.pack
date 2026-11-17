@@ -1336,7 +1336,7 @@
             "play": "jump"
           },
           {
-            "wait": 0.9
+            "wait": 1
           },
           {
             "behave": "none"
@@ -1356,7 +1356,7 @@
             "play": "spin"
           },
           {
-            "wait": 0.9
+            "wait": 1.4
           },
           {
             "behave": "none"
@@ -1376,7 +1376,7 @@
             "play": "flip"
           },
           {
-            "wait": 1.0
+            "wait": 1.3
           },
           {
             "behave": "none"
@@ -1396,7 +1396,7 @@
             "play": "bow"
           },
           {
-            "wait": 1.0
+            "wait": 1.6
           },
           {
             "behave": "none"
@@ -1416,7 +1416,7 @@
             "play": "dive"
           },
           {
-            "wait": 1.0
+            "wait": 2.2
           },
           {
             "sound": "content"

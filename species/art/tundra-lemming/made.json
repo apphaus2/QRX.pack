@@ -1,0 +1,111 @@
+{
+  "files": {
+    "mesh.glb": {
+      "from": "mesh.glb",
+      "sha256": "7e5e0d2b8ed065550add54733159128b08149bf648139832194ea7a4b048b6b8",
+      "tool": "make.py hunyuan-template",
+      "date": "2026-11-17",
+      "notes": [],
+      "facts": {
+        "bytes": 1153268,
+        "extensionsUsed": [
+          "KHR_mesh_quantization",
+          "EXT_meshopt_compression",
+          "KHR_texture_transform",
+          "KHR_texture_basisu"
+        ],
+        "triangles": 9500,
+        "vertices": 7201,
+        "box": [
+          [
+            -0.0222,
+            0.0,
+            -0.05
+          ],
+          [
+            0.0222,
+            0.0482,
+            0.05
+          ]
+        ],
+        "size": [
+          0.0444,
+          0.0482,
+          0.1
+        ],
+        "textures": [
+          {
+            "format": "KTX2 UASTC",
+            "size": [
+              1024,
+              1024
+            ],
+            "levels": 11,
+            "supercompression": "Zstandard",
+            "bytes": 1020139
+          }
+        ],
+        "skinned": true,
+        "joints": 22,
+        "clips": [
+          "idle",
+          "jump",
+          "spin",
+          "walk"
+        ]
+      }
+    },
+    "mesh.quest.glb": {
+      "from": "mesh.quest.glb",
+      "sha256": "787523fd2e341ca3c0eb0716f6d0cf3851102cb242175a08fa29c78847238278",
+      "tool": "make.py hunyuan-template",
+      "date": "2026-11-17",
+      "notes": [],
+      "facts": {
+        "bytes": 1404036,
+        "extensionsUsed": [
+          "KHR_texture_basisu"
+        ],
+        "triangles": 9500,
+        "vertices": 7201,
+        "box": [
+          [
+            -0.0222,
+            0.0,
+            -0.05
+          ],
+          [
+            0.0222,
+            0.0482,
+            0.05
+          ]
+        ],
+        "size": [
+          0.0444,
+          0.0482,
+          0.1
+        ],
+        "textures": [
+          {
+            "format": "KTX2 UASTC",
+            "size": [
+              1024,
+              1024
+            ],
+            "levels": 11,
+            "supercompression": "Zstandard",
+            "bytes": 1020139
+          }
+        ],
+        "skinned": true,
+        "joints": 22,
+        "clips": [
+          "idle",
+          "jump",
+          "spin",
+          "walk"
+        ]
+      }
+    }
+  }
+}

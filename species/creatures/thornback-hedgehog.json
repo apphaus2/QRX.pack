@@ -1095,7 +1095,7 @@
             "play": "jump"
           },
           {
-            "wait": 0.8
+            "wait": 1
           },
           {
             "behave": "none"
@@ -1115,7 +1115,7 @@
             "play": "spin"
           },
           {
-            "wait": 1.1
+            "wait": 1.5
           },
           {
             "behave": "none"
@@ -1135,7 +1135,7 @@
             "play": "roll"
           },
           {
-            "wait": 1.2
+            "wait": 2
           },
           {
             "behave": "none"
