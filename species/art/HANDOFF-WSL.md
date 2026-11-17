@@ -130,15 +130,19 @@ snails). Each shape has MeshTool's `steps/blender_rig_<shape>.py` and `steps/ble
   A moth meshed standing on its edge is fine: the flyer rig lays every insect flat by its thin side. Judge the
   shape, not which way it stands.
   To find any id not yet meshed: `python -c "import json,os;d=json.load(open('species/art/meshtool.json'));print(' '.join(k for k in d['creatures'] if not os.path.exists('species/art/%s/work/hunyuan-template/clean.blend'%k)))"`.
-- **Next: rig.** For each creature below not yet rigged: `make.py <id> --from rig --to check --keep-strands` (CPU only).
-- Rigged and checked so far (check passes, nothing filed): fish arctic-char, aurora-eel, mud-ray, reed-seahorse;
-  bird blue-skylark, chimney-bat; flyer emerald-swallowtail, pond-skimmer; crawler darkling-beetle, bramble-spider,
-  mud-crab, field-bee; soft moon-jelly, garden-snail; four-legged banded-gecko, pond-frog. The rest: rig them
-  (`--from rig --to check --keep-strands`), make a contact sheet of each clip, show the owner, then file.
-- The four-legged rig and clips were finished by an agent that died before reporting. Their edits are committed as
-  ca09e52 and checked: street-terrier rigged again comes out byte for byte the same as the published one (the 18 are
-  pinned in `MADE_BEFORE`), banded-gecko rigs as a sprawled lizard, pond-frog as a sitting frog (`SQUAT`). The other
-  19 four-legged animals have not been run; no clip has been looked at.
+- **Rigged, animated, packed and checked: all 77** (2026-11-17, with MeshTool 03915ff); check passes on every one,
+  nothing filed. Two needed a new mesh first:
+  - clocktower-raven: the cutout kept a patch of grey stone between the legs, which meshed as a long plank and left
+    the bird rig no legs. The stone is cleared from `cutout.png` (only the large light-grey patch) and it meshed again.
+  - ruby-darter on **seed 2**: on seed 1234 the flyer rig could not tell the left forewing from the body.
+  Two rig fixes went into MeshTool: bone heat failed on the mice and the vole (a few cm long), so the four-legged rig
+  now weights again at about a metre when it leaves more than 2% of the vertices without a bone; and a stale-reference
+  crash in the leg cleanup (mangrove-kingfisher) is fixed. The 18 made before still rig byte for byte the same: all 36
+  of their packed files match the sha256 in their `made.json`.
+- **Next: the owner looks at every clip**, then file the ones approved (`make.py <id> --file`), run `species/build.py`,
+  look in the gallery and push. Contact sheets of every clip (picture, rigged mesh, two moments of each clip) are on
+  the private review page https://claude.ai/artifact/VRxPmS8beVdYxQP5hkteqP. Things seen there to look at: birds' wings
+  smear as they open (blue-skylark); boreal-emerald's wings render nearly black.
 
 **build.py.** `standard_faults` checks the standard above on both copies. The owner added the old drawn models back
 as `species/models/<id>.low.glb` for a Hi-res on/off option (the apps' "Hi-res creatures", the gallery's Hi-res
