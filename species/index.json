@@ -1147,12 +1147,12 @@
       "model": "models/alley-cat.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/alley-cat.glb",
       "size": [
-        0.0678,
-        0.2552,
-        0.236
+        0.0668,
+        0.2162,
+        0.2354
       ],
-      "bytes": 1189244,
-      "triangles": 7600,
+      "bytes": 1183308,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/cat-call.wav",
@@ -1161,7 +1161,7 @@
         "curious": "sounds/cat-curious.wav"
       },
       "quest": "models/alley-cat.quest.glb",
-      "questBytes": 1421420,
+      "questBytes": 1488296,
       "art": true,
       "low": "models/alley-cat.low.glb",
       "lowBytes": 331208
@@ -1588,12 +1588,12 @@
       "model": "models/crag-kid.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/crag-kid.glb",
       "size": [
-        0.0522,
-        0.1744,
-        0.21
+        0.0582,
+        0.1698,
+        0.2101
       ],
-      "bytes": 1229052,
-      "triangles": 7600,
+      "bytes": 1201216,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/goat-call.wav",
@@ -1602,7 +1602,7 @@
         "curious": "sounds/goat-curious.wav"
       },
       "quest": "models/crag-kid.quest.glb",
-      "questBytes": 1470728,
+      "questBytes": 1531284,
       "art": true,
       "low": "models/crag-kid.low.glb",
       "lowBytes": 209268
@@ -1624,12 +1624,12 @@
       "model": "models/dapple-calf.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/dapple-calf.glb",
       "size": [
-        0.0692,
-        0.1892,
-        0.245
+        0.0786,
+        0.1634,
+        0.2449
       ],
-      "bytes": 1145040,
-      "triangles": 7600,
+      "bytes": 1007616,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/cow-call.wav",
@@ -1638,7 +1638,7 @@
         "curious": "sounds/cow-curious.wav"
       },
       "quest": "models/dapple-calf.quest.glb",
-      "questBytes": 1380668,
+      "questBytes": 1281992,
       "art": true,
       "low": "models/dapple-calf.low.glb",
       "lowBytes": 205124
@@ -1660,12 +1660,12 @@
       "model": "models/dapple-fawn.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/dapple-fawn.glb",
       "size": [
-        0.0522,
-        0.2103,
-        0.195
+        0.0542,
+        0.1795,
+        0.1951
       ],
-      "bytes": 1229952,
-      "triangles": 7600,
+      "bytes": 1109984,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/deer-call.wav",
@@ -1674,7 +1674,7 @@
         "curious": "sounds/deer-curious.wav"
       },
       "quest": "models/dapple-fawn.quest.glb",
-      "questBytes": 1488772,
+      "questBytes": 1425868,
       "art": true,
       "low": "models/dapple-fawn.low.glb",
       "lowBytes": 246784
@@ -1851,12 +1851,12 @@
       "model": "models/farmyard-piglet.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/farmyard-piglet.glb",
       "size": [
-        0.0614,
-        0.1409,
-        0.24
+        0.0836,
+        0.1259,
+        0.2399
       ],
-      "bytes": 1268728,
-      "triangles": 7599,
+      "bytes": 1044548,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/pig-call.wav",
@@ -1865,7 +1865,7 @@
         "curious": "sounds/pig-curious.wav"
       },
       "quest": "models/farmyard-piglet.quest.glb",
-      "questBytes": 1505492,
+      "questBytes": 1322888,
       "art": true,
       "low": "models/farmyard-piglet.low.glb",
       "lowBytes": 177200
@@ -1982,12 +1982,12 @@
       "model": "models/frost-wolf-pup.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/frost-wolf-pup.glb",
       "size": [
-        0.0723,
-        0.1937,
-        0.212
+        0.0538,
+        0.1436,
+        0.2121
       ],
-      "bytes": 1123260,
-      "triangles": 7600,
+      "bytes": 1202616,
+      "triangles": 9522,
       "speech": "simple",
       "sounds": {
         "call": "sounds/wolf-call.wav",
@@ -1996,7 +1996,7 @@
         "curious": "sounds/wolf-curious.wav"
       },
       "quest": "models/frost-wolf-pup.quest.glb",
-      "questBytes": 1367348,
+      "questBytes": 1486664,
       "art": true,
       "low": "models/frost-wolf-pup.low.glb",
       "lowBytes": 411224
@@ -2331,12 +2331,12 @@
       "model": "models/honeyglow-bear-cub.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/honeyglow-bear-cub.glb",
       "size": [
-        0.0763,
-        0.1725,
+        0.0873,
+        0.1477,
         0.245
       ],
-      "bytes": 1259124,
-      "triangles": 7600,
+      "bytes": 1195024,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/bear-call.wav",
@@ -2345,7 +2345,7 @@
         "curious": "sounds/bear-curious.wav"
       },
       "quest": "models/honeyglow-bear-cub.quest.glb",
-      "questBytes": 1522316,
+      "questBytes": 1497212,
       "art": true,
       "low": "models/honeyglow-bear-cub.low.glb",
       "lowBytes": 262764
@@ -2617,12 +2617,12 @@
       "model": "models/marsh-capybara.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/marsh-capybara.glb",
       "size": [
-        0.0889,
-        0.1872,
-        0.27
+        0.0824,
+        0.1504,
+        0.2699
       ],
-      "bytes": 1275648,
-      "triangles": 7600,
+      "bytes": 1242444,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/beast-call.wav",
@@ -2631,7 +2631,7 @@
         "curious": "sounds/beast-curious.wav"
       },
       "quest": "models/marsh-capybara.quest.glb",
-      "questBytes": 1513784,
+      "questBytes": 1585904,
       "art": true,
       "low": "models/marsh-capybara.low.glb",
       "lowBytes": 259624
@@ -2718,12 +2718,12 @@
       "model": "models/meadow-cottontail.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-cottontail.glb",
       "size": [
-        0.0377,
-        0.1177,
-        0.14
+        0.0702,
+        0.1199,
+        0.1399
       ],
-      "bytes": 1239544,
-      "triangles": 7600,
+      "bytes": 1392100,
+      "triangles": 9529,
       "speech": "little",
       "sounds": {
         "call": "sounds/hare-call.wav",
@@ -2732,7 +2732,7 @@
         "curious": "sounds/hare-curious.wav"
       },
       "quest": "models/meadow-cottontail.quest.glb",
-      "questBytes": 1463260,
+      "questBytes": 1721388,
       "art": true,
       "low": "models/meadow-cottontail.low.glb",
       "lowBytes": 53640
@@ -2754,12 +2754,12 @@
       "model": "models/meadow-pony.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-pony.glb",
       "size": [
-        0.0476,
+        0.0743,
         0.1489,
-        0.2
+        0.1999
       ],
-      "bytes": 1209048,
-      "triangles": 7600,
+      "bytes": 1314192,
+      "triangles": 9575,
       "speech": "simple",
       "sounds": {
         "call": "sounds/horse-call.wav",
@@ -2768,7 +2768,7 @@
         "curious": "sounds/horse-curious.wav"
       },
       "quest": "models/meadow-pony.quest.glb",
-      "questBytes": 1457204,
+      "questBytes": 1676044,
       "art": true,
       "low": "models/meadow-pony.low.glb",
       "lowBytes": 391696
@@ -2791,12 +2791,12 @@
       "model": "models/meadow-sheepdog.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-sheepdog.glb",
       "size": [
-        0.0817,
-        0.2224,
-        0.255
+        0.0778,
+        0.1872,
+        0.2549
       ],
-      "bytes": 1213796,
-      "triangles": 7598,
+      "bytes": 1029992,
+      "triangles": 9501,
       "speech": "little",
       "sounds": {
         "call": "sounds/dog-call.wav",
@@ -2805,7 +2805,7 @@
         "curious": "sounds/dog-curious.wav"
       },
       "quest": "models/meadow-sheepdog.quest.glb",
-      "questBytes": 1452660,
+      "questBytes": 1313592,
       "art": true,
       "low": "models/meadow-sheepdog.low.glb",
       "lowBytes": 238108
@@ -2956,12 +2956,12 @@
       "model": "models/moonlit-cat.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/moonlit-cat.glb",
       "size": [
-        0.0576,
-        0.2177,
+        0.0846,
+        0.2129,
         0.233
       ],
-      "bytes": 957708,
-      "triangles": 7600,
+      "bytes": 864380,
+      "triangles": 9527,
       "speech": "clear",
       "sounds": {
         "call": "sounds/cat-call.wav",
@@ -2970,7 +2970,7 @@
         "curious": "sounds/cat-curious.wav"
       },
       "quest": "models/moonlit-cat.quest.glb",
-      "questBytes": 1223360,
+      "questBytes": 1216820,
       "art": true,
       "low": "models/moonlit-cat.low.glb",
       "lowBytes": 333016
@@ -3370,12 +3370,12 @@
       "model": "models/red-squirrel.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/red-squirrel.glb",
       "size": [
-        0.0734,
-        0.1348,
+        0.0376,
+        0.0812,
         0.15
       ],
-      "bytes": 1298128,
-      "triangles": 7600,
+      "bytes": 1201576,
+      "triangles": 9601,
       "speech": "little",
       "sounds": {
         "call": "sounds/squirrel-call.wav",
@@ -3384,7 +3384,7 @@
         "curious": "sounds/squirrel-curious.wav"
       },
       "quest": "models/red-squirrel.quest.glb",
-      "questBytes": 1528092,
+      "questBytes": 1489648,
       "art": true,
       "low": "models/red-squirrel.low.glb",
       "lowBytes": 49156
@@ -3439,12 +3439,12 @@
       "model": "models/ringtail-raccoon.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/ringtail-raccoon.glb",
       "size": [
-        0.0656,
-        0.1295,
-        0.25
+        0.0646,
+        0.1179,
+        0.2502
       ],
-      "bytes": 1176956,
-      "triangles": 7598,
+      "bytes": 1418436,
+      "triangles": 9526,
       "speech": "little",
       "sounds": {
         "call": "sounds/raccoon-call.wav",
@@ -3453,7 +3453,7 @@
         "curious": "sounds/raccoon-curious.wav"
       },
       "quest": "models/ringtail-raccoon.quest.glb",
-      "questBytes": 1412528,
+      "questBytes": 1798404,
       "art": true,
       "low": "models/ringtail-raccoon.low.glb",
       "lowBytes": 235160
@@ -3476,12 +3476,12 @@
       "model": "models/river-otter.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/river-otter.glb",
       "size": [
-        0.038,
-        0.0782,
-        0.22
+        0.0394,
+        0.0595,
+        0.2199
       ],
-      "bytes": 1023948,
-      "triangles": 7600,
+      "bytes": 1125916,
+      "triangles": 9552,
       "speech": "little",
       "sounds": {
         "call": "sounds/otter-call.wav",
@@ -3490,7 +3490,7 @@
         "curious": "sounds/otter-curious.wav"
       },
       "quest": "models/river-otter.quest.glb",
-      "questBytes": 1255000,
+      "questBytes": 1447464,
       "art": true,
       "low": "models/river-otter.low.glb",
       "lowBytes": 284164
@@ -3890,12 +3890,12 @@
       "model": "models/street-terrier.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/street-terrier.glb",
       "size": [
-        0.0545,
-        0.1549,
-        0.25
+        0.0674,
+        0.1432,
+        0.2504
       ],
-      "bytes": 1201964,
-      "triangles": 7598,
+      "bytes": 1423388,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/dog-call.wav",
@@ -3904,7 +3904,7 @@
         "curious": "sounds/dog-curious.wav"
       },
       "quest": "models/street-terrier.quest.glb",
-      "questBytes": 1569444,
+      "questBytes": 1812068,
       "art": true,
       "low": "models/street-terrier.low.glb",
       "lowBytes": 207232
@@ -3926,12 +3926,12 @@
       "model": "models/stripe-badger.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/stripe-badger.glb",
       "size": [
-        0.06,
-        0.132,
+        0.07,
+        0.1221,
         0.26
       ],
-      "bytes": 1188792,
-      "triangles": 7598,
+      "bytes": 1029976,
+      "triangles": 9506,
       "speech": "little",
       "sounds": {
         "call": "sounds/bear-call.wav",
@@ -3940,7 +3940,7 @@
         "curious": "sounds/bear-curious.wav"
       },
       "quest": "models/stripe-badger.quest.glb",
-      "questBytes": 1420700,
+      "questBytes": 1262172,
       "art": true,
       "low": "models/stripe-badger.low.glb",
       "lowBytes": 243600
@@ -4182,12 +4182,12 @@
       "model": "models/woolly-lamb.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/woolly-lamb.glb",
       "size": [
-        0.0803,
-        0.1992,
+        0.1032,
+        0.1889,
         0.25
       ],
-      "bytes": 1101376,
-      "triangles": 7600,
+      "bytes": 1148384,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/sheep-call.wav",
@@ -4196,7 +4196,7 @@
         "curious": "sounds/sheep-curious.wav"
       },
       "quest": "models/woolly-lamb.quest.glb",
-      "questBytes": 1328140,
+      "questBytes": 1386260,
       "art": true,
       "low": "models/woolly-lamb.low.glb",
       "lowBytes": 240992

@@ -979,7 +979,7 @@
             "play": "shake"
           },
           {
-            "wait": 1.6
+            "wait": 1.2
           },
           {
             "behave": "none"
@@ -999,7 +999,7 @@
             "play": "roll"
           },
           {
-            "wait": 2.4
+            "wait": 2
           },
           {
             "behave": "none"
