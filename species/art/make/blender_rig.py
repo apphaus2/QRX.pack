@@ -71,7 +71,13 @@ def place():
     # The feet: two groups along z near the ground (front and back), the widest gap between them when there are more.
     low = slice_at(0.04 * H)
     g = groups([p[1] for p in low], 0.03 * L)
-    if len(g) < 2: raise SystemExit("make: found %d leg groups near the ground; place the joints by hand in %s" % (len(g), joints_path))
+    if len(g) < 2:
+        # Feet close together (a squirrel sitting up, a rabbit crouched): split the one group at its widest gap.
+        g = groups([p[1] for p in low], 0.0)
+        if len(g) < 2: raise SystemExit("make: found no feet near the ground; place the joints by hand in %s" % joints_path)
+        widest = max(range(len(g) - 1), key=lambda i: g[i + 1][0] - g[i][-1])
+        g = [[v for grp in g[:widest + 1] for v in grp], [v for grp in g[widest + 1:] for v in grp]]
+        common.log("feet close together: front and back split at the widest gap, %.3f m" % (g[1][0] - g[0][-1]))
     gaps = [(g[i + 1][0] - g[i][-1], i) for i in range(len(g) - 1)]
     split = max(gaps)[1]
     back_z = [v for grp in g[:split + 1] for v in grp]; front_z = [v for grp in g[split + 1:] for v in grp]
@@ -192,6 +198,32 @@ def nearest_leg(end, g):
     return 1 + LEGS.index((end, min(("L", "R"), key=d)))
 
 
+def close_loops(bm, edges):
+    """What holes_fill leaves open (it skips some slits): walk each boundary loop and close it with one face, then
+    triangles."""
+    import bmesh
+    nxt = {}
+    for e in edges:
+        for v in e.verts: nxt.setdefault(v, []).append(e)
+    faces, seen = [], set()
+    for start in list(nxt):
+        if start in seen or len(nxt[start]) != 2: continue
+        loop, v, came = [start], start, None
+        while True:
+            e = next((e for e in nxt[v] if e is not came), None)
+            if e is None: loop = None; break
+            w = e.other_vert(v)
+            if w is start: break
+            if w in loop or len(nxt.get(w, [])) != 2: loop = None; break
+            loop.append(w); v, came = w, e
+        if not loop or len(loop) < 3: continue
+        seen.update(loop)
+        try: f = bm.faces.new(loop)
+        except ValueError: continue
+        faces += bmesh.ops.triangulate(bm, faces=[f])["faces"]
+    return faces
+
+
 def split_legs():
     import bmesh
     zone = leg_zone()
@@ -223,6 +255,7 @@ def split_legs():
             away = joints["low_" + end + own][0] - joints["low_" + end + other][0]
             v.co = inv @ (mw @ v.co + Vector((math.copysign(GAP / 2, away), 0, 0)))
         caps = bmesh.ops.holes_fill(bm, edges=open_edges, sides=0)["faces"]
+        caps += close_loops(bm, [e for e in open_edges if e.is_valid and e.is_boundary])
         for f in caps:
             near = [lf[side] for e in f.edges for lf in e.link_faces if lf is not f and lf[side]]
             f[side] = max(set(near), key=near.count) if near else 0

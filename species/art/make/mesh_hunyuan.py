@@ -28,7 +28,8 @@ except Exception as error: print("make: torchvision fix not applied:", error)
 
 work = os.path.dirname(out)
 shape_path = out.replace(".glb", "-shape-%d.glb" % seed)
-image = Image.open(image_path).convert("RGBA")
+from strands import drop_strands          # noqa: E402
+image = drop_strands(Image.open(image_path))
 
 t = time.time()
 if os.path.exists(shape_path) and os.path.getmtime(shape_path) > os.path.getmtime(image_path):
