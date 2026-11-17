@@ -76,6 +76,8 @@
 <script type="module">
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 
 const index = await (await fetch("../index.json")).json();
 const species = Object.fromEntries(index.species.map(s => [s.id, s]));
@@ -83,7 +85,12 @@ const rarity = Object.fromEntries(index.rarities.map(r => [r.id, r]));
 const habitat = Object.fromEntries(index.habitats.map(h => [h.id, h]));
 const filter = { biome: null, habitat: null, rarity: null, clip: "move", spin: true, visitors: false };
 const views = [];      // { element, scene, camera, mixer, actions, pivot, id }
-const loader = new GLTFLoader();
+// The art animals' models are meshopt with KTX2 (UASTC) textures: the loader needs both decoders. The KTX2 loader asks
+// a renderer what the GPU takes; a throwaway one answers, then is let go.
+const probe = new THREE.WebGLRenderer();
+const ktx2 = new KTX2Loader().setTranscoderPath("https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/").detectSupport(probe);
+probe.dispose(); probe.forceContextLoss();
+const loader = new GLTFLoader().setKTX2Loader(ktx2).setMeshoptDecoder(MeshoptDecoder);
 const status = document.getElementById("status");
 let loaded = 0, failed = 0;
 
@@ -121,10 +128,20 @@ function enqueue(job) { queue.push(job); pump(); }
 function pump() { while (running < 4 && queue.length) { running++; queue.shift()().then(() => { running--; pump(); }); } }
 function report() { status.textContent = `${loaded} of ${views.length} models loaded` + (failed ? `, ${failed} failed` : ""); }
 
+// An art animal's model is a skinned mesh with 16-bit positions undone by its node: three's box of it comes out wrong,
+// so it is framed by the size the build measured (index.json), its origin at its feet on the ground, mid-body otherwise.
+function measure(gltf, s) {
+  if (s && s.art && s.size) {
+    const size = new THREE.Vector3(...s.size);
+    return { size, centre: new THREE.Vector3(0, s.habitat === "ground" ? size.y / 2 : 0, 0) };
+  }
+  const box = new THREE.Box3().setFromObject(gltf.scene);
+  return { centre: box.getCenter(new THREE.Vector3()), size: box.getSize(new THREE.Vector3()) };
+}
+
 function show(view, gltf) {
   if (!views.includes(view)) return;      // the page was laid out again while this one loaded
-  const box = new THREE.Box3().setFromObject(gltf.scene);
-  const centre = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
+  const { centre, size } = measure(gltf, species[view.id]);
   gltf.scene.position.sub(centre);
   view.pivot.add(gltf.scene);
   const reach = Math.max(size.x, size.y, size.z) * 1.9 + 0.02;

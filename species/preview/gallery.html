@@ -115,6 +115,8 @@
 <script type="module">
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 // The 77 species in the pack at the pin b8ee7fc. Anything else in index.json is new.
@@ -134,7 +136,12 @@ function save() { try { localStorage.setItem(STORE, JSON.stringify(marks)); } ca
 const state = { which: "all", angle: "turn", clip: "move", search: "" };
 let index = null, stamp = Date.now();
 const views = [];
-const loader = new GLTFLoader();
+// The art animals' models are meshopt with KTX2 (UASTC) textures: the loader needs both decoders. The KTX2 loader asks
+// a renderer what the GPU takes; a throwaway one answers, then is let go.
+const probe = new THREE.WebGLRenderer();
+const ktx2 = new KTX2Loader().setTranscoderPath("https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/").detectSupport(probe);
+probe.dispose(); probe.forceContextLoss();
+const loader = new GLTFLoader().setKTX2Loader(ktx2).setMeshoptDecoder(MeshoptDecoder);
 const status = document.getElementById("status");
 let loaded = 0, failed = 0;
 
@@ -200,9 +207,19 @@ function stage(s) {
   return { scene, camera, pivot, mixer: null, actions: {}, id: s.id, move: null, reach: 0 };
 }
 
-function show(view, gltf, s) {
+// An art animal's model is a skinned mesh with 16-bit positions undone by its node: three's box of it comes out wrong,
+// so it is framed by the size the build measured (index.json), its origin at its feet on the ground, mid-body otherwise.
+function measure(gltf, s) {
+  if (s && s.art && s.size) {
+    const size = new THREE.Vector3(...s.size);
+    return { size, centre: new THREE.Vector3(0, s.habitat === "ground" ? size.y / 2 : 0, 0) };
+  }
   const box = new THREE.Box3().setFromObject(gltf.scene);
-  const centre = box.getCenter(new THREE.Vector3()), size = box.getSize(new THREE.Vector3());
+  return { centre: box.getCenter(new THREE.Vector3()), size: box.getSize(new THREE.Vector3()) };
+}
+
+function show(view, gltf, s) {
+  const { centre, size } = measure(gltf, s);
   gltf.scene.position.sub(centre);
   view.pivot.add(gltf.scene);
   if (s.habitat === "ground") {
