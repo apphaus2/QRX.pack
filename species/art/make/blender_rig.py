@@ -16,6 +16,16 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import blender_common as common      # noqa: E402
 
 clean, out_blend, joints_path, mode, rigger, unirig_npz = common.args()
+# The 18 animals made and filed before the stance finder below (2026-11-17) are placed exactly as they were: three of
+# them (red-squirrel, ringtail-raccoon, stripe-badger) touch the ground with a tail and would come out differently.
+# Take a name out of this list to have that animal placed the new way the next time it is made.
+MADE_BEFORE = ("alley-cat", "crag-kid", "dapple-calf", "dapple-fawn", "farmyard-piglet", "frost-wolf-pup", "honeyglow-bear-cub", "marsh-capybara",
+               "meadow-cottontail", "meadow-pony", "meadow-sheepdog", "moonlit-cat", "red-squirrel", "ringtail-raccoon", "river-otter", "street-terrier",
+               "stripe-badger", "woolly-lamb")
+# Frogs sit on their bellies with their back legs folded beside them: no cut below the belly finds those legs, so they
+# are placed by a sitting frog's proportions, fitted to this mesh's own length, height and width where each joint is.
+SQUAT = ("glowspot-frog", "pond-frog")
+creature = os.path.basename(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(clean)))))     # art/<id>/work/<variant>/clean.blend
 bpy.ops.wm.open_mainfile(filepath=clean)
 mesh = bpy.data.objects["Mesh"]
 for o in list(bpy.context.scene.objects):
@@ -68,20 +78,134 @@ def place():
             else: out[-1].append(v)
         return out
 
+    def squat():
+        """A sitting frog. Along the body from the rump (0) to the nose (1), up from the ground (0) to the top (1),
+        and out from the middle to the mesh's own edge at that place (1): the thigh runs forward from the hip to a
+        knee beside the belly, the shin back to the ankle by the rump, the foot forward along the ground; the arm
+        goes back and down to the elbow and forward to the hand."""
+        def at(u, v, w, sign):
+            z, y = zmin + u * L, v * H
+            near = [abs(q[0]) for q in points if q[0] * sign > 0 and abs(q[2] - z) < 0.05 * L and abs(q[1] - y) < 0.12 * H]
+            return (sign * w * (max(near) if near else max(abs(x) for x in xs)), y, z)
+        joints = {}
+        for side, sign in (("L", 1), ("R", -1)):
+            joints["top_B" + side], joints["mid_B" + side] = at(0.16, 0.32, 0.35, sign), at(0.47, 0.40, 0.80, sign)
+            joints["low_B" + side], joints["toe_B" + side] = at(0.10, 0.12, 0.80, sign), at(0.48, 0.0, 0.80, sign)
+            joints["top_F" + side], joints["mid_F" + side] = at(0.66, 0.45, 0.50, sign), at(0.58, 0.30, 0.78, sign)
+            joints["low_F" + side], joints["toe_F" + side] = at(0.72, 0.08, 0.70, sign), at(0.84, 0.0, 0.70, sign)
+        nose = max(points, key=lambda q: q[2])
+        mid = lambda u, v: (0.0, v * H, zmin + u * L)
+        joints.update(root=mid(0.4, 0.0), root_up=mid(0.4, 0.08), hips=mid(0.2, 0.38), chest=mid(0.6, 0.5), neck=mid(0.72, 0.58), skull=mid(0.8, 0.62),
+                      nose=(0.0, nose[1], nose[2]), tail0=mid(0.1, 0.3), tail1=mid(0.06, 0.26), tail2=mid(0.03, 0.22), tail3=mid(0.0, 0.18))
+        head_pts = [q for q in points if q[2] > nose[2] - 0.3 * L and q[1] > 0.4 * H]
+        for side, sign in (("l", 1), ("r", -1)):                      # the "ears" are the eyes: the highest of the head
+            tip = max([q for q in head_pts if q[0] * sign > 0] or head_pts or [nose], key=lambda q: q[1])
+            joints["ear_%s_tip" % side] = tip
+            joints["ear_%s" % side] = (tip[0] * 0.6, tip[1] - 0.04 * L, tip[2] - 0.01 * L)
+        common.log("a sitting frog: placed by its proportions")
+        return {k: [round(c, 5) for c in v] for k, v in joints.items()}, {"belly": round(0.1 * H, 4), "height": round(H, 4), "length": round(L, 4), "stance": "squat"}
+
+    def blob(members, ids):
+        bx, bz = [q[0] for q in members], [q[1] for q in members]
+        return {"pts": members, "ids": ids, "x": sum(bx) / len(bx), "z": sum(bz) / len(bz), "x0": min(bx), "x1": max(bx), "z0": min(bz), "z1": max(bz)}
+
+    def blobs(pts, cell):
+        """The slice's (x, z) points joined where they lie within a cell of each other: one blob a foot, or a tail."""
+        grid = {}
+        for q in pts: grid.setdefault((math.floor(q[0] / cell), math.floor(q[1] / cell)), []).append(q)
+        seen, out = set(), []
+        for start in grid:
+            if start in seen: continue
+            seen.add(start); stack, members = [start], []
+            while stack:
+                c = stack.pop(); members += grid[c]
+                for n in ((c[0] + dx, c[1] + dz) for dx in (-1, 0, 1) for dz in (-1, 0, 1)):
+                    if n in grid and n not in seen: seen.add(n); stack.append(n)
+            out.append(blob(members, {len(out)}))
+        return out
+
+    def stand(low):
+        """None (the feet are found as they always were), or the stance: its kind, and for an upright body the
+        feet's own points, for a sprawled one the middle of the trunk and a function that places the legs."""
+        if creature in MADE_BEFORE: return None
+        found = blobs(low, 0.012 * L)
+        left, right = [b for b in found if b["x0"] > 0], [b for b in found if b["x1"] < 0]
+        near = sorted((abs(l["z"] - r["z"]), i, j) for i, l in enumerate(left) for j, r in enumerate(right) if abs(l["z"] - r["z"]) < 0.15 * L)
+        pairs, used = [], (set(), set())
+        for _, i, j in near:
+            if i in used[0] or j in used[1]: continue
+            used[0].add(i); used[1].add(j); pairs.append([left[i], right[j]])
+        where = lambda pair: (pair[0]["z"] + pair[1]["z"]) / 2
+        pairs.sort(key=where)
+        k = 0
+        while k < len(pairs) - 1:                           # the toes and the heels of the same two feet are one pair
+            if where(pairs[k + 1]) - where(pairs[k]) < 0.12 * L:
+                pairs[k] = [blob(a["pts"] + b["pts"], a["ids"] | b["ids"]) for a, b in zip(pairs[k], pairs[k + 1])]; del pairs[k + 1]
+            else: k += 1
+        if len(pairs) > 2: pairs = sorted(sorted(pairs, key=lambda pair: -len(pair[0]["pts"]) - len(pair[1]["pts"]))[:2], key=where)
+        if len(pairs) != 2: return None
+        hind, front = pairs
+        feet = set().union(*(b["ids"] for b in hind + front))
+        z0, z1 = min(b["z0"] for b in hind), max(b["z1"] for b in front)
+        others = [b for b in found if not b["ids"] & feet and (b["z0"] > z1 or b["z1"] < z0)]
+        mid = (max(b["z1"] for b in hind) + min(b["z0"] for b in front)) / 2
+        trunk = max((abs(q[0]) for q in points if abs(q[2] - mid) < 0.03 * L), default=0.05 * L)
+        if all(abs(b["x"]) > 0.9 * trunk for b in hind + front):
+            common.log("a sprawled body: four feet outside the trunk (%.3f m to each side), %d other contacts with the ground left out" % (trunk, len(others)))
+            return {"kind": "sprawled", "gap_mid": mid, "legs": lambda belly: sprawled_legs(hind, front, trunk, belly)}
+        if others:
+            common.log("two pairs of feet; %d other contacts with the ground (a tail, a chin) left out" % len(others))
+            return {"kind": "upright", "points": [q for b in hind + front for q in b["pts"]]}
+        return None
+
+    def sprawled_legs(hind, front, trunk, belly):
+        """A leg that goes out from the side of the body and down to a foot beside it: the shoulder inside the
+        trunk's edge where the limb leaves it, the elbow at the middle of the limb, the ankle over the foot."""
+        out = {}
+        for end, pair in (("F", front), ("B", hind)):
+            tops = []
+            for side, sign, foot in (("L", 1, pair[0]), ("R", -1, pair[1])):
+                reach = abs(foot["x"])
+                limb = [q for q in points if q[0] * sign > trunk and abs(q[2] - foot["z"]) < 0.12 * L]
+                inner = [q for q in limb if abs(q[0]) < trunk + 0.35 * (reach - trunk)]
+                z_top = sum(q[2] for q in inner) / len(inner) if inner else foot["z"]
+                top_here = max((q[1] for q in points if abs(q[2] - z_top) < 0.04 * L), default=H)
+                top = (sign * 0.6 * trunk, belly + 0.45 * (top_here - belly), z_top)
+                band = [q for q in limb if trunk + 0.35 * (reach - trunk) <= abs(q[0]) <= trunk + 0.75 * (reach - trunk)]
+                if band: mid = tuple(sum(c) / len(band) for c in zip(*band))
+                else: mid = ((top[0] + foot["x"]) / 2, top[1], (top[2] + foot["z"]) / 2)
+                leg = end + side
+                out["top_" + leg] = top
+                out["mid_" + leg] = mid
+                out["low_" + leg] = (foot["x"], min(0.3 * mid[1], 0.02 * L), foot["z"])
+                out["toe_" + leg] = (foot["x"], 0.0, foot["z1"])
+                tops.append((top_here, z_top))
+            out["%s_top" % end] = (0.0, sum(t[0] for t in tops) / 2, sum(t[1] for t in tops) / 2)
+        return out
+
     # The feet: two groups along z near the ground (front and back), the widest gap between them when there are more.
+    if creature in SQUAT: return squat()
     low = slice_at(0.04 * H)
-    g = groups([p[1] for p in low], 0.03 * L)
-    if len(g) < 2:
-        # Feet close together (a squirrel sitting up, a rabbit crouched): split the one group at its widest gap.
-        g = groups([p[1] for p in low], 0.0)
-        if len(g) < 2: raise SystemExit("make: found no feet near the ground; place the joints by hand in %s" % joints_path)
-        widest = max(range(len(g) - 1), key=lambda i: g[i + 1][0] - g[i][-1])
-        g = [[v for grp in g[:widest + 1] for v in grp], [v for grp in g[widest + 1:] for v in grp]]
-        common.log("feet close together: front and back split at the widest gap, %.3f m" % (g[1][0] - g[0][-1]))
-    gaps = [(g[i + 1][0] - g[i][-1], i) for i in range(len(g) - 1)]
-    split = max(gaps)[1]
-    back_z = [v for grp in g[:split + 1] for v in grp]; front_z = [v for grp in g[split + 1:] for v in grp]
-    gap_mid = (g[split][-1] + g[split + 1][0]) / 2
+    # What stands on the ground, as blobs seen from above. Two left-and-right pairs of feet with other contacts fore
+    # or aft (a tail lying on the ground, a chin) are the feet, and the rest is left out; feet that stand outside the
+    # trunk are a sprawled body's (a lizard, a newt) and its legs are placed their own way below.
+    stance = stand(low)
+    if stance and stance["kind"] == "upright": low = stance["points"]
+    if stance and stance["kind"] != "upright":
+        gap_mid = stance["gap_mid"]
+    else:
+        g = groups([p[1] for p in low], 0.03 * L)
+        if len(g) < 2:
+            # Feet close together (a squirrel sitting up, a rabbit crouched): split the one group at its widest gap.
+            g = groups([p[1] for p in low], 0.0)
+            if len(g) < 2: raise SystemExit("make: found no feet near the ground; place the joints by hand in %s" % joints_path)
+            widest = max(range(len(g) - 1), key=lambda i: g[i + 1][0] - g[i][-1])
+            g = [[v for grp in g[:widest + 1] for v in grp], [v for grp in g[widest + 1:] for v in grp]]
+            common.log("feet close together: front and back split at the widest gap, %.3f m" % (g[1][0] - g[0][-1]))
+        gaps = [(g[i + 1][0] - g[i][-1], i) for i in range(len(g) - 1)]
+        split = max(gaps)[1]
+        back_z = [v for grp in g[:split + 1] for v in grp]; front_z = [v for grp in g[split + 1:] for v in grp]
+        gap_mid = (g[split][-1] + g[split + 1][0]) / 2
     # The belly: going up, the first height where the surface crosses the middle of that gap.
     belly = 0.6 * H
     h = 0.04 * H
@@ -90,29 +214,32 @@ def place():
         h += 0.01 * H
     joints = {}
     sides = {"L": 1, "R": -1}
-    for end, zs_end in (("F", front_z), ("B", back_z)):
-        zc = sum(zs_end) / len(zs_end)
-        z_lo, z_hi = min(zs_end) - 0.02 * L, max(zs_end) + 0.02 * L
-        top_here = max((p[1] for p in points if abs(p[2] - zc) < 0.04 * L), default=H)
-        for side, sign in sides.items():
-            def column(h):
-                pts = [p for p in slice_at(h) if z_lo <= p[1] <= z_hi and p[0] * sign > 0]
-                if not pts: pts = [p for p in slice_at(h) if z_lo <= p[1] <= z_hi]
-                if not pts: return (sign * 0.02 * L, zc)
-                return (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
-            leg = end + side
-            shoulder = belly + 0.45 * (top_here - belly)
-            x0, z0 = column(belly * 0.95)
-            elbow, wrist = (0.8, 0.28) if end == "F" else (0.75, 0.33)     # a front elbow sits near the belly, a hock lower
-            xm, zm = column(belly * elbow)
-            xl, zl = column(belly * wrist)
-            feet = [p for p in points if p[1] < 0.05 * H and z_lo <= p[2] <= z_hi and p[0] * sign > 0] or [(xl, 0, zl)]
-            toe_z = max(p[2] for p in feet)
-            joints["top_" + leg] = (x0 * 0.8, shoulder, z0)
-            joints["mid_" + leg] = (xm, belly * elbow, zm)
-            joints["low_" + leg] = (xl, belly * wrist, zl)
-            joints["toe_" + leg] = (xl, 0.0, toe_z)
-        joints["%s_top" % end] = (0.0, top_here, zc)
+    if stance and stance["kind"] != "upright":
+        joints.update(stance["legs"](belly))
+    else:
+        for end, zs_end in (("F", front_z), ("B", back_z)):
+            zc = sum(zs_end) / len(zs_end)
+            z_lo, z_hi = min(zs_end) - 0.02 * L, max(zs_end) + 0.02 * L
+            top_here = max((p[1] for p in points if abs(p[2] - zc) < 0.04 * L), default=H)
+            for side, sign in sides.items():
+                def column(h):
+                    pts = [p for p in slice_at(h) if z_lo <= p[1] <= z_hi and p[0] * sign > 0]
+                    if not pts: pts = [p for p in slice_at(h) if z_lo <= p[1] <= z_hi]
+                    if not pts: return (sign * 0.02 * L, zc)
+                    return (sum(p[0] for p in pts) / len(pts), sum(p[1] for p in pts) / len(pts))
+                leg = end + side
+                shoulder = belly + 0.45 * (top_here - belly)
+                x0, z0 = column(belly * 0.95)
+                elbow, wrist = (0.8, 0.28) if end == "F" else (0.75, 0.33)     # a front elbow sits near the belly, a hock lower
+                xm, zm = column(belly * elbow)
+                xl, zl = column(belly * wrist)
+                feet = [p for p in points if p[1] < 0.05 * H and z_lo <= p[2] <= z_hi and p[0] * sign > 0] or [(xl, 0, zl)]
+                toe_z = max(p[2] for p in feet)
+                joints["top_" + leg] = (x0 * 0.8, shoulder, z0)
+                joints["mid_" + leg] = (xm, belly * elbow, zm)
+                joints["low_" + leg] = (xl, belly * wrist, zl)
+                joints["toe_" + leg] = (xl, 0.0, toe_z)
+            joints["%s_top" % end] = (0.0, top_here, zc)
     f_top, b_top = joints.pop("F_top"), joints.pop("B_top")
     fz = (joints["top_FL"][2] + joints["top_FR"][2]) / 2
     bz = (joints["top_BL"][2] + joints["top_BR"][2]) / 2
@@ -154,11 +281,14 @@ def place():
     else:
         r = (0.0, hips[1], bz - 0.1 * L)
         joints.update(tail0=r, tail1=(0, r[1], r[2] - 0.02), tail2=(0, r[1], r[2] - 0.03), tail3=(0, r[1], r[2] - 0.04))
-    return {k: [round(c, 5) for c in v] for k, v in joints.items()}, {"belly": round(belly, 4), "height": round(H, 4), "length": round(L, 4)}
+    found = {"belly": round(belly, 4), "height": round(H, 4), "length": round(L, 4)}
+    if stance and stance["kind"] != "upright": found["stance"] = stance["kind"]     # only said when it is not the usual one
+    return {k: [round(c, 5) for c in v] for k, v in joints.items()}, found
 
 
 if mode == "keep":
     joints = json.load(open(joints_path))["joints"]
+    found = json.load(open(joints_path)).get("found", {})
     common.log("joints kept from", joints_path)
 else:
     joints, found = place()
@@ -227,6 +357,10 @@ def close_loops(bm, edges):
 def split_legs():
     import bmesh
     zone = leg_zone()
+    if found.get("stance") in ("sprawled", "squat"):
+        # Legs out to the side never touch each other, and the belly lies as low as they do: nothing to split.
+        bm = bmesh.new(); bm.from_mesh(mesh.data); bm.faces.layers.int.new("leg_side"); bm.to_mesh(mesh.data); bm.free()
+        common.log("legs: %s, none split" % found["stance"]); return
     me = mesh.data
     mw = mesh.matrix_world; inv = mw.inverted()
     bm = bmesh.new(); bm.from_mesh(me)
