@@ -551,6 +551,47 @@ def quest_path(path):
     return path[:-len(".glb")] + QUEST_SUFFIX + ".glb"
 
 
+FLOAT = 5126
+GEOMETRY_PACKING = ("EXT_meshopt_compression", "KHR_meshopt_compression", "KHR_mesh_quantization", "KHR_draco_mesh_compression")
+
+
+def standard_faults(gltf, facts, quest):
+    """The owner's standard for an art mesh (2026-11-16, art/PIPELINE.md): every texture UASTC KTX2 on both copies;
+    the phones' copy meshopt-compressed; the Quest's copy plain floats with no meshopt, no quantization and no Draco
+    (Meta's reader stops QRay on each, and on ETC1S). On both: one skin, at most four weights a vertex (no JOINTS_1),
+    and Root never moved by a clip (no root motion)."""
+    faults = []
+    used = set(gltf.get("extensionsUsed", [])) | set(gltf.get("extensionsRequired", []))
+    textures = facts.get("textures", [])
+    if not textures: faults.append("no texture: the standard is one UASTC KTX2 base-colour texture")
+    for i, t in enumerate(textures):
+        if t.get("format") != "KTX2 UASTC": faults.append("texture %d is %s; the standard is KTX2 UASTC (gltfpack -tc -tu)" % (i, t.get("format")))
+    if quest:
+        packed = sorted(used & set(GEOMETRY_PACKING))
+        if packed: faults.append("uses %s: the Quest copy must be plain float geometry (gltfpack -noq, never -c)" % ", ".join(packed))
+        for m, mesh in enumerate(gltf.get("meshes", [])):
+            for p, prim in enumerate(mesh.get("primitives", [])):
+                if set(prim.get("extensions", {})) & set(GEOMETRY_PACKING): faults.append("mesh %d primitive %d is compressed" % (m, p))
+                for name in ("POSITION", "NORMAL", "TANGENT", "TEXCOORD_0", "TEXCOORD_1"):
+                    if name in prim.get("attributes", {}):
+                        a = gltf["accessors"][prim["attributes"][name]]
+                        if a.get("componentType") != FLOAT or a.get("normalized"): faults.append("mesh %d primitive %d: %s is quantized, not plain floats" % (m, p, name))
+        for v, view in enumerate(gltf.get("bufferViews", [])):
+            if set(view.get("extensions", {})) & set(GEOMETRY_PACKING): faults.append("buffer view %d is meshopt-compressed" % v); break
+    elif "EXT_meshopt_compression" not in used:
+        faults.append("is not meshopt-compressed: the phones' copy is gltfpack -cc -tc -tu -kn -km")
+    if len(gltf.get("skins", [])) != 1: faults.append("has %d skins; the standard is one" % len(gltf.get("skins", [])))
+    for m, mesh in enumerate(gltf.get("meshes", [])):
+        for p, prim in enumerate(mesh.get("primitives", [])):
+            if "JOINTS_1" in prim.get("attributes", {}) or "WEIGHTS_1" in prim.get("attributes", {}):
+                faults.append("mesh %d primitive %d has more than four weights a vertex" % (m, p))
+    roots = {i for i, n in enumerate(gltf.get("nodes", [])) if n.get("name") == "Root"}
+    for animation in gltf.get("animations", []):
+        moved = {c.get("target", {}).get("path") for c in animation.get("channels", []) if c.get("target", {}).get("node") in roots}
+        if moved & {"translation", "rotation", "scale"}: faults.append("clip %s moves Root (clips are in place)" % animation.get("name", "?")); break
+    return faults
+
+
 def check_art(data, d, glb, quest, where):
     """(faults, facts) for a creature's art meshes, the phones' and the Quest's, read by art/intake.py (which reads
     meshopt, 16-bit positions and KTX2): both read, the Quest's requires only what the Quest reads, both have the
@@ -571,6 +612,8 @@ def check_art(data, d, glb, quest, where):
         gltf = json.loads(blob[20:20 + n])
         results[label] = (facts, gltf)
     if faults: return faults, {}
+    for label, (f, g) in results.items():
+        faults += ["%s: %s" % (quest_path(where) if label else where, fault) for fault in standard_faults(g, f, quest=bool(label))]
     facts, gltf = results[QUEST_SUFFIX]
     extra = set(gltf.get("extensionsRequired", [])) - QUEST_EXTENSIONS
     if extra: faults.append("%s: requires %s, which the Quest does not read" % (quest_path(where), ", ".join(sorted(extra))))
