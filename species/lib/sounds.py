@@ -74,10 +74,30 @@ def _kind(kind, rate, p, n, rng):
         return out
     if kind == "hiss": return _noise(rate, 0.32 * n, rng, min(0.9, 0.5 / p), bright=True)
     if kind == "whoosh": return _noise(rate, 0.42 * n, rng, min(0.9, 0.08 * p))
+    # The bigger animals (the beast archetype): each a rough voice of its own, not a sample.
+    rich = ((1, 1.0), (2, 0.8), (3, 0.6), (4, 0.4), (5, 0.25))
+    if kind == "bark": return (_tone(rate, 430 * p, 300 * p, 0.09 * n, rich, attack=0.004, release=0.04, breath=0.25, rng=rng) + _gap(rate, 0.07 * n)
+                               + _tone(rate, 400 * p, 280 * p, 0.10 * n, rich, attack=0.004, release=0.05, breath=0.25, rng=rng))
+    if kind == "meow": return (_tone(rate, 520 * p, 880 * p, 0.16 * n, ((1, 1.0), (2, 0.5), (3, 0.3)), attack=0.03, release=0.004, curve=0.5)
+                               + _tone(rate, 880 * p, 600 * p, 0.26 * n, ((1, 1.0), (2, 0.5), (3, 0.3)), attack=0.004, release=0.12))
+    if kind == "oink": return (_tone(rate, 210 * p, 260 * p, 0.10 * n, rich, attack=0.01, release=0.03, tremolo=(55.0, 0.7), breath=0.2, rng=rng) + _gap(rate, 0.05 * n)
+                               + _tone(rate, 260 * p, 190 * p, 0.15 * n, rich, attack=0.01, release=0.05, tremolo=(55.0, 0.7), breath=0.2, rng=rng))
+    if kind == "bleat": return _tone(rate, 520 * p, 470 * p, 0.45 * n, ((1, 1.0), (2, 0.6), (3, 0.5), (4, 0.3)), attack=0.03, release=0.1, tremolo=(17.0, 0.75))
+    if kind == "whinny": return _tone(rate, 1500 * p, 600 * p, 0.55 * n, ((1, 1.0), (2, 0.5), (3, 0.25)), attack=0.02, release=0.12, tremolo=(13.0, 0.6), curve=1.0)
+    if kind == "moo": return (_tone(rate, 150 * p, 190 * p, 0.22 * n, ((1, 1.0), (2, 0.7), (3, 0.5), (4, 0.3)), attack=0.06, release=0.004)
+                              + _tone(rate, 190 * p, 140 * p, 0.42 * n, ((1, 1.0), (2, 0.7), (3, 0.5), (4, 0.3)), attack=0.004, release=0.2))
+    if kind == "growl": return _tone(rate, 110 * p, 95 * p, 0.5 * n, rich, swell=True, tremolo=(38.0, 0.9), breath=0.15, rng=rng)
+    if kind == "howl": return (_tone(rate, 380 * p, 620 * p, 0.26 * n, ((1, 1.0), (2, 0.35)), attack=0.05, release=0.004, curve=0.5)
+                               + _tone(rate, 620 * p, 560 * p, 0.42 * n, ((1, 1.0), (2, 0.35)), attack=0.004, release=0.22))
+    if kind == "chitter":
+        out = []
+        for k in range(5): out += _tone(rate, (1900 - 130 * k) * p, (1500 - 110 * k) * p, 0.03 * n, ((1, 1.0), (2, 0.4)), attack=0.003, release=0.012) + _gap(rate, 0.028 * n)
+        return out
     raise KeyError(kind)
 
 
-KINDS = ("chirp", "peep", "trill", "squeak", "hoot", "coo", "caw", "yip", "thump", "croak", "buzz", "purr", "hum", "bubble", "click", "puff", "hiss", "whoosh")
+KINDS = ("chirp", "peep", "trill", "squeak", "hoot", "coo", "caw", "yip", "thump", "croak", "buzz", "purr", "hum", "bubble", "click", "puff", "hiss", "whoosh",
+         "bark", "meow", "oink", "bleat", "whinny", "moo", "growl", "howl", "chitter")
 
 
 def synthesize(spec, rate, pitch=1.0, length=1.0):

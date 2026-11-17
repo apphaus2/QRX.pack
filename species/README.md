@@ -63,7 +63,7 @@ sounds.json              the voices: a synthesized sound for each of four meanin
 definitions/<biome>/     the source of truth: one <id>.json per species, in its home biome's folder
 lib/shapes.py            parts: ellipsoids, tubes, lofts, fins, wing sheets; vectors and quaternions
 lib/gltf.py              the .glb writer, and the reader --check measures models with
-lib/builder.py           what an archetype builds with: colours, patterns, clips, rarity's features, the motes
+lib/builder.py           what an archetype builds with: colours, patterns, clips, rarity's features, the legendary's gilt
 lib/behaviour.py         tempers: what a creature does when tapped
 lib/mind.py              the mind written into each document, and what --check holds it to
 lib/tricks.py            which tricks a species knows, their handlers and the rules that hear them
@@ -115,7 +115,7 @@ preview/index.html       every model in a browser
 | `temperament` | optional: the species' typical nature, one of `life.json`'s `temperaments`; its archetype's otherwise (`temperaments` in `mind.json`). Only what `{temperament}` reads as for a copy of the template: a living creature has its own |
 | `voice` | optional: a voice from `sounds.json` (`owl`, `fox`, `gecko`...); its archetype's otherwise. See "Sounds" |
 | `tricks` | optional: exactly the tricks it knows, by id; otherwise the basics and the first of its archetype's. See "Tricks" |
-| `signature` | a legendary's own trick: `{"id", "phrases", "move", "motes"}`. Required for a rarity with `signature`, refused for any other |
+| `signature` | a legendary's own trick: `{"id", "phrases", "move"}` (an old `motes` key is read and ignored). Required for a rarity with `signature`, refused for any other |
 | `mind` | optional and rarely needed: an object whose keys (`senses`, `tools`, `budget`, `triggers`, `canned`) replace the shared ones from `mind.json` for this species |
 | `biomes` | where it is found, the home biome first. The file lives in `definitions/<home>/`. A common species may list three, an uncommon one two; rare and above have one, so they are a reason to go somewhere (`maxBiomes` in `rarity.json`) |
 | `habitat` | `water`, `ground` or `air` |
@@ -143,12 +143,12 @@ there; away from its home biome a species counts for `visitorShare` (half) of it
 | uncommon | 25 | `#3FA66B` | up to 2 | `trim`: the pattern is edged in a second colour | `little` | the basics and 2 |
 | rare | 10 | `#3B82F6` | 1 | `ornament`: an extra part, by archetype (a crest, a horn, tail streamers, a coronet, spikes, long tentacles...) | `simple` | the basics and 3 |
 | epic | 4 | `#A855F7` | 1 | `glow`: the ornament, and anything painted `"lit"`, is emissive at 0.6 | `clear` | the basics and 4 |
-| legendary | 1 | `#F5B301` | 1 | glow at full strength and `motes`: a ring of five lights that circles it in every clip; lower, longer sounds | `thoughtful` | the basics, 4 and a signature |
+| legendary | 1 | `#F5B301` | 1 | glow at full strength and `gilt`: the far `gilt` share (0.2) of every leaf part (feet, the tip of a tail, ears, wing tips) in gold; lower, longer sounds. What makes it legendary is how it moves and its cues, with a signature of its own; the ring of five lights it once had was taken off on 2026-11-16 | `thoughtful` | the basics, 4 and a signature |
 
 So rarity shows on the creature, not only in its header: each level keeps what the one below has. In a biome with
 the least roster (2 common, 1 uncommon, 1 rare, 1 epic, 1 legendary, no visitors) a legendary is 1 spawn in 160.
 
-Adding a level is a row in `rarity.json`; `features` may hold `trim`, `ornament`, `glow` and `motes`. `speech` is
+Adding a level is a row in `rarity.json`; `features` may hold `trim`, `ornament`, `glow` and `gilt`. `speech` is
 the level's default register, `tricks` how many of its archetype's tricks a species knows beside the basics, `sound`
 a `pitch` and `length` for its voice, `signature` whether its species each have a trick of their own.
 
@@ -182,9 +182,24 @@ from the pack:
   and a document rebuilt from `JsonDocument.value` loses them, as it loses `habitat`. JsonUI's JSON schema says
   `_ui` takes no other keys, but nothing validates against it at run time and `habitat` is already outside it.
 
-**`models/<id>.glb`**: 34 to 88 KB (the limit is 96; it was 80 before tricks), metres, +Y up, the head along +Z,
+**`models/<id>.glb`**: 34 to 410 KB on disk (the limit is 448; it was 80 before tricks, 96 and 160 before the
+skin's finer grid) and at most 256 KB as GitHub Pages sends it, gzipped (the largest is 214 KB), metres, +Y up, the head along +Z,
 clips `idle` and the habitat's moving clip, both looping, and a one-shot clip for each trick the species animates. A walker's origin is on the ground under it, a swimmer's or flier's at mid-body. Plain coloured
 materials (no textures), emissive for the glow.
+
+**A creature with art** (`art/<id>/mesh.glb` filed by `art/intake.py`, art/README.md; the first was the street
+terrier, 2026-11-16) ships its art instead of the generated model, with two files: `models/<id>.glb` is `mesh.glb`
+(meshopt, 16-bit positions, KTX2 ETC1S textures) for the phones and TVs, and `models/<id>.quest.glb` is
+`mesh.quest.glb` (plain geometry, KTX2), which the Quest asks for first (JsonScene's `modelSuffix` ".quest"):
+Meta's reader stops the app on meshopt, 16-bit positions and Draco. The document names only `models/<id>.glb`. The
+build reads both with intake's reader and checks: each at most intake's 1 MB, the Quest copy requiring only what
+the Spatial SDK reads (`KHR_texture_basisu`, `KHR_texture_transform`, `KHR_materials_unlit`), the same clips and box
+in both, idle, the moving clip and a clip for every trick the archetype animates, nothing else, and the habitat's
+size and origin. The archetype still gives the sockets (their nodes must be in the mesh), and each trick waits as
+long as the art's clip of it. Its `index.json` entry adds `quest`, `questBytes` and `art: true`. The 448 KB and
+256 KB gzip limits are the generated models'; KTX2 barely gzips (the terrier's 300 KB is 268 KB on the wire).
+Until every Quest build that may meet it asks for `.quest` copies, an art creature must not reach the pack's
+`master`: an older Quest build would load the meshopt file and stop.
 
 **`index.json`**, for an app choosing a spawn:
 
@@ -460,8 +475,8 @@ own page). `ROSTER.md` and the preview page list them, as spoilers for whoever w
   the first few of its archetype's (its rarity's `tricks`: 2 for a common, 4 for a legendary), or exactly the
   list its definition gives in `tricks`. Only the clips a species knows are put in its model.
 - **A legendary has a `signature`**, one trick no other species has, meant to be guessable from its look or its
-  name: `{"id": "snow", "phrases": ["make it snow", "snow", ...], "move": "headturn", "motes": "fall"}`. It borrows
-  one of its archetype's moves and its motes leave their ring for it (`burst`, `swirl`, `gather`, `rise`, `fall`).
+  name: `{"id": "snow", "phrases": ["make it snow", "snow", ...], "move": "headturn"}`. It borrows one of its
+  archetype's moves.
 
 In a document every trick is an event named by its id:
 
@@ -576,10 +591,11 @@ clip is missing there and the trick plays its sound and nothing else.
   accessor in bounds, unit normals, indices in range, triangles wound to face the way their normals do, unique
   node names (the iOS loader finds animation targets by name), the clips the habitat plays present and no others,
   every clip's keys rising from 0 with the last key equal to the first (so it loops), unit quaternions; its
-  longest side within the habitat's `size`; the box it sweeps through every clip no more than half the habitat's
-  bounds on any axis; a walker's lowest point on the ground, a swimmer's or flier's origin inside its body; its
-  eyes not in the rear third (it faces +Z); at most 96 KB; a trick's clip may fling it about but not further than
-  the habitat is wide, tall or deep;
+  longest side at least the habitat's smallest `size` (no largest, and no limit on how much of the habitat it fills,
+  since 2026-11-16: it was 0.26 to 0.30 m and half the habitat's box in motion; a creature too big for a TV's
+  habitat is the TV's to handle); a walker's lowest point on the ground, a swimmer's or flier's origin inside its body; its
+  eyes not in the rear third (it faces +Z); at most 448 KB, and 256 KB gzipped; a trick's clip may fling it about but not further than
+  the habitat is wide or deep;
 - **a document**: the header keys, one mobile actor, the model reference under the recorded base, animations that
   name clips the model has and a model with no clip the body does not declare, sockets that name nodes it has,
   altitude inside the bounds, state it binds declared; `tokens` holding exactly the known tokens with the template's
@@ -615,7 +631,7 @@ drawn for), `ORIGIN` (`"ground"` or `"centre"`), `LENGTH` (its longest side as d
 `COLOURS` (parameters and slots with their defaults; `accent` and `glow` are expected), `PATTERNS`, optionally
 `CHOICES` (the values a text parameter takes), and `build(b)`, which adds named nodes and two clips, `"idle"` and
 `"move"`, to the `Builder` and returns `{"sockets": {"mouth": "<node>"}}`. The driver renames `move` to the
-habitat's clip and adds a legendary's motes. Read `fish.py` (a lofted, painted body), `beetle.py` (legs and gaits)
+habitat's clip and gilds a legendary's tips. Read `fish.py` (a lofted, painted body), `beetle.py` (legs and gaits)
 and `bird.py` (wing sheets) first. Use `b.has("trim" | "ornament" | "glow")` to give rarity something to show,
 `b.mat(slot, glow=True)` for parts that light up, `b.painted(part, painter(b, lo, hi))` for patterns and
 `b.clip(name, seconds, keys, rot=..., pos=..., scl=...)` with functions of the clip's fraction 0 to 1.

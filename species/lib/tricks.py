@@ -17,7 +17,10 @@ PHRASE = re.compile(r"^[a-z]+( [a-z]+)*$")
 RESERVED = ("idle", "move", "swim", "walk", "fly", "tap", "near", "far", "spoken", "appear", "disappear", "animationEnd", "soundEnd", "arrived", "timer")
 VERBS = ("play", "sound", "stopSound", "say", "moveTo", "lookAt", "stop", "wait", "emit", "behave")      # ActorCommand.verbs
 MOTES = ("burst", "swirl", "gather", "rise", "fall")
-SIGNATURE_KEYS = {"id", "phrases", "move", "motes"}
+SIGNATURE_KEYS = {"id", "phrases", "move"}
+# `motes` named how a legendary's ring of lights moved in its signature trick. The ring is gone (the owner,
+# 2026-11-16: a legendary is its articulation and its cues, with gilded tips); the key is still read, and ignored.
+SIGNATURE_OLD_KEYS = {"motes"}
 
 
 def phrase_faults(where, phrases):
@@ -80,12 +83,12 @@ def species_faults(table, d, archetype, rarity):
             elif trick_id not in archetype.TRICKS and "do" not in table["tricks"][trick_id]: faults.append("the %s archetype cannot do the trick %s (it can do %s)" % (d["archetype"], trick_id, ", ".join(archetype.TRICKS)))
     if signature is not None:
         if not rarity.get("signature"): faults.append("only a rarity with `signature` (a legendary) has a signature trick")
-        if not isinstance(signature, dict) or set(signature) != SIGNATURE_KEYS: return faults + ["signature needs id, phrases, move and motes"]
+        if not isinstance(signature, dict) or set(signature) - SIGNATURE_OLD_KEYS != SIGNATURE_KEYS: return faults + ["signature needs id, phrases and move"]
         if not isinstance(signature["id"], str) or not re.match(r"^[a-z]+$", signature["id"]) or signature["id"] in RESERVED or signature["id"] in table["tricks"]:
             faults.append("signature.id must be lower-case letters and not the id of an ordinary trick")
         faults += phrase_faults("signature", signature["phrases"])
         if signature["move"] not in archetype.TRICKS: faults.append("signature.move must be a trick the %s archetype animates (%s)" % (d["archetype"], ", ".join(archetype.TRICKS)))
-        if signature["motes"] not in MOTES: faults.append("signature.motes is one of %s" % ", ".join(MOTES))
+        if "motes" in signature and signature["motes"] not in MOTES: faults.append("signature.motes is one of %s" % ", ".join(MOTES))
     elif rarity.get("signature"): faults.append("a %s species needs a signature trick of its own" % d["rarity"])
     if faults: return faults
     ids = known(table, d, archetype, rarity)

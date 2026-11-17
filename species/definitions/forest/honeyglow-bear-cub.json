@@ -1,0 +1,18 @@
+{
+  "id": "honeyglow-bear-cub",
+  "name": "Bruin",
+  "species": "Honeyglow Bear Cub",
+  "description": "A round brown bear cub with a honey-gold collar that glows, and paws that are always sticky.",
+  "prompt": "I am {name}, a honeyglow bear cub, round and brown with a pale muzzle, small round ears and a collar the colour of honey that glows in the dusk. I am {age} and I live in {home}, near a hollow tree I am not going to tell you about. I sit down heavily whenever I need to think, and I think mostly about honey and where the bees keep it. The wood says I am {temperament}. My voice is slow and deep for my size, with a rumble in it, and I talk about honey, berries and long afternoon naps.",
+  "temperament": "gentle",
+  "voice": "bear",
+  "biomes": ["forest"],
+  "habitat": "ground",
+  "rarity": "epic",
+  "archetype": "beast",
+  "size": 0.245,
+  "shape": {"muzzle": "broad", "snout": 0.8, "ears": "round", "earsize": 1.0, "tail": "stub", "taillen": 0.6, "plump": 1.35, "long": 0.9, "legs": 0.75, "stout": 1.5, "neck": 0.5, "carry": 0.2, "head": 1.3, "beat": 0.9},
+  "colours": {"body": "#7A4E2B", "belly": "#C99A62", "trim": "#C99A62", "ear": "#C99A62", "nose": "#1E1414", "eye": "#F5C542", "toe": "#4A2E18", "accent": "#FFC94A", "glow": "#FFD86B"},
+  "movement": {"speed": 0.1},
+  "behaviour": {"temper": "calm", "watch": true}
+}

@@ -810,7 +810,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx-pack.apphaus.us/species/preview/quantized/meadow-pony.glb",
+        "model": "http://localhost:8778/preview/quantized/meadow-pony.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -835,10 +835,10 @@
           }
         },
         "sounds": {
-          "call": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/horse-call.wav",
-          "content": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/horse-content.wav",
-          "alarm": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/horse-alarm.wav",
-          "curious": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/horse-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/horse-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/horse-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/horse-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/horse-curious.wav"
         },
         "sockets": {
           "mouth": "Head",

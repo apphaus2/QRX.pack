@@ -2,21 +2,17 @@
 """A test, not part of the pipeline: built models rewritten with KHR_mesh_quantization, to try on each device
 before build.py writes every model that way.
 
-    python3 species/preview/quantize.py [--gltfpack cli.js] [--draco cli.js] [id ...]
-                                                        default: a few creatures of different kinds
+    python3 species/preview/quantize.py [id ...]        default: a few creatures of different kinds
 
 For each id it writes, in species/preview/quantized/:
 
     <id>.glb             the built model with positions as 16-bit integers and normals as 8-bit ones
-    <id>-control.glb     the built model, unchanged
     <id>.json            the built creature document, its model pointing at <id>.glb above
-    <id>-control.json    the same document pointing at <id>-control.glb
-    sounds/              the sounds the documents play, so the folder stands alone
+    <id>-control.json    the same document pointing at the unchanged models/<id>.glb
 
-The documents name everything at https://qrx-pack.apphaus.us/species/preview/quantized/ (--base changes that), so
-once the folder is published any device scans the codes on preview/quantized/index.html with no cable. If the
-control appears and the packed one does not, the device cannot read KHR_mesh_quantization. Nothing outside this
-folder points into it: no app reads it unless a code is scanned.
+Both documents name their model at http://localhost:8778/species/..., so a phone or headset on USB reaches this
+Mac after `adb reverse tcp:8778 tcp:8778` (preview/quantized/index.html shows a code for each). If the control
+appears and the quantized one does not, the device cannot read KHR_mesh_quantization.
 
 How it packs (KHR_mesh_quantization, https://github.com/KhronosGroup/glTF/tree/main/extensions/2.0/Khronos/KHR_mesh_quantization):
 each node with a mesh hands the mesh to a new child node, `<name>Q`, whose translation and uniform scale undo the
@@ -24,7 +20,7 @@ packing: a position p is stored as round((p - centre) / reach * 32767), so the c
 stored / 32767 * reach. Normals are stored as round(n * 127). Indices and every animation key are copied as they
 were; the animated nodes are the same nodes, so every clip still finds its targets.
 """
-import copy, gzip, json, math, os, re, shutil, struct, subprocess, sys
+import copy, gzip, json, math, os, struct, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPECIES = os.path.dirname(HERE)
@@ -125,17 +121,6 @@ def document(source, model_url):
     return json.loads(text.replace(json.dumps(old[0]), json.dumps(model_url))), old[0]
 
 
-def with_own_sounds(doc):
-    """The document with every sound it plays copied beside it (preview/quantized/sounds/) and named there, so the
-    test needs nothing that is not published with it."""
-    text = json.dumps(doc, ensure_ascii=False)
-    for url in sorted(set(re.findall(r'https?://[^"]*?/species/sounds/([^"/]+\.wav)', text))):
-        os.makedirs(os.path.join(OUT, "sounds"), exist_ok=True)
-        shutil.copyfile(os.path.join(SPECIES, "sounds", url), os.path.join(OUT, "sounds", url))
-    text = re.sub(r'https?://[^"]*?/species/sounds/([^"/]+\.wav)', lambda m: BASE + "preview/quantized/sounds/" + m.group(1), text)
-    return json.loads(text)
-
-
 def main(ids):
     os.makedirs(OUT, exist_ok=True)
     rows = []
@@ -143,63 +128,20 @@ def main(ids):
         data = open(os.path.join(SPECIES, "models", creature + ".glb"), "rb").read()
         glb, worst = quantize(data)
         with open(os.path.join(OUT, creature + ".glb"), "wb") as f: f.write(glb)
-        with open(os.path.join(OUT, creature + "-control.glb"), "wb") as f: f.write(data)      # the model as built, unchanged
         source = os.path.join(SPECIES, "creatures", creature + ".json")
         test, was = document(source, BASE + "preview/quantized/%s.glb" % creature)
-        control, _ = document(source, BASE + "preview/quantized/%s-control.glb" % creature)
+        control, _ = document(source, BASE + "models/%s.glb" % creature)
         for name, doc in ((creature + ".json", test), (creature + "-control.json", control)):
-            with open(os.path.join(OUT, name), "w", encoding="utf-8") as f: json.dump(with_own_sounds(doc), f, ensure_ascii=False, indent=2); f.write("\n")
+            with open(os.path.join(OUT, name), "w", encoding="utf-8") as f: json.dump(doc, f, ensure_ascii=False, indent=2); f.write("\n")
         rows.append({"id": creature, "bytes": len(data), "gzip": len(gzip.compress(data, 6, mtime=0)),
                      "quantized": len(glb), "quantizedGzip": len(gzip.compress(glb, 6, mtime=0)), "worstMm": round(worst * 1000, 4), "was": was})
         r = rows[-1]
         print("%-16s %7d -> %7d bytes, gzip %7d -> %7d, worst vertex moved %.3f mm" % (creature, r["bytes"], r["quantized"], r["gzip"], r["quantizedGzip"], r["worstMm"]))
-        if GLTFPACK:
-            # EXT_meshopt_compression, positions and normals kept as floats (-noq: no quantization, which the Quest
-            # refuses), named nodes and materials kept (-kn -km: clips and sockets find nodes by name).
-            packed = os.path.join(OUT, creature + "-meshopt.glb")
-            subprocess.run(["node", GLTFPACK, "-i", os.path.join(SPECIES, "models", creature + ".glb"), "-o", packed, "-cc", "-noq", "-kn", "-km"],
-                           cwd=OUT, check=True, stdout=subprocess.DEVNULL)
-            squeezed = open(packed, "rb").read()
-            meshopt, _ = document(source, BASE + "preview/quantized/%s-meshopt.glb" % creature)
-            with open(os.path.join(OUT, creature + "-meshopt.json"), "w", encoding="utf-8") as f: json.dump(with_own_sounds(meshopt), f, ensure_ascii=False, indent=2); f.write("\n")
-            r.update(meshopt=len(squeezed), meshoptGzip=len(gzip.compress(squeezed, 6, mtime=0)))
-            print("%-16s %7d -> %7d bytes, gzip %7d -> %7d (meshopt)" % ("", r["bytes"], r["meshopt"], r["gzip"], r["meshoptGzip"]))
-        if GLTF_TRANSFORM:
-            # KHR_draco_mesh_compression: positions decode back to floats, one buffer the size of the data (the
-            # Quest's reader asserted on meshopt's empty fallback buffer, 2026-11-16). Nodes and clips are untouched.
-            packed = os.path.join(OUT, creature + "-draco.glb")
-            subprocess.run(["node", GLTF_TRANSFORM, "draco", os.path.join(SPECIES, "models", creature + ".glb"), packed],
-                           cwd=OUT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-            squeezed = open(packed, "rb").read()
-            draco, _ = document(source, BASE + "preview/quantized/%s-draco.glb" % creature)
-            with open(os.path.join(OUT, creature + "-draco.json"), "w", encoding="utf-8") as f: json.dump(with_own_sounds(draco), f, ensure_ascii=False, indent=2); f.write("\n")
-            r.update(draco=len(squeezed), dracoGzip=len(gzip.compress(squeezed, 6, mtime=0)))
-            print("%-16s %7d -> %7d bytes, gzip %7d -> %7d (draco)" % ("", r["bytes"], r["draco"], r["gzip"], r["dracoGzip"]))
     with open(os.path.join(OUT, "list.json"), "w", encoding="utf-8") as f: json.dump({"base": BASE, "models": rows}, f, indent=2); f.write("\n")
 
 
-# Where the pack's species/ folder is served. By default the pack's own site, so the test folder, once published,
-# works on any device with internet; --base http://localhost:8778/ for the preview server on this Mac.
-BASE = "https://qrx-pack.apphaus.us/species/"
-# gltfpack's cli.js (npm `gltfpack`, MIT, from meshoptimizer): with --gltfpack PATH it also writes <id>-meshopt.glb
-# and <id>-meshopt.json, the model with EXT_meshopt_compression.
-GLTFPACK = None
-# gltf-transform's cli.js (npm `@gltf-transform/cli` with `draco3dgltf`, MIT and Apache 2.0): with --draco PATH it
-# also writes <id>-draco.glb and <id>-draco.json, the model with KHR_draco_mesh_compression.
-GLTF_TRANSFORM = None
+# The preview server (.claude/launch.json, port 8778) serves the pack's species/ folder as its root.
+BASE = "http://localhost:8778/"
 
 if __name__ == "__main__":
-    args = sys.argv[1:]
-    if "--draco" in args:
-        at = args.index("--draco")
-        GLTF_TRANSFORM = os.path.abspath(args[at + 1])
-        del args[at:at + 2]
-    if "--gltfpack" in args:
-        at = args.index("--gltfpack")
-        GLTFPACK = os.path.abspath(args[at + 1])
-        del args[at:at + 2]
-    if "--base" in args:
-        at = args.index("--base")
-        BASE = args[at + 1].rstrip("/") + "/"
-        del args[at:at + 2]
-    main(args or DEFAULT)
+    main(sys.argv[1:] or DEFAULT)

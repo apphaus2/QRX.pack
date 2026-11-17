@@ -1022,7 +1022,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx-pack.apphaus.us/species/preview/quantized/glacier-owl.glb",
+        "model": "http://localhost:8778/preview/quantized/glacier-owl.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -1055,10 +1055,10 @@
           }
         },
         "sounds": {
-          "call": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/owl-call-090-120.wav",
-          "content": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/owl-content-090-120.wav",
-          "alarm": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/owl-alarm-090-120.wav",
-          "curious": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/owl-curious-090-120.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/owl-call-090-120.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/owl-content-090-120.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/owl-alarm-090-120.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/owl-curious-090-120.wav"
         },
         "sockets": {
           "mouth": "Head",

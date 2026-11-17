@@ -1,5 +1,5 @@
 {
-  "base": "https://qrx-pack.apphaus.us/species/",
+  "base": "http://localhost:8778/",
   "models": [
     {
       "id": "street-terrier",
@@ -8,11 +8,7 @@
       "quantized": 146164,
       "quantizedGzip": 59517,
       "worstMm": 0.0018,
-      "was": "https://qrx-pack.apphaus.us/species/models/street-terrier.glb",
-      "meshopt": 96008,
-      "meshoptGzip": 76356,
-      "draco": 60612,
-      "dracoGzip": 30602
+      "was": "https://qrx-pack.apphaus.us/species/models/street-terrier.glb"
     },
     {
       "id": "meadow-pony",
@@ -21,11 +17,7 @@
       "quantized": 269908,
       "quantizedGzip": 141440,
       "worstMm": 0.0015,
-      "was": "https://qrx-pack.apphaus.us/species/models/meadow-pony.glb",
-      "meshopt": 205840,
-      "meshoptGzip": 175522,
-      "draco": 93564,
-      "dracoGzip": 60271
+      "was": "https://qrx-pack.apphaus.us/species/models/meadow-pony.glb"
     },
     {
       "id": "northlight-fox",
@@ -34,11 +26,7 @@
       "quantized": 44816,
       "quantizedGzip": 12614,
       "worstMm": 0.0011,
-      "was": "https://qrx-pack.apphaus.us/species/models/northlight-fox.glb",
-      "meshopt": 31360,
-      "meshoptGzip": 15600,
-      "draco": 30276,
-      "dracoGzip": 9935
+      "was": "https://qrx-pack.apphaus.us/species/models/northlight-fox.glb"
     },
     {
       "id": "pond-goldfish",
@@ -47,11 +35,7 @@
       "quantized": 26808,
       "quantizedGzip": 9917,
       "worstMm": 0.001,
-      "was": "https://qrx-pack.apphaus.us/species/models/pond-goldfish.glb",
-      "meshopt": 21240,
-      "meshoptGzip": 11612,
-      "draco": 16008,
-      "dracoGzip": 6480
+      "was": "https://qrx-pack.apphaus.us/species/models/pond-goldfish.glb"
     },
     {
       "id": "glacier-owl",
@@ -60,11 +44,7 @@
       "quantized": 63704,
       "quantizedGzip": 13803,
       "worstMm": 0.001,
-      "was": "https://qrx-pack.apphaus.us/species/models/glacier-owl.glb",
-      "meshopt": 43320,
-      "meshoptGzip": 18118,
-      "draco": 50096,
-      "dracoGzip": 12215
+      "was": "https://qrx-pack.apphaus.us/species/models/glacier-owl.glb"
     },
     {
       "id": "sun-scarab",
@@ -73,11 +53,7 @@
       "quantized": 37120,
       "quantizedGzip": 10721,
       "worstMm": 0.0013,
-      "was": "https://qrx-pack.apphaus.us/species/models/sun-scarab.glb",
-      "meshopt": 29640,
-      "meshoptGzip": 13667,
-      "draco": 26724,
-      "dracoGzip": 9265
+      "was": "https://qrx-pack.apphaus.us/species/models/sun-scarab.glb"
     }
   ]
 }

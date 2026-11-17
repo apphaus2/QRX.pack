@@ -8,12 +8,22 @@ half of `--check`: it parses a .glb from disk without trusting the writer and me
 """
 import json, math, struct
 
-from .shapes import merge
+from .shapes import merge, split
 
 GLB_MAGIC, CHUNK_JSON, CHUNK_BIN = 0x46546C67, 0x4E4F534A, 0x004E4942
 FLOAT, USHORT = 5126, 5123
 WIDTH = {"SCALAR": 1, "VEC2": 2, "VEC3": 3, "VEC4": 4}
 DIGITS = 6     # decimal places kept for positions, normals and keys
+
+
+def _grouped(prims):
+    """(material, part) pairs as one merged part per material, in the order the materials first appear."""
+    by_material, order = {}, []
+    for material, part in prims:
+        if not part[2]: continue
+        if material not in by_material: order.append(material)
+        by_material.setdefault(material, []).append(part)
+    return [(material, merge(*by_material[material])) for material in order]
 
 
 def f32(x):
@@ -32,6 +42,7 @@ class Model:
         self.clips = {}          # name -> [(node, path, times, values)]
         self.time_accessors = {}
         self.triangles = self.vertices = 0
+        self.pending = {}        # node index -> [(material, part)], one merged part per material, until `pack`
 
     # ---- buffers ----
 
@@ -80,32 +91,53 @@ class Model:
         k = self.scale
         entry = {"name": name, "translation": [round(c * k, DIGITS) + 0.0 for c in at]}
         if turn is not None: entry["rotation"] = [round(c, DIGITS) + 0.0 for c in turn]
-        by_material, order = {}, []
-        for material, part in prims:
-            if not part[2]: continue
-            if material not in by_material: order.append(material)
-            by_material.setdefault(material, []).append(part)
-        primitives = []
-        for material in order:
-            positions, normals, triangles = merge(*by_material[material])
-            if len(positions) > 65535: raise ValueError("%s: more than 65535 vertices in one primitive" % name)
-            positions = [(p[0] * k, p[1] * k, p[2] * k) for p in positions]
-            primitives.append({
-                "attributes": {"POSITION": self.accessor(positions, "VEC3", target=34962, bounds=True), "NORMAL": self.accessor(normals, "VEC3", target=34962)},
-                "indices": self.accessor([i for t in triangles for i in t], "SCALAR", USHORT, target=34963),
-                "material": material,
-            })
-            self.triangles += len(triangles)
-            self.vertices += len(positions)
-        if primitives:
-            self.meshes.append({"name": name.lower(), "primitives": primitives})
-            entry["mesh"] = len(self.meshes) - 1
         self.nodes.append(entry)
         index = len(self.nodes) - 1
         self.node_index[name] = index
+        self.pending[index] = _grouped(prims)       # packed by to_bytes, so a whole-model pass (`gild`) can still cut them
         if parent is None: self.roots.append(index)
         else: self.nodes[parent].setdefault("children", []).append(index)
         return index
+
+    def gild(self, share, gold, skip=lambda material_name: False):
+        """Paints the far end of every leaf node (one with no children: a foot, the tip of a tail, an ear, a wing)
+        with the material `gold(material)` returns for the material it replaces: each triangle whose centre is
+        further from the node's own origin (its joint) than (1 - share) of the node's furthest point. A leaf with a
+        material `skip` names (an eye: a head with no ears) keeps its colours."""
+        for index, prims in self.pending.items():
+            if self.nodes[index].get("children") or not prims: continue
+            if any(skip(self.materials[material]["name"]) for material, _ in prims): continue
+            far = max(math.sqrt(sum(c * c for c in p)) for _, part in prims for p in part[0])
+            cut = far * (1.0 - share)
+            cutting = []
+            for material, part in prims:
+                pieces = split(part, lambda centre, normal: "gold" if math.sqrt(sum(c * c for c in centre)) > cut else "keep")
+                if "keep" in pieces: cutting.append((material, pieces["keep"]))
+                if "gold" in pieces: cutting.append((gold(material), pieces["gold"]))
+            self.pending[index] = _grouped(cutting)
+
+    def pack(self):
+        """Every node's parts as primitives, one per material, in the order the nodes were made."""
+        k = self.scale
+        for index in sorted(self.pending):
+            primitives = []
+            for material, (positions, normals, triangles) in self.pending[index]:
+                if len(positions) > 65535: raise ValueError("%s: more than 65535 vertices in one primitive" % self.nodes[index]["name"])
+                positions = [(p[0] * k, p[1] * k, p[2] * k) for p in positions]
+                primitives.append({
+                    "attributes": {"POSITION": self.accessor(positions, "VEC3", target=34962, bounds=True), "NORMAL": self.accessor(normals, "VEC3", target=34962)},
+                    "indices": self.accessor([i for t in triangles for i in t], "SCALAR", USHORT, target=34963),
+                    "material": material,
+                })
+                self.triangles += len(triangles)
+                self.vertices += len(positions)
+            if primitives:
+                self.meshes.append({"name": self.nodes[index]["name"].lower(), "primitives": primitives})
+                node = self.nodes[index]          # "mesh" before "children", where node() used to put it: the same bytes
+                children = node.pop("children", None)
+                node["mesh"] = len(self.meshes) - 1
+                if children is not None: node["children"] = children
+        self.pending = {}
 
     def channel(self, clip, node, path, times, values):
         """Keys for one node in the clip named `clip`: `path` is rotation (quaternions), translation (offsets
@@ -127,6 +159,7 @@ class Model:
     # ---- output ----
 
     def to_bytes(self):
+        self.pack()
         animations = []
         for name, channels in self.clips.items():
             samplers, targets = [], []

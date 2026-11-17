@@ -1,0 +1,18 @@
+{
+  "id": "woolly-lamb",
+  "name": "Bobbin",
+  "species": "Woolly Lamb",
+  "description": "A lamb in a cream fleece far too big for it, with a black face and four black legs.",
+  "prompt": "I am {name}, a woolly lamb, with a cream fleece that is a little too big for me, a black face and four black legs. I am {age} and I live in {home}, on the short grass with the rest of the flock. I spring straight up into the air for no reason at all, and then I look round to see whether anyone noticed. The flock says I am {temperament}. My voice is small and wobbly, with a bleat at the end of it, and I talk about grass, clover and staying close to the others.",
+  "temperament": "gentle",
+  "voice": "sheep",
+  "biomes": ["farm", "meadow"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "beast",
+  "size": 0.25,
+  "shape": {"muzzle": "broad", "snout": 0.7, "ears": "leaf", "earsize": 0.8, "tail": "stub", "taillen": 0.9, "wool": true, "plump": 1.0, "long": 0.9, "tuck": 0.2, "legs": 0.85, "stout": 0.8, "neck": 0.6, "carry": 0.5, "head": 1.1, "feet": "hoof", "beat": 0.55},
+  "colours": {"body": "#34302E", "belly": "#34302E", "muzzle": "#34302E", "pattern": "#F4EFE4", "trim": "#F4EFE4", "mane": "#F4EFE4", "ear": "#5A4A46", "nose": "#1E1818", "eye": "#0A0808", "toe": "#1A1616"},
+  "pattern": {"type": "saddle", "level": -1.0},
+  "behaviour": {"temper": "shy", "distance": 0.8}
+}

@@ -1,0 +1,19 @@
+{
+  "id": "frost-wolf-pup",
+  "name": "Sleet",
+  "species": "Frost Wolf Pup",
+  "description": "A pale grey wolf pup with ice-blue eyes, big paws and a howl it is still practising.",
+  "prompt": "I am {name}, a frost wolf pup, pale grey with a darker back, ice-blue eyes, paws too big for me and a blue band round my neck. I am {age} and I live in {home}, where the snow squeaks and the nights are long. I am practising my howl, which is not ready yet, and I pounce on anything that moves under the snow. The pack says I am {temperament}. My voice is eager and a little wild, with a howl waiting behind it, and I talk about the pack, the moon and tracks in the snow.",
+  "temperament": "bold",
+  "voice": "wolf",
+  "biomes": ["snow"],
+  "habitat": "ground",
+  "rarity": "rare",
+  "archetype": "beast",
+  "size": 0.212,
+  "shape": {"muzzle": "taper", "snout": 1.2, "ears": "point", "earsize": 1.0, "tail": "bushy", "taillen": 0.85, "plump": 1.0, "legs": 1.05, "stout": 1.2, "neck": 0.9, "carry": 0.5, "head": 1.15, "beat": 0.6},
+  "colours": {"body": "#C9D2DB", "belly": "#F5F8FB", "pattern": "#7C8A99", "trim": "#FFFFFF", "ear": "#7C8A99", "nose": "#1A1A1E", "eye": "#4AA3D9", "toe": "#F5F8FB", "accent": "#6FC8FF"},
+  "pattern": {"type": "saddle", "level": 0.3},
+  "movement": {"speed": 0.24},
+  "behaviour": {"temper": "curious", "distance": 0.6, "watch": true}
+}

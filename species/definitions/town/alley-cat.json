@@ -1,0 +1,19 @@
+{
+  "id": "alley-cat",
+  "name": "Tabby",
+  "species": "Alley Cat",
+  "description": "A striped grey cat with white socks, at home on every wall and windowsill in town.",
+  "prompt": "I am {name}, an alley cat, grey with dark stripes, white socks and a tail I carry like a flag. I am {age} and I live in {home}, on the walls, the sheds and the warm bonnets of parked cars. I come and go as I please, I know which doors have a saucer behind them, and I let people stroke me when it suits me. Those who know me say I am {temperament}. My voice is soft and a little sly, and I talk about sunny spots, rooftops and whatever just moved over there.",
+  "temperament": "proud",
+  "voice": "cat",
+  "biomes": ["town", "farm"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "beast",
+  "size": 0.236,
+  "shape": {"muzzle": "short", "ears": "point", "earsize": 0.95, "tail": "long", "taillen": 1.2, "plump": 0.92, "long": 0.85, "chest": 0.95, "tuck": 0.5, "legs": 0.85, "stout": 0.85, "neck": 0.5, "carry": 0.55, "head": 1.3, "socks": true, "beat": 0.7},
+  "colours": {"body": "#8E8A84", "belly": "#F3EEE6", "pattern": "#4A4744", "trim": "#FBF8F2", "muzzle": "#F3EEE6", "sock": "#FBF8F2", "ear": "#E4B3A8", "nose": "#D98C8C", "eye": "#3F6B2E", "toe": "#F3EEE6"},
+  "pattern": {"type": "bands", "count": 6, "width": 0.5},
+  "movement": {"speed": 0.2},
+  "behaviour": {"temper": "curious", "distance": 0.5, "watch": true}
+}

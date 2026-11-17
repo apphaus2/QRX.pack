@@ -17,7 +17,7 @@ SHAPE = {
     "snout": 1.0,       # how long the snout is
     "ears": "round",    # round, long, point or none
     "earsize": 1.0,
-    "tail": "thin",     # thin, stub, bushy, tuft or none
+    "tail": "thin",     # thin, stub, bushy, arch (a squirrel's, up and over its back), tuft or none
     "taillen": 1.0,
     "legs": 1.0,        # how long the legs are
     "hindfeet": 1.0,    # how long the hind feet are (a hare's, a jerboa's)
@@ -25,7 +25,7 @@ SHAPE = {
     "gait": "scurry",   # scurry or hop
     "beat": 0.4,        # seconds per stride
 }
-CHOICES = {"ears": ("round", "long", "point", "none"), "tail": ("thin", "stub", "bushy", "tuft", "none"), "gait": ("scurry", "hop")}
+CHOICES = {"ears": ("round", "long", "point", "none"), "tail": ("thin", "stub", "bushy", "arch", "tuft", "none"), "gait": ("scurry", "hop")}
 COLOURS = {"body": "#9A7B5A", "belly": "#E9DCC6", "pattern": "#5E4630", "trim": "#F3E9D8", "ear": "#D9A99A", "nose": "#3A2A2A", "eye": "#080808", "accent": "#F0E6D0", "glow": "#FFE2B0"}
 PATTERNS = ("plain", "bands", "stripes", "spots", "saddle", "tips")
 TRICKS = ("jump", "spin", "roll", "dance", "shake", "dead")
@@ -86,6 +86,10 @@ def build(b):
         elif s["tail"] == "bushy":
             brush = tube([(0, 0, 0), (0, 0.008 * long, -0.016 * long), (0, 0.02 * long, -0.034 * long), (0, 0.03 * long, -0.05 * long)], [0.004, 0.0105, 0.0115, 0.003], 9)
             parts = b.painted(brush, lambda c, n: "accent" if c[2] < -0.036 * long else "body", rough=0.9)
+        elif s["tail"] == "arch":
+            brush = tube([(0, 0, 0), (0, 0.006 * long, -0.012 * long), (0, 0.024 * long, -0.016 * long), (0, 0.040 * long, -0.008 * long), (0, 0.048 * long, 0.006 * long)],
+                         [0.004, 0.0095, 0.0115, 0.0105, 0.003], 9)
+            parts = b.painted(brush, lambda c, n: "accent" if c[1] > 0.040 * long else "body", rough=0.9)
         else:
             parts = [(b.mat("ear", rough=0.7), tube([(0, 0, 0), (0, -0.004, -0.02 * long), (0, 0.0, -0.05 * long)], [0.0022, 0.0016, 0.0008], 5))]
             if s["tail"] == "tuft": parts.append((accent, ellipsoid((0, 0.001, -0.052 * long), (0.004, 0.004, 0.008), 7, 5)))

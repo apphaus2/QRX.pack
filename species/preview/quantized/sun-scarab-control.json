@@ -1031,7 +1031,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx-pack.apphaus.us/species/preview/quantized/sun-scarab-control.glb",
+        "model": "http://localhost:8778/models/sun-scarab.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -1064,10 +1064,10 @@
           }
         },
         "sounds": {
-          "call": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/beetle-call-090-120.wav",
-          "content": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/beetle-content-090-120.wav",
-          "alarm": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/beetle-alarm-090-120.wav",
-          "curious": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/beetle-call-090-120.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/beetle-call-090-120.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/beetle-content-090-120.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/beetle-alarm-090-120.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/beetle-call-090-120.wav"
         },
         "sockets": {
           "mouth": "Body",

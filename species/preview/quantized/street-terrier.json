@@ -705,7 +705,7 @@
         ]
       },
       "body": {
-        "model": "https://qrx-pack.apphaus.us/species/preview/quantized/street-terrier.glb",
+        "model": "http://localhost:8778/preview/quantized/street-terrier.glb",
         "scale": 1,
         "animations": {
           "idle": {
@@ -726,10 +726,10 @@
           }
         },
         "sounds": {
-          "call": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/dog-call.wav",
-          "content": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/dog-content.wav",
-          "alarm": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/dog-alarm.wav",
-          "curious": "https://qrx-pack.apphaus.us/species/preview/quantized/sounds/dog-curious.wav"
+          "call": "https://qrx-pack.apphaus.us/species/sounds/dog-call.wav",
+          "content": "https://qrx-pack.apphaus.us/species/sounds/dog-content.wav",
+          "alarm": "https://qrx-pack.apphaus.us/species/sounds/dog-alarm.wav",
+          "curious": "https://qrx-pack.apphaus.us/species/sounds/dog-curious.wav"
         },
         "sockets": {
           "mouth": "Head",

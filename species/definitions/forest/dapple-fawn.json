@@ -1,0 +1,19 @@
+{
+  "id": "dapple-fawn",
+  "name": "Bluebell",
+  "species": "Dapple Fawn",
+  "description": "A fawn on legs too long for it, russet with pale spots and ears that catch every sound.",
+  "prompt": "I am {name}, a dapple fawn, russet with pale spots down my back, a white tail and legs a little too long for me, with a ring of woodland flowers round my neck. I am {age} and I live in {home}, in the green light under the trees. My ears turn towards every sound before I do, and I stand very still until I am sure, and then I am either gone or very curious. The wood says I am {temperament}. My voice is soft and breathy, and I talk about ferns, quiet paths and the sounds I can hear that you cannot.",
+  "temperament": "shy",
+  "voice": "deer",
+  "biomes": ["forest"],
+  "habitat": "ground",
+  "rarity": "rare",
+  "archetype": "beast",
+  "size": 0.195,
+  "shape": {"muzzle": "taper", "snout": 0.9, "nod": 20, "ears": "leaf", "earsize": 1.3, "tail": "stub", "taillen": 0.8, "tailtip": true, "plump": 0.85, "long": 0.8, "tuck": 0.5, "legs": 1.45, "stout": 0.7, "neck": 1.4, "carry": 0.85, "head": 1.05, "feet": "hoof", "beat": 0.6},
+  "colours": {"body": "#B8794A", "belly": "#F3E6D2", "muzzle": "#D8A678", "pattern": "#FBF3E4", "trim": "#FFFFFF", "ear": "#E8C4B0", "nose": "#2A2020", "eye": "#1A1008", "toe": "#2E2420", "accent": "#F2C14E"},
+  "pattern": {"type": "spots", "count": 14, "size": 0.13},
+  "movement": {"speed": 0.22},
+  "behaviour": {"temper": "shy", "distance": 1.4}
+}

@@ -9,14 +9,14 @@
 
 Standard library only (Python 3.9 or later). README.md describes the layout and how to add to it.
 """
-import argparse, hashlib, json, os, re, sys
+import argparse, gzip, hashlib, json, os, re, sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 from lib import archetypes as archetype_package          # noqa: E402
 from lib.behaviour import TEMPERS, logic                  # noqa: E402
-from lib.builder import FEATURES, Builder, add_motes      # noqa: E402
+from lib.builder import FEATURES, Builder, gild           # noqa: E402
 from lib.gltf import inspect                              # noqa: E402
 from lib import mind as minds                            # noqa: E402
 from lib import sounds as voices                         # noqa: E402
@@ -27,7 +27,16 @@ GENERATOR = "QRX species/build.py"
 PACK = "https://qrx-pack.apphaus.us/"              # where this repository is served: every address the build writes starts here
 DEFAULT_SOUND_BASE = PACK + "species/sounds/"
 DEFAULT_MODEL_BASE = PACK + "species/models/"     # pulled by URL from this repository through GitHub Pages; nothing is bundled
-MAX_MODEL_BYTES = 96 * 1024        # 80 KB until 2026-11-12: a trick is a clip, and a legendary with a signature and four others needs the room
+MAX_MODEL_BYTES = 448 * 1024       # 80 KB until 2026-11-12 (a trick is a clip); 96, then 160 on 2026-11-16: a beast is skinned (lib/skin.py); 448 since the skin's finer grid
+MAX_WIRE_BYTES = 256 * 1024        # what a phone downloads: GitHub Pages sends a .glb gzipped (a 157 KB model was 57 KB on the wire)
+# A creature with art filed (art/<id>/mesh.glb, the rigged mesh the image agent made: art/README.md) ships that mesh
+# instead of the generated one: mesh.glb (meshopt, 16-bit positions, KTX2 textures) as models/<id>.glb for the phones
+# and TVs, and mesh.quest.glb (plain geometry, KTX2) as models/<id>.quest.glb, which the Quest asks for first
+# (JsonScene's modelSuffix ".quest"): Meta's reader stops the app on meshopt, 16-bit positions and Draco (2026-11-16).
+ART = os.path.join(HERE, "art")
+QUEST_SUFFIX = ".quest"
+# What the Quest's copy may require: the glTF extensions the Spatial SDK documents (spatial-sdk-gltfs).
+QUEST_EXTENSIONS = {"KHR_texture_basisu", "KHR_texture_transform", "KHR_materials_unlit"}
 ID = re.compile(r"^[a-z][a-z0-9]*(-[a-z0-9]+)*$")
 HEX = re.compile(r"^#[0-9A-Fa-f]{6}$")
 DEFINITION_KEYS = {"id", "name", "species", "description", "biomes", "habitat", "rarity", "archetype", "size", "shape", "colours", "pattern", "movement", "behaviour", "prompt", "speech", "temperament", "voice", "tricks", "signature", "mind"}
@@ -288,7 +297,7 @@ def build_model(data, d):
     known = tricks.known(data.tricks, d, archetype, rarity)
     b = Builder(d, rarity, archetype, GENERATOR, known)
     made = dict(archetype.build(b) or {})
-    if rarity.get("motes") and b.has("motes"): add_motes(b, int(rarity["motes"]))
+    if b.has("gilt"): gild(b, float(rarity.get("gilt", 0.2)))
     if set(b.model.clips) != {"idle", "move"} | set(b.made): raise ValueError("the %s archetype made the clips %s, not idle, move and its tricks" % (d["archetype"], sorted(b.model.clips)))
     clash = set(b.made) & {"idle", "move", habitat["move"]}
     if clash: raise ValueError("a trick is named like a clip the habitat plays: %s" % ", ".join(sorted(clash)))
@@ -382,6 +391,18 @@ def build_all(data, model_base, sound_base):
         if found: faults += found; continue
         try:
             glb, made = build_model(data, d)
+            # Art filed for it: its own meshes replace the generated model; the archetype still gives the sockets,
+            # and each trick waits as long as the art's clip of it.
+            art = art_meshes(d["id"])
+            if art:
+                art_faults, art_facts = check_art(data, d, art[0], art[1], "art/%s/mesh.glb" % d["id"])
+                if art_faults: faults += ["%s: %s" % (d["_where"], f) for f in art_faults]; continue
+                missing = [node for node in made.get("sockets", {}).values() if node not in art_facts["nodes"]]
+                if missing: faults.append("%s: art/%s/mesh.glb has no node %s for its sockets" % (d["_where"], d["id"], ", ".join(missing))); continue
+                unanimated = sorted(set(made["tricks"]) - set(art_facts["clips"]))
+                if unanimated: faults.append("%s: art/%s/mesh.glb has no clip for the tricks %s" % (d["_where"], d["id"], ", ".join(unanimated))); continue
+                glb = art[0]
+                made["tricks"] = {trick_id: art_facts["clips"][trick_id]["seconds"] for trick_id in made["tricks"]}
             document = build_document(data, d, made, model_base, sound_base)
             sounds = species_sounds(data, d)
             actor = document["actors"][0]
@@ -391,9 +412,12 @@ def build_all(data, model_base, sound_base):
                 if "sounds/" + name not in outputs: outputs["sounds/" + name] = voices.synthesize(spec, data.sounds["rate"], pitch, length)
         except Exception as error:      # an archetype's own fault, reported against the definition that met it
             faults.append("%s: could not be built: %s: %s" % (d["_where"], type(error).__name__, error)); continue
-        model_faults, facts = inspect(glb)
-        if model_faults: faults += ["%s: the model it builds: %s" % (d["_where"], f) for f in model_faults]; continue
+        if art: facts = art_facts
+        else:
+            model_faults, facts = inspect(glb)
+            if model_faults: faults += ["%s: the model it builds: %s" % (d["_where"], f) for f in model_faults]; continue
         outputs["models/%s.glb" % d["id"]] = glb
+        if art: outputs[quest_path("models/%s.glb" % d["id"])] = art[1]
         outputs["creatures/%s.json" % d["id"]] = dump(document)
         box = facts["box"]
         good.append(d)
@@ -405,6 +429,8 @@ def build_all(data, model_base, sound_base):
             "size": [round(box[1][i] - box[0][i], 4) for i in range(3)], "bytes": len(glb), "triangles": facts["triangles"],
             "speech": minds.register(d, data.rarities[d["rarity"]]), "sounds": {meaning: "sounds/" + name for meaning, (name, _, _, _) in sounds.items()},
         })
+        # A creature with art: the Quest's copy and its size beside the phones' (the Quest asks for it first).
+        if art: entries[-1].update(quest=quest_path("models/%s.glb" % d["id"]), questBytes=len(art[1]), art=True)
     tables = spawn_tables(data, good)
     index = {
         "version": 1,
@@ -478,6 +504,8 @@ def check_model(data, d, glb, where):
     model_faults, facts = inspect(glb)
     if model_faults: return ["%s: %s" % (where, f) for f in model_faults], {}
     if len(glb) > MAX_MODEL_BYTES: faults.append("%s: %d bytes, over the %d allowed" % (where, len(glb), MAX_MODEL_BYTES))
+    wire = len(gzip.compress(glb, 6, mtime=0))
+    if wire > MAX_WIRE_BYTES: faults.append("%s: %d bytes as the pack's host sends it (gzip), over the %d allowed" % (where, wire, MAX_WIRE_BYTES))
     for clip in ("idle", habitat["move"]):
         if clip not in facts["clips"]: faults.append("%s: no clip named %s" % (where, clip))
     known = tricks.known(data.tricks, d, data.archetypes[d["archetype"]], data.rarities[d["rarity"]])
@@ -485,15 +513,16 @@ def check_model(data, d, glb, where):
     if extra: faults.append("%s: clips nothing plays: %s" % (where, ", ".join(extra)))
     lo, hi = facts["box"]
     longest = max(hi[i] - lo[i] for i in range(3))
-    if not habitat["size"][0] <= longest <= habitat["size"][1]:
-        faults.append("%s: its longest side is %.3f m; a %s creature is %.2f to %.2f m" % (where, longest, d["habitat"], habitat["size"][0], habitat["size"][1]))
-    # The clips that loop (idle and the moving one) must keep the creature compact; a trick may fling it about,
-    # but not out of the habitat.
+    # No largest size and no limit on how much of its habitat a creature fills (the owner, 2026-11-16: "creatures can be
+    # huge"; it was 0.26 to 0.30 m along its longest side and half the habitat's box in motion). A creature too big for
+    # a TV's habitat is the TV's to handle. Only the smallest is kept: under it a model is broken, not small.
+    if longest < habitat["size"][0]:
+        faults.append("%s: its longest side is %.3f m; a %s creature is at least %.2f m" % (where, longest, d["habitat"], habitat["size"][0]))
+    # A trick may fling it about, but not further than its habitat reaches.
     looping = [facts["clips"][clip]["swept"] for clip in ("idle", habitat["move"]) if clip in facts["clips"]]
     swept = [[min([lo[i]] + [box[0][i] for box in looping]) for i in range(3)], [max([hi[i]] + [box[1][i] for box in looping]) for i in range(3)]]
-    for axis, i in (("wide", 0), ("tall", 1), ("long", 2)):
+    for axis, i in (("wide", 0), ("long", 2)):
         room = habitat["bounds"]["max"][i] - habitat["bounds"]["min"][i]
-        if swept[1][i] - swept[0][i] > room / 2: faults.append("%s: %.3f m %s in motion, over half the %s's %.2f m" % (where, swept[1][i] - swept[0][i], axis, habitat["name"], room))
         for clip, measured in facts["clips"].items():
             reach = measured["swept"][1][i] - measured["swept"][0][i]
             if clip not in ("idle", habitat["move"]) and reach > room: faults.append("%s: the trick %s takes it %.3f m %s, more than the %s's %.2f m" % (where, clip, reach, axis, habitat["name"], room))
@@ -505,6 +534,72 @@ def check_model(data, d, glb, where):
     eyes = facts.get("eyes")
     if eyes is not None and eyes < lo[2] + (hi[2] - lo[2]) / 3: faults.append("%s: its eyes are in the rear third; the head goes along +Z" % where)
     return faults, facts
+
+
+def art_meshes(species_id):
+    """(mesh.glb, mesh.quest.glb or None) as filed under art/<id>/, or None when the creature has no art mesh."""
+    folder = os.path.join(ART, species_id)
+    if not os.path.isfile(os.path.join(folder, "mesh.glb")): return None
+    with open(os.path.join(folder, "mesh.glb"), "rb") as f: phone = f.read()
+    quest = os.path.join(folder, "mesh" + QUEST_SUFFIX + ".glb")
+    if not os.path.isfile(quest): return phone, None
+    with open(quest, "rb") as f: return phone, f.read()
+
+
+def quest_path(path):
+    """models/<id>.glb -> models/<id>.quest.glb."""
+    return path[:-len(".glb")] + QUEST_SUFFIX + ".glb"
+
+
+def check_art(data, d, glb, quest, where):
+    """(faults, facts) for a creature's art meshes, the phones' and the Quest's, read by art/intake.py (which reads
+    meshopt, 16-bit positions and KTX2): both read, the Quest's requires only what the Quest reads, both have the
+    clips its habitat and tricks play and nothing else, it fits its habitat and stands where its habitat expects.
+    The facts are the build's own: clips (with seconds), nodes, box, triangles."""
+    sys.path.insert(0, ART)
+    import intake, struct, tempfile                    # noqa: E401
+    faults, results = [], {}
+    if quest is None: return ["%s: a mesh.glb with no mesh%s.glb beside it: the Quest cannot read a compressed mesh" % (where, QUEST_SUFFIX)], {}
+    for label, blob in (("", glb), (QUEST_SUFFIX, quest)):
+        name = quest_path(where) if label else where
+        with tempfile.NamedTemporaryFile(suffix=".glb", delete=False) as f: f.write(blob)
+        try: found, _, facts = intake.check_mesh(f.name)
+        finally: os.remove(f.name)
+        faults += ["%s: %s" % (name, fault) for fault in found]
+        if len(blob) > intake.LIMITS["bytes"]: faults.append("%s: %d bytes, over the %d allowed" % (name, len(blob), intake.LIMITS["bytes"]))
+        n = struct.unpack("<I", blob[12:16])[0]
+        gltf = json.loads(blob[20:20 + n])
+        results[label] = (facts, gltf)
+    if faults: return faults, {}
+    facts, gltf = results[QUEST_SUFFIX]
+    extra = set(gltf.get("extensionsRequired", [])) - QUEST_EXTENSIONS
+    if extra: faults.append("%s: requires %s, which the Quest does not read" % (quest_path(where), ", ".join(sorted(extra))))
+    habitat = data.habitats[d["habitat"]]
+    known = tricks.known(data.tricks, d, data.archetypes[d["archetype"]], data.rarities[d["rarity"]])
+    # idle and the habitat's move, and any of its tricks (a trick with no clip is done by tricks.json; build_all asks
+    # for the ones the archetype animates). Nothing else: a clip nothing plays.
+    for label, (f, _) in results.items():
+        name = quest_path(where) if label else where
+        lacking = sorted({"idle", habitat["move"]} - set(f["clips"]))
+        if lacking: faults.append("%s: no clip named %s" % (name, ", ".join(lacking)))
+        extra = sorted(set(f["clips"]) - {"idle", habitat["move"]} - set(known))
+        if extra: faults.append("%s: clips nothing plays: %s" % (name, ", ".join(extra)))
+    if sorted(results[""][0]["clips"]) != sorted(facts["clips"]): faults.append("%s and its Quest copy have different clips" % where)
+    if results[""][0]["box"] != facts["box"]: faults.append("%s and its Quest copy are not the same size" % where)
+    lo, hi = facts["box"]
+    longest = max(hi[i] - lo[i] for i in range(3))
+    if longest < habitat["size"][0]:        # no largest size (check_model)
+        faults.append("%s: its longest side is %.3f m; a %s creature is at least %.2f m" % (where, longest, d["habitat"], habitat["size"][0]))
+    if habitat["origin"] == "ground":
+        if not -0.004 <= lo[1] <= 0.004: faults.append("%s: stands %.4f m off the ground (its lowest point should be at 0)" % (where, lo[1]))
+    elif not all(lo[i] < 0 < hi[i] for i in range(3)): faults.append("%s: the origin is outside the body; a swimmer's or flier's is at mid-body" % where)
+    # A clip's length: the latest key of its samplers (glTF requires min/max on animation inputs, so the JSON says it).
+    clips = {}
+    for animation in gltf.get("animations", []):
+        ends = [gltf["accessors"][s["input"]].get("max", [0])[0] for s in animation.get("samplers", [])]
+        clips[animation.get("name", "")] = {"seconds": max(ends or [0])}
+    nodes = [n.get("name") for n in gltf.get("nodes", []) if n.get("name")]
+    return faults, {"clips": clips, "nodes": nodes, "box": facts["box"], "triangles": facts["triangles"], "skinned": facts["skinned"]}
 
 
 def check_outputs(data, outputs, model_base, sound_base):
@@ -540,10 +635,15 @@ def check_outputs(data, outputs, model_base, sound_base):
         if where not in on_disk or "creatures/%s.json" % sid not in on_disk: continue
 
         # The model, read back from disk by the reader; and, when the disk is stale, the one the definition builds now.
+        # A creature with art has its two meshes, read by the art reader.
         glb = on_disk[where]
-        model_faults, facts = check_model(data, d, glb, where)
-        faults += model_faults
-        if glb != outputs[where]: faults += check_model(data, d, outputs[where], "%s: the model it builds now" % d["_where"])[0]
+        if quest_path(where) in outputs:
+            model_faults, facts = check_art(data, d, glb, on_disk.get(quest_path(where)), where)
+            faults += model_faults
+        else:
+            model_faults, facts = check_model(data, d, glb, where)
+            faults += model_faults
+            if glb != outputs[where]: faults += check_model(data, d, outputs[where], "%s: the model it builds now" % d["_where"])[0]
         if not facts: continue
 
         # The document.
