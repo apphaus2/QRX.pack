@@ -9,7 +9,8 @@ in this file and the files it names. Talk to the owner after each run before goi
 | what | where |
 | --- | --- |
 | this repo (the art work) | `~/src/QRX.pack`, branch `art-pipeline-local` (cloned from the F: checkout) |
-| MeshTool (where the pipeline is moving) | `~/src/MeshTool` |
+| the pipeline (MeshTool, a submodule) | `~/src/QRX.pack/third_party/MeshTool`: make.py, intake.py, steps/, shapes.json, setup.sh, docs/ |
+| this project's MeshTool file | `~/src/QRX.pack/species/art/meshtool.json` (archetype terra, each creature's body shape) |
 | each creature's work files (gitignored) | `~/src/QRX.pack/species/art/<id>/work/` (copied from F:) |
 | tools home | `~/qrx-art` (`ART_HOME`), 78 GB |
 | micromamba | `~/qrx-art/bin/micromamba`, root `~/qrx-art/mamba` |
@@ -24,7 +25,7 @@ in this file and the files it names. Talk to the owner after each run before goi
 You rarely activate an environment by hand: make.py runs each step in its own environment
 (`micromamba run -n <env>`) and Blender with `blenderlibs` on its library path. By hand:
 `~/qrx-art/mamba/envs/art/bin/python ...`, or `eval "$(~/qrx-art/bin/micromamba shell hook -s bash)"; micromamba activate hy3d`.
-`species/art/setup.sh` is what installed all of it (pinned commits and versions); rerun it only to rebuild.
+`third_party/MeshTool/setup.sh` is what installed all of it (pinned commits and versions); rerun it only to rebuild.
 
 A copy of this file stays on F: in the Windows checkout: `F:\_GITHUB\apphaus2\QRX.pack\species\art\HANDOFF-WSL.md`.
 
@@ -33,11 +34,12 @@ A copy of this file stays on F: in the Windows checkout: `F:\_GITHUB\apphaus2\QR
 ```
 mkdir -p ~/src
 git clone -b art-pipeline-local /mnt/f/_GITHUB/apphaus2/QRX.pack ~/src/QRX.pack
-git clone /mnt/f/_GITHUB/apphaus2/MeshTool ~/src/MeshTool
-for r in QRX.pack MeshTool; do
-  git -C ~/src/$r remote rename origin windows
-  git -C ~/src/$r remote add origin https://github.com/apphaus2/$r.git
-done
+git -C ~/src/QRX.pack remote rename origin windows
+git -C ~/src/QRX.pack remote add origin https://github.com/apphaus2/QRX.pack.git
+# MeshTool, the submodule, from the F: checkout too (its commit may not be on GitHub yet)
+git -C ~/src/QRX.pack -c protocol.file.allow=always -c submodule.third_party/MeshTool.url=/mnt/f/_GITHUB/apphaus2/MeshTool submodule update --init
+git -C ~/src/QRX.pack/third_party/MeshTool remote set-url origin https://github.com/apphaus2/MeshTool.git
+git -C ~/src/QRX.pack/third_party/MeshTool remote add windows /mnt/f/_GITHUB/apphaus2/MeshTool
 git config --global core.autocrlf false
 cd /mnt/f/_GITHUB/apphaus2/QRX.pack/species/art
 for d in */work; do mkdir -p ~/src/QRX.pack/species/art/"${d%/work}"; rsync -a "$d" ~/src/QRX.pack/species/art/"${d%/work}"/; done
@@ -47,11 +49,12 @@ for d in */work; do mkdir -p ~/src/QRX.pack/species/art/"${d%/work}"; rsync -a "
   set that up only when GridLib is cloned.)
 - The work folders: 95 of them, 3.1 GB. The only other ignored files are `__pycache__`, not copied.
 - Check before running anything: `git -C ~/src/QRX.pack log --oneline -1` matches the F: checkout's HEAD;
-  `git status --short` is empty in both; `ls ~/src/QRX.pack/species/art/*/work/hunyuan-template/clean.blend | wc -l`
+  `git -C ~/src/QRX.pack submodule status` shows third_party/MeshTool at the commit the pack records (no `-` or `+`);
+  `git status --short` is empty in the pack and in the submodule; `ls ~/src/QRX.pack/species/art/*/work/hunyuan-template/clean.blend | wc -l`
   is 65 (the 18 made and 47 of the new 77); `diff -rq /mnt/f/_GITHUB/apphaus2/QRX.pack/species/art ~/src/QRX.pack/species/art -x __pycache__`
   prints nothing.
-- Paths: no tracked file names `/mnt/f`; make.py finds its steps from its own folder and its tools from
-  `~/qrx-art`, so it runs unchanged. Only the old session's throwaway shell scripts named `/mnt/f` (the queue script
+- Paths: no tracked file names `/mnt/f`; make.py finds its steps from its own folder, its tools from `~/qrx-art`
+  and the project from where it runs (`species/art`, through `meshtool.json`), so it runs unchanged. Only the old session's throwaway shell scripts named `/mnt/f` (the queue script
   and the shape agents' `run.sh`/`sheet.sh` helpers); they are not in the repo. Write new ones with `~/src/QRX.pack`.
 
 ## 3. The goal and the rules
@@ -67,7 +70,7 @@ animated models the apps load, then move the pipeline into MeshTool for QRX.pack
   and ends in the rest pose, idle and the move clip loop.
 - Bones (SPEC.md section 3): every shape has `Root`, `Body`, `Head` (the apps hang the back and mouth sockets on Body
   and Head). Four-legged: also `Chest`, `Neck`, `Tail1..3`, `Leg/Shin/Foot` + `FL FR BL BR`. The other shapes'
-  required bones are in `make/bodies.json`.
+  required bones are in MeshTool's `shapes.json`.
 - Clip names: each creature's `prompt.md` `| clips |` row; the species documents name what the apps play.
 - About 10,000 triangles: **a soft guideline, not a limit** (the owner raised it from 8,000 and made it soft:
   "Go over if it makes sense"). The clean step decimates to 9,500. One texture, 1024 px at most. 5 MB a file at most.
@@ -85,13 +88,13 @@ animated models the apps load, then move the pipeline into MeshTool for QRX.pack
 
 ## 4. Where the work stands
 
-**make.py** (`species/art/make.py`; `--help` lists everything). Steps, each skipped when its output exists:
+**make.py** (`third_party/MeshTool/make.py`, run from `~/src/QRX.pack`; `--help` lists everything). Steps, each skipped when its output exists:
 `render, cutout, mesh, clean, rig, clips, pack, check`. A creature with a kept `cutout.png` starts at mesh.
 ```
-python species/art/make.py <id> --keep-strands                 # every step not done
-python species/art/make.py <id> --from rig --to check          # redo rig onward (CPU only)
-python species/art/make.py <id> --from mesh --mesh-seed 2      # a fresh mesh with another seed (GPU)
-python species/art/make.py <id> --file                         # after check passes: intake.py files mesh.glb, mesh.quest.glb, made.json
+python third_party/MeshTool/make.py <id> --keep-strands                 # every step not done
+python third_party/MeshTool/make.py <id> --from rig --to check          # redo rig onward (CPU only)
+python third_party/MeshTool/make.py <id> --from mesh --mesh-seed 2      # a fresh mesh with another seed (GPU)
+python third_party/MeshTool/make.py <id> --file                         # after check passes: intake.py files mesh.glb, mesh.quest.glb, made.json
 python species/build.py                                         # writes models/<id>.glb and .quest.glb, keeps the drawn one as .low.glb
 ```
 Run it with `~/qrx-art/mamba/envs/art/bin/python`. `--keep-strands` meshes the cutout as it is; without it thin
@@ -113,13 +116,13 @@ strands are cut off first (good for a stray line, bad for legs, wings, antennae,
 master: 17 Hunyuan (street-terrier, honeyglow-bear-cub, ringtail-raccoon on seed 2, the rest 1234) and red-squirrel
 on TRELLIS seed 2.
 
-**The 77 new creatures.** Body shapes in `make/bodies.json`: quadruped 21, fish 14, bird 12 (two of them bats),
+**The 77 new creatures.** Body shapes in `species/art/meshtool.json`: quadruped 21, fish 14, bird 12 (two of them bats),
 flyer 12 (butterflies, moths, dragonflies), crawler 13 (beetles, bees, spiders, scorpion, crabs), soft 5 (jellies,
-snails). Each shape has `make/blender_rig_<shape>.py` and `make/blender_clips_<shape>.py` (the four-legged use
+snails). Each shape has MeshTool's `steps/blender_rig_<shape>.py` and `steps/blender_clips_<shape>.py` (the four-legged use
 `blender_rig.py` and `blender_clips.py`).
 - Meshed and cleaned: 47 of 77. **Next: granary-owl**, then the 29 after it. To resume, run for each id not yet
-  meshed: `make.py <id> --to clean --keep-strands` (one at a time; a creature already done is skipped in seconds).
-  A list: `python -c "import json,os;d=json.load(open('species/art/make/bodies.json'));print(' '.join(k for k in d['creatures'] if not os.path.exists('species/art/%s/work/hunyuan-template/clean.blend'%k)))"`.
+  meshed: `python third_party/MeshTool/make.py <id> --to clean --keep-strands` (one at a time; a creature already done is skipped in seconds).
+  A list: `python -c "import json,os;d=json.load(open('species/art/meshtool.json'));print(' '.join(k for k in d['creatures'] if not os.path.exists('species/art/%s/work/hunyuan-template/clean.blend'%k)))"`.
 - Rigged and checked so far (check passes, nothing filed): fish arctic-char, aurora-eel, mud-ray, reed-seahorse;
   bird blue-skylark, chimney-bat; flyer emerald-swallowtail, pond-skimmer; crawler darkling-beetle, bramble-spider,
   mud-crab, field-bee; soft moon-jelly, garden-snail; four-legged banded-gecko, pond-frog. The rest: rig them
@@ -136,13 +139,13 @@ button); build.py writes and keeps them. Never fail or delete them.
 **Gallery.** `species/preview/gallery.html` (published with the pack) shows every model turning and walking. Serve
 `species/` locally (`python -m http.server 8735 -d species`) to look before anything is pushed.
 
-**MeshTool** (`https://github.com/apphaus2/MeshTool`, private, master 7c18ad5): code only, no assets. It has the
-README and `archetypes/terra` (the natural look: QRX.pack, TerraLib) and `archetypes/grid` (flat-shaded, glowing edge
-lines: GridLib, whose engine side is TronX), each with `archetype.json` and a README; grid is a plan. Planned, at the
-owner's yes: move make.py, `make/`, setup.sh, intake.py, SPEC.md, PIPELINE.md and RIGGING.md into MeshTool; make.py
-then takes a project checkout and its archetype; QRX.pack, TerraLib and GridLib each take MeshTool as a submodule in
-`third_party/`. All three use the body rigs (GridLib's world has animals too). QRX.pack is public and served by Pages
-and MeshTool is private: check the first Pages publish after the submodule goes in.
+**MeshTool** (`https://github.com/apphaus2/MeshTool`, private): the pipeline's code, no assets, here as the submodule
+`third_party/MeshTool`. make.py and intake.py take a project folder (`--project`, or found from where they run:
+`species/art` with its `meshtool.json`); `standard.py` is the standard both make.py's check and the pack's
+`build.py` read; `shapes.json` the bones each body shape requires; `archetypes/terra` (the natural look: QRX.pack,
+TerraLib) and `archetypes/grid` (flat-shaded, glowing edge lines: GridLib, engine side TronX), grid still a plan.
+TerraLib and GridLib will take it as a submodule too, and all three use the body rigs. A change to the pipeline is
+committed in the submodule and pushed to MeshTool first, then the pack's pointer to it is committed.
 
 ## 5. Known problems and what needs the owner's eye
 

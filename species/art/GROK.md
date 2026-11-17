@@ -1,7 +1,7 @@
 # The request to Grok
 
 Paste the block below to Grok, then give it one creature's `prompt.md` at a time (start with `street-terrier`).
-Take what it returns in with `python3 species/art/intake.py <id> --full ... --cutout ... --mesh ... --tool "Grok, <date>"`.
+Take what it returns in with `python3 third_party/MeshTool/intake.py <id> --full ... --cutout ... --mesh ... --tool "Grok, <date>"`.
 
 ```text
 You are making game-ready animal models for QRay, a children's mixed-reality game on Meta Quest 3, iPhone and

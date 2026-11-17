@@ -5,12 +5,12 @@ textured mesh with bones and clips. The model that makes them (Grok) is asked wi
 
 | file | what |
 | --- | --- |
-| [SPEC.md](SPEC.md) | what each delivery must be: the render, the cutout, the rigged mesh (skeleton, weights, clips, limits) |
+| [SPEC.md](../../third_party/MeshTool/docs/SPEC.md) | what each delivery must be: the render, the cutout, the rigged mesh (skeleton, weights, clips, limits) |
 | `<id>/prompt.md` | one creature's brief: size, clips, marks, and its render prompt |
 | `<id>/prompt.txt` | the render prompt word for word, the record of how its image was made ([prompts.py](prompts.py) writes it) |
-| [intake.py](intake.py) | checks a delivery against SPEC.md and files it: `python3 species/art/intake.py <id> --full ... --cutout ... --mesh ... --tool "..."` |
-| [PIPELINE.md](PIPELINE.md) | the plan to make a creature end to end on our own machine (render, cutout, mesh, rig, clips, the two packed copies) |
-| [RIGGING.md](RIGGING.md) | which app renderers can play a skinned, textured model, and a fallback for rigging here if a mesh comes without bones |
+| [intake.py](../../third_party/MeshTool/intake.py) | checks a delivery against SPEC.md and files it: `python3 third_party/MeshTool/intake.py <id> --full ... --cutout ... --mesh ... --tool "..."` |
+| [PIPELINE.md](../../third_party/MeshTool/docs/PIPELINE.md) | the plan to make a creature end to end on our own machine (render, cutout, mesh, rig, clips, the two packed copies) |
+| [RIGGING.md](../../third_party/MeshTool/docs/RIGGING.md) | which app renderers can play a skinned, textured model, and a fallback for rigging here if a mesh comes without bones |
 
 Kept per creature, in `<id>/`: `prompt.md`, `prompt.txt`, `full.jpg` (the render), `cutout.png` (the creature alone)
 and `mesh.glb` (the rigged mesh). The gray composite is never kept: `intake.py <id> --look DIR` rebuilds it outside
