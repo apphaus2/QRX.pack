@@ -1,6 +1,6 @@
 # Handoff: the art pipeline, from F: to WSL (2026-11-17)
 
-For a new Claude Code session started inside WSL, in `~/src/`, after the clone. It replaces the Windows session that
+For a new Claude Code session started inside WSL, in `~/_GITHUB/apphaus2/QRX.pack`, after the clone. It replaces the Windows session that
 built this pipeline; from the moment you take over, that session no longer edits this repo. Everything you need is
 in this file and the files it names. Talk to the owner after each run before going on.
 
@@ -8,10 +8,10 @@ in this file and the files it names. Talk to the owner after each run before goi
 
 | what | where |
 | --- | --- |
-| this repo (the art work) | `~/src/QRX.pack`, branch `art-pipeline-local` (cloned from the F: checkout) |
-| the pipeline (MeshTool, a submodule) | `~/src/QRX.pack/third_party/MeshTool`: make.py, intake.py, steps/, shapes.json, setup.sh, docs/ |
-| this project's MeshTool file | `~/src/QRX.pack/species/art/meshtool.json` (archetype terra, each creature's body shape) |
-| each creature's work files (gitignored) | `~/src/QRX.pack/species/art/<id>/work/` (copied from F:) |
+| this repo (the art work) | `~/_GITHUB/apphaus2/QRX.pack`, branch `master` (cloned from the F: checkout) |
+| the pipeline (MeshTool, a submodule) | `~/_GITHUB/apphaus2/QRX.pack/third_party/MeshTool`: make.py, intake.py, steps/, shapes.json, setup.sh, docs/ |
+| this project's MeshTool file | `~/_GITHUB/apphaus2/QRX.pack/species/art/meshtool.json` (archetype terra, each creature's body shape) |
+| each creature's work files (gitignored) | `~/_GITHUB/apphaus2/QRX.pack/species/art/<id>/work/` (copied from F:) |
 | tools home | `~/qrx-art` (`ART_HOME`), 78 GB |
 | micromamba | `~/qrx-art/bin/micromamba`, root `~/qrx-art/mamba` |
 | environments | `~/qrx-art/mamba/envs/`: `art` (BiRefNet cutouts, intake, checks; 6 GB), `hy3d` (Hunyuan3D 2.1; 13 GB), `trellis` (TRELLIS; 14 GB), `unirig` (UniRig; 14 GB), `blenderlibs` (X libraries Blender needs) |
@@ -29,33 +29,33 @@ You rarely activate an environment by hand: make.py runs each step in its own en
 
 A copy of this file stays on F: in the Windows checkout: `F:\_GITHUB\apphaus2\QRX.pack\species\art\HANDOFF-WSL.md`.
 
-## 2. The clone (skip if the owner already did it)
+## 2. The clone (done on 2026-11-17: skip to the check)
 
 ```
-mkdir -p ~/src
-git clone -b art-pipeline-local /mnt/f/_GITHUB/apphaus2/QRX.pack ~/src/QRX.pack
-git -C ~/src/QRX.pack remote rename origin windows
-git -C ~/src/QRX.pack remote add origin https://github.com/apphaus2/QRX.pack.git
+mkdir -p ~/_GITHUB/apphaus2
+git clone /mnt/f/_GITHUB/apphaus2/QRX.pack ~/_GITHUB/apphaus2/QRX.pack
+git -C ~/_GITHUB/apphaus2/QRX.pack remote rename origin windows
+git -C ~/_GITHUB/apphaus2/QRX.pack remote add origin https://github.com/apphaus2/QRX.pack.git
 # MeshTool, the submodule, from the F: checkout too (its commit may not be on GitHub yet)
-git -C ~/src/QRX.pack -c protocol.file.allow=always -c submodule.third_party/MeshTool.url=/mnt/f/_GITHUB/apphaus2/MeshTool submodule update --init
-git -C ~/src/QRX.pack/third_party/MeshTool remote set-url origin https://github.com/apphaus2/MeshTool.git
-git -C ~/src/QRX.pack/third_party/MeshTool remote add windows /mnt/f/_GITHUB/apphaus2/MeshTool
+git -C ~/_GITHUB/apphaus2/QRX.pack -c protocol.file.allow=always -c submodule.third_party/MeshTool.url=/mnt/f/_GITHUB/apphaus2/MeshTool submodule update --init
+git -C ~/_GITHUB/apphaus2/QRX.pack/third_party/MeshTool remote set-url origin https://github.com/apphaus2/MeshTool.git
+git -C ~/_GITHUB/apphaus2/QRX.pack/third_party/MeshTool remote add windows /mnt/f/_GITHUB/apphaus2/MeshTool
 git config --global core.autocrlf false
 cd /mnt/f/_GITHUB/apphaus2/QRX.pack/species/art
-for d in */work; do mkdir -p ~/src/QRX.pack/species/art/"${d%/work}"; rsync -a "$d" ~/src/QRX.pack/species/art/"${d%/work}"/; done
+for d in */work; do mkdir -p ~/_GITHUB/apphaus2/QRX.pack/species/art/"${d%/work}"; rsync -a "$d" ~/_GITHUB/apphaus2/QRX.pack/species/art/"${d%/work}"/; done
 ```
 
 - No `.gitattributes` and no Git LFS in either repo; every tracked text file is already LF. (GridLib uses LFS:
   set that up only when GridLib is cloned.)
 - The work folders: 95 of them, 3.1 GB. The only other ignored files are `__pycache__`, not copied.
-- Check before running anything: `git -C ~/src/QRX.pack log --oneline -1` matches the F: checkout's HEAD;
-  `git -C ~/src/QRX.pack submodule status` shows third_party/MeshTool at the commit the pack records (no `-` or `+`);
-  `git status --short` is empty in the pack and in the submodule; `ls ~/src/QRX.pack/species/art/*/work/hunyuan-template/clean.blend | wc -l`
-  is 65 (the 18 made and 47 of the new 77); `diff -rq /mnt/f/_GITHUB/apphaus2/QRX.pack/species/art ~/src/QRX.pack/species/art -x __pycache__`
+- Check before running anything: `git -C ~/_GITHUB/apphaus2/QRX.pack log --oneline -1` matches the F: checkout's HEAD;
+  `git -C ~/_GITHUB/apphaus2/QRX.pack submodule status` shows third_party/MeshTool at the commit the pack records (no `-` or `+`);
+  `git status --short` is empty in the pack and in the submodule; `ls ~/_GITHUB/apphaus2/QRX.pack/species/art/*/work/hunyuan-template/clean.blend | wc -l`
+  is 65 (the 18 made and 47 of the new 77); `diff -rq /mnt/f/_GITHUB/apphaus2/QRX.pack/species/art ~/_GITHUB/apphaus2/QRX.pack/species/art -x __pycache__`
   prints nothing.
 - Paths: no tracked file names `/mnt/f`; make.py finds its steps from its own folder, its tools from `~/qrx-art`
   and the project from where it runs (`species/art`, through `meshtool.json`), so it runs unchanged. Only the old session's throwaway shell scripts named `/mnt/f` (the queue script
-  and the shape agents' `run.sh`/`sheet.sh` helpers); they are not in the repo. Write new ones with `~/src/QRX.pack`.
+  and the shape agents' `run.sh`/`sheet.sh` helpers); they are not in the repo. Write new ones with `~/_GITHUB/apphaus2/QRX.pack`.
 
 ## 3. The goal and the rules
 
@@ -81,14 +81,14 @@ animated models the apps load, then move the pipeline into MeshTool for QRX.pack
 - Ask before any download over a few GB.
 - Talk to the owner after each run before going on.
 - Don't overwrite or delete any `species/models/<id>.low.glb`, and keep build.py's checks from failing them.
-- Git: the owner's latest word is "Nothing in branches. Everything goes to master", and the pack's master took the
-  pipeline at their word (fe04932). The pack is public and published by GitHub Pages at `https://qrx-pack.apphaus.us/`
-  about a minute after a push: push only when the owner says so. `art-pipeline-local` holds one more commit
-  (ca09e52), not pushed.
+- Git: the owner's word is "Nothing in branches. Everything goes to master". The pack is public and published by
+  GitHub Pages at `https://qrx-pack.apphaus.us/` about a minute after a push to master: push when the owner says so.
+  A change to the pipeline is pushed to MeshTool first, then the pack's pointer to it. QRX pins the pack (QRX's
+  `third_party/QRX.pack`); bump that pin when the owner asks.
 
 ## 4. Where the work stands
 
-**make.py** (`third_party/MeshTool/make.py`, run from `~/src/QRX.pack`; `--help` lists everything). Steps, each skipped when its output exists:
+**make.py** (`third_party/MeshTool/make.py`, run from `~/_GITHUB/apphaus2/QRX.pack`; `--help` lists everything). Steps, each skipped when its output exists:
 `render, cutout, mesh, clean, rig, clips, pack, check`. A creature with a kept `cutout.png` starts at mesh.
 ```
 python third_party/MeshTool/make.py <id> --keep-strands                 # every step not done
@@ -179,14 +179,14 @@ committed in the submodule and pushed to MeshTool first, then the pack's pointer
   `git config --global credential.helper "/mnt/c/Program\ Files/Git/mingw64/bin/git-credential-manager.exe"`.
   (Or `apt install gh` and `gh auth login`, which needs the owner once.) SSH does not work.
 - The F: checkouts (`F:\_GITHUB\apphaus2\QRX.pack`, `F:\_GITHUB\apphaus2\MeshTool`) stay for Windows tools and are
-  read-only from now on: work only in `~/src`. Keep F: in step by pulling there after a push (or straight from WSL:
+  read-only from now on: work only in `~/_GITHUB/apphaus2`. Keep F: in step by pulling there after a push (or straight from WSL:
   `git pull \\wsl.localhost\Ubuntu-24.04\home\smorey2\src\QRX.pack`). The 3.1 GB of work folders on F: can be deleted
   once this clone is checked, at the owner's word.
 
 ## 7. A first message for the owner to paste
 
 ```
-Read species/art/HANDOFF-WSL.md in ~/src/QRX.pack and take over the art pipeline from it. First check the clone
+Read species/art/HANDOFF-WSL.md in ~/_GITHUB/apphaus2/QRX.pack and take over the art pipeline from it. First check the clone
 as its section 2 says and tell me what you find. Then resume meshing the remaining creatures one at a time, starting
 with granary-owl, and stop after the first one to show me how long it took here compared with F:.
 ```
