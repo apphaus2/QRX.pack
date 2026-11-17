@@ -38,7 +38,7 @@ Each step reads the previous step's file in `art/<id>/` and writes its own, so a
    are not visible to any check.
 4. **Clean up** (`work/clean.glb`), in Blender, headless. Turn it so the head is +Z and up is +Y, scale it to the
    brief's size, put its lowest point at y = 0 and the origin under the middle of the body. Decimate to under
-   8,000 triangles, bake the texture onto one 1024 x 1024 base-colour map (metallic 0, roughness 0.8), and remove
+   10,000 triangles, bake the texture onto one 1024 x 1024 base-colour map (metallic 0, roughness 0.8), and remove
    vertex colours.
 5. **Rig** (`work/rigged.glb`), in Blender. The quadruped skeleton in GROK.md, with its bone names exactly as
    written (Root, Body, Chest, Neck, Head, Tail1 to 3, Leg/Shin/Foot for FL, FR, BL, BR, plus ears if wanted). It is

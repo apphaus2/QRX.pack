@@ -22,7 +22,7 @@ asked. I will give you one creature brief at a time. For each, make and send me 
    - glTF 2.0 binary, everything embedded (no external files). Metres, +Y up, the head pointing along +Z, the
      animal's left along +X, the origin on the ground under the middle of the body. Real size: the longest side
      (nose to tail or rump) is the brief's size in metres, and it is never taller than 0.15 m in any clip.
-   - One continuous skinned mesh (eyes may be separate, parented to the head bone). At most 8,000 triangles. One
+   - One continuous skinned mesh (eyes may be separate, parented to the head bone). At most 10,000 triangles. One
      base-colour texture, at most 1024 x 1024 (512 is fine), embedded; PBR metallic-roughness, metallic 0, roughness
      about 0.8. No vertex colours. The whole file 5 MB at most.
    - One skin. Bones with exactly these names (more are welcome: ears, jaw, toes, more tail):

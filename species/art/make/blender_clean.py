@@ -12,7 +12,7 @@ from mathutils import Matrix, Vector
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import blender_common as common      # noqa: E402
 
-TRIANGLES = 7800          # under SPEC.md's 8,000
+TRIANGLES = 9500          # under SPEC.md's 10,000 guideline, with room for the rig step's leg split
 TEXTURE = 1024
 LOOSE = 0.01              # loose pieces with less than this share of the faces are dropped (specks, a stray plane)
 
