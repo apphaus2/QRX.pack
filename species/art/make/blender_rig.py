@@ -159,6 +159,100 @@ else:
     with open(joints_path, "w") as f: json.dump({"joints": joints, "found": found, "axes": "glTF metres: x left, y up, z forward"}, f, indent=2)
     common.log("joints placed from the mesh: belly %.3f m of %.3f, written to %s" % (found["belly"], found["height"], joints_path))
 
+# Legs that touch (a mesher often fuses two front paws): below the belly, each face goes to the leg whose bones it is
+# nearest, the surface is split where the two legs' faces meet, each side is drawn back a little and capped, so
+# neither leg drags a web or a flap of the other when they move apart. The caps take the texture around them.
+LEG_TOP = 0.7     # of the lowest leg top: the split stays below the chest
+GAP = 0.003       # metres between the two sides of a split
+LEGS = [(end, side) for end in ("F", "B") for side in ("L", "R")]     # a face's leg_side is 1 + its index here
+
+
+def seg_dist(p, a, b):
+    ab = [b[k] - a[k] for k in range(3)]; ap = [p[k] - a[k] for k in range(3)]
+    t = max(0.0, min(1.0, sum(x * y for x, y in zip(ab, ap)) / max(sum(x * x for x in ab), 1e-12)))
+    return math.dist(p, [a[k] + t * ab[k] for k in range(3)])
+
+
+def leg_zone():
+    """Per end (F, B): the z range of its feet and the height the split reaches."""
+    zone = {}
+    for end in ("F", "B"):
+        zs = [joints[k + end + s][2] for k in ("low_", "toe_", "mid_") for s in ("L", "R")]
+        reach = max(zs) - min(zs) + 0.03
+        top = LEG_TOP * min(joints["mid_%s%s" % (end, s)][1] for s in ("L", "R")) / (0.8 if end == "F" else 0.75)
+        zone[end] = (min(zs) - reach / 2, max(zs) + reach / 2, top)
+    return zone
+
+
+def nearest_leg(end, g):
+    """1 + the index in LEGS of the leg (of this end) whose shin and foot lie nearest the glTF point g."""
+    def d(side):
+        k = end + side
+        return min(seg_dist(g, joints["mid_" + k], joints["low_" + k]), seg_dist(g, joints["low_" + k], joints["toe_" + k]))
+    return 1 + LEGS.index((end, min(("L", "R"), key=d)))
+
+
+def split_legs():
+    import bmesh
+    zone = leg_zone()
+    me = mesh.data
+    mw = mesh.matrix_world; inv = mw.inverted()
+    bm = bmesh.new(); bm.from_mesh(me)
+    uv = bm.loops.layers.uv.active
+    side = bm.faces.layers.int.new("leg_side")
+    report = []
+    for end, (z0, z1, top) in zone.items():
+        def inside(f):
+            for v in f.verts:
+                g = gltf(mw @ v.co)
+                if not (g[1] < top and z0 <= g[2] <= z1): return False
+            return True
+        faces = set(f for f in bm.faces if inside(f))
+        for f in faces: f[side] = nearest_leg(end, gltf(mw @ f.calc_center_median()))
+        edges = [e for e in {e for f in faces for e in f.edges} if len(e.link_faces) == 2
+                 and all(lf in faces for lf in e.link_faces) and e.link_faces[0][side] != e.link_faces[1][side]]
+        if not edges: report.append("%s apart" % end); continue
+        bmesh.ops.split_edges(bm, edges=edges)
+        open_edges = [e for e in bm.edges if e.is_boundary and all(lf in faces for lf in e.link_faces)]
+        # Draw each side back from the other leg, so the two caps do not lie on each other (bone heat fails on
+        # surfaces that touch) and the paws stand a little apart.
+        for v in {v for e in open_edges for v in e.verts}:
+            mine = {f[side] for f in v.link_faces}
+            if len(mine) != 1: continue                       # where the split ends, the vertex is both legs'
+            own = LEGS[mine.pop() - 1][1]; other = "R" if own == "L" else "L"
+            away = joints["low_" + end + own][0] - joints["low_" + end + other][0]
+            v.co = inv @ (mw @ v.co + Vector((math.copysign(GAP / 2, away), 0, 0)))
+        caps = bmesh.ops.holes_fill(bm, edges=open_edges, sides=0)["faces"]
+        for f in caps:
+            near = [lf[side] for e in f.edges for lf in e.link_faces if lf is not f and lf[side]]
+            f[side] = max(set(near), key=near.count) if near else 0
+            for loop in f.loops:
+                other = next((l for l in loop.vert.link_loops if l.face not in caps), None)
+                if other and uv: loop[uv].uv = other[uv].uv
+        report.append("%s split along %d edges, %d caps" % (end, len(edges), len(caps)))
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    bm.to_mesh(me); bm.free(); me.update()
+    common.log("legs:", "; ".join(report))
+
+
+split_legs()
+# Each vertex's leg (its faces', when they agree), then the attribute goes: it is not to be exported.
+_faces = mesh.data.attributes["leg_side"].data
+vertex_leg = [set() for _ in mesh.data.vertices]
+for f in mesh.data.polygons:
+    for i in f.vertices: vertex_leg[i].add(_faces[f.index].value)
+vertex_leg = [s.pop() if len(s) == 1 and 0 not in s else 0 for s in vertex_leg]
+mesh.data.attributes.remove(mesh.data.attributes["leg_side"])
+
+
+def own_leg(i):
+    """The bones of the one leg vertex i belongs to below the split, else None. Bone heat gives the inside of fused
+    paws to the chest or the other paw, which leaves flaps behind when the leg moves."""
+    if not vertex_leg[i]: return None
+    end, side = LEGS[vertex_leg[i] - 1]
+    return [b + end + side for b in ("Leg", "Shin", "Foot")]
+
+
 # The armature.
 data = bpy.data.armatures.new("Skeleton")
 rig = bpy.data.objects.new("Skeleton", data)
@@ -212,6 +306,19 @@ bpy.context.view_layer.objects.active = mesh
 for o in bpy.context.scene.objects: o.select_set(o is mesh)
 for g in list(mesh.vertex_groups):
     if g.name == "Root": mesh.vertex_groups.remove(g)
+names = {g.index: g.name for g in mesh.vertex_groups}
+owned = 0
+for v in mesh.data.vertices:
+    leg = own_leg(v.index)
+    if not leg: continue
+    strays = [g for g in v.groups if names[g.group] not in leg and g.weight > 0]
+    for g in strays: mesh.vertex_groups[g.group].remove([v.index])
+    owned += bool(strays)
+    if not any(names[g.group] in leg and g.weight > 1e-4 for g in v.groups):
+        p = rig.matrix_world.inverted() @ (mesh.matrix_world @ v.co)
+        near = min((b for b in data.bones if b.name in leg), key=lambda b: (b.head_local.lerp(b.tail_local, 0.5) - p).length)
+        (mesh.vertex_groups.get(near.name) or mesh.vertex_groups.new(name=near.name)).add([v.index], 1.0, "REPLACE")
+common.log("%d low leg vertices had weight from other bones and were kept to their own leg" % owned)
 bpy.ops.object.vertex_group_limit_total(group_select_mode="ALL", limit=4)
 bpy.ops.object.vertex_group_normalize_all(group_select_mode="ALL", lock_active=False)
 # Any vertex the heat left without a bone takes the nearest bone's.
@@ -222,10 +329,14 @@ lonely = 0
 for v in mesh.data.vertices:
     if not any(g.weight > 1e-4 for g in v.groups):
         p = mesh.matrix_world @ v.co
-        name = min(bones, key=lambda b: to_segment(p, b[1], b[2]))[0]
+        leg = own_leg(v.index)
+        name = min((b for b in bones if not leg or b[0] in leg), key=lambda b: to_segment(p, b[1], b[2]))[0]
         (mesh.vertex_groups.get(name) or mesh.vertex_groups.new(name=name)).add([v.index], 1.0, "REPLACE"); lonely += 1
 most = max((sum(1 for g in v.groups if g.weight > 1e-4) for v in mesh.data.vertices), default=0)
 common.log("%d vertices had no weight and took the nearest bone's; at most %d bones a vertex" % (lonely, most))
+if lonely > 0.02 * len(mesh.data.vertices):
+    raise SystemExit("make: bone heat left %d of %d vertices without a bone (it fails on surfaces that touch or holes); "
+                     "the rig would move in pieces" % (lonely, len(mesh.data.vertices)))
 mesh.parent = rig
 if not any(m.type == "ARMATURE" for m in mesh.modifiers):
     m = mesh.modifiers.new("Skeleton", "ARMATURE"); m.object = rig
