@@ -35,6 +35,7 @@ MAX_WIRE_BYTES = 256 * 1024        # what a phone downloads: GitHub Pages sends 
 # (JsonScene's modelSuffix ".quest"): Meta's reader stops the app on meshopt, 16-bit positions and Draco (2026-11-16).
 ART = os.path.join(HERE, "art")
 QUEST_SUFFIX = ".quest"
+LOW_SUFFIX = ".low"
 # What the Quest's copy may require: the glTF extensions the Spatial SDK documents (spatial-sdk-gltfs).
 QUEST_EXTENSIONS = {"KHR_texture_basisu", "KHR_texture_transform", "KHR_materials_unlit"}
 ID = re.compile(r"^[a-z][a-z0-9]*(-[a-z0-9]+)*$")
@@ -401,7 +402,7 @@ def build_all(data, model_base, sound_base):
                 if missing: faults.append("%s: art/%s/mesh.glb has no node %s for its sockets" % (d["_where"], d["id"], ", ".join(missing))); continue
                 unanimated = sorted(set(made["tricks"]) - set(art_facts["clips"]))
                 if unanimated: faults.append("%s: art/%s/mesh.glb has no clip for the tricks %s" % (d["_where"], d["id"], ", ".join(unanimated))); continue
-                glb = art[0]
+                low, glb = glb, art[0]          # the drawn model stays beside the art, as <id>.low.glb
                 made["tricks"] = {trick_id: art_facts["clips"][trick_id]["seconds"] for trick_id in made["tricks"]}
             document = build_document(data, d, made, model_base, sound_base)
             sounds = species_sounds(data, d)
@@ -417,7 +418,9 @@ def build_all(data, model_base, sound_base):
             model_faults, facts = inspect(glb)
             if model_faults: faults += ["%s: the model it builds: %s" % (d["_where"], f) for f in model_faults]; continue
         outputs["models/%s.glb" % d["id"]] = glb
-        if art: outputs[quest_path("models/%s.glb" % d["id"])] = art[1]
+        if art:
+            outputs[quest_path("models/%s.glb" % d["id"])] = art[1]
+            outputs[low_path("models/%s.glb" % d["id"])] = low
         outputs["creatures/%s.json" % d["id"]] = dump(document)
         box = facts["box"]
         good.append(d)
@@ -430,7 +433,9 @@ def build_all(data, model_base, sound_base):
             "speech": minds.register(d, data.rarities[d["rarity"]]), "sounds": {meaning: "sounds/" + name for meaning, (name, _, _, _) in sounds.items()},
         })
         # A creature with art: the Quest's copy and its size beside the phones' (the Quest asks for it first).
-        if art: entries[-1].update(quest=quest_path("models/%s.glb" % d["id"]), questBytes=len(art[1]), art=True)
+        # The model build.py draws for it stays too, as <id>.low.glb: plain colours, far smaller.
+        if art: entries[-1].update(quest=quest_path("models/%s.glb" % d["id"]), questBytes=len(art[1]), art=True,
+                                   low=low_path("models/%s.glb" % d["id"]), lowBytes=len(low))
     tables = spawn_tables(data, good)
     index = {
         "version": 1,
@@ -546,6 +551,11 @@ def art_meshes(species_id):
     with open(quest, "rb") as f: return phone, f.read()
 
 
+def low_path(path):
+    """models/<id>.glb -> models/<id>.low.glb: the model build.py draws, kept beside a creature's art."""
+    return path[:-len(".glb")] + LOW_SUFFIX + ".glb"
+
+
 def quest_path(path):
     """models/<id>.glb -> models/<id>.quest.glb."""
     return path[:-len(".glb")] + QUEST_SUFFIX + ".glb"
@@ -642,6 +652,7 @@ def check_outputs(data, outputs, model_base, sound_base):
         if quest_path(where) in outputs:
             model_faults, facts = check_art(data, d, glb, on_disk.get(quest_path(where)), where)
             faults += model_faults
+            if low_path(where) in on_disk: faults += check_model(data, d, on_disk[low_path(where)], low_path(where))[0]
         else:
             model_faults, facts = check_model(data, d, glb, where)
             faults += model_faults
