@@ -186,7 +186,6 @@ class Run:
             if missing: faults.append("no bone named %s" % ", ".join(missing))
             lacking = sorted(set(self.brief["clips"]) - set(facts.get("clips", [])))
             if lacking: faults.append("no clip named %s" % ", ".join(lacking))
-            if facts.get("triangles", 0) > intake.LIMITS["triangles"]: faults.append("%d triangles, over %d" % (facts["triangles"], intake.LIMITS["triangles"]))
             if len(blob) > intake.LIMITS["bytes"]: faults.append("%d bytes, over %d" % (len(blob), intake.LIMITS["bytes"]))
             report[name] = {"faults": faults, "notes": notes, "facts": facts}
             print("make: %s %s" % (name, "ok" if not faults else "FAULTS"))

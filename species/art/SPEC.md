@@ -46,7 +46,7 @@ Real size: the longest side (nose to the end of the tail or rump) is the `size` 
 most 0.15 m tall, ears included, in every clip.
 
 **Geometry and texture.** One continuous skinned mesh (no separate floating parts except eyes, which may be their
-own mesh parented to the head bone). At most **10,000 triangles** (a guideline). One base-colour texture, 1024 x 1024 at most (512
+own mesh parented to the head bone). About **10,000 triangles** at most (a soft limit: more is fine where the shape needs it). One base-colour texture, 1024 x 1024 at most (512
 is enough for most), embedded; a metallic-roughness value or map is optional; no normal map needed. PBR metal
 roughness material, metallic 0, roughness about 0.8 for fur. No vertex colours. **The whole file 5 MB at most.**
 

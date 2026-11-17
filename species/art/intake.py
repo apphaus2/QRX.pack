@@ -373,7 +373,7 @@ def check_mesh(path):
         if textures and not uv: faults.append("it has a texture but a primitive has no TEXCOORD_0")
         if not textures: notes.append("no texture: colours come from materials or vertex colours only")
         if len(data) > LIMITS["bytes"]: notes.append("%d KB, over the proposed %d KB" % (len(data) // 1024, LIMITS["bytes"] // 1024))
-        if triangles > LIMITS["triangles"]: notes.append("%d triangles, over the proposed %d (a decimation step would bring it down)" % (triangles, LIMITS["triangles"]))
+        if triangles > LIMITS["triangles"]: notes.append("%d triangles, over the %d guideline (fine where the shape needs it)" % (triangles, LIMITS["triangles"]))
         for t in textures:
             if max(t["size"]) > LIMITS["texture"]: notes.append("a %dx%d texture, over the proposed %d px" % (t["size"][0], t["size"][1], LIMITS["texture"]))
         if not skinned: notes.append("not rigged: it needs a skeleton, weights and clips before it can walk (art/RIGGING.md)")
