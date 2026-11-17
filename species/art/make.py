@@ -57,6 +57,9 @@ class Run:
         self.variant = os.path.join(self.work, "%s-%s" % (args.mesher, args.rigger))
         os.makedirs(self.variant, exist_ok=True)
         self.brief = brief(self.folder)
+        self.shape = BODIES["creatures"].get(self.id, "quadruped")
+        self.rig_script = "blender_rig.py" if self.shape == "quadruped" else "blender_rig_%s.py" % self.shape
+        self.clips_script = "blender_clips.py" if self.shape == "quadruped" else "blender_clips_%s.py" % self.shape
 
     # -- the files each step reads and writes
     def path(self, name): return os.path.join(self.work, name)
@@ -149,17 +152,17 @@ class Run:
         mode = "keep" if os.path.exists(kept) else "place"
         if self.args.rigger == "unirig":
             # The template skeleton first (its joints and a rigged glb for UniRig), then UniRig's weights on it.
-            self.blender("rig", "blender_rig.py", self.vpath("clean.blend"), self.vpath("rig.blend"), joints, mode, "template", "-")
+            self.blender("rig", self.rig_script, self.vpath("clean.blend"), self.vpath("rig.blend"), joints, mode, "template", "-")
             self.unirig()
             mode = "keep"
-        self.blender("rig", "blender_rig.py", self.vpath("clean.blend"), self.vpath("rig.blend"), joints, mode, self.args.rigger, self.vpath("unirig-skin.npz"))
+        self.blender("rig", self.rig_script, self.vpath("clean.blend"), self.vpath("rig.blend"), joints, mode, self.args.rigger, self.vpath("unirig-skin.npz"))
 
     def unirig(self):
         src = os.path.join(ART_HOME, "src", "UniRig")
         self.run("rig", ["python", os.path.join(STEPS_DIR, "rig_unirig.py"), self.vpath("rig-template.glb"), self.variant, src, PINS["unirig"]["revision"]], "unirig")
 
     def clips(self):
-        self.blender("clips", "blender_clips.py", self.vpath("rig.blend"), self.vpath("rigged.glb"), ",".join(self.brief["clips"]), self.id)
+        self.blender("clips", self.clips_script, self.vpath("rig.blend"), self.vpath("rigged.glb"), ",".join(self.brief["clips"]), self.id)
 
     def pack(self):
         for flags, name in ((PHONE_FLAGS, "mesh.glb"), (QUEST_FLAGS, "mesh.quest.glb")):
@@ -182,7 +185,7 @@ class Run:
             gltf = json.loads(blob[20:20 + struct.unpack("<I", blob[12:16])[0]])
             faults += build.standard_faults(gltf, facts, quest)
             joints = [n.get("name") for n in gltf.get("nodes", [])]
-            missing = [b for b in REQUIRED_BONES if b not in joints]
+            missing = [b for b in BODIES["shapes"][self.shape]["bones"] if b not in joints]
             if missing: faults.append("no bone named %s" % ", ".join(missing))
             lacking = sorted(set(self.brief["clips"]) - set(facts.get("clips", [])))
             if lacking: faults.append("no clip named %s" % ", ".join(lacking))
@@ -207,7 +210,8 @@ class Run:
         subprocess.check_call(command)
 
 
-REQUIRED_BONES = ["Root", "Body", "Chest", "Neck", "Head", "Tail1"] + ["%s%s" % (b, l) for l in ("FL", "FR", "BL", "BR") for b in ("Leg", "Shin", "Foot")]
+# Each creature's body shape and the bones its check requires (make/bodies.json).
+with open(os.path.join(STEPS_DIR, "bodies.json"), encoding="utf-8") as _f: BODIES = json.load(_f)
 
 
 def brief(folder):
@@ -268,8 +272,10 @@ def main():
     p.add_argument("--pick-render", type=int, metavar="SEED", help="file work/render/seed-N.jpg as full.jpg")
     p.add_argument("--fresh-cutout", action="store_true", help="mesh from work/cutout.png even when a cutout.png is kept")
     p.add_argument("--file", action="store_true", help="file the checked pair with intake.py")
+    p.add_argument("--keep-strands", action="store_true", help="mesh the cutout as it is: no strand removal (thin legs, antennae, wings, tentacles, tails)")
     p.add_argument("--quiet", action="store_true")
     args = p.parse_args()
+    if args.keep_strands: os.environ["QRX_KEEP_STRANDS"] = "1"
     r = Run(args)
     if args.pick_render is not None:
         shutil.copyfile(r.path("render/seed-%d.jpg" % args.pick_render), os.path.join(r.folder, "full.jpg"))

@@ -1,0 +1,159 @@
+{
+ "_": "Each creature's body shape. A shape other than quadruped is rigged by make/blender_rig_<shape>.py and animated by make/blender_clips_<shape>.py (same arguments as blender_rig.py and blender_clips.py); bones are the names make.py's check requires. Every shape keeps Root, Body and Head: the apps hang the back and mouth sockets on Body and Head.",
+ "shapes": {
+  "quadruped": {
+   "bones": [
+    "Root",
+    "Body",
+    "Chest",
+    "Neck",
+    "Head",
+    "Tail1",
+    "LegFL",
+    "ShinFL",
+    "FootFL",
+    "LegFR",
+    "ShinFR",
+    "FootFR",
+    "LegBL",
+    "ShinBL",
+    "FootBL",
+    "LegBR",
+    "ShinBR",
+    "FootBR"
+   ]
+  },
+  "fish": {
+   "bones": [
+    "Root",
+    "Body",
+    "Head"
+   ]
+  },
+  "bird": {
+   "bones": [
+    "Root",
+    "Body",
+    "Head"
+   ]
+  },
+  "flyer": {
+   "bones": [
+    "Root",
+    "Body",
+    "Head"
+   ]
+  },
+  "crawler": {
+   "bones": [
+    "Root",
+    "Body",
+    "Head"
+   ]
+  },
+  "soft": {
+   "bones": [
+    "Root",
+    "Body",
+    "Head"
+   ]
+  }
+ },
+ "creatures": {
+  "alley-cat": "quadruped",
+  "arctic-char": "fish",
+  "arctic-skipper": "flyer",
+  "aurora-eel": "fish",
+  "banded-gecko": "quadruped",
+  "bark-skink": "quadruped",
+  "blue-skylark": "bird",
+  "boreal-emerald": "flyer",
+  "bottlecap-beetle": "crawler",
+  "bramble-spider": "crawler",
+  "cellar-spider": "crawler",
+  "chimney-bat": "bird",
+  "cliff-swift": "bird",
+  "clocktower-raven": "bird",
+  "crag-kid": "quadruped",
+  "dapple-calf": "quadruped",
+  "dapple-fawn": "quadruped",
+  "darkling-beetle": "crawler",
+  "dawnplume": "bird",
+  "dusk-bat": "bird",
+  "ember-skink": "quadruped",
+  "emerald-swallowtail": "flyer",
+  "farmyard-piglet": "quadruped",
+  "field-bee": "crawler",
+  "fountain-koi": "fish",
+  "frost-jelly": "soft",
+  "frost-wolf-pup": "quadruped",
+  "garden-snail": "soft",
+  "glacier-owl": "bird",
+  "glasswing": "flyer",
+  "glowspot-frog": "quadruped",
+  "golden-harvest-hare": "quadruped",
+  "granary-owl": "bird",
+  "harvest-moon-moth": "flyer",
+  "harvest-mouse": "quadruped",
+  "hedge-finch": "bird",
+  "honeycrown-bee": "crawler",
+  "honeyglow-bear-cub": "quadruped",
+  "house-mouse": "quadruped",
+  "icefish": "fish",
+  "jade-turtle": "quadruped",
+  "lamp-moth": "flyer",
+  "lantern-jelly": "soft",
+  "longfoot-jerboa": "quadruped",
+  "mangrove-goby": "fish",
+  "mangrove-kingfisher": "bird",
+  "marsh-capybara": "quadruped",
+  "marsh-eel": "fish",
+  "marsh-newt": "quadruped",
+  "meadow-cottontail": "quadruped",
+  "meadow-pony": "quadruped",
+  "meadow-sheepdog": "quadruped",
+  "meadow-snail": "soft",
+  "meadow-vole": "quadruped",
+  "meadow-white": "flyer",
+  "moon-jelly": "soft",
+  "moonlit-cat": "quadruped",
+  "moss-beetle": "crawler",
+  "mossglow-stag-beetle": "crawler",
+  "mud-crab": "crawler",
+  "mud-ray": "fish",
+  "neon-darter": "flyer",
+  "nightshade-moth": "flyer",
+  "northlight-fox": "quadruped",
+  "one-claw-crab": "crawler",
+  "pond-frog": "quadruped",
+  "pond-goldfish": "fish",
+  "pond-skimmer": "flyer",
+  "pond-turtle": "quadruped",
+  "red-squirrel": "quadruped",
+  "reed-seahorse": "fish",
+  "ringtail-raccoon": "quadruped",
+  "river-otter": "quadruped",
+  "rock-scorpion": "crawler",
+  "rooftop-gecko": "quadruped",
+  "ruby-darter": "flyer",
+  "sand-lizard": "quadruped",
+  "sand-minnow": "fish",
+  "snow-bunting": "bird",
+  "snow-moth": "flyer",
+  "snowshoe-hare": "quadruped",
+  "speckled-ray": "fish",
+  "spotted-garden-beetle": "crawler",
+  "starlit-ray": "fish",
+  "street-pigeon": "bird",
+  "street-terrier": "quadruped",
+  "stripe-badger": "quadruped",
+  "sun-scarab": "crawler",
+  "sunfrill-lizard": "quadruped",
+  "thornback-hedgehog": "quadruped",
+  "thorny-seahorse": "fish",
+  "tundra-lemming": "quadruped",
+  "violet-fantail": "fish",
+  "wood-mouse": "quadruped",
+  "woolly-lamb": "quadruped"
+ }
+}
