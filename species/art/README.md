@@ -9,6 +9,7 @@ textured mesh with bones and clips. The model that makes them (Grok) is asked wi
 | `<id>/prompt.md` | one creature's brief: size, clips, marks, and its render prompt |
 | `<id>/prompt.txt` | the render prompt word for word, the record of how its image was made ([prompts.py](prompts.py) writes it) |
 | [intake.py](intake.py) | checks a delivery against SPEC.md and files it: `python3 species/art/intake.py <id> --full ... --cutout ... --mesh ... --tool "..."` |
+| [PIPELINE.md](PIPELINE.md) | the plan to make a creature end to end on our own machine (render, cutout, mesh, rig, clips, the two packed copies) |
 | [RIGGING.md](RIGGING.md) | which app renderers can play a skinned, textured model, and a fallback for rigging here if a mesh comes without bones |
 
 Kept per creature, in `<id>/`: `prompt.md`, `prompt.txt`, `full.jpg` (the render), `cutout.png` (the creature alone)
