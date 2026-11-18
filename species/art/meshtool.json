@@ -159,11 +159,13 @@
   "marsh-capybara": 90,
   "musk-ox-calf": 90,
   "thornback-hedgehog": 90,
-  "tilehop": 0
+  "tilehop": 0,
+  "red-squirrel": 90
  },
  "seeds": {
   "one-claw-crab": 42,
-  "marsh-newt": 42
+  "marsh-newt": 42,
+  "red-squirrel": 42
  },
  "cuts": {
   "one-claw-crab": [
@@ -185,12 +187,12 @@
     [
      -0.04,
      -1,
-     -0.11
+     -0.12
     ],
     [
      0.02,
-     0.012,
-     -0.086
+     0.03,
+     -0.083
     ]
    ]
   ]

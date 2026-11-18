@@ -3071,8 +3071,8 @@
         0.1489,
         0.1999
       ],
-      "bytes": 1314192,
-      "triangles": 9575,
+      "bytes": 1256136,
+      "triangles": 9482,
       "speech": "simple",
       "sounds": {
         "call": "sounds/horse-call.wav",
@@ -3081,7 +3081,7 @@
         "curious": "sounds/horse-curious.wav"
       },
       "quest": "models/meadow-pony.quest.glb",
-      "questBytes": 1676060,
+      "questBytes": 1597404,
       "art": true,
       "low": "models/meadow-pony.low.glb",
       "lowBytes": 391696
@@ -3293,8 +3293,8 @@
         0.2129,
         0.233
       ],
-      "bytes": 864380,
-      "triangles": 9527,
+      "bytes": 862160,
+      "triangles": 9475,
       "speech": "clear",
       "sounds": {
         "call": "sounds/cat-call.wav",
@@ -3303,7 +3303,7 @@
         "curious": "sounds/cat-curious.wav"
       },
       "quest": "models/moonlit-cat.quest.glb",
-      "questBytes": 1216836,
+      "questBytes": 1212004,
       "art": true,
       "low": "models/moonlit-cat.low.glb",
       "lowBytes": 333016
@@ -3835,12 +3835,12 @@
       "model": "models/red-squirrel.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/red-squirrel.glb",
       "size": [
-        0.0376,
-        0.0812,
-        0.15
+        0.0424,
+        0.0938,
+        0.1499
       ],
-      "bytes": 1200808,
-      "triangles": 9589,
+      "bytes": 1347316,
+      "triangles": 9435,
       "speech": "little",
       "sounds": {
         "call": "sounds/squirrel-call.wav",
@@ -3849,7 +3849,7 @@
         "curious": "sounds/squirrel-curious.wav"
       },
       "quest": "models/red-squirrel.quest.glb",
-      "questBytes": 1489312,
+      "questBytes": 1720928,
       "art": true,
       "low": "models/red-squirrel.low.glb",
       "lowBytes": 49156
