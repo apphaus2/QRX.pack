@@ -92,7 +92,8 @@ const habitat = Object.fromEntries(index.habitats.map(h => [h.id, h]));
 // The grid shows each animal's simpler copy (models/<id>.low.glb, no textures) and a click on its square loads the full
 // model, a click again goes back (the owner, 2026-11-17): the full models carry a megabyte of KTX2 texture each, and a
 // page of them ran out of time in Safari.
-const filter = { biome: null, habitat: null, rarity: null, clip: "move", spin: true, visitors: false, low: true };
+// The page opens on one biome, the first, not all eleven (the owner, 2026-11-17: too much to download); All is a click.
+const filter = { biome: index.biomes[0]?.id ?? null, habitat: null, rarity: null, clip: "move", spin: true, visitors: false, low: true };
 // The file a species shows: its simpler copy with Hi-res off, where it has one.
 const modelOf = s => (filter.low && s.low) || s.model;
 const views = [];      // { element, scene, camera, mixer, actions, pivot, id }
@@ -108,8 +109,11 @@ function fresh() {
   loader = new GLTFLoader().setKTX2Loader(ktx2).setMeshoptDecoder(MeshoptDecoder);
 }
 fresh();
-/** How long one model may take before it is tried again with fresh workers, milliseconds. */
-const MODEL_TIMEOUT = 20000;
+/**
+ * How long a model may go with nothing new before it is tried again with fresh workers, milliseconds. The clock
+ * starts over at every piece of the file that comes in, so a slow download is waited for (20 s flat was too short).
+ */
+const MODEL_TIMEOUT = 120000;
 const status = document.getElementById("status");
 let loaded = 0, failed = 0;
 
@@ -211,8 +215,11 @@ function loadModel(view, s, file, then) {
       console.error(file, error);
       then(false, error);
     };
-    const timer = setTimeout(() => finish(null, new Error("timed out"), true), MODEL_TIMEOUT);
+    let timer;
+    const wait = () => { clearTimeout(timer); timer = setTimeout(() => finish(null, new Error("timed out"), true), MODEL_TIMEOUT); };
+    wait();
     loader.load("../" + file, gltf => finish(gltf), event => {
+      wait();
       const total = event.total || expected;
       // The file is in at 90%; the last tenth is decoding it.
       if (total) progress(0.9 * event.loaded / total);
