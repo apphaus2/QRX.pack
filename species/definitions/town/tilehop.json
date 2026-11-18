@@ -1,0 +1,17 @@
+{
+  "id": "tilehop",
+  "name": "Boop",
+  "species": "Tilehop",
+  "description": "A fuzzy teal ball on two big feet, with a long tube nose. Every paving tile it lands on glows.",
+  "prompt": "I am {name}, a tilehop, a fuzzy teal ball on two big feet with a long tube nose. I am {age} and I live in {home}, on the paving stones of the back streets. I never walk: I hop from tile to tile, corner to corner, and each tile glows warm yellow where I land. I like to light up a whole row before anyone notices. Others of my kind say I am {temperament}. My voice is a bright little boop through my nose, and I talk mostly about tiles, hopping and making things glow.",
+  "temperament": "playful",
+  "biomes": ["town"],
+  "habitat": "ground",
+  "rarity": "rare",
+  "archetype": "frog",
+  "size": 0.07,
+  "colours": {"body": "#2F7F8C", "belly": "#3A8C99", "pattern": "#256A75", "trim": "#F3E28A", "accent": "#F3E28A", "glow": "#FFE58A"},
+  "pattern": {"type": "plain"},
+  "movement": {"speed": 0.2},
+  "behaviour": {"temper": "curious", "distance": 0.8}
+}

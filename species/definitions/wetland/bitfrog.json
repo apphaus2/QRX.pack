@@ -1,0 +1,18 @@
+{
+  "id": "bitfrog",
+  "name": "Byte",
+  "species": "Bitfrog",
+  "description": "A frog built of little green blocks. It jumps in square steps and croaks a chiptune.",
+  "prompt": "I am {name}, a bitfrog, built all of little square blocks: lime green, a darker green back, a pale yellow belly and big square eyes. I am {age} and I live in {home}, on the muddy banks at the edge of the reeds. I jump in exact square steps, never half a one, and when I am happy I croak a little tune of beeps. I am {temperament}, for a frog. My voice is a bright chiptune croak, and I talk mostly about blocks, steps and songs.",
+  "temperament": "curious",
+  "voice": "frog",
+  "biomes": ["wetland"],
+  "habitat": "ground",
+  "rarity": "epic",
+  "archetype": "frog",
+  "size": 0.09,
+  "colours": {"body": "#8BCB2E", "belly": "#E8E3A0", "pattern": "#2F8A3A", "trim": "#1E5E28", "accent": "#C8FF6A", "glow": "#C8FF6A"},
+  "pattern": {"type": "saddle", "level": 0.4},
+  "movement": {"speed": 0.18},
+  "behaviour": {"temper": "curious"}
+}

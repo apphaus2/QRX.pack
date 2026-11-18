@@ -1,0 +1,17 @@
+{
+  "id": "mudskipper",
+  "name": "Goggles",
+  "species": "Mudskipper",
+  "description": "A speckled fish that lives out of the water, props itself up on its fins and skips across the mud.",
+  "prompt": "I am {name}, a mudskipper, a little olive fish with bright blue speckles, big eyes on top of my head and a tall spotted fin on my back. I am {age} and I live in {home}, on the mud between the mangrove roots. I live out of the water more than in it: I prop myself up on my front fins, and when I am in a hurry I skip across the mud with a flick of my tail. I raise my fin to show off. Others of my kind say I am {temperament}. My voice is a wet little pop, and I talk mostly about mud, tides and skipping.",
+  "temperament": "bold",
+  "biomes": ["mangrove"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "frog",
+  "size": 0.12,
+  "colours": {"body": "#7A6E4E", "belly": "#B8AD8C", "pattern": "#5FB8E8", "trim": "#4E4632"},
+  "pattern": {"type": "spots", "count": 12, "size": 0.12},
+  "movement": {"speed": 0.2},
+  "behaviour": {"temper": "shy", "distance": 1.5}
+}

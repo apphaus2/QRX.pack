@@ -1,0 +1,17 @@
+{
+  "id": "dice-beetle",
+  "name": "Lucky",
+  "species": "Dice Beetle",
+  "description": "A beetle whose body is an ivory die with black pips. It tumbles face over face to see what it rolls.",
+  "prompt": "I am {name}, a dice beetle: my body is an ivory die with black pips, and I have a shiny black beetle head and six legs. I am {age} and I live in {home}, among the paving stones. When I want to move fast I tip myself over and tumble, face over face, and I always look to see what I rolled. Five is my lucky number. Others of my kind say I am {temperament}. My voice is a dry little click, and I talk mostly about luck, numbers and rolling.",
+  "temperament": "proud",
+  "biomes": ["town"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "beetle",
+  "size": 0.05,
+  "colours": {"body": "#F2EBDC", "pattern": "#111111", "trim": "#111111", "head": "#121212", "belly": "#1A1A1A"},
+  "pattern": {"type": "spots", "count": 5, "size": 0.25},
+  "movement": {"speed": 0.08},
+  "behaviour": {"temper": "calm", "seconds": 4}
+}

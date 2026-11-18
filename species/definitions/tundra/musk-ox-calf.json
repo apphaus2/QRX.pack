@@ -1,0 +1,18 @@
+{
+  "id": "musk-ox-calf",
+  "name": "Tufty",
+  "species": "Musk Ox Calf",
+  "description": "A round, shaggy calf with a long dark coat, a pale saddle and two stubby horn buds.",
+  "prompt": "I am {name}, a musk ox calf, round and shaggy, with a long dark brown coat, a pale saddle on my back, a pale muzzle and two little horn buds. I am {age} and I live in {home}, out on the open tundra, where the wind never stops and my coat does not care. I stand close to anything big and warm, and I butt gently at things I like. The herd says I am {temperament}. My voice is a low, soft grunt, and I talk mostly about wind, moss and staying warm.",
+  "temperament": "gentle",
+  "voice": "cow",
+  "biomes": ["tundra"],
+  "habitat": "ground",
+  "rarity": "uncommon",
+  "archetype": "beast",
+  "size": 0.25,
+  "colours": {"body": "#3B2C22", "belly": "#4A392D", "muzzle": "#C8B8A0", "pattern": "#9C8A72", "trim": "#2A1E17", "nose": "#2B2222"},
+  "pattern": {"type": "saddle", "level": 0.35},
+  "movement": {"speed": 0.16},
+  "behaviour": {"temper": "calm", "seconds": 5}
+}
