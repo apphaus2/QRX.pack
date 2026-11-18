@@ -1401,19 +1401,24 @@
       "model": "models/bitfrog.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/bitfrog.glb",
       "size": [
-        0.0944,
-        0.0507,
-        0.0768
+        0.0761,
+        0.0472,
+        0.09
       ],
-      "bytes": 66212,
-      "triangles": 1292,
+      "bytes": 1469268,
+      "triangles": 9500,
       "speech": "clear",
       "sounds": {
         "call": "sounds/frog-call.wav",
         "content": "sounds/frog-content.wav",
         "alarm": "sounds/frog-alarm.wav",
         "curious": "sounds/frog-curious.wav"
-      }
+      },
+      "quest": "models/bitfrog.quest.glb",
+      "questBytes": 1824696,
+      "art": true,
+      "low": "models/bitfrog.low.glb",
+      "lowBytes": 66212
     },
     {
       "id": "blue-skylark",
@@ -1900,19 +1905,24 @@
       "model": "models/dice-beetle.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/dice-beetle.glb",
       "size": [
-        0.0401,
-        0.0187,
-        0.0513
+        0.0396,
+        0.0343,
+        0.05
       ],
-      "bytes": 37460,
-      "triangles": 668,
+      "bytes": 646112,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/beetle-call.wav",
         "content": "sounds/beetle-content.wav",
         "alarm": "sounds/beetle-alarm.wav",
         "curious": "sounds/beetle-call.wav"
-      }
+      },
+      "quest": "models/dice-beetle.quest.glb",
+      "questBytes": 959900,
+      "art": true,
+      "low": "models/dice-beetle.low.glb",
+      "lowBytes": 37460
     },
     {
       "id": "dusk-bat",
@@ -3460,19 +3470,24 @@
       "model": "models/mudskipper.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/mudskipper.glb",
       "size": [
-        0.1259,
-        0.0534,
-        0.1024
+        0.0398,
+        0.0383,
+        0.12
       ],
-      "bytes": 58000,
-      "triangles": 1128,
+      "bytes": 1037648,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/frog-call.wav",
         "content": "sounds/frog-content.wav",
         "alarm": "sounds/frog-alarm.wav",
         "curious": "sounds/frog-curious.wav"
-      }
+      },
+      "quest": "models/mudskipper.quest.glb",
+      "questBytes": 1282880,
+      "art": true,
+      "low": "models/mudskipper.low.glb",
+      "lowBytes": 58000
     },
     {
       "id": "musk-ox-calf",
@@ -3491,19 +3506,24 @@
       "model": "models/musk-ox-calf.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/musk-ox-calf.glb",
       "size": [
-        0.0784,
-        0.1615,
-        0.2627
+        0.0909,
+        0.1607,
+        0.2497
       ],
-      "bytes": 354824,
-      "triangles": 17280,
+      "bytes": 1409080,
+      "triangles": 9500,
       "speech": "little",
       "sounds": {
         "call": "sounds/cow-call.wav",
         "content": "sounds/cow-content.wav",
         "alarm": "sounds/cow-alarm.wav",
         "curious": "sounds/cow-curious.wav"
-      }
+      },
+      "quest": "models/musk-ox-calf.quest.glb",
+      "questBytes": 1806588,
+      "art": true,
+      "low": "models/musk-ox-calf.low.glb",
+      "lowBytes": 354824
     },
     {
       "id": "neon-darter",
@@ -4144,19 +4164,24 @@
       "model": "models/seal-pup.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/seal-pup.glb",
       "size": [
-        0.3592,
-        0.0664,
-        0.2935
+        0.1542,
+        0.0894,
+        0.28
       ],
-      "bytes": 41752,
-      "triangles": 910,
+      "bytes": 744928,
+      "triangles": 9522,
       "speech": "little",
       "sounds": {
         "call": "sounds/otter-call.wav",
         "content": "sounds/otter-content.wav",
         "alarm": "sounds/otter-alarm.wav",
         "curious": "sounds/otter-curious.wav"
-      }
+      },
+      "quest": "models/seal-pup.quest.glb",
+      "questBytes": 1022408,
+      "art": true,
+      "low": "models/seal-pup.low.glb",
+      "lowBytes": 41752
     },
     {
       "id": "snow-bunting",
@@ -4647,19 +4672,24 @@
       "model": "models/tilehop.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/tilehop.glb",
       "size": [
-        0.0734,
-        0.0394,
-        0.0597
+        0.0462,
+        0.0507,
+        0.07
       ],
-      "bytes": 61924,
-      "triangles": 1292,
+      "bytes": 912560,
+      "triangles": 9500,
       "speech": "simple",
       "sounds": {
         "call": "sounds/frog-call.wav",
         "content": "sounds/frog-content.wav",
         "alarm": "sounds/frog-alarm.wav",
         "curious": "sounds/frog-curious.wav"
-      }
+      },
+      "quest": "models/tilehop.quest.glb",
+      "questBytes": 1139632,
+      "art": true,
+      "low": "models/tilehop.low.glb",
+      "lowBytes": 61924
     },
     {
       "id": "tundra-lemming",

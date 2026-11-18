@@ -148,7 +148,15 @@ snails). Each shape has MeshTool's `steps/blender_rig_<shape>.py` and `steps/ble
   Contact sheets of every clip: the private review page https://claude.ai/artifact/VRxPmS8beVdYxQP5hkteqP (made
   before the centring; the clips are the same). Seen there, still to look at: birds' wings smear as they open
   (blue-skylark); boreal-emerald's wings render nearly black.
-- **Next:** the owner's look at the 77 on a phone and the Quest, and in the gallery.
+- **Six more, filed and built** (2026-11-17): tilehop, dice-beetle, bitfrog, musk-ox-calf, mudskipper, seal-pup.
+  Briefs written from their definitions (clips from build.py: idle, the habitat's move, the tricks); BiRefNet cutouts;
+  all on seed 1234. dice-beetle is a crawler (a beetle); the rest go through the four-legged rig: bitfrog as a sitting
+  frog, seal-pup with the turtle's style but its own hide (a curl: it has no shell), tilehop (two feet) and mudskipper
+  (two fins) each split front and back by the rig, which reads as a shuffle. Each new species got its drawn .low.glb.
+- **Quest copies** carry 16 bytes after their last quantized animation key (Meta's reader reads 16 there):
+  `standard.pad_quest`, run by make.py's pack; build.py's standard faults refuse a copy without it.
+- build.py segfaulted once (exit 139) and passed on the rerun; if it happens again, run it with `-X faulthandler`.
+- **Next:** the owner's look at the 83 new creatures on a phone and the Quest, and in the gallery.
 
 **build.py.** `standard_faults` checks the standard above on both copies. The owner added the old drawn models back
 as `species/models/<id>.low.glb` for a Hi-res on/off option (the apps' "Hi-res creatures", the gallery's Hi-res
