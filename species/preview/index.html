@@ -38,6 +38,12 @@
   .text { padding: 8px 10px 10px; }
   .name { font-weight: 600; }
   .species { color: var(--soft); }
+  .view { position: relative; cursor: pointer; }
+  .view .load { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,.18); pointer-events: none; }
+  .view .load i { display: block; height: 100%; width: 0; background: #F5B301; transition: width .2s, background .3s; }
+  .view .load.done i { background: #3FB950; }
+  .view .load.failed i { background: #E5534B; }
+  .view .res { position: absolute; left: 6px; bottom: 6px; font-size: 10px; padding: 1px 6px; border-radius: 999px; background: rgba(0,0,0,.45); color: #fff; pointer-events: none; }
   .tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
   .tag { font-size: 11px; border-radius: 999px; padding: 1px 7px; border: 1px solid var(--line); color: var(--soft); }
   .tag.rarity { color: #fff; border-color: transparent; }
@@ -68,7 +74,6 @@
   <div class="row" id="options"><span>Show</span>
     <button data-clip="move" aria-pressed="true">Moving</button><button data-clip="idle" aria-pressed="false">Idle</button>
     <button id="spin" aria-pressed="true">Turn</button><button id="visitors" aria-pressed="false">Visitors too</button>
-    <button id="hires" aria-pressed="true" title="Off, a creature with art shows its simpler model (models/&lt;id&gt;.low.glb), as the apps do with Hi-res creatures off">Hi-res</button>
     <span id="status"></span>
   </div>
 </header>
@@ -84,7 +89,10 @@ const index = await (await fetch("../index.json")).json();
 const species = Object.fromEntries(index.species.map(s => [s.id, s]));
 const rarity = Object.fromEntries(index.rarities.map(r => [r.id, r]));
 const habitat = Object.fromEntries(index.habitats.map(h => [h.id, h]));
-const filter = { biome: null, habitat: null, rarity: null, clip: "move", spin: true, visitors: false, low: false };
+// The grid shows each animal's simpler copy (models/<id>.low.glb, no textures) and a click on its square loads the full
+// model, a click again goes back (the owner, 2026-11-17): the full models carry a megabyte of KTX2 texture each, and a
+// page of them ran out of time in Safari.
+const filter = { biome: null, habitat: null, rarity: null, clip: "move", spin: true, visitors: false, low: true };
 // The file a species shows: its simpler copy with Hi-res off, where it has one.
 const modelOf = s => (filter.low && s.low) || s.model;
 const views = [];      // { element, scene, camera, mixer, actions, pivot, id }
@@ -124,8 +132,6 @@ for (const button of document.querySelectorAll("[data-clip]")) button.onclick = 
   for (const view of views) play(view);
 };
 document.getElementById("spin").onclick = e => { filter.spin = !filter.spin; e.target.setAttribute("aria-pressed", String(filter.spin)); };
-// Hi-res off: the art animals' simpler models, as the apps show them with Settings' "Hi-res creatures" off.
-document.getElementById("hires").onclick = e => { filter.low = !filter.low; e.target.setAttribute("aria-pressed", String(!filter.low)); layout(); };
 document.getElementById("visitors").onclick = e => { filter.visitors = !filter.visitors; e.target.setAttribute("aria-pressed", String(filter.visitors)); layout(); };
 
 function play(view) {
@@ -156,6 +162,11 @@ function show(view, gltf) {
   if (!views.includes(view)) return;      // the page was laid out again while this one loaded
   const { centre, size } = measure(gltf, view.art ? species[view.id] : null);
   gltf.scene.position.sub(centre);
+  // A card switched between its simpler and its full model shows only the new one.
+  if (view.mixer) view.mixer.stopAllAction();
+  for (const old of [...view.pivot.children]) view.pivot.remove(old);
+  view.actions = {};
+  view.move = null;
   view.pivot.add(gltf.scene);
   const reach = Math.max(size.x, size.y, size.z) * 1.9 + 0.02;
   view.camera.position.set(reach * 0.75, reach * 0.42, reach * 0.95);
@@ -164,8 +175,50 @@ function show(view, gltf) {
   for (const clip of gltf.animations) { view.actions[clip.name] = view.mixer.clipAction(clip); if (["swim", "walk", "fly"].includes(clip.name)) view.move = clip.name; }
   view.mixer.addEventListener("finished", () => play(view));      // a trick is done once, then the creature goes back to what it was doing
   play(view);
-  loaded++;
+  if (!view.shown) { view.shown = true; loaded++; }
   report();
+}
+
+/**
+ * Loads [file] into [view] and answers [then] with true once it shows, false (and the error) if it could not: each try
+ * answers once, loaded, failed or out of time, and a try out of time makes the texture workers afresh before the next.
+ */
+function loadModel(view, s, file, then) {
+  // The thin line under the square: amber as the file comes in, green once it shows, red if it would not.
+  if (!view.bar) {
+    view.bar = document.createElement("div");
+    view.bar.className = "load";
+    view.bar.appendChild(document.createElement("i"));
+    view.element.appendChild(view.bar);
+  }
+  const bar = view.bar, fill = bar.firstChild;
+  const progress = share => { fill.style.width = (Math.max(0.04, Math.min(1, share)) * 100).toFixed(0) + "%"; };
+  bar.className = "load";
+  progress(0);
+  const reply = then;
+  then = (ok, error) => { bar.className = "load " + (ok ? "done" : "failed"); progress(1); reply(ok, error); };
+  // A compressed answer may give no total: the size the build measured stands in for the full model.
+  const expected = file === s.model ? s.bytes : 0;
+  const attempt = left => {
+    let over = false;
+    const finish = (gltf, error, timedOut) => {
+      if (over) return;
+      over = true;
+      clearTimeout(timer);
+      if (gltf) { view.art = file === s.model && s.art; view.file = file; show(view, gltf); then(true); return; }
+      if (timedOut) fresh();
+      if (left > 0) { setTimeout(() => attempt(left - 1), 400); return; }
+      console.error(file, error);
+      then(false, error);
+    };
+    const timer = setTimeout(() => finish(null, new Error("timed out"), true), MODEL_TIMEOUT);
+    loader.load("../" + file, gltf => finish(gltf), event => {
+      const total = event.total || expected;
+      // The file is in at 90%; the last tenth is decoding it.
+      if (total) progress(0.9 * event.loaded / total);
+    }, error => finish(null, error, false));
+  };
+  attempt(1);
 }
 
 function makeView(element, s) {
@@ -181,23 +234,10 @@ function makeView(element, s) {
   views.push(view);
   enqueue(() => new Promise(done => {
     const file = modelOf(s);
-    view.art = file === s.model && s.art;
-    // Each try answers once: loaded, failed, or out of time (then the workers are made afresh before the next try).
-    const attempt = left => {
-      let over = false;
-      const finish = (gltf, error, timedOut) => {
-        if (over) return;
-        over = true;
-        clearTimeout(timer);
-        if (gltf) { show(view, gltf); done(); return; }
-        if (timedOut) fresh();
-        if (left > 0) { setTimeout(() => attempt(left - 1), 400); return; }
-        failed++; element.textContent = "could not load " + file; console.error(file, error); report(); done();
-      };
-      const timer = setTimeout(() => finish(null, new Error("timed out"), true), MODEL_TIMEOUT);
-      loader.load("../" + file, gltf => finish(gltf), undefined, error => finish(null, error, false));
-    };
-    attempt(2);
+    loadModel(view, s, file, ok => {
+      if (!ok) { failed++; element.textContent = "could not load " + file; report(); }
+      done();
+    });
   }));
   return view;
 }
@@ -252,7 +292,28 @@ function card(s, visitor) {
     <div class="tags"><span class="tag rarity" style="background:${r.colour}">${r.name}</span><span class="tag">${s.habitat}</span><span class="tag">${s.archetype}</span>${visitor ? '<span class="tag">visitor</span>' : ""}</div>
     <div class="about">${s.description}<br>${(Math.max(...s.size) * 100).toFixed(0)} cm, ${(s.bytes / 1024).toFixed(0)} KB, ${s.triangles} triangles, speaks ${s.speech}</div>
     <div class="tricks"></div><div class="voice"></div></div>`;
-  tricks(element, makeView(element.querySelector(".view"), s), s);
+  const square = element.querySelector(".view");
+  const view = makeView(square, s);
+  tricks(element, view, s);
+  // A click on the square loads the full model; a click again goes back to the simpler copy.
+  if (s.low && s.low !== s.model) {
+    const badge = document.createElement("span");
+    badge.className = "res";
+    badge.textContent = "Low res: click for hi-res";
+    square.appendChild(badge);
+    let busy = false;
+    square.onclick = () => {
+      if (busy || !view.file) return;
+      const target = view.file === s.model ? s.low : s.model;
+      busy = true;
+      badge.textContent = target === s.model ? "Loading hi-res…" : "Loading low res…";
+      loadModel(view, s, target, ok => {
+        busy = false;
+        badge.textContent = !ok ? "Hi-res would not load: click to try again"
+          : view.file === s.model ? "Hi-res: click for low res" : "Low res: click for hi-res";
+      });
+    };
+  }
   return element;
 }
 
