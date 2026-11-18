@@ -1,9 +1,9 @@
 """Snowfield: permanent snow, glaciers and the cold water at their edges.
 
 A soft backdrop, not a portrait. Day is a thin, cool wind across the snow: little low body, a soft rush, and a
-faint, low whistle that wanders between nearby notes as the wind finds the edges of the ice, never held long
-enough to be a tune; under it the faintest dull spindrift and, far off, meltwater trickling. Night is a deeper,
-slower wind and the hollow tone of air over ice, a few low resonances like breath over a bottle. Events are cues,
+faint, low whistle of several nearby notes at once whose colour shifts slowly as the wind finds the edges of the
+ice; under it the faintest dull hiss of spindrift. Night is a deeper, slower wind and the hollow tone of air over
+ice, a few low resonances like breath over a bottle. A bed holds only continuous texture. Events are cues,
 rare and mostly far; each bed has one soft hero (a far bird by day, a far low call by night).
 """
 from lib import *
@@ -12,53 +12,48 @@ LEVEL = {"day": 0.0, "night": -2.0}
 
 
 def day(s):
-    # The wind: slower and steadier than the desert's, about 4 dB from lull to swell.
-    calm = drift(s.rng("wind"), s.seconds, every=7.0, lo=0.0, hi=0.45)
-    g = gusts(s.rng("gusts"), s.seconds, count=5, rise=(3.0, 6.0), fall=(5.0, 8.0), size=(0.06, 0.14))
-    wind = [0.6 + 0.4 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 1.5))]
+    # The wind: a slow, shallow wandering, a new level about every 11 s, about 2 dB deep, and no gusts (the owner,
+    # 2026-11-17: the beds were too active).
+    wind = scale(drift(s.rng("wind"), s.seconds, every=11.0), 0.78, 1.0)
 
-    # The rush: thin. Pink noise with its low end taken off at 300 Hz and a cutoff that opens from 500 to 1500 Hz.
-    rush = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("rush-" + side)), scale(wind, 500, 1500)), 300),
+    # The rush: thin. Pink noise with its low end taken off at 300 Hz and a cutoff that moves from 800 to 1300 Hz.
+    rush = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("rush-" + side)), scale(wind, 800, 1300)), 300),
                           wind) for side in "ab"], width=0.8)
 
     # Only a trace of dark body, so the snow sounds hollow rather than heavy.
-    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=90), scale(wind, 150, 300)), wind)
+    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=90), scale(wind, 170, 260)), wind)
                     for side in "ab"], width=0.6)
 
-    # The whistle, low and wandering: five narrow bands (q 9) a little apart, 640 to 1150 Hz, each fading in and
-    # out on its own drift (squared, so mostly one or two sound at a time), so the note slides about.
+    # The whistle, low and soft: five narrow bands (q 9) a little apart, 640 to 1150 Hz, all sounding at once, each
+    # rising and settling a little on its own slow drift, so the tone of the wind shifts without a note ever coming
+    # forward (the second version squared the drifts, so one or two notes at a time stood out and slid about).
     whistles = []
     for i, hz in enumerate((640, 750, 860, 990, 1150)):
-        here = [h * h for h in drift(s.rng("whistle-%d" % i), s.seconds, every=6.0, lo=0.0, hi=1.0)]
-        level = [0.15 + 0.85 * h * w for h, w in zip(here, wind)]
+        here = drift(s.rng("whistle-%d" % i), s.seconds, every=12.0, lo=0.6, hi=1.0)
+        level = [h * w for h, w in zip(here, wind)]
         whistles.append((stereo(*[apply(bandpass(pink(s.n, s.rng("whistle-%d-%s" % (i, side))), hz, q=9.0), level)
-                                  for side in "ab"], width=0.7), -9))
+                                  for side in "ab"], width=0.7), -14))
 
-    # Spindrift: a faint, dull grain of ice, tiny puffs from 1.2 to under 3.5 kHz, thicker in a gust.
-    grain = lambda r: noise_burst(r, r.uniform(0.002, 0.006), lo=1200, hi=r.uniform(2500, 3500), attack=0.0008,
-                                  release=0.003)
-    spindrift = scatter(s.n, s.rng("spin"), 5000, grain, level=(-12, 0), pan=(-1, 1),
-                        follow=[0.4 + 0.6 * w for w in smooth(wind, 2.0)], depth=1.0)
+    # Spindrift, too fine to hear a grain: a faint, dull, continuous hiss of ice from 1.2 to 3.2 kHz on its own
+    # slow wandering. The second version's spindrift puffs and far meltwater plinks are gone: each was a tick.
+    spin_level = scale(drift(s.rng("spin"), s.seconds, every=12.0), 0.8, 1.0)
+    spindrift = stereo(*[apply(band(pink(s.n, s.rng("spin-" + side)), 1200, 3200), spin_level) for side in "ab"],
+                       width=0.9)
 
-    # Meltwater far off: many tiny rising plinks too small and too many to tell apart, under 2 kHz by distance.
-    plink = lambda r: chirp(r.uniform(0.008, 0.018), r.uniform(700, 1300), r.uniform(1400, 2000))
-    water = scatter(s.n, s.rng("melt"), 3000, plink, level=(-14, 0), pan=(-0.7, 0.7))
-    water = (lowpass(water[0], 1800), lowpass(water[1], 1800))
-
-    return mix((rush, 0), (body, -9), *whistles, (spindrift, -16), (water, -18))
+    return mix((rush, 0), (body, -9), *whistles, (spindrift, -18))
 
 
 def night(s):
-    # A deeper, slower wind: dark air with a new level about every 8 s.
-    calm = drift(s.rng("calm"), s.seconds, every=8.0, lo=0.5, hi=0.9)
-    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=70), scale(calm, 90, 240)), calm)
+    # A deeper, slower wind: dark air with a new level about every 12 s.
+    calm = scale(drift(s.rng("calm"), s.seconds, every=12.0), 0.85, 1.0)
+    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=70), scale(calm, 120, 200)), calm)
                    for side in "ab"], width=0.6)
 
-    # The hollow tone: three low resonances (q 7) on pink noise, each swelling on its own, so the chord never
-    # quite settles. They lift the night's middle above the desert night's, which is breath and ticks.
+    # The hollow tone: three low resonances (q 7) on pink noise, each rising and settling slowly on its own, so
+    # the chord never quite settles. They lift the night's middle above the desert night's, which is breath.
     hollows = []
     for i, hz in enumerate((265, 390, 570)):
-        here = drift(s.rng("hollow-%d" % i), s.seconds, every=9.0, lo=0.35, hi=1.0)
+        here = drift(s.rng("hollow-%d" % i), s.seconds, every=13.0, lo=0.7, hi=1.0)
         level = [h * c for h, c in zip(here, calm)]
         hollows.append(stereo(*[apply(bandpass(pink(s.n, s.rng("hollow-%d-%s" % (i, side))), hz, q=7.0), level)
                                 for side in "ab"], width=0.6))

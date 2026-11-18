@@ -1,8 +1,8 @@
 """Forest: woods and plantations, bark, leaf litter and the dark under the canopy.
 
 A soft backdrop, not a portrait: day is a low breath of wind in the canopy, a dark body of moving air with the
-crowns' rush just above it and a faint, dull rustle of leaves, swelling and settling slowly. Night is stiller air
-and a soft chorus of crickets. Anything you could pick out as one thing (a bird, a knock, a creak) is a cue, and
+crowns' rush just above it and the leaves' faint hush, swelling and settling slowly. Night is stiller air and the
+faint shimmer of crickets too far off to tell apart. A bed holds only continuous texture. Anything you could pick out as one thing (a bird, a knock, a creak) is a cue, and
 cues are rare: about one a minute or less, most of them far off. Each bed has one hero, the sound that says
 "forest" (a songbird by day, an owl by night), allowed a little nearer.
 
@@ -13,58 +13,47 @@ from lib import *
 
 
 def day(s):
-    # The wind's shape, which every layer follows: a slow random wandering (a new level about every 6 s) with
-    # small gusts on top, over a floor so the stillness is quiet, never silent. Kept shallow on purpose (about
-    # 4 dB from lull to swell): a deep or quick swell, or a long lull, is a landmark heard every 30 s, and the
-    # owner found the first, livelier version harsh.
-    calm = drift(s.rng("wind"), s.seconds, every=6.0, lo=0.0, hi=0.45)
-    g = gusts(s.rng("gusts"), s.seconds, count=8, rise=(3.0, 5.0), fall=(4.0, 8.0), size=(0.06, 0.14))
-    wind = [0.6 + 0.4 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 1.5))]
+    # The wind's shape, which every layer follows: a slow random wandering, a new level about every 10 s, about
+    # 2 dB from its lowest to its highest, and no gusts. The bed is a backdrop with nothing in it to notice: the
+    # owner heard the second version on the Quest (2026-11-17) and found its beds too active, so the gusts and the
+    # leaves' puffs are gone and the movement is slower and shallower.
+    wind = scale(drift(s.rng("wind"), s.seconds, every=10.0), 0.78, 1.0)
 
-    # The body: dark moving air, a little louder and brighter as the wind rises. Two unrelated noises, one as
-    # the middle and one as the sides, are what make it wide (stereo()).
-    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=90), scale(wind, 140, 360)), wind)
+    # The body: dark moving air, a little brighter as the wind rises. Two unrelated noises, one as the middle and
+    # one as the sides, are what make it wide (stereo()).
+    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=90), scale(wind, 160, 300)), wind)
                     for side in "ab"], width=0.7)
 
-    # The crowns: pink noise, kept under about 1.8 kHz. This is most of what a listener hears, so it is what
-    # sets the bed's brightness: the first version opened it to 3.2 kHz and the day was harsh.
-    crown = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("crown-" + side)), scale(wind, 600, 1800)), 200),
+    # The crowns: pink noise under about 1.5 kHz, its top moving a little with the wind. Most of what is heard.
+    crown = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("crown-" + side)), scale(wind, 900, 1500)), 200),
                            wind) for side in "ab"], width=0.8)
 
-    # The leaves: a faint, dull rustle (small puffs of noise from 1.5 to about 5 kHz, never the bright hiss
-    # above that), a little thicker where the wind is up, and never stopping.
-    leaf = lambda r: noise_burst(r, r.uniform(0.008, 0.03), lo=1500, hi=r.uniform(3500, 5500), attack=0.003,
-                                 release=0.012)
-    leaves = scatter(s.n, s.rng("leaves"), 3000, leaf, level=(-8, 0), pan=(-1, 1),
-                     follow=[0.4 + 0.6 * w for w in smooth(wind, 2.0)], depth=1.0)
+    # The leaves as a whole, too many and too far to hear one: a faint, continuous hush from 1.5 to 4 kHz on a
+    # wandering of its own (the second version made them of puffs, which read as a crackle).
+    leaf_level = scale(drift(s.rng("leaves"), s.seconds, every=12.0), 0.8, 1.0)
+    leaves = stereo(*[apply(band(pink(s.n, s.rng("leaves-" + side)), 1500, 4000), leaf_level) for side in "ab"],
+                    width=0.9)
 
-    return mix((body, 0), (crown, -1), (leaves, -10))
+    return mix((body, 0), (crown, -1), (leaves, -16))
 
 
 def night(s):
-    # Stiller air: the same kind of body, slower and narrower in its movement.
-    calm = drift(s.rng("calm"), s.seconds, every=6.0, lo=0.55, hi=0.85)
-    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=70), scale(calm, 120, 260)), calm)
+    # Stiller air: the same kind of body, slower and shallower in its movement (about 1.4 dB).
+    calm = scale(drift(s.rng("calm"), s.seconds, every=12.0), 0.85, 1.0)
+    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=70), scale(calm, 130, 220)), calm)
                    for side in "ab"], width=0.6)
 
-    # The crickets. Each caller has its own pitch and distance, and calls a three- or four-pulse chirp over and
-    # over at its own rate; `chorus` fades each in and out on its own, so the mix keeps thinning and filling.
-    def cricket(r):
-        hz = r.uniform(4200, 5200)
-        pulses, length, gap = r.randint(3, 4), r.uniform(0.010, 0.014), r.uniform(0.016, 0.022)
-        call = seq(*[seq(chirp(length, hz * 1.01, hz * 0.99), silence(gap)) for _ in range(pulses)])
-        call = distant(call, r.uniform(0.3, 0.8))          # all a little way off; none at the listener's feet
-        return lambda r2: gain(call, r2.uniform(-2, 0))    # each chirp a little different in level
-    crickets = chorus(s.n, s.rng("crickets"), voices=20, voice=cricket, rate=(1.3, 2.6), jitter=0.06,
-                      level=(-10, 0), pan=(-0.9, 0.9), presence=(0.15, 1.0), every=5.0)
+    # A faint breath in the canopy, so the night is not only a pressure.
+    breath = stereo(*[apply(band(pink(s.n, s.rng("breath-" + side)), 250, 1000), calm) for side in "ab"], width=0.8)
 
-    # Far off, the many crickets too distant to tell apart merge into a faint shimmer.
-    shimmer_level = drift(s.rng("shimmer"), s.seconds, every=7.0, lo=0.5, hi=1.0)
-    shimmer = stereo(*[apply(band(white(s.n, s.rng("shimmer-" + side)), 3800, 5600), shimmer_level)
+    # The crickets, all far off: too many and too distant to tell apart, a faint even shimmer at their pitch,
+    # wandering slowly. No caller of its own (the second version's chorus of chirping callers was the busiest
+    # thing in the bed; a chirp is a cue's business).
+    shimmer_level = scale(drift(s.rng("shimmer"), s.seconds, every=12.0), 0.8, 1.0)
+    shimmer = stereo(*[apply(band(white(s.n, s.rng("shimmer-" + side)), 3800, 5400), shimmer_level)
                        for side in "ab"], width=0.9)
 
-    # The air is most of the energy; the crickets sit on it, softly.
-    return mix((air, 0), (crickets, -7), (shimmer, -20))
+    return mix((air, 0), (breath, -10), (shimmer, -12))
 
 
 def crow(r):

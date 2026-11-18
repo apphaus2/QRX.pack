@@ -2,67 +2,61 @@
 
 A soft backdrop, not a portrait. Day is wind through long grass in broad slow waves: a soft mid-band rush with
 little body under it (no trees), the blades' dull brush, and far off the low hum of many insects at the flowers,
-which is what sets it apart from the forest and the scrub. Night is nearly still air with a wide field of crickets
-far away, faint and spread all round. Anything you could pick out as one thing is a cue, and cues are rare (about
+which is what sets it apart from the forest and the scrub. Night is nearly still air with the faint wide shimmer of
+a field of crickets far away. A bed holds only continuous texture. Anything you could pick out as one thing is a cue, and cues are rare (about
 one a minute or less) and mostly far; the hero by day is a lark overhead, by night an owl across the field.
 """
 from lib import *
 
 
 def day(s):
-    # Broad slow waves: a knot about every 7 s and a few long, gentle gusts, so the grass leans and rises over
-    # several seconds; shallow and over a floor, so no wave is a landmark.
-    calm = drift(s.rng("waves"), s.seconds, every=7.0, lo=0.0, hi=0.5)
-    g = gusts(s.rng("gusts"), s.seconds, count=5, rise=(3.5, 6.0), fall=(5.0, 8.0), size=(0.06, 0.14))
-    wave = [0.55 + 0.45 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 2.0))]
+    # Broad slow waves: a new level about every 11 s, about 2 dB deep, and no gusts (the owner, 2026-11-17: the
+    # beds were too active), so the grass leans and rises over many seconds and nothing in it is a landmark.
+    wave = scale(drift(s.rng("waves"), s.seconds, every=11.0), 0.78, 1.0)
 
     # Air low over open ground: a little body.
-    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=80), scale(wave, 150, 300)), wave)
+    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=80), scale(wave, 160, 260)), wave)
                     for side in "ab"], width=0.6)
 
-    # The grass: pink noise from 250 Hz, its top opening from about 800 Hz to 1.4 kHz as a wave passes, very wide.
-    grass = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("grass-" + side)), scale(wave, 800, 1400)), 250),
-                           [w ** 1.2 for w in wave]) for side in "ab"], width=0.9)
+    # The grass: pink noise from 250 Hz, its top moving from about 900 Hz to 1.3 kHz with the waves, very wide.
+    grass = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("grass-" + side)), scale(wave, 900, 1300)), 250),
+                           wave) for side in "ab"], width=0.9)
 
-    # Blades brushing: long, soft grains from 600 Hz to about 2.4 kHz, following the waves late, never stopping.
-    blade = lambda r: noise_burst(r, r.uniform(0.03, 0.12), lo=600, hi=r.uniform(1600, 2400), attack=0.015,
-                                  release=0.04)
-    blades = scatter(s.n, s.rng("blades"), 3500, blade, level=(-10, 0), pan=(-1, 1),
-                     follow=[0.4 + 0.6 * w for w in smooth(wave, 3.0)], depth=1.0)
+    # The blades as a whole: a faint continuous brush from 600 Hz to 2.4 kHz, on a wandering of its own (the
+    # second version made it of grains).
+    brush_level = scale(drift(s.rng("blades"), s.seconds, every=13.0), 0.8, 1.0)
+    blades = stereo(*[apply(band(pink(s.n, s.rng("blades-" + side)), 600, 2400), brush_level) for side in "ab"],
+                    width=0.9)
 
-    # The insect hum: narrow bands of noise around 170 to 280 Hz with a second harmonic, each drifting on its own:
-    # many bees and flies at the flowers, too far to hear one. Narrow noise, not sines (a looped sine stack can
-    # read as a seam).
+    # The insect hum: narrow bands of noise around 170 to 280 Hz with a second harmonic, each drifting slowly and
+    # shallowly on its own: many bees and flies at the flowers, too far to hear one. Narrow noise, not sines (a
+    # looped sine stack can read as a seam).
     hums = []
     for k in range(5):
         r = s.rng("hum-%d" % k)
         hz = r.uniform(170, 280)
-        here = drift(r, s.seconds, every=r.uniform(6, 9), lo=0.5, hi=1.0)
+        here = drift(r, s.seconds, every=r.uniform(11, 15), lo=0.8, hi=1.0)
         x = add(bandpass(white(s.n, r), hz, q=6), gain(bandpass(white(s.n, r), hz * 2, q=6), -6))
         hums.append((pan(apply(x, here), r.uniform(-0.7, 0.7)), r.uniform(-3, 0)))
 
-    return mix((body, -6), (grass, 0), (blades, -9), (mix(*hums), -9))
+    return mix((body, -6), (grass, 0), (blades, -14), (mix(*hums), -11))
 
 
 def night(s):
     # Air nearly still: a quiet low body that hardly moves, and a faint breath of the grass.
-    calm = drift(s.rng("calm"), s.seconds, every=8.0, lo=0.7, hi=0.85)
-    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=60), scale(calm, 110, 200)), calm)
+    calm = scale(drift(s.rng("calm"), s.seconds, every=12.0), 0.85, 1.0)
+    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=60), scale(calm, 120, 190)), calm)
                    for side in "ab"], width=0.6)
     grass = stereo(*[apply(band(pink(s.n, s.rng("grass-" + side)), 250, 900), calm) for side in "ab"], width=0.9)
 
-    # The field: many crickets, a two-pulse "cri-cri" at 3.2 to 3.8 kHz (lower than the forest's), all far off
-    # and spread all round, so they make a faint wide presence rather than a chorus at the listener's feet.
-    def cricket(r):
-        hz = r.uniform(3200, 3800)
-        length, gap = r.uniform(0.016, 0.022), r.uniform(0.020, 0.030)
-        call = seq(chirp(length, hz * 1.01, hz * 0.99), silence(gap), chirp(length, hz * 1.01, hz * 0.99))
-        call = distant(call, r.uniform(0.5, 0.9))
-        return lambda r2: gain(call, r2.uniform(-2, 0))
-    crickets = chorus(s.n, s.rng("crickets"), voices=56, voice=cricket, rate=(0.8, 1.7), jitter=0.08,
-                      level=(-7, 0), pan=(-1.0, 1.0), presence=(0.35, 1.0), every=6.0)
+    # The field: crickets far away all round, too many and too far to tell apart, a faint wide shimmer at their
+    # pitch (3.1 to 3.9 kHz, lower than the forest's), wandering slowly. No caller of its own: the second
+    # version's 56 chirping callers were the busiest thing in the bed, and a chirp is a cue's business.
+    shimmer_level = scale(drift(s.rng("crickets"), s.seconds, every=12.0), 0.8, 1.0)
+    crickets = stereo(*[apply(band(white(s.n, s.rng("crickets-" + side)), 3100, 3900), shimmer_level)
+                        for side in "ab"], width=0.95)
 
-    return mix((air, 0), (grass, -16), (crickets, -6))
+    return mix((air, 0), (grass, -12), (crickets, -12))
 
 
 def cues(s):

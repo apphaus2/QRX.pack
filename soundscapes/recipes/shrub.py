@@ -1,9 +1,9 @@
 """Scrub: thickets, heath and thorn: dry, tangled and sunlit.
 
 A soft backdrop, not a portrait. Day is warm, dry air moving low over the brush: less body than under trees (no
-canopy to roar) and a soft, dry rustle of small leaves and stems a little higher than the forest's crowns, with one
-cicada far off, a thread under it all. Night is cool and still: low air, a faint breath through the brush, and tree
-crickets far away, trilling lower and longer than the forest's chirping ones. Anything you could pick out as one
+canopy to roar) and a soft, dry hush of small leaves and stems a little higher than the forest's crowns. Night is
+cool and still: low air, a faint breath through the brush, and the shimmer of tree crickets far away, lower than the
+forest's. A bed holds only continuous texture. Anything you could pick out as one
 thing is a cue, and cues are rare (under one a minute) and mostly far; the hero by day is a quail, by night a
 nightjar-like whistle.
 """
@@ -12,66 +12,46 @@ import math
 from lib import *
 
 
-def pulsed(x, hz, sharp=2.0):
-    """x times a pulse train of about `hz` pulses a second, a whole number of pulses over x, so a bed stays a
-    loop (memoryless, so it is seamless however the loop runs). The toolkit has no amplitude-pulse modulator."""
-    cycles = max(1, round(hz * len(x) / RATE))
-    w = 2 * math.pi * cycles / len(x)
-    return [v * (0.5 + 0.5 * math.sin(w * i)) ** sharp for i, v in enumerate(x)]
-
-
 def day(s):
-    # The wind's shape: a slow wandering (a new level about every 5 s) with small gusts, shallow (about 4 dB) and
-    # over a floor, as the forest's.
-    calm = drift(s.rng("wind"), s.seconds, every=5.0, lo=0.0, hi=0.45)
-    g = gusts(s.rng("gusts"), s.seconds, count=8, rise=(2.5, 4.5), fall=(3.5, 7.0), size=(0.06, 0.14))
-    wind = [0.6 + 0.4 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 1.5))]
+    # The wind's shape: a slow wandering, a new level about every 10 s, about 2 dB deep, and no gusts (the owner,
+    # 2026-11-17: the beds were too active).
+    wind = scale(drift(s.rng("wind"), s.seconds, every=10.0), 0.78, 1.0)
 
     # Air low over open ground: a lighter body than the forest's.
-    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=110), scale(wind, 160, 380)), wind)
+    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=110), scale(wind, 180, 320)), wind)
                     for side in "ab"], width=0.6)
 
-    # The brush: pink noise from 400 Hz up to 1.1 to 2 kHz, a little higher and thinner than the forest's crowns
+    # The brush: pink noise from 400 Hz up to 1.3 to 1.8 kHz, a little higher and thinner than the forest's crowns
     # (its dryness), but kept under the hiss the first version had.
-    brush = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("brush-" + side)), scale(wind, 1100, 2000)), 400),
+    brush = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("brush-" + side)), scale(wind, 1300, 1800)), 400),
                            wind) for side in "ab"], width=0.85)
 
-    # Small dry leaves and stems: soft puffs from 1 to about 4 kHz, thicker where the wind is up, never stopping.
-    stem = lambda r: noise_burst(r, r.uniform(0.006, 0.02), lo=1000, hi=r.uniform(2800, 4200), attack=0.002,
-                                 release=0.008)
-    stems = scatter(s.n, s.rng("stems"), 4000, stem, level=(-8, 0), pan=(-1, 1),
-                    follow=[0.4 + 0.6 * w for w in smooth(wind, 2.0)], depth=1.0)
+    # Small dry leaves and stems, too many to hear one: a faint continuous dry hush from 1 to 3.5 kHz on its own
+    # slow wandering (the second version made it of puffs, a crackle). The second version's far cicada, a buzz
+    # pulsing 120 times a second, is gone: a rhythm in a bed is heard as a rhythm.
+    stem_level = scale(drift(s.rng("stems"), s.seconds, every=12.0), 0.8, 1.0)
+    stems = stereo(*[apply(band(pink(s.n, s.rng("stems-" + side)), 1000, 3500), stem_level) for side in "ab"],
+                   width=0.9)
 
-    # One cicada far off: a narrow band at about 4.5 kHz, buzzing, fading in and out on a slow drift. A thread,
-    # far under the rest.
-    r = s.rng("cicada")
-    buzz = pulsed(bandpass(white(s.n, r), 4400, q=4.0), 120, sharp=2.0)
-    here = drift(r, s.seconds, every=8.0, lo=0.5, hi=1.0)
-    cicada = stereo(apply(buzz, here), apply(pulsed(bandpass(white(s.n, r), 4400, q=4.0), 120, 2.0), here), 0.5)
-
-    return mix((body, -8), (brush, 0), (stems, -12), (cicada, -21))
+    return mix((body, -8), (brush, 0), (stems, -15))
 
 
 def night(s):
     # Cool still air: a low body that barely moves, and a faint breath through the brush in the middle band.
-    calm = drift(s.rng("calm"), s.seconds, every=6.5, lo=0.6, hi=0.85)
-    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=70), scale(calm, 130, 240)), calm)
+    calm = scale(drift(s.rng("calm"), s.seconds, every=12.0), 0.85, 1.0)
+    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=70), scale(calm, 140, 220)), calm)
                    for side in "ab"], width=0.6)
     breath = stereo(*[apply(highpass(lowpass(pink(s.n, s.rng("breath-" + side)), 1100), 300), calm)
                       for side in "ab"], width=0.8)
 
-    # Tree crickets far away: each a trill of half a second to a second at 2.4 to 3 kHz, pulsing 35 to 50 times a
-    # second, all distant and dulled. A faint presence under the air, not the body of the bed.
-    def cricket(r):
-        hz, rate = r.uniform(2400, 3000), r.uniform(35, 50)
-        count = int(r.uniform(0.5, 1.0) * rate)
-        call = trill(r, count=count, hz=hz, each=0.55 / rate, gap=0.45 / rate)
-        call = distant(call, r.uniform(0.6, 0.9))
-        return lambda r2: gain(call, r2.uniform(-2, 0))
-    crickets = chorus(s.n, s.rng("crickets"), voices=24, voice=cricket, rate=(0.45, 0.9), jitter=0.1,
-                      level=(-8, 0), pan=(-0.9, 0.9), presence=(0.2, 1.0), every=6.0)
+    # Tree crickets far away, too many and too far to tell apart: a faint shimmer at 2.4 to 3 kHz, lower than the
+    # forest's and the meadow's, wandering slowly. No trilling caller of its own (the second version's 24 were the
+    # busiest thing in the bed; a trill is a cue's business).
+    shimmer_level = scale(drift(s.rng("crickets"), s.seconds, every=12.0), 0.8, 1.0)
+    crickets = stereo(*[apply(band(white(s.n, s.rng("crickets-" + side)), 2400, 3000), shimmer_level)
+                        for side in "ab"], width=0.9)
 
-    return mix((air, -3), (breath, -5), (crickets, -11))
+    return mix((air, -3), (breath, -5), (crickets, -15))
 
 
 def cues(s):

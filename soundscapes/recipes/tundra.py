@@ -2,8 +2,8 @@
 
 A soft backdrop, not a portrait. Day is a wide, low wind over open moss with nothing standing up to break it, so it
 is round and dark (no whistle, no hiss, no leaves: wind over ice, thin and high, is the snowfield's), and a bog
-pool's faint trickle somewhere near. Night is the same wind lower and slower and nothing else: the emptiness is the
-point. Birds, a far wolf-like voice, a frost tick and the bog's bubbles are cues, and cues are rare: about one a
+pool's faint, even purl somewhere near. Night is the same wind lower and slower and nothing else: the emptiness is
+the point. A bed holds only continuous texture. Birds, a far wolf-like voice, a frost tick and the bog's bubbles are cues, and cues are rare: about one a
 minute or less, most of them far off. Each bed has one hero (a plover's plaintive whistle by day, a far loon by
 night), allowed a little nearer.
 
@@ -13,40 +13,35 @@ haze went with the owner's call for a calmer backdrop, and the hiss when the bui
 from lib import *
 
 
-def wind(s, name, every, lo, hi, body_hz, breath_hz, gust_count):
-    """The open wind: a dark body and a rounder breath above it, both wandering slowly with a few small, long
-    gusts on top. The breath's cutoff stays under about 800 Hz, so it is a wide low rush and never a whistle."""
-    calm = drift(s.rng(name), s.seconds, every=every, lo=lo, hi=hi)
-    g = gusts(s.rng(name + "-gusts"), s.seconds, count=gust_count, rise=(3.0, 5.0), fall=(4.5, 8.0), size=(0.06, 0.14))
-    w = [0.5 + 0.5 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 2.0))]
+def wind(s, name, every, floor, body_hz, breath_hz):
+    """The open wind: a dark body and a rounder breath above it, both wandering slowly and shallowly between
+    `floor` and 1 (no gusts since 2026-11-17, when the owner found the beds too active). The breath's cutoff stays
+    under about 800 Hz, so it is a wide low rush and never a whistle."""
+    w = scale(drift(s.rng(name), s.seconds, every=every), floor, 1.0)
     body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng(name + "-body-" + side), corner=60), scale(w, *body_hz)), w)
                     for side in "ab"], width=0.75)
     breath = stereo(*[apply(lowpass(moving_lowpass(pink(s.n, s.rng(name + "-breath-" + side)), scale(w, *breath_hz)),
-                                    800), [v ** 1.4 for v in w]) for side in "ab"], width=0.85)
+                                    800), w) for side in "ab"], width=0.85)
     return body, breath
 
 
-def bog_drop(r):
-    """One small sound of a bog pool trickling: a soft low blip of water."""
-    d = r.uniform(0.025, 0.06)
-    f = r.uniform(300, 700)
-    return tone(d, (f, f * r.uniform(1.3, 1.6)), ((1, 1.0), (2, 0.05)), attack=0.005, release=d * 0.7, curve=1.5)
-
-
 def day(s):
-    body, breath = wind(s, "wind", 6.0, 0.25, 0.7, (150, 400), (330, 700), 6)
-    # The bog pool: a faint, steady trickle of many small drops, low, to one side.
-    trickle = scatter(s.n, s.rng("trickle"), 3000, bog_drop, level=(-16, -4), pan=(-0.7, 0.2))
-    return mix((body, 0), (breath, -4), (trickle, -18))
+    body, breath = wind(s, "wind", 10.0, 0.78, (180, 320), (400, 620))
+    # The bog pool somewhere near, to one side: a faint, even purl of water in the low middle. The second version
+    # made it of 3000 small drops; a drop is a blip, so the drops are the bubbles cue's alone.
+    pool_level = scale(drift(s.rng("trickle"), s.seconds, every=12.0), 0.8, 1.0)
+    pool = mix((pan(apply(band(pink(s.n, s.rng("trickle-a")), 350, 1000), pool_level), -0.4), 0),
+               (pan(apply(band(pink(s.n, s.rng("trickle-b")), 350, 1000), pool_level), 0.1), -3))
+    return mix((body, 0), (breath, -4), (pool, -17))
 
 
 def night(s):
-    # Lower and slower: the knots further apart, the cutoffs down, fewer gusts, no water. A faint far hush keeps a
-    # little air above the rumble so the bed is not only a pressure.
-    body, breath = wind(s, "wind", 8.5, 0.3, 0.6, (110, 280), (220, 480), 3)
-    hush_level = drift(s.rng("hush"), s.seconds, every=9.0, lo=0.5, hi=0.9)
+    # Lower and slower: the knots further apart, the cutoffs down, no water. A faint far hush keeps a little air
+    # above the rumble so the bed is not only a pressure.
+    body, breath = wind(s, "wind", 13.0, 0.85, (130, 230), (260, 420))
+    hush_level = scale(drift(s.rng("hush"), s.seconds, every=13.0), 0.82, 1.0)
     hush = stereo(*[apply(band(pink(s.n, s.rng("hush-" + side)), 500, 1600), hush_level) for side in "ab"], width=0.9)
-    return mix((body, 0), (breath, -6), (hush, -24))
+    return mix((body, 0), (breath, -6), (hush, -20))
 
 
 def cues(s):

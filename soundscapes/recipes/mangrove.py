@@ -1,8 +1,8 @@
 """Mangrove: tidal forest, roots, mud and brackish water.
 
-A soft backdrop, not a portrait. Day is slow tide water among the roots, low and warm: a dark slosh with a quiet
-gurgle in it, in close, humid, still air, and a faint far haze of insects at most. Night is the same tide, slower
-and darker, with a far, thin chorus of insects over it. The mud's ticks, the birds, a drip, a splash, a frog and a
+A soft backdrop, not a portrait. Day is slow tide water among the roots, low and warm: a dark slosh in close,
+humid, still air, and a faint far haze of insects at most. Night is the same tide, slower and darker, with a far,
+thin, even haze of insects over it. A bed holds only continuous texture. The mud's ticks, the birds, a drip, a splash, a frog and a
 bat are cues, and cues are rare: about one a minute or less, most of them far off. Each bed has one hero (a dove's
 soft coo by day, a night heron's "quock" by night), allowed a little nearer.
 
@@ -19,54 +19,41 @@ def bubble(r, lo=200, hi=600, seconds=(0.02, 0.06)):
     return tone(d, (f, f * r.uniform(1.3, 1.7)), ((1, 1.0), (2, 0.06)), attack=0.006, release=d * 0.7, curve=1.5)
 
 
-def tide(s, name, every, cutoff, gurgle_count):
+def tide(s, name, every, cutoff):
     """The water among the roots: brown and pink noise kept low (the slosh's cutoff wanders slowly within
-    `cutoff`, never above about 800 Hz), and a quiet gurgle of small low bubbles that is a little busier where the
-    water moves more. Both have a floor, so a still moment of water never empties into a landmark."""
+    `cutoff`, never above about 800 Hz), about 1.5 dB from slack to moving water. The second version also had a
+    gurgle of small bubbles in it; a bubble is a blip, so the bubbles are the drip cue's alone."""
     flow = drift(s.rng(name), s.seconds, every=every, lo=0.0, hi=1.0)
-    level = [0.7 + 0.3 * v for v in flow]           # about 3 dB from slack to moving water
-    deep = stereo(*[apply(moving_lowpass(brown(s.n, s.rng(name + "-deep-" + side), corner=80), scale(flow, 160, 320)),
+    level = [0.84 + 0.16 * v for v in flow]
+    deep = stereo(*[apply(moving_lowpass(brown(s.n, s.rng(name + "-deep-" + side), corner=80), scale(flow, 180, 280)),
                           level) for side in "ab"], width=0.7)
     slosh = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng(name + "-" + side)), scale(flow, *cutoff)), 150),
                            level) for side in "ab"], width=0.75)
-    gurgle = scatter(s.n, s.rng(name + "-gurgle"), gurgle_count, bubble, level=(-14, -2), pan=(-0.9, 0.9),
-                     follow=[0.5 + 0.5 * v for v in smooth(flow, 2.0)], depth=0.6)
-    return deep, slosh, gurgle
+    return deep, slosh
 
 
 def haze(s, name, centre, depth):
     """Insects too far away to tell apart: a band of noise round `centre`, its level wandering slowly between
     `depth` and 1. Faint by design: it is there only to say the air is alive."""
-    lvl = drift(s.rng(name), s.seconds, every=7.0, lo=depth, hi=1.0)
+    lvl = drift(s.rng(name), s.seconds, every=12.0, lo=depth, hi=1.0)
     return stereo(*[apply(lowpass(bandpass(white(s.n, s.rng(name + "-" + side)), centre, 2.0), centre * 1.3), lvl)
                     for side in "ab"], width=0.9)
 
 
 def day(s):
     # Humid stillness under the water: a dark, barely moving body of air.
-    still = drift(s.rng("still"), s.seconds, every=7.0, lo=0.8, hi=0.95)
+    still = drift(s.rng("still"), s.seconds, every=12.0, lo=0.85, hi=0.95)
     air = stereo(*[apply(lowpass(brown(s.n, s.rng("air-" + side), corner=70), 200), still) for side in "ab"],
                  width=0.6)
-    deep, slosh, gurgle = tide(s, "tide", 6.0, (350, 800), 2500)
-    return mix((air, -4), (deep, -2), (slosh, 0), (gurgle, -14), (haze(s, "haze", 3000, 0.5), -30))
+    deep, slosh = tide(s, "tide", 10.0, (420, 700))
+    return mix((air, -4), (deep, -2), (slosh, 0), (haze(s, "haze", 3000, 0.8), -28))
 
 
 def night(s):
-    # The tide slower and darker; over it a thin, far insect chorus: short soft pulse trains, all of them some
-    # way off, each fading in and out on its own, so the mass thins and fills with no beat that comes round.
-    deep, slosh, gurgle = tide(s, "tide", 8.0, (260, 600), 1800)
-
-    def katydid(r):
-        hz = r.uniform(2400, 3600)
-        pulses, each = r.randint(2, 4), r.uniform(0.014, 0.022)
-        call = seq(*[seq(tone(each, hz, ((1, 1.0), (2, 0.15)), attack=0.004, release=0.008), silence(each * 0.8))
-                     for _ in range(pulses)])
-        call = distant(call, r.uniform(0.55, 0.9))
-        return lambda r2: gain(call, r2.uniform(-2, 0))
-    insects = chorus(s.n, s.rng("katydids"), voices=18, voice=katydid, rate=(0.8, 1.8), jitter=0.1,
-                     level=(-10, 0), pan=(-0.95, 0.95), presence=(0.2, 1.0), every=6.0)
-
-    return mix((deep, 0), (slosh, -1), (gurgle, -16), (insects, -9), (haze(s, "haze", 2800, 0.5), -26))
+    # The tide slower and darker; over it the far insects as one thin, even haze (the second version had a
+    # chorus of pulsing katydids there: a pulse train is a rhythm, and a rhythm is a cue's business).
+    deep, slosh = tide(s, "tide", 12.0, (300, 520))
+    return mix((deep, 0), (slosh, -1), (haze(s, "haze", 2800, 0.8), -18))
 
 
 def coo(r):

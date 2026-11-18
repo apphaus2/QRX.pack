@@ -1,9 +1,9 @@
 """Barrens: desert, dunes, rock and scree.
 
 A soft backdrop, not a portrait. Day is a low, dry breath of wind over open ground: less of the forest's dark body
-and more of a broad, soft middle (open air with nothing to roar in), over the faintest dull grain of sand moving,
-swelling and settling slowly. Night is near silence: a low, cold breath and, very faint, a scatter of dry ticks
-(insects far off). Everything you could pick out as one thing is a cue, and cues are rare and mostly far; each bed
+and more of a broad, soft middle (open air with nothing to roar in), over the faintest dull hiss of sand moving,
+swelling and settling slowly. Night is near silence: a low, cold breath and the faintest open air above it. A bed
+holds only continuous texture. Everything you could pick out as one thing is a cue, and cues are rare and mostly far; each bed
 has one soft hero (a hawk's cry by day, an owl by night).
 """
 from lib import *
@@ -13,46 +13,39 @@ LEVEL = {"day": 0.0, "night": -3.0}
 
 
 def day(s):
-    # The wind: slow wandering with small gusts over a high floor, about 4 dB from lull to swell (see forest.py).
-    calm = drift(s.rng("wind"), s.seconds, every=6.5, lo=0.0, hi=0.45)
-    g = gusts(s.rng("gusts"), s.seconds, count=6, rise=(3.0, 5.5), fall=(4.5, 8.0), size=(0.06, 0.14))
-    wind = [0.6 + 0.4 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 1.5))]
+    # The wind: a slow, shallow wandering, a new level about every 10 s, about 2 dB deep, and no gusts (the owner,
+    # 2026-11-17: the beds were too active).
+    wind = scale(drift(s.rng("wind"), s.seconds, every=10.0), 0.78, 1.0)
 
     # A little dark body under it, quieter than the forest's: open ground has nothing to roar in.
-    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=90), scale(wind, 140, 320)), wind)
+    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=90), scale(wind, 160, 280)), wind)
                     for side in "ab"], width=0.7)
 
-    # The broad, dry rush: pink noise from 180 Hz to a cutoff that opens from 450 to 1300 Hz with the wind. This
+    # The broad, dry rush: pink noise from 180 Hz to a cutoff that moves from 650 to 1100 Hz with the wind. This
     # is most of the bed and what makes it the desert's: a wide soft middle rather than a dark roar.
-    rush = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("rush-" + side)), scale(wind, 450, 1300)), 180),
+    rush = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("rush-" + side)), scale(wind, 650, 1100)), 180),
                           wind) for side in "ab"], width=0.85)
 
-    # Sand: a faint, dull grain, tiny puffs (3 to 10 ms) from 900 Hz to under 3 kHz, finer than the forest's
-    # leaves and never bright; a little thicker in a gust and never stopping.
-    grain = lambda r: noise_burst(r, r.uniform(0.003, 0.01), lo=900, hi=r.uniform(2000, 3000), attack=0.001,
-                                  release=0.004)
-    sand = scatter(s.n, s.rng("sand"), 6000, grain, level=(-10, 0), pan=(-1, 1),
-                   follow=[0.5 + 0.5 * w for w in smooth(wind, 2.0)], depth=1.0)
+    # Sand moving, too fine to hear a grain: a faint, dull, continuous hiss from 900 Hz to 3 kHz on its own slow
+    # wandering (the second version made it of 6000 tiny puffs, which read as a crackle).
+    sand_level = scale(drift(s.rng("sand"), s.seconds, every=12.0), 0.8, 1.0)
+    sand = stereo(*[apply(band(pink(s.n, s.rng("sand-" + side)), 900, 3000), sand_level) for side in "ab"], width=0.9)
 
-    return mix((body, -4), (rush, 0), (sand, -13))
+    return mix((body, -4), (rush, 0), (sand, -16))
 
 
 def night(s):
     # The cold breath: dark, slow air, narrow in its movement.
-    calm = drift(s.rng("calm"), s.seconds, every=7.0, lo=0.55, hi=0.85)
-    breath = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("breath-" + side), corner=60), scale(calm, 110, 280)),
+    calm = scale(drift(s.rng("calm"), s.seconds, every=12.0), 0.85, 1.0)
+    breath = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("breath-" + side), corner=60), scale(calm, 140, 230)),
                             calm) for side in "ab"], width=0.6)
 
-    # Insects far off: single dry ticks at 2.4 to 3.6 kHz (not the forest's pulsed 4 to 5 kHz chirps), each
-    # caller slow and dulled by distance, so together they are a faint stipple on the silence.
-    def ticker(r):
-        hz = r.uniform(2400, 3600)
-        call = distant(chirp(r.uniform(0.006, 0.01), hz * 1.03, hz * 0.97), r.uniform(0.5, 0.85))
-        return lambda r2: gain(call, r2.uniform(-4, 0))
-    ticks = chorus(s.n, s.rng("ticks"), voices=18, voice=ticker, rate=(0.8, 2.2), jitter=0.3,
-                   level=(-12, 0), pan=(-0.9, 0.9), presence=(0.1, 1.0), every=6.0)
+    # Above it the faintest open air, so the near silence is not only a pressure. The second version's dry
+    # insect ticks are gone: a tick is an event, however faint.
+    air_level = scale(drift(s.rng("air"), s.seconds, every=13.0), 0.82, 1.0)
+    air = stereo(*[apply(band(pink(s.n, s.rng("air-" + side)), 500, 1800), air_level) for side in "ab"], width=0.9)
 
-    return mix((breath, 0), (ticks, -9))
+    return mix((breath, 0), (air, -14))
 
 
 def rockfall(r):

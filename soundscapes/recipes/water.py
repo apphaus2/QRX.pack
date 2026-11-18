@@ -1,15 +1,16 @@
 """Open Water: lakes, rivers, reservoirs and the sea.
 
-A soft backdrop, not a portrait. Day is calm water by a shore: a low, dark wash of the water further out, long
-gentle swells of soft lapping close by, a faint dull trace of the shingle as the water draws back, and a little
-open air above. Night is the same water stiller and darker: slower, longer swells, no shingle, no air. Cues are
+A soft backdrop, not a portrait. Day is calm water by a shore: a low, dark wash of the water further out, a
+continuous swash close by with many soft swells blurred into it, and a little open air above. Night is the same
+water stiller and darker: slower, longer swells, no air. A bed holds only continuous texture. Cues are
 rare and mostly far; each bed has one hero, the sound that says "water" (a gull far over the lake by day, a loon
 across it at night).
 
 The trap here is the wave. A wave that breaks at the same moment of every loop is an event heard every 30 s, so
 the lapping is many long, soft, overlapping swells of dull noise at random times, none much louder than the rest,
-over a continuous swash in the same band: the second version keeps its laps long and few (about ten a second,
-each one to two seconds, so several overlap) where the first had thirty short ones a second over seven thousand shingle ticks.
+over a continuous swash in the same band: the second version kept its laps long and few (about ten a second,
+each one to two seconds, so several overlap) where the first had thirty short ones a second over seven thousand
+shingle ticks; the third (2026-11-17) doubles them, softens them under the swash and drops the shingle.
 """
 from lib import *
 
@@ -23,47 +24,43 @@ def lap(r, length=(0.9, 1.8), lo=(120, 200), hi=(500, 900)):
 
 
 def day(s):
-    # How busy the water is: a slow wandering, a new level about every 7 s, kept shallow (about 2 dB). The
+    # How busy the water is: a slow wandering, a new level about every 11 s, kept shallow (about 1.5 dB). The
     # laps and the swash both follow it.
-    water = drift(s.rng("water"), s.seconds, every=7.0, lo=0.8, hi=1.0)
+    water = drift(s.rng("water"), s.seconds, every=11.0, lo=0.84, hi=1.0)
 
     # Further out: a low wash, two unrelated brown noises as middle and sides.
     wash = stereo(*[apply(lowpass(brown(s.n, s.rng("wash-" + side), corner=80), 280), water) for side in "ab"],
                   width=0.6)
 
-    # Close by: a continuous swash, so between swells the band is never empty, and the swells themselves,
-    # long, soft and overlapping.
+    # Close by: a continuous swash, so the band is never empty, and in it many long, soft, overlapping swells,
+    # so many and so even (twice the second version's, at almost one level, well under the swash) that they move
+    # the water without any one being heard. The second version's shingle (small grains as the water drew back)
+    # is gone: a grain is a tick.
     swash = stereo(*[apply(band(pink(s.n, s.rng("swash-" + side)), 180, 900), water) for side in "ab"], width=0.7)
-    laps = scatter(s.n, s.rng("laps"), 320, lap, level=(-2, 0), pan=(-0.8, 0.8), follow=water, depth=0.3)
-
-    # The shingle: a faint, dull trace of small grains as the water draws back (1.2 to 3 kHz at most, never the
-    # bright fizz of the first version), thicker where the water is busier, never stopping.
-    tick = lambda r: noise_burst(r, r.uniform(0.006, 0.02), lo=1200, hi=r.uniform(2200, 3200), attack=0.002,
-                                 release=0.012)
-    shingle = scatter(s.n, s.rng("shingle"), 1500, tick, level=(-10, 0), pan=(-1, 1),
-                      follow=[0.5 + 0.5 * w for w in smooth(water, 1.5)], depth=1.0)
+    laps = scatter(s.n, s.rng("laps"), 640, lap, level=(-1, 0), pan=(-0.8, 0.8), follow=water, depth=0.2)
 
     # A little open air over the water: dull, wide, barely there, on a wandering of its own.
-    air = drift(s.rng("air"), s.seconds, every=6.0, lo=0.75, hi=1.0)
+    air = drift(s.rng("air"), s.seconds, every=12.0, lo=0.82, hi=1.0)
     breeze = stereo(*[apply(band(pink(s.n, s.rng("breeze-" + side)), 500, 1600), air) for side in "ab"], width=0.9)
 
-    return mix((wash, -3), (swash, -4), (laps, -3), (shingle, -16), (breeze, -12))
+    return mix((wash, -3), (swash, -2), (laps, -9), (breeze, -12))
 
 
 def night(s):
     # Stiller: the drift slower and even shallower.
-    water = drift(s.rng("water"), s.seconds, every=9.0, lo=0.78, hi=1.0)
+    water = drift(s.rng("water"), s.seconds, every=13.0, lo=0.86, hi=1.0)
 
     # The body is darker and closer (narrower).
     wash = stereo(*[apply(lowpass(brown(s.n, s.rng("wash-" + side), corner=60), 200), water) for side in "ab"],
                   width=0.45)
 
-    # Slower, longer, darker swells over a darker swash, and nothing above them.
+    # Slower, longer, darker swells over a darker swash, and nothing above them: three times the second
+    # version's swells, each softer, so they blur into the swash's slow breathing.
     swash = stereo(*[apply(band(pink(s.n, s.rng("swash-" + side)), 140, 600), water) for side in "ab"], width=0.5)
     slow = lambda r: lap(r, length=(1.4, 2.6), lo=(90, 150), hi=(350, 600))
-    laps = scatter(s.n, s.rng("laps"), 100, slow, level=(-3, 0), pan=(-0.6, 0.6), follow=water, depth=0.3)
+    laps = scatter(s.n, s.rng("laps"), 300, slow, level=(-1, 0), pan=(-0.6, 0.6), follow=water, depth=0.2)
 
-    return mix((wash, 0), (swash, -5), (laps, -3))
+    return mix((wash, 0), (swash, -4), (laps, -10))
 
 
 def splash(r, seconds=0.35, lo=200, hi=2500):

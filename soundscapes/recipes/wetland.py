@@ -1,64 +1,53 @@
 """Marsh: reedbeds, fens and flooded grass.
 
 A soft backdrop, not a portrait. Day is a reedbed in a light wind: a low breath of air over the open marsh and
-the reeds' faint, dull rustle moving with it, slowly. Night is still air over still water, and far off a sparse,
-low chorus of frogs, too distant for any one to stand out. Cues are rare and mostly far; each bed has one hero,
+the reeds' faint, dull rustle moving with it, slowly. Night is still air over still water, and far off the low
+murmur of frogs too distant for any one to be heard. A bed holds only continuous texture. Cues are rare and mostly far; each bed has one hero,
 the sound that says "marsh" (a reed warbler's chatter by day, a bittern's boom at night).
 
-Unlike the forest's leaves, reeds are longer, papery grains held low in the middle band, and the marsh has no
-canopy rush over them: the air is lower and the rustle carries more of the bed. Unlike open water there are no
+Unlike the forest's leaves, the reeds' rustle is held low in the middle band, and the marsh has no canopy rush
+over it: the air is lower and the rustle carries more of the bed. Unlike open water there are no
 swells. The first version had a busy insect buzz and sixty frogs; both are gone from the beds.
 """
 from lib import *
 
 
 def day(s):
-    # The wind over the reeds: a shallow wandering with small gusts, over a floor, about 4 dB from lull to swell.
-    calm = drift(s.rng("wind"), s.seconds, every=6.0, lo=0.0, hi=0.45)
-    g = gusts(s.rng("gusts"), s.seconds, count=7, rise=(3.0, 5.0), fall=(4.0, 8.0), size=(0.06, 0.14))
-    wind = [0.6 + 0.4 * min(1.0, a + b) for a, b in zip(calm, smooth(g, 1.5))]
-    soft = [0.45 + 0.55 * w for w in smooth(wind, 2.0)]
+    # The wind over the reeds: a slow, shallow wandering, a new level about every 10 s, about 2 dB deep, and no
+    # gusts (the owner, 2026-11-17: the beds were too active).
+    wind = scale(drift(s.rng("wind"), s.seconds, every=10.0), 0.78, 1.0)
 
     # A low body of moving air: a marsh is open and low.
-    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=80), scale(wind, 160, 380)), wind)
+    body = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("body-" + side), corner=80), scale(wind, 180, 300)), wind)
                     for side in "ab"], width=0.7)
 
     # The reeds as a whole: a soft continuous hush in the low middle band, following the wind.
-    hush = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("hush-" + side)), scale(wind, 700, 1400)), 250),
+    hush = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("hush-" + side)), scale(wind, 800, 1300)), 250),
                           wind) for side in "ab"], width=0.8)
 
-    # The reeds' rustle: longer, papery grains from about 700 Hz to at most 2.6 kHz, faint, a little thicker in
-    # the gusts and never stopping.
-    swish = lambda r: noise_burst(r, r.uniform(0.03, 0.08), lo=r.uniform(600, 900), hi=r.uniform(1800, 2600),
-                                  attack=0.012, release=0.035)
-    rustle = scatter(s.n, s.rng("rustle"), 2200, swish, level=(-8, 0), pan=(-1, 1), follow=soft, depth=1.0)
+    # The reeds' papery rustle, too many stems to hear one: a faint continuous band from 700 Hz to 2.6 kHz on its
+    # own slow wandering (the second version made it of grains).
+    rustle_level = scale(drift(s.rng("rustle"), s.seconds, every=12.0), 0.8, 1.0)
+    rustle = stereo(*[apply(band(pink(s.n, s.rng("rustle-" + side)), 700, 2600), rustle_level) for side in "ab"],
+                    width=0.9)
 
-    return mix((body, 0), (hush, -4), (rustle, -9))
+    return mix((body, 0), (hush, -4), (rustle, -12))
 
 
 def night(s):
     # Still air over still water: a faint dark hush, barely moving.
-    calm = drift(s.rng("calm"), s.seconds, every=8.0, lo=0.8, hi=1.0)
-    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=70), scale(calm, 140, 260)), calm)
+    calm = scale(drift(s.rng("calm"), s.seconds, every=12.0), 0.86, 1.0)
+    air = stereo(*[apply(moving_lowpass(brown(s.n, s.rng("air-" + side), corner=70), scale(calm, 150, 230)), calm)
                    for side in "ab"], width=0.6)
 
-    # The frogs, far off: low middling croakers only (no high peepers, no deep ones), each with its own pitch and
-    # pulse and three calls made once that it chooses among, all well away, calling slowly; the chorus fades each
-    # in and out on its own, so it keeps thinning and filling.
-    def frog(r):
-        hz, pulse = r.uniform(340, 560), r.uniform(22, 34)
-        far = r.uniform(0.6, 0.9)
-        calls = [distant(croak(r, hz * r.uniform(0.97, 1.03), r.uniform(0.2, 0.4), pulse), far) for _ in range(3)]
-        return lambda r2: gain(calls[r2.randrange(3)], r2.uniform(-3, 0))
-    frogs = chorus(s.n, s.rng("frogs"), voices=28, voice=frog, rate=(0.4, 0.9), jitter=0.3,
-                   level=(-8, 0), pan=(-1, 1), presence=(0.2, 1.0), every=6.0)
-
-    # The frogs too far to tell apart: a soft murmur of the same band, so the chorus never stops.
-    murmur_level = drift(s.rng("murmur"), s.seconds, every=7.0, lo=0.7, hi=1.0)
+    # The frogs, all far off: too many and too distant for any croak to be heard, a soft low murmur in their band
+    # that never stops, wandering slowly. No caller of its own (the second version's 28 croaking frogs are each
+    # an event; the near frog and the bittern are cues).
+    murmur_level = scale(drift(s.rng("murmur"), s.seconds, every=12.0), 0.82, 1.0)
     murmur = stereo(*[apply(band(pink(s.n, s.rng("murmur-" + side)), 300, 1300), murmur_level) for side in "ab"],
                     width=0.9)
 
-    return mix((air, 0), (murmur, -9), (frogs, -7))
+    return mix((air, 0), (murmur, -7))
 
 
 def plop(r, hz=(700, 260), seconds=0.12):

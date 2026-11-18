@@ -5,12 +5,12 @@
   "beds": {
     "day": {
       "file": "beds/town-day.ogg",
-      "bytes": 139265,
+      "bytes": 138566,
       "level": 0.0
     },
     "night": {
       "file": "beds/town-night.ogg",
-      "bytes": 139604,
+      "bytes": 139511,
       "level": 0.0
     }
   },
@@ -185,24 +185,27 @@
   "calls": [
     "species/sounds/bat-call.wav",
     "species/sounds/beetle-call.wav",
+    "species/sounds/cat-call.wav",
     "species/sounds/critter-call.wav",
+    "species/sounds/dog-call.wav",
     "species/sounds/dragonfly-call.wav",
     "species/sounds/fish-call.wav",
     "species/sounds/gecko-call.wav",
     "species/sounds/moth-call.wav",
     "species/sounds/pigeon-call.wav",
+    "species/sounds/raccoon-call.wav",
     "species/sounds/raven-call-090-120.wav",
     "species/sounds/snail-call.wav",
     "species/sounds/spider-call.wav"
   ],
   "build": {
-    "recipe": "37eb30a6886e6578",
+    "recipe": "672d6e90c797cab5",
     "toolkit": "02d63be25800cc1e",
     "seconds": {
-      "day": 16.0,
-      "night": 19.4,
-      "cues": 5.9,
-      "total": 60.1
+      "day": 11.4,
+      "night": 15.6,
+      "cues": 5.8,
+      "total": 48.5
     },
     "frames": {
       "pigeon": 90213,
@@ -234,48 +237,48 @@
     "measures": {
       "day": {
         "seconds": 30.0,
-        "peak": -12.488290392888143,
-        "rms": -26.49623410987576,
-        "lufs": -24.23527195532169,
-        "dc": -79.53632331755357,
-        "corr": 0.3211500107914119,
-        "seam": 0.2202766896395437,
-        "slope": 0.26017240746554227,
+        "peak": -12.285283096451352,
+        "rms": -26.51426100158104,
+        "lufs": -24.17592599384786,
+        "dc": -80.833926533873,
+        "corr": 0.278860495984689,
+        "seam": 0.4363875114216451,
+        "slope": 0.5585597087638676,
         "bands": {
-          "<250": 57.9,
-          "250-2k": 35.9,
-          "2k-8k": 5.8,
-          ">8k": 0.5
+          "<250": 52.8,
+          "250-2k": 41.2,
+          "2k-8k": 5.4,
+          ">8k": 0.6
         },
-        "spread": 1.6296125693864774,
-        "stand": 1.9186631158274459,
+        "spread": 1.4544292105505932,
+        "stand": 1.945066499112933,
         "standBand": "<250",
         "sourceSeam": [
-          0.213,
-          0.443
+          0.152,
+          0.437
         ]
       },
       "night": {
         "seconds": 30.0,
-        "peak": -12.480479842234477,
-        "rms": -26.242849773485144,
-        "lufs": -23.999062519840695,
-        "dc": -88.76565435330589,
-        "corr": 0.51903731774725,
-        "seam": 0.2301282848967103,
-        "slope": 0.2732596791803654,
+        "peak": -12.649405618448377,
+        "rms": -26.198241298117107,
+        "lufs": -24.00951927067641,
+        "dc": -83.46688634166136,
+        "corr": 0.5189572220308706,
+        "seam": 0.179316625560309,
+        "slope": 0.28791470664150765,
         "bands": {
-          "<250": 60.8,
-          "250-2k": 31.5,
-          "2k-8k": 7.5,
+          "<250": 62.1,
+          "250-2k": 30.7,
+          "2k-8k": 7.0,
           ">8k": 0.2
         },
-        "spread": 1.9491047575997094,
-        "stand": 2.3948892841211453,
+        "spread": 1.9479986920425176,
+        "stand": 2.4195696358855834,
         "standBand": "<250",
         "sourceSeam": [
-          0.194,
-          0.153
+          0.156,
+          0.152
         ]
       },
       "pigeon": {

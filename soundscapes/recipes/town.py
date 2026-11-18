@@ -1,10 +1,10 @@
 """Town: streets, roofs, gardens and park ponds, where most people are.
 
 A soft backdrop, not a portrait. Day is a town heard from a garden: a low, smooth hum of the whole place, and
-further off the traffic as a dark wash that rises and falls like surf, never one engine; a little dull open air
-above it and garden sparrows so faint they are part of the texture. Nothing harsh and nothing close. Night is the
-same town thinned out: the hum lower and quieter, the whisper of a ventilation fan on a roof nearby and the faint,
-steady tone of a streetlamp. Anything you could pick out as one thing is a cue, and cues are rare (about one a
+further off the traffic as a dark wash that eases up and down, never one engine; a little dull open air above it.
+Nothing harsh and nothing close. Night is the same town thinned out: the hum lower and quieter, the whisper of a
+ventilation fan on a roof nearby and the faint, steady tone of a streetlamp. A bed holds only continuous texture.
+Anything you could pick out as one thing is a cue, and cues are rare (about one a
 minute or less, most far off), each bed with one hero: a pigeon's coo by day, a wind chime by night.
 """
 import math
@@ -13,48 +13,35 @@ from lib import *
 
 
 def day(s):
-    # The town's hum: dark, smooth, and almost still (a new level about every 8 s, within about 2 dB).
-    still = drift(s.rng("hum"), s.seconds, every=8.0, lo=0.8, hi=1.0)
+    # The town's hum: dark, smooth, and almost still (a new level about every 12 s, within about 1.4 dB).
+    still = drift(s.rng("hum"), s.seconds, every=12.0, lo=0.85, hi=1.0)
     hum = stereo(*[apply(lowpass(brown(s.n, s.rng("hum-" + side), corner=60), 170), still) for side in "ab"],
                  width=0.5)
 
-    # The traffic, streets away: pink noise kept to the low middle, its brightness and level rising and falling
-    # slowly and irregularly, the way a far road swells and eases. Kept shallow, as the forest's wind is, so no
-    # swell is a landmark.
-    flow = drift(s.rng("flow"), s.seconds, every=4.5, lo=0.0, hi=0.6)
-    g = gusts(s.rng("swells"), s.seconds, count=6, rise=(3.0, 5.0), fall=(4.0, 7.0), size=(0.06, 0.14))
-    wash_curve = [0.5 + 0.5 * min(1.0, a + b) for a, b in zip(flow, smooth(g, 2.0))]
-    wash = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("wash-" + side)), scale(wash_curve, 450, 1000)),
+    # The traffic, streets away: pink noise kept to the low middle, its brightness and level easing up and down
+    # slowly and irregularly, the way a far road does. A new level about every 10 s, about 2 dB deep, and no
+    # swells on top (the owner, 2026-11-17: the beds were too active).
+    wash_curve = scale(drift(s.rng("flow"), s.seconds, every=10.0), 0.78, 1.0)
+    wash = stereo(*[apply(highpass(moving_lowpass(pink(s.n, s.rng("wash-" + side)), scale(wash_curve, 600, 950)),
                                    110), wash_curve) for side in "ab"], width=0.85)
 
     # Open air above the garden: a faint, even breath in the upper middle, kept under about 3.5 kHz (the first
-    # version's reached 6 kHz).
-    air_level = drift(s.rng("air"), s.seconds, every=7.0, lo=0.7, hi=1.0)
+    # version's reached 6 kHz). The second version's garden sparrows are gone: a cheep is an event, however far.
+    air_level = drift(s.rng("air"), s.seconds, every=12.0, lo=0.82, hi=1.0)
     air = stereo(*[apply(band(pink(s.n, s.rng("air-" + side)), 1000, 3500), air_level) for side in "ab"], width=0.9)
 
-    # Garden sparrows: a dozen and a half, a garden or two away, each a soft "cheep" now and then; lower and
-    # sparser than the farm's hedgerow, and far under the rest.
-    def sparrow(r):
-        hz = r.uniform(2800, 3900)
-        call = tone(r.uniform(0.06, 0.1), [(0.0, hz * 0.9), (0.4, hz * 1.12), (1.0, hz * 0.95)],
-                    harmonics=((1, 1.0), (2, 0.15)), attack=0.008, release=0.03)
-        call = distant(call, r.uniform(0.5, 0.8))
-        return lambda r2: gain(call, r2.uniform(-3, 0))
-    sparrows = chorus(s.n, s.rng("sparrows"), voices=18, voice=sparrow, rate=(0.3, 0.8), jitter=0.35,
-                      level=(-6, 0), pan=(-0.9, 0.9), presence=(0.3, 1.0), every=6.0)
-
-    return mix((hum, -5), (wash, 0), (air, -12), (sparrows, -17))
+    return mix((hum, -5), (wash, 0), (air, -12))
 
 
 def night(s):
     # The hum, lower and thinner than by day.
-    still = drift(s.rng("hum"), s.seconds, every=9.0, lo=0.8, hi=1.0)
+    still = drift(s.rng("hum"), s.seconds, every=12.0, lo=0.85, hi=1.0)
     hum = stereo(*[apply(lowpass(brown(s.n, s.rng("hum-" + side), corner=50), 120), still) for side in "ab"],
                  width=0.4)
 
     # A ventilation fan on a roof nearby: an even whisper of air in the middle, the faint note of its blades
     # (two narrow bands) under it. Its level hardly moves: a machine does not breathe.
-    whir = drift(s.rng("fan"), s.seconds, every=6.0, lo=0.85, hi=1.0)
+    whir = drift(s.rng("fan"), s.seconds, every=12.0, lo=0.9, hi=1.0)
     fan = stereo(*[apply(highpass(lowpass(pink(s.n, s.rng("fan-" + side)), 2600), 350), whir) for side in "ab"],
                  width=0.7)
     blades = stereo(*[apply(add(bandpass(white(s.n, s.rng("blade-a-" + side)), 310, q=18),
@@ -66,7 +53,7 @@ def night(s):
     lamp = stereo(*[bandpass(white(s.n, s.rng("lamp-" + side)), 2400, q=35) for side in "ab"], width=0.2)
 
     # Very far off, what is left of the traffic: a dark, slow wash well under the hum.
-    flow = drift(s.rng("flow"), s.seconds, every=6.0, lo=0.6, hi=1.0)
+    flow = drift(s.rng("flow"), s.seconds, every=12.0, lo=0.8, hi=1.0)
     wash = stereo(*[apply(highpass(lowpass(pink(s.n, s.rng("wash-" + side)), 500), 100), flow) for side in "ab"],
                   width=0.85)
 

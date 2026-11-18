@@ -5,12 +5,12 @@
   "beds": {
     "day": {
       "file": "beds/forest-day.ogg",
-      "bytes": 139572,
+      "bytes": 138599,
       "level": 0.0
     },
     "night": {
       "file": "beds/forest-night.ogg",
-      "bytes": 161462,
+      "bytes": 139340,
       "level": 0.0
     }
   },
@@ -138,20 +138,23 @@
   ],
   "calls": [
     "species/sounds/bat-call.wav",
+    "species/sounds/bear-call.wav",
     "species/sounds/beetle-call.wav",
     "species/sounds/butterfly-call.wav",
     "species/sounds/critter-call.wav",
+    "species/sounds/deer-call.wav",
     "species/sounds/lark-call-090-120.wav",
-    "species/sounds/lizard-call.wav"
+    "species/sounds/lizard-call.wav",
+    "species/sounds/squirrel-call.wav"
   ],
   "build": {
-    "recipe": "ffd5fcb27324f31c",
+    "recipe": "df9bca5ed8dce3f3",
     "toolkit": "02d63be25800cc1e",
     "seconds": {
-      "day": 10.8,
-      "night": 8.8,
-      "cues": 3.3,
-      "total": 39.8
+      "day": 11.5,
+      "night": 11.0,
+      "cues": 3.2,
+      "total": 43.5
     },
     "frames": {
       "song-warble": 59943,
@@ -180,48 +183,48 @@
     "measures": {
       "day": {
         "seconds": 30.0,
-        "peak": -11.461891705040824,
-        "rms": -26.61281966441837,
-        "lufs": -24.249339865331883,
-        "dc": -97.5395186254397,
-        "corr": 0.32155057795467185,
-        "seam": 0.08049555391994295,
-        "slope": 0.429474770517024,
+        "peak": -12.130723898774935,
+        "rms": -26.121156123198563,
+        "lufs": -23.99991544470171,
+        "dc": -81.38838124767878,
+        "corr": 0.2978245474117205,
+        "seam": 0.059689488678538266,
+        "slope": 0.18754930621687452,
         "bands": {
-          "<250": 55.6,
-          "250-2k": 34.5,
-          "2k-8k": 8.7,
-          ">8k": 1.2
+          "<250": 59.2,
+          "250-2k": 35.3,
+          "2k-8k": 4.9,
+          ">8k": 0.6
         },
-        "spread": 2.4009099434628,
-        "stand": 1.5301705387245477,
+        "spread": 1.3616456318579466,
+        "stand": 1.3868600615722855,
         "standBand": "<250",
         "sourceSeam": [
-          0.084,
-          0.476
+          0.153,
+          0.439
         ]
       },
       "night": {
         "seconds": 30.0,
-        "peak": -10.95055456458401,
-        "rms": -26.12069181391405,
-        "lufs": -24.004504030662435,
-        "dc": -76.06258259407936,
-        "corr": 0.4834896089163895,
-        "seam": 0.07966248510980495,
-        "slope": 0.06215242316155827,
+        "peak": -11.786267277845383,
+        "rms": -25.451974714878812,
+        "lufs": -23.999455729650144,
+        "dc": -78.63993305921868,
+        "corr": 0.4328520001623199,
+        "seam": 0.5423236481303686,
+        "slope": 0.3533113561342504,
         "bands": {
-          "<250": 73.1,
-          "250-2k": 14.6,
-          "2k-8k": 11.1,
-          ">8k": 1.2
+          "<250": 79.6,
+          "250-2k": 18.3,
+          "2k-8k": 1.6,
+          ">8k": 0.5
         },
-        "spread": 2.0755321462986487,
-        "stand": 2.766226069646848,
-        "standBand": "2k-8k",
+        "spread": 1.8554115978207761,
+        "stand": 1.626915938977909,
+        "standBand": "<250",
         "sourceSeam": [
-          0.146,
-          0.089
+          0.349,
+          0.301
         ]
       },
       "song-warble": {

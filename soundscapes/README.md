@@ -11,6 +11,17 @@ may have one "hero", the sound that says where you are, a little nearer. The fir
 its cues came every few seconds; the toolkit now holds every bed to a loudness, a brightness ceiling and a cue
 spacing, and all eleven are redone to that aim (the forest first, as the model for the other ten).
 
+Third pass (the owner, 2026-11-17, on the Quest, where the apps play the night bed at every hour): the beds had too
+much activity, real soundscapes are not that active; the cues were right. So every bed, day and night, is now
+continuous texture only: bands of noise (air, wind, water, a far shimmer of insects, a far hum) on slow, shallow
+wanderings, a new level every 10 to 13 s and about 1.5 to 2 dB deep. Out of the beds went every gust, every grain
+scatter (leaves, stems, sand, spindrift, crops, shingle, bubbles, drops, meltwater), every chorus of callers
+(crickets, katydids, frogs, sparrows, ticks) and every pulsed or squared layer (the scrub's cicada, the snow's
+whistles one at a time). Where one of those said where you are, a continuous band in its place says it softly: the
+crickets far off as a shimmer at their pitch, the frogs as a murmur, the leaves and the sand as a faint hush. The
+water's swells stay, twice as many and well under the swash. Cues, their levels and their timing are unchanged
+(the cue files are byte for byte the second pass's).
+
 Everything is synthesized here from noise and tones with fixed seeds. Nothing is recorded or downloaded, so it is
 CC0 like the rest of the pack's generated sound. It is stylised on purpose.
 
@@ -115,15 +126,17 @@ minutes).
 harsh. The build sets every bed to the same loudness and softens any bed brighter than the ceiling (below, "What
 the build does to a bed"), so a bright recipe still comes out within the rules, but a recipe should not lean on
 that: a bed made dark is better than a bright one shelved. The forest day keeps its crowns' rush under about
-1.8 kHz and its leaves to a faint, dull rustle (puffs of noise from 1.5 to 5.5 kHz), and lands at 10% of its energy
-above 2 kHz with no softening (the first version had 44%).
+1.5 kHz and its leaves to a faint, continuous hush (a band of noise from 1.5 to 4 kHz), and lands at about 6% of
+its energy above 2 kHz with no softening (the first version had 44%).
 
 **The rule: a bed holds only continuous texture**, with slow, irregular movement. Every distinct event (a bird
-phrase, a knock, a splash, a bell) is a cue. A 30 s loop with a recognisable event in it is heard as a loop. The
-check's `stand` measure enforces it, and catches more than birds: in the forest it flagged leaves that fell silent
-the moment a gust ended, a gust that rose 12 dB in the 2-8 kHz band, and the edges of a long lull. The second
-forest's wind wanders about 4 dB, with a new level about every 6 s. If `stand` fires, make the movement shallower or
-slower, give a layer that follows the wind a floor, or use more, smaller grains or voices; do not raise the limit.
+phrase, a knock, a splash, a bell, an insect's chirp, a grain of sand, a gust) is a cue or nothing. A 30 s loop
+with a recognisable event in it is heard as a loop, and many small events at once are heard as activity (the third
+pass, above). The check's `stand` measure enforces part of it, and catches more than birds: in the forest it
+flagged leaves that fell silent the moment a gust ended, a gust that rose 12 dB in the 2-8 kHz band, and the edges
+of a long lull; it does not catch a dense chorus of small chirps, which passed it and was still too busy. The third
+forest's wind wanders about 2 dB, with a new level about every 10 s. If `stand` fires, make the movement shallower
+or slower, or give a layer that follows the wind a floor; do not raise the limit.
 Because seeds decide where things fall, the first forest recipe was also built under five other biomes' seeds:
 every bed passed (the worst `stand` was 3.7 dB). Do the same with a new recipe before trusting it: one lucky seed
 proves little.
@@ -419,15 +432,16 @@ Things the ten later recipes ran into, for whoever writes or changes one:
   mudskipper, the tundra's mosquito and the marsh's near frog.
 - What going this soft cost: the beds are much closer to each other than the first version's. Town day and forest
   day have nearly the same four-band shares; barrens day is close to both; mangrove and tundra, and the marsh's
-  day and night, now differ more in what is in them and how slowly it moves than in any band. The mangrove night's
-  chorus is about 2% of its energy and the barrens night's ticks 0.5%: either may not be heard. If two biomes
-  sound alike, those faint layers are what to raise (a night has room up to 40% above 2 kHz).
+  day and night, now differ more in what is in them and how slowly it moves than in any band. The third pass
+  (2026-11-17) took the choruses and grains out of every bed, so the beds are closer still: the nights differ
+  mostly in the pitch of their far shimmer (forest 3.8-5.4 kHz, meadow 3.1-3.9, farm 2.9-3.9, scrub 2.4-3,
+  mangrove a haze round 2.8) or in having none (barrens, snow, tundra, town, water, marsh). If two biomes sound
+  alike, those faint bands are what to raise (a night has room up to 40% above 2 kHz); do not bring the callers
+  back.
 - `s.rng(name)` returns a new generator with the same seed on every call, so call it once and keep it when
   drawing in a loop.
-- The toolkit has no amplitude-pulse modulator; `recipes/shrub.py` has its own (`pulsed`, a whole number of
-  pulses over the loop).
-- Scrub night and meadow night both keep a far cricket layer (22% and 24% above 2 kHz); they differ by pitch and
-  rhythm, which the bands do not show.
+- The toolkit has no amplitude-pulse modulator; the second pass's scrub had its own (`pulsed`) for a cicada. A
+  pulse in a bed is a rhythm, and the third pass took it out.
 
 ## Not verified
 

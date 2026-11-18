@@ -21,12 +21,12 @@
       "beds": {
         "day": {
           "file": "beds/forest-day.ogg",
-          "bytes": 139572,
+          "bytes": 138599,
           "level": 0.0
         },
         "night": {
           "file": "beds/forest-night.ogg",
-          "bytes": 161462,
+          "bytes": 139340,
           "level": 0.0
         }
       },
@@ -154,11 +154,14 @@
       ],
       "calls": [
         "species/sounds/bat-call.wav",
+        "species/sounds/bear-call.wav",
         "species/sounds/beetle-call.wav",
         "species/sounds/butterfly-call.wav",
         "species/sounds/critter-call.wav",
+        "species/sounds/deer-call.wav",
         "species/sounds/lark-call-090-120.wav",
-        "species/sounds/lizard-call.wav"
+        "species/sounds/lizard-call.wav",
+        "species/sounds/squirrel-call.wav"
       ]
     },
     {
@@ -168,12 +171,12 @@
       "beds": {
         "day": {
           "file": "beds/shrub-day.ogg",
-          "bytes": 139359,
+          "bytes": 139797,
           "level": 0.0
         },
         "night": {
           "file": "beds/shrub-night.ogg",
-          "bytes": 152874,
+          "bytes": 139882,
           "level": 0.0
         }
       },
@@ -301,6 +304,7 @@
         }
       ],
       "calls": [
+        "species/sounds/bear-call.wav",
         "species/sounds/bird-call.wav",
         "species/sounds/gecko-call.wav",
         "species/sounds/hedgehog-call.wav",
@@ -316,12 +320,12 @@
       "beds": {
         "day": {
           "file": "beds/meadow-day.ogg",
-          "bytes": 139386,
+          "bytes": 139041,
           "level": 0.0
         },
         "night": {
           "file": "beds/meadow-night.ogg",
-          "bytes": 183506,
+          "bytes": 139982,
           "level": 0.0
         }
       },
@@ -452,6 +456,8 @@
         "species/sounds/bee-call-090-120.wav",
         "species/sounds/butterfly-call.wav",
         "species/sounds/critter-call.wav",
+        "species/sounds/hare-call.wav",
+        "species/sounds/horse-call.wav",
         "species/sounds/lark-call.wav",
         "species/sounds/snail-call.wav"
       ]
@@ -463,12 +469,12 @@
       "beds": {
         "day": {
           "file": "beds/farm-day.ogg",
-          "bytes": 139162,
+          "bytes": 138964,
           "level": 0.0
         },
         "night": {
           "file": "beds/farm-night.ogg",
-          "bytes": 141707,
+          "bytes": 139246,
           "level": 0.0
         }
       },
@@ -613,10 +619,14 @@
       "calls": [
         "species/sounds/bee-call.wav",
         "species/sounds/beetle-call.wav",
+        "species/sounds/cow-call.wav",
         "species/sounds/critter-call.wav",
+        "species/sounds/dog-call.wav",
         "species/sounds/hare-call-090-120.wav",
         "species/sounds/moth-call.wav",
-        "species/sounds/owl-call.wav"
+        "species/sounds/owl-call.wav",
+        "species/sounds/pig-call.wav",
+        "species/sounds/sheep-call.wav"
       ]
     },
     {
@@ -626,12 +636,12 @@
       "beds": {
         "day": {
           "file": "beds/town-day.ogg",
-          "bytes": 139265,
+          "bytes": 138566,
           "level": 0.0
         },
         "night": {
           "file": "beds/town-night.ogg",
-          "bytes": 139604,
+          "bytes": 139511,
           "level": 0.0
         }
       },
@@ -806,12 +816,15 @@
       "calls": [
         "species/sounds/bat-call.wav",
         "species/sounds/beetle-call.wav",
+        "species/sounds/cat-call.wav",
         "species/sounds/critter-call.wav",
+        "species/sounds/dog-call.wav",
         "species/sounds/dragonfly-call.wav",
         "species/sounds/fish-call.wav",
         "species/sounds/gecko-call.wav",
         "species/sounds/moth-call.wav",
         "species/sounds/pigeon-call.wav",
+        "species/sounds/raccoon-call.wav",
         "species/sounds/raven-call-090-120.wav",
         "species/sounds/snail-call.wav",
         "species/sounds/spider-call.wav"
@@ -824,12 +837,12 @@
       "beds": {
         "day": {
           "file": "beds/barren-day.ogg",
-          "bytes": 138687,
+          "bytes": 138599,
           "level": 0.0
         },
         "night": {
           "file": "beds/barren-night.ogg",
-          "bytes": 148152,
+          "bytes": 140711,
           "level": -3.0
         }
       },
@@ -976,6 +989,7 @@
         "species/sounds/beetle-call.wav",
         "species/sounds/bird-call.wav",
         "species/sounds/critter-call.wav",
+        "species/sounds/goat-call.wav",
         "species/sounds/lizard-call.wav",
         "species/sounds/scorpion-call.wav"
       ]
@@ -987,12 +1001,12 @@
       "beds": {
         "day": {
           "file": "beds/snow-day.ogg",
-          "bytes": 139517,
+          "bytes": 139512,
           "level": 0.0
         },
         "night": {
           "file": "beds/snow-night.ogg",
-          "bytes": 139034,
+          "bytes": 139262,
           "level": -2.0
         }
       },
@@ -1141,7 +1155,8 @@
         "species/sounds/hare-call.wav",
         "species/sounds/jellyfish-call.wav",
         "species/sounds/moth-call.wav",
-        "species/sounds/owl-call-090-120.wav"
+        "species/sounds/owl-call-090-120.wav",
+        "species/sounds/wolf-call.wav"
       ]
     },
     {
@@ -1151,12 +1166,12 @@
       "beds": {
         "day": {
           "file": "beds/water-day.ogg",
-          "bytes": 139441,
+          "bytes": 139678,
           "level": 0.0
         },
         "night": {
           "file": "beds/water-night.ogg",
-          "bytes": 139196,
+          "bytes": 139441,
           "level": 0.0
         }
       },
@@ -1314,12 +1329,12 @@
       "beds": {
         "day": {
           "file": "beds/wetland-day.ogg",
-          "bytes": 139326,
+          "bytes": 139171,
           "level": 0.0
         },
         "night": {
           "file": "beds/wetland-night.ogg",
-          "bytes": 141435,
+          "bytes": 141357,
           "level": 0.0
         }
       },
@@ -1466,6 +1481,7 @@
         "species/sounds/eel-call.wav",
         "species/sounds/frog-call.wav",
         "species/sounds/lizard-call.wav",
+        "species/sounds/otter-call.wav",
         "species/sounds/turtle-call-090-120.wav"
       ]
     },
@@ -1476,12 +1492,12 @@
       "beds": {
         "day": {
           "file": "beds/mangrove-day.ogg",
-          "bytes": 139824,
+          "bytes": 139914,
           "level": 0.0
         },
         "night": {
           "file": "beds/mangrove-night.ogg",
-          "bytes": 142704,
+          "bytes": 138783,
           "level": 0.0
         }
       },
@@ -1624,6 +1640,7 @@
         }
       ],
       "calls": [
+        "species/sounds/beast-call.wav",
         "species/sounds/bird-call-090-120.wav",
         "species/sounds/crab-call.wav",
         "species/sounds/fish-call.wav",
@@ -1638,12 +1655,12 @@
       "beds": {
         "day": {
           "file": "beds/tundra-day.ogg",
-          "bytes": 141420,
+          "bytes": 141354,
           "level": 0.0
         },
         "night": {
           "file": "beds/tundra-night.ogg",
-          "bytes": 141935,
+          "bytes": 141901,
           "level": 0.0
         }
       },
