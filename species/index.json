@@ -2376,12 +2376,12 @@
       "model": "models/golden-harvest-hare.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/golden-harvest-hare.glb",
       "size": [
-        0.1046,
-        0.16,
-        0.1534
+        0.0496,
+        0.1456,
+        0.1601
       ],
-      "bytes": 1033668,
-      "triangles": 9637,
+      "bytes": 1028496,
+      "triangles": 9519,
       "speech": "clear",
       "sounds": {
         "call": "sounds/hare-call-090-120.wav",
@@ -2390,7 +2390,7 @@
         "curious": "sounds/hare-curious-090-120.wav"
       },
       "quest": "models/golden-harvest-hare.quest.glb",
-      "questBytes": 1333420,
+      "questBytes": 1323244,
       "art": true,
       "low": "models/golden-harvest-hare.low.glb",
       "lowBytes": 65504
@@ -2635,7 +2635,7 @@
         0.0322,
         0.1
       ],
-      "bytes": 1085712,
+      "bytes": 1084040,
       "triangles": 9500,
       "speech": "little",
       "sounds": {
@@ -2815,8 +2815,8 @@
         0.0732,
         0.13
       ],
-      "bytes": 1337320,
-      "triangles": 9569,
+      "bytes": 1330936,
+      "triangles": 9550,
       "speech": "little",
       "sounds": {
         "call": "sounds/critter-call.wav",
@@ -2825,7 +2825,7 @@
         "curious": "sounds/critter-curious.wav"
       },
       "quest": "models/longfoot-jerboa.quest.glb",
-      "questBytes": 1683544,
+      "questBytes": 1685608,
       "art": true,
       "low": "models/longfoot-jerboa.low.glb",
       "lowBytes": 59100
@@ -2993,12 +2993,12 @@
       "model": "models/marsh-newt.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/marsh-newt.glb",
       "size": [
-        0.072,
-        0.0315,
+        0.0764,
+        0.0331,
         0.17
       ],
-      "bytes": 1050544,
-      "triangles": 9500,
+      "bytes": 1064392,
+      "triangles": 9540,
       "speech": "little",
       "sounds": {
         "call": "sounds/lizard-call.wav",
@@ -3007,7 +3007,7 @@
         "curious": "sounds/lizard-curious.wav"
       },
       "quest": "models/marsh-newt.quest.glb",
-      "questBytes": 1294736,
+      "questBytes": 1322144,
       "art": true,
       "low": "models/marsh-newt.low.glb",
       "lowBytes": 39336
@@ -3031,12 +3031,12 @@
       "model": "models/meadow-cottontail.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-cottontail.glb",
       "size": [
-        0.0702,
-        0.1199,
-        0.1399
+        0.0514,
+        0.1138,
+        0.14
       ],
-      "bytes": 1392100,
-      "triangles": 9529,
+      "bytes": 1382480,
+      "triangles": 9523,
       "speech": "little",
       "sounds": {
         "call": "sounds/hare-call.wav",
@@ -3045,7 +3045,7 @@
         "curious": "sounds/hare-curious.wav"
       },
       "quest": "models/meadow-cottontail.quest.glb",
-      "questBytes": 1721404,
+      "questBytes": 1713476,
       "art": true,
       "low": "models/meadow-cottontail.low.glb",
       "lowBytes": 53640
@@ -3178,12 +3178,12 @@
       "model": "models/meadow-vole.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/meadow-vole.glb",
       "size": [
-        0.0892,
-        0.0392,
+        0.0256,
+        0.0301,
         0.1
       ],
-      "bytes": 1119532,
-      "triangles": 9542,
+      "bytes": 1124376,
+      "triangles": 9530,
       "speech": "little",
       "sounds": {
         "call": "sounds/critter-call.wav",
@@ -3192,7 +3192,7 @@
         "curious": "sounds/critter-curious.wav"
       },
       "quest": "models/meadow-vole.quest.glb",
-      "questBytes": 1427760,
+      "questBytes": 1428644,
       "art": true,
       "low": "models/meadow-vole.low.glb",
       "lowBytes": 51292
@@ -3650,12 +3650,12 @@
       "model": "models/one-claw-crab.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/one-claw-crab.glb",
       "size": [
-        0.1084,
-        0.0563,
-        0.1301
+        0.1074,
+        0.0579,
+        0.13
       ],
-      "bytes": 1338748,
-      "triangles": 9702,
+      "bytes": 1317984,
+      "triangles": 9567,
       "speech": "simple",
       "sounds": {
         "call": "sounds/crab-call.wav",
@@ -3664,7 +3664,7 @@
         "curious": "sounds/crab-curious.wav"
       },
       "quest": "models/one-claw-crab.quest.glb",
-      "questBytes": 1687368,
+      "questBytes": 1653680,
       "art": true,
       "low": "models/one-claw-crab.low.glb",
       "lowBytes": 53148
@@ -3986,8 +3986,8 @@
         0.0542,
         0.11
       ],
-      "bytes": 1211008,
-      "triangles": 9656,
+      "bytes": 1214884,
+      "triangles": 9646,
       "speech": "little",
       "sounds": {
         "call": "sounds/scorpion-call.wav",
@@ -3996,7 +3996,7 @@
         "curious": "sounds/scorpion-call.wav"
       },
       "quest": "models/rock-scorpion.quest.glb",
-      "questBytes": 1532600,
+      "questBytes": 1540508,
       "art": true,
       "low": "models/rock-scorpion.low.glb",
       "lowBytes": 71812

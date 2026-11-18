@@ -1,5 +1,5 @@
 {
- "_": "MeshTool's project file (third_party/MeshTool): this folder's archetype, each creature's body shape, the creatures whose origin is at mid-body (those that swim or fly: their habitat's origin is the centre), and the creatures the clean step's guess turned the wrong way round, with the turn that brings each one's head to +Z (\"turns\", degrees about the vertical).",
+ "_": "MeshTool's project file (third_party/MeshTool): this folder's archetype, each creature's body shape, the creatures whose origin is at mid-body (those that swim or fly: their habitat's origin is the centre), and the creatures the clean step's guess turned the wrong way round, with the turn that brings each one's head to +Z (\"turns\", degrees about the vertical); under \"seeds\" the mesher's seed when another than the first was kept, and under \"cuts\" boxes (glTF metres of the cleaned mesh, for that seed) of pieces the mesher made up, cut away in the clean step.",
  "archetype": "terra",
  "creatures": {
   "alley-cat": "quadruped",
@@ -160,5 +160,25 @@
   "musk-ox-calf": 90,
   "thornback-hedgehog": 90,
   "tilehop": 0
+ },
+ "seeds": {
+  "one-claw-crab": 42,
+  "marsh-newt": 42
+ },
+ "cuts": {
+  "one-claw-crab": [
+   [
+    [
+     -0.07,
+     -1,
+     -0.006
+    ],
+    [
+     -0.039,
+     1,
+     0.03
+    ]
+   ]
+  ]
  }
 }

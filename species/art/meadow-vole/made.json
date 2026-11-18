@@ -2,35 +2,35 @@
   "files": {
     "mesh.glb": {
       "from": "mesh.glb",
-      "sha256": "9df2858db4a4b8e73a6637d52b67a26f8459efcfbda576c29e462794db3f28eb",
+      "sha256": "268b104ab0dd34fad3fba57d1a071f1dad6f4049a88258f3ca97e973415df767",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1119532,
+        "bytes": 1124376,
         "extensionsUsed": [
           "KHR_mesh_quantization",
           "EXT_meshopt_compression",
           "KHR_texture_transform",
           "KHR_texture_basisu"
         ],
-        "triangles": 9542,
-        "vertices": 8612,
+        "triangles": 9530,
+        "vertices": 8608,
         "box": [
           [
-            -0.0446,
+            -0.0128,
             -0.0,
             -0.05
           ],
           [
-            0.0446,
-            0.0392,
+            0.0128,
+            0.0301,
             0.05
           ]
         ],
         "size": [
-          0.0891,
-          0.0392,
+          0.0255,
+          0.0301,
           0.1
         ],
         "textures": [
@@ -42,7 +42,7 @@
             ],
             "levels": 11,
             "supercompression": "Zstandard",
-            "bytes": 987325
+            "bytes": 988384
           }
         ],
         "skinned": true,
@@ -57,32 +57,32 @@
     },
     "mesh.quest.glb": {
       "from": "mesh.quest.glb",
-      "sha256": "757bd6b05877cda0527316128f67b41ad1561ac141f29f99dcfc55d189855636",
+      "sha256": "c4fd164310cf40574f57d53a3ab75de5982fc2d30fdbbd6684480f5326041848",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1427760,
+        "bytes": 1428644,
         "extensionsUsed": [
           "KHR_texture_basisu"
         ],
-        "triangles": 9542,
-        "vertices": 8612,
+        "triangles": 9530,
+        "vertices": 8608,
         "box": [
           [
-            -0.0446,
+            -0.0128,
             -0.0,
             -0.05
           ],
           [
-            0.0446,
-            0.0392,
+            0.0128,
+            0.0301,
             0.05
           ]
         ],
         "size": [
-          0.0891,
-          0.0392,
+          0.0255,
+          0.0301,
           0.1
         ],
         "textures": [
@@ -94,7 +94,7 @@
             ],
             "levels": 11,
             "supercompression": "Zstandard",
-            "bytes": 987325
+            "bytes": 988384
           }
         ],
         "skinned": true,

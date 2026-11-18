@@ -2,20 +2,20 @@
   "files": {
     "mesh.glb": {
       "from": "mesh.glb",
-      "sha256": "14d05962abc5fed0c308a3c99d62e6ed06a3bc748a6f696bfef0b805161530c2",
+      "sha256": "bb51d4820437c9519c9a9c7f4b0546cfb7214e8e60abb570ed7cc0f22b0d40ee",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1337320,
+        "bytes": 1330936,
         "extensionsUsed": [
           "KHR_mesh_quantization",
           "EXT_meshopt_compression",
           "KHR_texture_transform",
           "KHR_texture_basisu"
         ],
-        "triangles": 9569,
-        "vertices": 10382,
+        "triangles": 9550,
+        "vertices": 10438,
         "box": [
           [
             -0.0403,
@@ -58,17 +58,17 @@
     },
     "mesh.quest.glb": {
       "from": "mesh.quest.glb",
-      "sha256": "2f14ba8d5bae8e304bda2c2919b271ff7d621a379d20bd29e6cbc0a2473ae97b",
+      "sha256": "b2099ad789cb330f43195d85d4270f727d4a3e87e7e46d34398ed7095189554e",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1683544,
+        "bytes": 1685608,
         "extensionsUsed": [
           "KHR_texture_basisu"
         ],
-        "triangles": 9569,
-        "vertices": 10384,
+        "triangles": 9550,
+        "vertices": 10438,
         "box": [
           [
             -0.0403,

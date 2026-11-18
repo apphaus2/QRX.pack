@@ -2,12 +2,12 @@
   "files": {
     "mesh.glb": {
       "from": "mesh.glb",
-      "sha256": "72fc1c4420ceac526a1f4cae6b28fc5dc331fd5c58998fbc731ef0bc3080ba32",
+      "sha256": "f1f4f15666013fc4a7837c386fe21b56d8ca491e322cd67dbd31fa04420a908a",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1085712,
+        "bytes": 1084040,
         "extensionsUsed": [
           "KHR_mesh_quantization",
           "EXT_meshopt_compression",
@@ -57,7 +57,7 @@
     },
     "mesh.quest.glb": {
       "from": "mesh.quest.glb",
-      "sha256": "efb50b849f8576365796ea13e9976f735ac3934851326c5d696955b92df52c6e",
+      "sha256": "c4c02e500cad38ee8829fb052e0c2013b05e994fe006617c06fba3fa5d551882",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
