@@ -3108,8 +3108,8 @@
         0.1872,
         0.2549
       ],
-      "bytes": 1029992,
-      "triangles": 9501,
+      "bytes": 1030580,
+      "triangles": 9520,
       "speech": "little",
       "sounds": {
         "call": "sounds/dog-call.wav",
@@ -3118,7 +3118,7 @@
         "curious": "sounds/dog-curious.wav"
       },
       "quest": "models/meadow-sheepdog.quest.glb",
-      "questBytes": 1313608,
+      "questBytes": 1316120,
       "art": true,
       "low": "models/meadow-sheepdog.low.glb",
       "lowBytes": 238108
@@ -4782,12 +4782,12 @@
       "model": "models/wood-mouse.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/wood-mouse.glb",
       "size": [
-        0.0338,
-        0.033,
+        0.0562,
+        0.0359,
         0.11
       ],
-      "bytes": 1223356,
-      "triangles": 9500,
+      "bytes": 1222892,
+      "triangles": 9518,
       "speech": "little",
       "sounds": {
         "call": "sounds/critter-call.wav",
@@ -4796,7 +4796,7 @@
         "curious": "sounds/critter-curious.wav"
       },
       "quest": "models/wood-mouse.quest.glb",
-      "questBytes": 1533060,
+      "questBytes": 1538396,
       "art": true,
       "low": "models/wood-mouse.low.glb",
       "lowBytes": 49872
