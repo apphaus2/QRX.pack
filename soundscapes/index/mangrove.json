@@ -157,6 +157,7 @@
     "species/sounds/bird-call-090-120.wav",
     "species/sounds/crab-call.wav",
     "species/sounds/fish-call.wav",
+    "species/sounds/frog-call.wav",
     "species/sounds/jellyfish-call.wav",
     "species/sounds/ray-call.wav"
   ],
@@ -164,10 +165,10 @@
     "recipe": "96df708c303b4146",
     "toolkit": "02d63be25800cc1e",
     "seconds": {
-      "day": 12.9,
+      "day": 13.1,
       "night": 11.1,
-      "cues": 2.2,
-      "total": 43.9
+      "cues": 2.3,
+      "total": 44.4
     },
     "frames": {
       "dove": 103421,

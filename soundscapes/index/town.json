@@ -190,6 +190,7 @@
     "species/sounds/dog-call.wav",
     "species/sounds/dragonfly-call.wav",
     "species/sounds/fish-call.wav",
+    "species/sounds/frog-call.wav",
     "species/sounds/gecko-call.wav",
     "species/sounds/moth-call.wav",
     "species/sounds/pigeon-call.wav",
@@ -202,10 +203,10 @@
     "recipe": "672d6e90c797cab5",
     "toolkit": "02d63be25800cc1e",
     "seconds": {
-      "day": 11.4,
-      "night": 15.6,
+      "day": 11.6,
+      "night": 15.7,
       "cues": 5.8,
-      "total": 48.5
+      "total": 48.9
     },
     "frames": {
       "pigeon": 90213,

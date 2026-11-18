@@ -140,6 +140,7 @@
   "calls": [
     "species/sounds/beetle-call.wav",
     "species/sounds/butterfly-call.wav",
+    "species/sounds/cow-call.wav",
     "species/sounds/critter-call.wav",
     "species/sounds/dragonfly-call.wav",
     "species/sounds/fish-call.wav",
@@ -150,9 +151,9 @@
     "toolkit": "02d63be25800cc1e",
     "seconds": {
       "day": 11.8,
-      "night": 11.5,
-      "cues": 3.4,
-      "total": 44.3
+      "night": 11.6,
+      "cues": 3.5,
+      "total": 44.8
     },
     "frames": {
       "plover": 111637,

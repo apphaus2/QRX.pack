@@ -159,6 +159,7 @@
     "species/sounds/hare-call.wav",
     "species/sounds/jellyfish-call.wav",
     "species/sounds/moth-call.wav",
+    "species/sounds/otter-call.wav",
     "species/sounds/owl-call-090-120.wav",
     "species/sounds/wolf-call.wav"
   ],
@@ -166,10 +167,10 @@
     "recipe": "f5c58fe993b079a2",
     "toolkit": "02d63be25800cc1e",
     "seconds": {
-      "day": 23.7,
-      "night": 12.9,
-      "cues": 3.7,
-      "total": 55.8
+      "day": 23.9,
+      "night": 13.1,
+      "cues": 3.8,
+      "total": 56.5
     },
     "frames": {
       "bird": 83776,

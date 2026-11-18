@@ -821,6 +821,7 @@
         "species/sounds/dog-call.wav",
         "species/sounds/dragonfly-call.wav",
         "species/sounds/fish-call.wav",
+        "species/sounds/frog-call.wav",
         "species/sounds/gecko-call.wav",
         "species/sounds/moth-call.wav",
         "species/sounds/pigeon-call.wav",
@@ -1155,6 +1156,7 @@
         "species/sounds/hare-call.wav",
         "species/sounds/jellyfish-call.wav",
         "species/sounds/moth-call.wav",
+        "species/sounds/otter-call.wav",
         "species/sounds/owl-call-090-120.wav",
         "species/sounds/wolf-call.wav"
       ]
@@ -1644,6 +1646,7 @@
         "species/sounds/bird-call-090-120.wav",
         "species/sounds/crab-call.wav",
         "species/sounds/fish-call.wav",
+        "species/sounds/frog-call.wav",
         "species/sounds/jellyfish-call.wav",
         "species/sounds/ray-call.wav"
       ]
@@ -1790,6 +1793,7 @@
       "calls": [
         "species/sounds/beetle-call.wav",
         "species/sounds/butterfly-call.wav",
+        "species/sounds/cow-call.wav",
         "species/sounds/critter-call.wav",
         "species/sounds/dragonfly-call.wav",
         "species/sounds/fish-call.wav",
