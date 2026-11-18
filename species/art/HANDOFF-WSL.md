@@ -150,9 +150,11 @@ snails). Each shape has MeshTool's `steps/blender_rig_<shape>.py` and `steps/ble
   (blue-skylark); boreal-emerald's wings render nearly black.
 - **Six more, filed and built** (2026-11-17): tilehop, dice-beetle, bitfrog, musk-ox-calf, mudskipper, seal-pup.
   Briefs written from their definitions (clips from build.py: idle, the habitat's move, the tricks); BiRefNet cutouts;
-  all on seed 1234. dice-beetle is a crawler (a beetle); the rest go through the four-legged rig: bitfrog as a sitting
-  frog, seal-pup with the turtle's style but its own hide (a curl: it has no shell), tilehop (two feet) and mudskipper
-  (two fins) each split front and back by the rig, which reads as a shuffle. Each new species got its drawn .low.glb.
+  all on seed 1234. dice-beetle is a crawler (a beetle); tilehop has its own two-legged shape, `biped` (MeshTool's
+  blender_rig_biped.py and blender_clips_biped.py: Root, Body, Head, Nose, LegL/FootL, LegR/FootR, weights by geometry);
+  the rest go through the four-legged rig: bitfrog as a sitting
+  frog, seal-pup with the turtle's style but its own hide (a curl: it has no shell), and mudskipper
+  (two fins) split front and back by the rig, which reads as a shuffle. Each new species got its drawn .low.glb.
 - **Quest copies** carry 16 bytes after their last quantized animation key (Meta's reader reads 16 there):
   `standard.pad_quest`, run by make.py's pack; build.py's standard faults refuse a copy without it.
 - build.py segfaulted once (exit 139) and passed on the rerun; if it happens again, run it with `-X faulthandler`.

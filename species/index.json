@@ -4676,7 +4676,7 @@
         0.0507,
         0.07
       ],
-      "bytes": 912560,
+      "bytes": 883416,
       "triangles": 9500,
       "speech": "simple",
       "sounds": {
@@ -4686,7 +4686,7 @@
         "curious": "sounds/frog-curious.wav"
       },
       "quest": "models/tilehop.quest.glb",
-      "questBytes": 1139632,
+      "questBytes": 1121320,
       "art": true,
       "low": "models/tilehop.low.glb",
       "lowBytes": 61924
