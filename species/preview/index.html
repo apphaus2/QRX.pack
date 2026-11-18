@@ -91,9 +91,17 @@ const views = [];      // { element, scene, camera, mixer, actions, pivot, id }
 // The art animals' models are meshopt with KTX2 (UASTC) textures: the loader needs both decoders. The KTX2 loader asks
 // a renderer what the GPU takes; a throwaway one answers, then is let go.
 const probe = new THREE.WebGLRenderer();
-const ktx2 = new KTX2Loader().setTranscoderPath("https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/").detectSupport(probe);
-probe.dispose(); probe.forceContextLoss();
-const loader = new GLTFLoader().setKTX2Loader(ktx2).setMeshoptDecoder(MeshoptDecoder);
+// The texture transcoder's workers can stop answering partway through the page (seen 2026-11-17: the page stopped
+// at 9 of 101 with nothing failed), so a model that takes too long gets a fresh loader and fresh workers (fresh()).
+let ktx2, loader;
+function fresh() {
+  if (ktx2) ktx2.dispose();
+  ktx2 = new KTX2Loader().setTranscoderPath("https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/").setWorkerLimit(2).detectSupport(probe);
+  loader = new GLTFLoader().setKTX2Loader(ktx2).setMeshoptDecoder(MeshoptDecoder);
+}
+fresh();
+/** How long one model may take before it is tried again with fresh workers, milliseconds. */
+const MODEL_TIMEOUT = 20000;
 const status = document.getElementById("status");
 let loaded = 0, failed = 0;
 
@@ -130,7 +138,7 @@ function play(view) {
 const queue = [];
 let running = 0;
 function enqueue(job) { queue.push(job); pump(); }
-function pump() { while (running < 4 && queue.length) { running++; queue.shift()().then(() => { running--; pump(); }); } }
+function pump() { while (running < 2 && queue.length) { running++; queue.shift()().then(() => { running--; pump(); }); } }
 function report() { status.textContent = `${loaded} of ${views.length} models loaded` + (failed ? `, ${failed} failed` : ""); }
 
 // An art animal's model is a skinned mesh with 16-bit positions undone by its node: three's box of it comes out wrong,
@@ -174,10 +182,21 @@ function makeView(element, s) {
   enqueue(() => new Promise(done => {
     const file = modelOf(s);
     view.art = file === s.model && s.art;
-    const attempt = left => loader.load("../" + file, gltf => { show(view, gltf); done(); }, undefined, error => {
-      if (left > 0) return setTimeout(() => attempt(left - 1), 400);
-      failed++; element.textContent = "could not load " + file; console.error(file, error); report(); done();
-    });
+    // Each try answers once: loaded, failed, or out of time (then the workers are made afresh before the next try).
+    const attempt = left => {
+      let over = false;
+      const finish = (gltf, error, timedOut) => {
+        if (over) return;
+        over = true;
+        clearTimeout(timer);
+        if (gltf) { show(view, gltf); done(); return; }
+        if (timedOut) fresh();
+        if (left > 0) { setTimeout(() => attempt(left - 1), 400); return; }
+        failed++; element.textContent = "could not load " + file; console.error(file, error); report(); done();
+      };
+      const timer = setTimeout(() => finish(null, new Error("timed out"), true), MODEL_TIMEOUT);
+      loader.load("../" + file, gltf => finish(gltf), undefined, error => finish(null, error, false));
+    };
     attempt(2);
   }));
   return view;
