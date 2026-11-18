@@ -583,7 +583,7 @@
       "colour": "#FA0000",
       "home": "the streets and gardens nearby",
       "description": "Streets, roofs, gardens and park ponds: where most people are.",
-      "weight": 669,
+      "weight": 704,
       "spawns": [
         {
           "species": "alley-cat",
@@ -646,6 +646,12 @@
           "home": true
         },
         {
+          "species": "dice-beetle",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
           "species": "ringtail-raccoon",
           "rarity": "uncommon",
           "weight": 25,
@@ -659,6 +665,12 @@
         },
         {
           "species": "rooftop-gecko",
+          "rarity": "rare",
+          "weight": 10,
+          "home": true
+        },
+        {
+          "species": "tilehop",
           "rarity": "rare",
           "weight": 10,
           "home": true
@@ -781,7 +793,7 @@
       "colour": "#BFE6F2",
       "home": "the snow and ice nearby",
       "description": "Permanent snow, glaciers and the cold water at their edges.",
-      "weight": 200,
+      "weight": 225,
       "spawns": [
         {
           "species": "snow-bunting",
@@ -797,6 +809,12 @@
         },
         {
           "species": "icefish",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "seal-pup",
           "rarity": "uncommon",
           "weight": 25,
           "home": true
@@ -925,7 +943,7 @@
       "colour": "#0096A0",
       "home": "the marsh nearby",
       "description": "Reedbeds, fens and flooded grass.",
-      "weight": 295,
+      "weight": 299,
       "spawns": [
         {
           "species": "pond-frog",
@@ -961,6 +979,12 @@
           "species": "ruby-darter",
           "rarity": "rare",
           "weight": 10,
+          "home": true
+        },
+        {
+          "species": "bitfrog",
+          "rarity": "epic",
+          "weight": 4,
           "home": true
         },
         {
@@ -1009,7 +1033,7 @@
       "colour": "#00CF75",
       "home": "the mangroves nearby",
       "description": "Tidal forest: roots, mud and brackish water.",
-      "weight": 275,
+      "weight": 300,
       "spawns": [
         {
           "species": "mangrove-goby",
@@ -1031,6 +1055,12 @@
         },
         {
           "species": "mud-ray",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "mudskipper",
           "rarity": "uncommon",
           "weight": 25,
           "home": true
@@ -1081,7 +1111,7 @@
       "colour": "#C9C48A",
       "home": "the cold, mossy land nearby",
       "description": "Moss, lichen and bog pools on cold open ground.",
-      "weight": 190,
+      "weight": 215,
       "spawns": [
         {
           "species": "moss-beetle",
@@ -1097,6 +1127,12 @@
         },
         {
           "species": "arctic-skipper",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
+          "species": "musk-ox-calf",
           "rarity": "uncommon",
           "weight": 25,
           "home": true
@@ -1161,7 +1197,7 @@
         "curious": "sounds/cat-curious.wav"
       },
       "quest": "models/alley-cat.quest.glb",
-      "questBytes": 1488296,
+      "questBytes": 1488312,
       "art": true,
       "low": "models/alley-cat.low.glb",
       "lowBytes": 331208
@@ -1197,7 +1233,7 @@
         "curious": "sounds/fish-curious.wav"
       },
       "quest": "models/arctic-char.quest.glb",
-      "questBytes": 1242516,
+      "questBytes": 1242532,
       "art": true,
       "low": "models/arctic-char.low.glb",
       "lowBytes": 38452
@@ -1233,7 +1269,7 @@
         "curious": "sounds/butterfly-call.wav"
       },
       "quest": "models/arctic-skipper.quest.glb",
-      "questBytes": 1487432,
+      "questBytes": 1487448,
       "art": true,
       "low": "models/arctic-skipper.low.glb",
       "lowBytes": 36716
@@ -1269,7 +1305,7 @@
         "curious": "sounds/eel-curious.wav"
       },
       "quest": "models/aurora-eel.quest.glb",
-      "questBytes": 1071568,
+      "questBytes": 1071584,
       "art": true,
       "low": "models/aurora-eel.low.glb",
       "lowBytes": 83428
@@ -1306,7 +1342,7 @@
         "curious": "sounds/gecko-curious.wav"
       },
       "quest": "models/banded-gecko.quest.glb",
-      "questBytes": 1215968,
+      "questBytes": 1215984,
       "art": true,
       "low": "models/banded-gecko.low.glb",
       "lowBytes": 42708
@@ -1343,10 +1379,41 @@
         "curious": "sounds/lizard-curious.wav"
       },
       "quest": "models/bark-skink.quest.glb",
-      "questBytes": 1171720,
+      "questBytes": 1171736,
       "art": true,
       "low": "models/bark-skink.low.glb",
       "lowBytes": 41804
+    },
+    {
+      "id": "bitfrog",
+      "name": "Byte",
+      "species": "Bitfrog",
+      "description": "A frog built of little green blocks. It jumps in square steps and croaks a chiptune.",
+      "biome": "wetland",
+      "biomes": [
+        "wetland"
+      ],
+      "habitat": "ground",
+      "rarity": "epic",
+      "weight": 4,
+      "archetype": "frog",
+      "document": "creatures/bitfrog.json",
+      "model": "models/bitfrog.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/bitfrog.glb",
+      "size": [
+        0.0944,
+        0.0507,
+        0.0768
+      ],
+      "bytes": 66212,
+      "triangles": 1292,
+      "speech": "clear",
+      "sounds": {
+        "call": "sounds/frog-call.wav",
+        "content": "sounds/frog-content.wav",
+        "alarm": "sounds/frog-alarm.wav",
+        "curious": "sounds/frog-curious.wav"
+      }
     },
     {
       "id": "blue-skylark",
@@ -1415,7 +1482,7 @@
         "curious": "sounds/dragonfly-call.wav"
       },
       "quest": "models/boreal-emerald.quest.glb",
-      "questBytes": 1142616,
+      "questBytes": 1142632,
       "art": true,
       "low": "models/boreal-emerald.low.glb",
       "lowBytes": 57228
@@ -1451,7 +1518,7 @@
         "curious": "sounds/beetle-call.wav"
       },
       "quest": "models/bottlecap-beetle.quest.glb",
-      "questBytes": 1544312,
+      "questBytes": 1544328,
       "art": true,
       "low": "models/bottlecap-beetle.low.glb",
       "lowBytes": 39888
@@ -1487,7 +1554,7 @@
         "curious": "sounds/spider-call.wav"
       },
       "quest": "models/bramble-spider.quest.glb",
-      "questBytes": 1734452,
+      "questBytes": 1734468,
       "art": true,
       "low": "models/bramble-spider.low.glb",
       "lowBytes": 40064
@@ -1523,7 +1590,7 @@
         "curious": "sounds/spider-call.wav"
       },
       "quest": "models/cellar-spider.quest.glb",
-      "questBytes": 1270852,
+      "questBytes": 1270868,
       "art": true,
       "low": "models/cellar-spider.low.glb",
       "lowBytes": 38572
@@ -1559,7 +1626,7 @@
         "curious": "sounds/bat-curious.wav"
       },
       "quest": "models/chimney-bat.quest.glb",
-      "questBytes": 1301868,
+      "questBytes": 1301884,
       "art": true,
       "low": "models/chimney-bat.low.glb",
       "lowBytes": 49876
@@ -1667,7 +1734,7 @@
         "curious": "sounds/goat-curious.wav"
       },
       "quest": "models/crag-kid.quest.glb",
-      "questBytes": 1531284,
+      "questBytes": 1531300,
       "art": true,
       "low": "models/crag-kid.low.glb",
       "lowBytes": 209268
@@ -1703,7 +1770,7 @@
         "curious": "sounds/cow-curious.wav"
       },
       "quest": "models/dapple-calf.quest.glb",
-      "questBytes": 1281992,
+      "questBytes": 1282008,
       "art": true,
       "low": "models/dapple-calf.low.glb",
       "lowBytes": 205124
@@ -1739,7 +1806,7 @@
         "curious": "sounds/deer-curious.wav"
       },
       "quest": "models/dapple-fawn.quest.glb",
-      "questBytes": 1425868,
+      "questBytes": 1425884,
       "art": true,
       "low": "models/dapple-fawn.low.glb",
       "lowBytes": 246784
@@ -1775,7 +1842,7 @@
         "curious": "sounds/beetle-call.wav"
       },
       "quest": "models/darkling-beetle.quest.glb",
-      "questBytes": 619432,
+      "questBytes": 619448,
       "art": true,
       "low": "models/darkling-beetle.low.glb",
       "lowBytes": 39072
@@ -1817,6 +1884,37 @@
       "lowBytes": 71468
     },
     {
+      "id": "dice-beetle",
+      "name": "Lucky",
+      "species": "Dice Beetle",
+      "description": "A beetle whose body is an ivory die with black pips. It tumbles face over face to see what it rolls.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beetle",
+      "document": "creatures/dice-beetle.json",
+      "model": "models/dice-beetle.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/dice-beetle.glb",
+      "size": [
+        0.0401,
+        0.0187,
+        0.0513
+      ],
+      "bytes": 37460,
+      "triangles": 668,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/beetle-call.wav",
+        "content": "sounds/beetle-content.wav",
+        "alarm": "sounds/beetle-alarm.wav",
+        "curious": "sounds/beetle-call.wav"
+      }
+    },
+    {
       "id": "dusk-bat",
       "name": "Umber",
       "species": "Dusk Bat",
@@ -1847,7 +1945,7 @@
         "curious": "sounds/bat-curious.wav"
       },
       "quest": "models/dusk-bat.quest.glb",
-      "questBytes": 1127764,
+      "questBytes": 1127780,
       "art": true,
       "low": "models/dusk-bat.low.glb",
       "lowBytes": 49872
@@ -1883,7 +1981,7 @@
         "curious": "sounds/lizard-curious.wav"
       },
       "quest": "models/ember-skink.quest.glb",
-      "questBytes": 1152976,
+      "questBytes": 1152992,
       "art": true,
       "low": "models/ember-skink.low.glb",
       "lowBytes": 47160
@@ -1919,7 +2017,7 @@
         "curious": "sounds/butterfly-call.wav"
       },
       "quest": "models/emerald-swallowtail.quest.glb",
-      "questBytes": 1371500,
+      "questBytes": 1371516,
       "art": true,
       "low": "models/emerald-swallowtail.low.glb",
       "lowBytes": 40608
@@ -1955,7 +2053,7 @@
         "curious": "sounds/pig-curious.wav"
       },
       "quest": "models/farmyard-piglet.quest.glb",
-      "questBytes": 1322888,
+      "questBytes": 1322904,
       "art": true,
       "low": "models/farmyard-piglet.low.glb",
       "lowBytes": 177200
@@ -1993,7 +2091,7 @@
         "curious": "sounds/bee-curious.wav"
       },
       "quest": "models/field-bee.quest.glb",
-      "questBytes": 1350116,
+      "questBytes": 1350132,
       "art": true,
       "low": "models/field-bee.low.glb",
       "lowBytes": 41748
@@ -2029,7 +2127,7 @@
         "curious": "sounds/fish-curious.wav"
       },
       "quest": "models/fountain-koi.quest.glb",
-      "questBytes": 1152404,
+      "questBytes": 1152420,
       "art": true,
       "low": "models/fountain-koi.low.glb",
       "lowBytes": 39812
@@ -2065,7 +2163,7 @@
         "curious": "sounds/jellyfish-call.wav"
       },
       "quest": "models/frost-jelly.quest.glb",
-      "questBytes": 1401820,
+      "questBytes": 1401836,
       "art": true,
       "low": "models/frost-jelly.low.glb",
       "lowBytes": 81980
@@ -2101,7 +2199,7 @@
         "curious": "sounds/wolf-curious.wav"
       },
       "quest": "models/frost-wolf-pup.quest.glb",
-      "questBytes": 1486664,
+      "questBytes": 1486680,
       "art": true,
       "low": "models/frost-wolf-pup.low.glb",
       "lowBytes": 411224
@@ -2138,7 +2236,7 @@
         "curious": "sounds/snail-curious.wav"
       },
       "quest": "models/garden-snail.quest.glb",
-      "questBytes": 1520520,
+      "questBytes": 1520536,
       "art": true,
       "low": "models/garden-snail.low.glb",
       "lowBytes": 44748
@@ -2210,7 +2308,7 @@
         "curious": "sounds/butterfly-call.wav"
       },
       "quest": "models/glasswing.quest.glb",
-      "questBytes": 1531768,
+      "questBytes": 1531784,
       "art": true,
       "low": "models/glasswing.low.glb",
       "lowBytes": 41048
@@ -2282,7 +2380,7 @@
         "curious": "sounds/hare-curious-090-120.wav"
       },
       "quest": "models/golden-harvest-hare.quest.glb",
-      "questBytes": 1333404,
+      "questBytes": 1333420,
       "art": true,
       "low": "models/golden-harvest-hare.low.glb",
       "lowBytes": 65504
@@ -2354,7 +2452,7 @@
         "curious": "sounds/moth-call.wav"
       },
       "quest": "models/harvest-moon-moth.quest.glb",
-      "questBytes": 1458348,
+      "questBytes": 1458364,
       "art": true,
       "low": "models/harvest-moon-moth.low.glb",
       "lowBytes": 42292
@@ -2390,7 +2488,7 @@
         "curious": "sounds/critter-curious.wav"
       },
       "quest": "models/harvest-mouse.quest.glb",
-      "questBytes": 1145948,
+      "questBytes": 1145964,
       "art": true,
       "low": "models/harvest-mouse.low.glb",
       "lowBytes": 51332
@@ -2464,7 +2562,7 @@
         "curious": "sounds/bee-curious-090-120.wav"
       },
       "quest": "models/honeycrown-bee.quest.glb",
-      "questBytes": 1444168,
+      "questBytes": 1444184,
       "art": true,
       "low": "models/honeycrown-bee.low.glb",
       "lowBytes": 62388
@@ -2500,7 +2598,7 @@
         "curious": "sounds/bear-curious.wav"
       },
       "quest": "models/honeyglow-bear-cub.quest.glb",
-      "questBytes": 1497212,
+      "questBytes": 1497228,
       "art": true,
       "low": "models/honeyglow-bear-cub.low.glb",
       "lowBytes": 262764
@@ -2537,7 +2635,7 @@
         "curious": "sounds/critter-curious.wav"
       },
       "quest": "models/house-mouse.quest.glb",
-      "questBytes": 1398652,
+      "questBytes": 1398668,
       "art": true,
       "low": "models/house-mouse.low.glb",
       "lowBytes": 48332
@@ -2573,7 +2671,7 @@
         "curious": "sounds/fish-curious.wav"
       },
       "quest": "models/icefish.quest.glb",
-      "questBytes": 1183828,
+      "questBytes": 1183844,
       "art": true,
       "low": "models/icefish.low.glb",
       "lowBytes": 45208
@@ -2609,7 +2707,7 @@
         "curious": "sounds/turtle-curious-090-120.wav"
       },
       "quest": "models/jade-turtle.quest.glb",
-      "questBytes": 1569744,
+      "questBytes": 1569760,
       "art": true,
       "low": "models/jade-turtle.low.glb",
       "lowBytes": 52064
@@ -2645,7 +2743,7 @@
         "curious": "sounds/moth-call.wav"
       },
       "quest": "models/lamp-moth.quest.glb",
-      "questBytes": 1493708,
+      "questBytes": 1493724,
       "art": true,
       "low": "models/lamp-moth.low.glb",
       "lowBytes": 37808
@@ -2681,7 +2779,7 @@
         "curious": "sounds/jellyfish-call.wav"
       },
       "quest": "models/lantern-jelly.quest.glb",
-      "questBytes": 2021012,
+      "questBytes": 2021028,
       "art": true,
       "low": "models/lantern-jelly.low.glb",
       "lowBytes": 71092
@@ -2717,7 +2815,7 @@
         "curious": "sounds/critter-curious.wav"
       },
       "quest": "models/longfoot-jerboa.quest.glb",
-      "questBytes": 1683528,
+      "questBytes": 1683544,
       "art": true,
       "low": "models/longfoot-jerboa.low.glb",
       "lowBytes": 59100
@@ -2753,7 +2851,7 @@
         "curious": "sounds/fish-curious.wav"
       },
       "quest": "models/mangrove-goby.quest.glb",
-      "questBytes": 1339524,
+      "questBytes": 1339540,
       "art": true,
       "low": "models/mangrove-goby.low.glb",
       "lowBytes": 36384
@@ -2826,7 +2924,7 @@
         "curious": "sounds/beast-curious.wav"
       },
       "quest": "models/marsh-capybara.quest.glb",
-      "questBytes": 1585904,
+      "questBytes": 1585920,
       "art": true,
       "low": "models/marsh-capybara.low.glb",
       "lowBytes": 259624
@@ -2863,7 +2961,7 @@
         "curious": "sounds/eel-curious.wav"
       },
       "quest": "models/marsh-eel.quest.glb",
-      "questBytes": 1303748,
+      "questBytes": 1303764,
       "art": true,
       "low": "models/marsh-eel.low.glb",
       "lowBytes": 60196
@@ -2899,7 +2997,7 @@
         "curious": "sounds/lizard-curious.wav"
       },
       "quest": "models/marsh-newt.quest.glb",
-      "questBytes": 1294720,
+      "questBytes": 1294736,
       "art": true,
       "low": "models/marsh-newt.low.glb",
       "lowBytes": 39336
@@ -2937,7 +3035,7 @@
         "curious": "sounds/hare-curious.wav"
       },
       "quest": "models/meadow-cottontail.quest.glb",
-      "questBytes": 1721388,
+      "questBytes": 1721404,
       "art": true,
       "low": "models/meadow-cottontail.low.glb",
       "lowBytes": 53640
@@ -2973,7 +3071,7 @@
         "curious": "sounds/horse-curious.wav"
       },
       "quest": "models/meadow-pony.quest.glb",
-      "questBytes": 1676044,
+      "questBytes": 1676060,
       "art": true,
       "low": "models/meadow-pony.low.glb",
       "lowBytes": 391696
@@ -3010,7 +3108,7 @@
         "curious": "sounds/dog-curious.wav"
       },
       "quest": "models/meadow-sheepdog.quest.glb",
-      "questBytes": 1313592,
+      "questBytes": 1313608,
       "art": true,
       "low": "models/meadow-sheepdog.low.glb",
       "lowBytes": 238108
@@ -3047,7 +3145,7 @@
         "curious": "sounds/snail-curious.wav"
       },
       "quest": "models/meadow-snail.quest.glb",
-      "questBytes": 1239948,
+      "questBytes": 1239964,
       "art": true,
       "low": "models/meadow-snail.low.glb",
       "lowBytes": 39524
@@ -3084,7 +3182,7 @@
         "curious": "sounds/critter-curious.wav"
       },
       "quest": "models/meadow-vole.quest.glb",
-      "questBytes": 1427744,
+      "questBytes": 1427760,
       "art": true,
       "low": "models/meadow-vole.low.glb",
       "lowBytes": 51292
@@ -3122,7 +3220,7 @@
         "curious": "sounds/butterfly-call.wav"
       },
       "quest": "models/meadow-white.quest.glb",
-      "questBytes": 1502424,
+      "questBytes": 1502440,
       "art": true,
       "low": "models/meadow-white.low.glb",
       "lowBytes": 34620
@@ -3159,7 +3257,7 @@
         "curious": "sounds/jellyfish-call.wav"
       },
       "quest": "models/moon-jelly.quest.glb",
-      "questBytes": 1607756,
+      "questBytes": 1607772,
       "art": true,
       "low": "models/moon-jelly.low.glb",
       "lowBytes": 57156
@@ -3195,7 +3293,7 @@
         "curious": "sounds/cat-curious.wav"
       },
       "quest": "models/moonlit-cat.quest.glb",
-      "questBytes": 1216820,
+      "questBytes": 1216836,
       "art": true,
       "low": "models/moonlit-cat.low.glb",
       "lowBytes": 333016
@@ -3231,7 +3329,7 @@
         "curious": "sounds/beetle-call.wav"
       },
       "quest": "models/moss-beetle.quest.glb",
-      "questBytes": 1621460,
+      "questBytes": 1621476,
       "art": true,
       "low": "models/moss-beetle.low.glb",
       "lowBytes": 37332
@@ -3267,7 +3365,7 @@
         "curious": "sounds/beetle-call.wav"
       },
       "quest": "models/mossglow-stag-beetle.quest.glb",
-      "questBytes": 1572808,
+      "questBytes": 1572824,
       "art": true,
       "low": "models/mossglow-stag-beetle.low.glb",
       "lowBytes": 43636
@@ -3304,7 +3402,7 @@
         "curious": "sounds/crab-curious.wav"
       },
       "quest": "models/mud-crab.quest.glb",
-      "questBytes": 1505592,
+      "questBytes": 1505608,
       "art": true,
       "low": "models/mud-crab.low.glb",
       "lowBytes": 48404
@@ -3340,10 +3438,72 @@
         "curious": "sounds/ray-call.wav"
       },
       "quest": "models/mud-ray.quest.glb",
-      "questBytes": 1016012,
+      "questBytes": 1016028,
       "art": true,
       "low": "models/mud-ray.low.glb",
       "lowBytes": 52652
+    },
+    {
+      "id": "mudskipper",
+      "name": "Goggles",
+      "species": "Mudskipper",
+      "description": "A speckled fish that lives out of the water, props itself up on its fins and skips across the mud.",
+      "biome": "mangrove",
+      "biomes": [
+        "mangrove"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "frog",
+      "document": "creatures/mudskipper.json",
+      "model": "models/mudskipper.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/mudskipper.glb",
+      "size": [
+        0.1259,
+        0.0534,
+        0.1024
+      ],
+      "bytes": 58000,
+      "triangles": 1128,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/frog-call.wav",
+        "content": "sounds/frog-content.wav",
+        "alarm": "sounds/frog-alarm.wav",
+        "curious": "sounds/frog-curious.wav"
+      }
+    },
+    {
+      "id": "musk-ox-calf",
+      "name": "Tufty",
+      "species": "Musk Ox Calf",
+      "description": "A round, shaggy calf with a long dark coat, a pale saddle and two stubby horn buds.",
+      "biome": "tundra",
+      "biomes": [
+        "tundra"
+      ],
+      "habitat": "ground",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "beast",
+      "document": "creatures/musk-ox-calf.json",
+      "model": "models/musk-ox-calf.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/musk-ox-calf.glb",
+      "size": [
+        0.0784,
+        0.1615,
+        0.2627
+      ],
+      "bytes": 354824,
+      "triangles": 17280,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/cow-call.wav",
+        "content": "sounds/cow-content.wav",
+        "alarm": "sounds/cow-alarm.wav",
+        "curious": "sounds/cow-curious.wav"
+      }
     },
     {
       "id": "neon-darter",
@@ -3376,7 +3536,7 @@
         "curious": "sounds/dragonfly-call.wav"
       },
       "quest": "models/neon-darter.quest.glb",
-      "questBytes": 1279484,
+      "questBytes": 1279500,
       "art": true,
       "low": "models/neon-darter.low.glb",
       "lowBytes": 56960
@@ -3412,7 +3572,7 @@
         "curious": "sounds/moth-call.wav"
       },
       "quest": "models/nightshade-moth.quest.glb",
-      "questBytes": 1521640,
+      "questBytes": 1521656,
       "art": true,
       "low": "models/nightshade-moth.low.glb",
       "lowBytes": 41772
@@ -3448,7 +3608,7 @@
         "curious": "sounds/fox-curious-090-120.wav"
       },
       "quest": "models/northlight-fox.quest.glb",
-      "questBytes": 1079484,
+      "questBytes": 1079500,
       "art": true,
       "low": "models/northlight-fox.low.glb",
       "lowBytes": 56584
@@ -3484,7 +3644,7 @@
         "curious": "sounds/crab-curious.wav"
       },
       "quest": "models/one-claw-crab.quest.glb",
-      "questBytes": 1687352,
+      "questBytes": 1687368,
       "art": true,
       "low": "models/one-claw-crab.low.glb",
       "lowBytes": 53148
@@ -3521,7 +3681,7 @@
         "curious": "sounds/frog-curious.wav"
       },
       "quest": "models/pond-frog.quest.glb",
-      "questBytes": 1506268,
+      "questBytes": 1506284,
       "art": true,
       "low": "models/pond-frog.low.glb",
       "lowBytes": 56828
@@ -3557,7 +3717,7 @@
         "curious": "sounds/fish-curious.wav"
       },
       "quest": "models/pond-goldfish.quest.glb",
-      "questBytes": 1314356,
+      "questBytes": 1314372,
       "art": true,
       "low": "models/pond-goldfish.low.glb",
       "lowBytes": 34180
@@ -3595,7 +3755,7 @@
         "curious": "sounds/dragonfly-call.wav"
       },
       "quest": "models/pond-skimmer.quest.glb",
-      "questBytes": 1608140,
+      "questBytes": 1608156,
       "art": true,
       "low": "models/pond-skimmer.low.glb",
       "lowBytes": 45596
@@ -3632,7 +3792,7 @@
         "curious": "sounds/turtle-curious.wav"
       },
       "quest": "models/pond-turtle.quest.glb",
-      "questBytes": 1629612,
+      "questBytes": 1629628,
       "art": true,
       "low": "models/pond-turtle.low.glb",
       "lowBytes": 44576
@@ -3669,7 +3829,7 @@
         "curious": "sounds/squirrel-curious.wav"
       },
       "quest": "models/red-squirrel.quest.glb",
-      "questBytes": 1489648,
+      "questBytes": 1489664,
       "art": true,
       "low": "models/red-squirrel.low.glb",
       "lowBytes": 49156
@@ -3706,7 +3866,7 @@
         "curious": "sounds/seahorse-curious.wav"
       },
       "quest": "models/reed-seahorse.quest.glb",
-      "questBytes": 1589244,
+      "questBytes": 1589260,
       "art": true,
       "low": "models/reed-seahorse.low.glb",
       "lowBytes": 52360
@@ -3743,7 +3903,7 @@
         "curious": "sounds/raccoon-curious.wav"
       },
       "quest": "models/ringtail-raccoon.quest.glb",
-      "questBytes": 1798404,
+      "questBytes": 1798420,
       "art": true,
       "low": "models/ringtail-raccoon.low.glb",
       "lowBytes": 235160
@@ -3780,7 +3940,7 @@
         "curious": "sounds/otter-curious.wav"
       },
       "quest": "models/river-otter.quest.glb",
-      "questBytes": 1447464,
+      "questBytes": 1447480,
       "art": true,
       "low": "models/river-otter.low.glb",
       "lowBytes": 284164
@@ -3816,7 +3976,7 @@
         "curious": "sounds/scorpion-call.wav"
       },
       "quest": "models/rock-scorpion.quest.glb",
-      "questBytes": 1532584,
+      "questBytes": 1532600,
       "art": true,
       "low": "models/rock-scorpion.low.glb",
       "lowBytes": 71812
@@ -3852,7 +4012,7 @@
         "curious": "sounds/gecko-curious.wav"
       },
       "quest": "models/rooftop-gecko.quest.glb",
-      "questBytes": 1256296,
+      "questBytes": 1256312,
       "art": true,
       "low": "models/rooftop-gecko.low.glb",
       "lowBytes": 43048
@@ -3888,7 +4048,7 @@
         "curious": "sounds/dragonfly-call.wav"
       },
       "quest": "models/ruby-darter.quest.glb",
-      "questBytes": 1413100,
+      "questBytes": 1413116,
       "art": true,
       "low": "models/ruby-darter.low.glb",
       "lowBytes": 56764
@@ -3925,7 +4085,7 @@
         "curious": "sounds/lizard-curious.wav"
       },
       "quest": "models/sand-lizard.quest.glb",
-      "questBytes": 1047384,
+      "questBytes": 1047400,
       "art": true,
       "low": "models/sand-lizard.low.glb",
       "lowBytes": 38836
@@ -3962,10 +4122,41 @@
         "curious": "sounds/fish-curious.wav"
       },
       "quest": "models/sand-minnow.quest.glb",
-      "questBytes": 1229924,
+      "questBytes": 1229940,
       "art": true,
       "low": "models/sand-minnow.low.glb",
       "lowBytes": 36720
+    },
+    {
+      "id": "seal-pup",
+      "name": "Snowdrop",
+      "species": "Seal Pup",
+      "description": "A fluffy white seal pup with big dark eyes, lying on the snow at the edge of the ice.",
+      "biome": "snow",
+      "biomes": [
+        "snow"
+      ],
+      "habitat": "water",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "turtle",
+      "document": "creatures/seal-pup.json",
+      "model": "models/seal-pup.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/seal-pup.glb",
+      "size": [
+        0.3592,
+        0.0664,
+        0.2935
+      ],
+      "bytes": 41752,
+      "triangles": 910,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/otter-call.wav",
+        "content": "sounds/otter-content.wav",
+        "alarm": "sounds/otter-alarm.wav",
+        "curious": "sounds/otter-curious.wav"
+      }
     },
     {
       "id": "snow-bunting",
@@ -4035,7 +4226,7 @@
         "curious": "sounds/moth-call.wav"
       },
       "quest": "models/snow-moth.quest.glb",
-      "questBytes": 1347624,
+      "questBytes": 1347640,
       "art": true,
       "low": "models/snow-moth.low.glb",
       "lowBytes": 37592
@@ -4071,7 +4262,7 @@
         "curious": "sounds/hare-curious.wav"
       },
       "quest": "models/snowshoe-hare.quest.glb",
-      "questBytes": 1059228,
+      "questBytes": 1059244,
       "art": true,
       "low": "models/snowshoe-hare.low.glb",
       "lowBytes": 57604
@@ -4107,7 +4298,7 @@
         "curious": "sounds/ray-call.wav"
       },
       "quest": "models/speckled-ray.quest.glb",
-      "questBytes": 984964,
+      "questBytes": 984980,
       "art": true,
       "low": "models/speckled-ray.low.glb",
       "lowBytes": 53948
@@ -4145,7 +4336,7 @@
         "curious": "sounds/beetle-call.wav"
       },
       "quest": "models/spotted-garden-beetle.quest.glb",
-      "questBytes": 1117904,
+      "questBytes": 1117920,
       "art": true,
       "low": "models/spotted-garden-beetle.low.glb",
       "lowBytes": 37136
@@ -4181,7 +4372,7 @@
         "curious": "sounds/ray-call-090-120.wav"
       },
       "quest": "models/starlit-ray.quest.glb",
-      "questBytes": 876448,
+      "questBytes": 876464,
       "art": true,
       "low": "models/starlit-ray.low.glb",
       "lowBytes": 62116
@@ -4254,7 +4445,7 @@
         "curious": "sounds/dog-curious.wav"
       },
       "quest": "models/street-terrier.quest.glb",
-      "questBytes": 1812068,
+      "questBytes": 1812084,
       "art": true,
       "low": "models/street-terrier.low.glb",
       "lowBytes": 207232
@@ -4290,7 +4481,7 @@
         "curious": "sounds/bear-curious.wav"
       },
       "quest": "models/stripe-badger.quest.glb",
-      "questBytes": 1262172,
+      "questBytes": 1262188,
       "art": true,
       "low": "models/stripe-badger.low.glb",
       "lowBytes": 243600
@@ -4326,7 +4517,7 @@
         "curious": "sounds/beetle-call-090-120.wav"
       },
       "quest": "models/sun-scarab.quest.glb",
-      "questBytes": 1896344,
+      "questBytes": 1896360,
       "art": true,
       "low": "models/sun-scarab.low.glb",
       "lowBytes": 44700
@@ -4398,7 +4589,7 @@
         "curious": "sounds/hedgehog-curious.wav"
       },
       "quest": "models/thornback-hedgehog.quest.glb",
-      "questBytes": 1871584,
+      "questBytes": 1871600,
       "art": true,
       "low": "models/thornback-hedgehog.low.glb",
       "lowBytes": 63808
@@ -4434,10 +4625,41 @@
         "curious": "sounds/seahorse-curious.wav"
       },
       "quest": "models/thorny-seahorse.quest.glb",
-      "questBytes": 1214984,
+      "questBytes": 1215000,
       "art": true,
       "low": "models/thorny-seahorse.low.glb",
       "lowBytes": 61396
+    },
+    {
+      "id": "tilehop",
+      "name": "Boop",
+      "species": "Tilehop",
+      "description": "A fuzzy teal ball on two big feet, with a long tube nose. Every paving tile it lands on glows.",
+      "biome": "town",
+      "biomes": [
+        "town"
+      ],
+      "habitat": "ground",
+      "rarity": "rare",
+      "weight": 10,
+      "archetype": "frog",
+      "document": "creatures/tilehop.json",
+      "model": "models/tilehop.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/tilehop.glb",
+      "size": [
+        0.0734,
+        0.0394,
+        0.0597
+      ],
+      "bytes": 61924,
+      "triangles": 1292,
+      "speech": "simple",
+      "sounds": {
+        "call": "sounds/frog-call.wav",
+        "content": "sounds/frog-content.wav",
+        "alarm": "sounds/frog-alarm.wav",
+        "curious": "sounds/frog-curious.wav"
+      }
     },
     {
       "id": "tundra-lemming",
@@ -4471,7 +4693,7 @@
         "curious": "sounds/critter-curious.wav"
       },
       "quest": "models/tundra-lemming.quest.glb",
-      "questBytes": 1404036,
+      "questBytes": 1404052,
       "art": true,
       "low": "models/tundra-lemming.low.glb",
       "lowBytes": 46872
@@ -4507,7 +4729,7 @@
         "curious": "sounds/fish-curious.wav"
       },
       "quest": "models/violet-fantail.quest.glb",
-      "questBytes": 1239376,
+      "questBytes": 1239392,
       "art": true,
       "low": "models/violet-fantail.low.glb",
       "lowBytes": 41688
@@ -4544,7 +4766,7 @@
         "curious": "sounds/critter-curious.wav"
       },
       "quest": "models/wood-mouse.quest.glb",
-      "questBytes": 1533044,
+      "questBytes": 1533060,
       "art": true,
       "low": "models/wood-mouse.low.glb",
       "lowBytes": 49872
@@ -4581,7 +4803,7 @@
         "curious": "sounds/sheep-curious.wav"
       },
       "quest": "models/woolly-lamb.quest.glb",
-      "questBytes": 1386260,
+      "questBytes": 1386276,
       "art": true,
       "low": "models/woolly-lamb.low.glb",
       "lowBytes": 240992

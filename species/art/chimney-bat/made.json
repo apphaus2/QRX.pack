@@ -57,12 +57,12 @@
     },
     "mesh.quest.glb": {
       "from": "mesh.quest.glb",
-      "sha256": "93d25cba257d28e708b76a5d21b0a45980611a938fec77b1fa33dc10d1f13517",
+      "sha256": "5bc3ef599393bd53b6bc046e282e7d955eaf16c778b851273375fd5b0a6300f6",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1301868,
+        "bytes": 1301884,
         "extensionsUsed": [
           "KHR_texture_basisu"
         ],

@@ -2,7 +2,7 @@
 
 **Spoilers.** This lists every creature's tricks, which players are meant to find out for themselves. The apps never show it.
 
-Written by `build.py` from the definitions; do not edit. 95 species in 11 biomes.
+Written by `build.py` from the definitions; do not edit. 101 species in 11 biomes.
 
 | biome | WorldCover | at home | common | uncommon | rare | epic | legendary | water | ground | air | visiting |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -10,13 +10,13 @@ Written by `build.py` from the definitions; do not edit. 95 species in 11 biomes
 | Scrub (`shrub`) | 20 Shrubland | 7 | 2 | 2 | 1 | 1 | 1 | 0 | 5 | 2 | 4 |
 | Meadow (`meadow`) | 30 Grassland | 8 | 3 | 1 | 2 | 1 | 1 | 0 | 4 | 4 | 6 |
 | Farmland (`farm`) | 40 Cropland | 10 | 3 | 4 | 1 | 1 | 1 | 0 | 7 | 3 | 7 |
-| Town (`town`) | 50 Built-up | 16 | 7 | 4 | 2 | 2 | 1 | 2 | 9 | 5 | 4 |
+| Town (`town`) | 50 Built-up | 18 | 7 | 5 | 3 | 2 | 1 | 2 | 11 | 5 | 4 |
 | Barrens (`barren`) | 60 Bare / sparse vegetation | 8 | 2 | 3 | 1 | 1 | 1 | 0 | 7 | 1 | 1 |
-| Snowfield (`snow`) | 70 Snow and ice | 7 | 2 | 1 | 2 | 1 | 1 | 2 | 2 | 3 | 1 |
+| Snowfield (`snow`) | 70 Snow and ice | 8 | 2 | 2 | 2 | 1 | 1 | 3 | 2 | 3 | 1 |
 | Open Water (`water`) | 80 Permanent water bodies | 9 | 3 | 2 | 2 | 1 | 1 | 9 | 0 | 0 | 3 |
-| Marsh (`wetland`) | 90 Herbaceous wetland | 8 | 2 | 3 | 1 | 1 | 1 | 2 | 4 | 2 | 4 |
-| Mangrove (`mangrove`) | 95 Mangroves | 7 | 2 | 2 | 1 | 1 | 1 | 3 | 3 | 1 | 3 |
-| Tundra (`tundra`) | 100 Moss and lichen | 6 | 2 | 1 | 1 | 1 | 1 | 1 | 3 | 2 | 1 |
+| Marsh (`wetland`) | 90 Herbaceous wetland | 9 | 2 | 3 | 1 | 2 | 1 | 2 | 5 | 2 | 4 |
+| Mangrove (`mangrove`) | 95 Mangroves | 8 | 2 | 3 | 1 | 1 | 1 | 3 | 4 | 1 | 3 |
+| Tundra (`tundra`) | 100 Moss and lichen | 7 | 2 | 2 | 1 | 1 | 1 | 1 | 4 | 2 | 1 |
 
 ## Forest (`forest`, WorldCover 10: Tree cover)
 
@@ -94,24 +94,26 @@ Streets, roofs, gardens and park ponds: where most people are.
 
 | creature | species | rarity | habitat | archetype | speaks | tricks | chance here | also found in |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Tabby | Alley Cat (`alley-cat`) | common | ground | beast | little | come, stay, speak, hide, shake, roll | 8.97% | farm |
-| Drizzle | Garden Snail (`garden-snail`) | common | ground | snail | little | come, stay, speak, hide, dance | 8.97% | meadow |
-| Crumb | House Mouse (`house-mouse`) | common | ground | critter | little | come, stay, speak, hide, jump, spin | 8.97% | farm |
-| Flicker | Lamp Moth (`lamp-moth`) | common | air | butterfly | little | come, stay, speak, hide, spin, dance | 8.97% |  |
-| Tango | Pond Goldfish (`pond-goldfish`) | common | water | fish | little | come, stay, speak, hide, jump, spin | 8.97% |  |
-| Cobble | Street Pigeon (`street-pigeon`) | common | air | bird | little | come, stay, speak, hide, jump, spin | 8.97% |  |
-| Scout | Street Terrier (`street-terrier`) | common | ground | beast | little | come, stay, speak, hide, shake, roll | 8.97% | farm |
-| Clink | Bottlecap Beetle (`bottlecap-beetle`) | uncommon | ground | beetle | little | come, stay, speak, hide, spin, dead | 3.74% |  |
-| Jet | Cellar Spider (`cellar-spider`) | uncommon | ground | spider | little | come, stay, speak, hide, jump, spin | 3.74% |  |
-| Soot | Chimney Bat (`chimney-bat`) | uncommon | air | bat | little | come, stay, speak, hide, spin, flip | 3.74% |  |
-| Bandit | Ringtail Raccoon (`ringtail-raccoon`) | uncommon | ground | beast | little | come, stay, speak, hide, shake, roll | 3.74% | forest |
-| Brocade | Fountain Koi (`fountain-koi`) | rare | water | fish | clear | come, stay, speak, hide, jump, spin, flip | 1.49% |  |
-| Copper | Rooftop Gecko (`rooftop-gecko`) | rare | ground | lizard | simple | come, stay, speak, hide, spin, pushup, roll | 1.49% |  |
-| Midnight | Moonlit Cat (`moonlit-cat`) | epic | ground | beast | clear | come, stay, speak, hide, shake, roll, bow, jump | 0.60% |  |
-| Signal | Neon Darter (`neon-darter`) | epic | air | dragonfly | clear | come, stay, speak, hide, spin, flip, dance | 0.60% |  |
-| Regent | Clocktower Raven (`clocktower-raven`) | legendary | air | bird | thoughtful | come, stay, speak, hide, jump, spin, flip, bow, **time** | 0.15% |  |
+| Tabby | Alley Cat (`alley-cat`) | common | ground | beast | little | come, stay, speak, hide, shake, roll | 8.52% | farm |
+| Drizzle | Garden Snail (`garden-snail`) | common | ground | snail | little | come, stay, speak, hide, dance | 8.52% | meadow |
+| Crumb | House Mouse (`house-mouse`) | common | ground | critter | little | come, stay, speak, hide, jump, spin | 8.52% | farm |
+| Flicker | Lamp Moth (`lamp-moth`) | common | air | butterfly | little | come, stay, speak, hide, spin, dance | 8.52% |  |
+| Tango | Pond Goldfish (`pond-goldfish`) | common | water | fish | little | come, stay, speak, hide, jump, spin | 8.52% |  |
+| Cobble | Street Pigeon (`street-pigeon`) | common | air | bird | little | come, stay, speak, hide, jump, spin | 8.52% |  |
+| Scout | Street Terrier (`street-terrier`) | common | ground | beast | little | come, stay, speak, hide, shake, roll | 8.52% | farm |
+| Clink | Bottlecap Beetle (`bottlecap-beetle`) | uncommon | ground | beetle | little | come, stay, speak, hide, spin, dead | 3.55% |  |
+| Jet | Cellar Spider (`cellar-spider`) | uncommon | ground | spider | little | come, stay, speak, hide, jump, spin | 3.55% |  |
+| Soot | Chimney Bat (`chimney-bat`) | uncommon | air | bat | little | come, stay, speak, hide, spin, flip | 3.55% |  |
+| Lucky | Dice Beetle (`dice-beetle`) | uncommon | ground | beetle | little | come, stay, speak, hide, spin, dead | 3.55% |  |
+| Bandit | Ringtail Raccoon (`ringtail-raccoon`) | uncommon | ground | beast | little | come, stay, speak, hide, shake, roll | 3.55% | forest |
+| Brocade | Fountain Koi (`fountain-koi`) | rare | water | fish | clear | come, stay, speak, hide, jump, spin, flip | 1.42% |  |
+| Copper | Rooftop Gecko (`rooftop-gecko`) | rare | ground | lizard | simple | come, stay, speak, hide, spin, pushup, roll | 1.42% |  |
+| Boop | Tilehop (`tilehop`) | rare | ground | frog | simple | come, stay, speak, hide, jump, flip, puff | 1.42% |  |
+| Midnight | Moonlit Cat (`moonlit-cat`) | epic | ground | beast | clear | come, stay, speak, hide, shake, roll, bow, jump | 0.57% |  |
+| Signal | Neon Darter (`neon-darter`) | epic | air | dragonfly | clear | come, stay, speak, hide, spin, flip, dance | 0.57% |  |
+| Regent | Clocktower Raven (`clocktower-raven`) | legendary | air | bird | thoughtful | come, stay, speak, hide, jump, spin, flip, bow, **time** | 0.14% |  |
 
-Visiting from other biomes: Barley (farm, 4.48%), Petal (meadow, 4.48%), Conker (forest, 4.48%), Button (farm, 4.48%).
+Visiting from other biomes: Barley (farm, 4.26%), Petal (meadow, 4.26%), Conker (forest, 4.26%), Button (farm, 4.26%).
 
 ## Barrens (`barren`, WorldCover 60: Bare / sparse vegetation)
 
@@ -136,15 +138,16 @@ Permanent snow, glaciers and the cold water at their edges.
 
 | creature | species | rarity | habitat | archetype | speaks | tricks | chance here | also found in |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Flurry | Snow Bunting (`snow-bunting`) | common | air | bird | little | come, stay, speak, hide, jump, spin | 30.00% | tundra |
-| Drift | Snow Moth (`snow-moth`) | common | air | butterfly | little | come, stay, speak, hide, spin, dance | 30.00% |  |
-| Glint | Icefish (`icefish`) | uncommon | water | fish | little | come, stay, speak, hide, jump, spin | 12.50% |  |
-| Sleet | Frost Wolf Pup (`frost-wolf-pup`) | rare | ground | beast | simple | come, stay, speak, hide, shake, roll, bow | 5.00% |  |
-| Mitten | Snowshoe Hare (`snowshoe-hare`) | rare | ground | critter | simple | come, stay, speak, hide, jump, spin, roll | 5.00% |  |
-| Shiver | Frost Jelly (`frost-jelly`) | epic | water | jellyfish | simple | come, stay, speak, hide, pulse, spin, dance, jump | 2.00% |  |
-| Boreal | Glacier Owl (`glacier-owl`) | legendary | air | bird | thoughtful | come, stay, speak, hide, headturn, spin, bow, dance, **snow** | 0.50% |  |
+| Flurry | Snow Bunting (`snow-bunting`) | common | air | bird | little | come, stay, speak, hide, jump, spin | 26.67% | tundra |
+| Drift | Snow Moth (`snow-moth`) | common | air | butterfly | little | come, stay, speak, hide, spin, dance | 26.67% |  |
+| Glint | Icefish (`icefish`) | uncommon | water | fish | little | come, stay, speak, hide, jump, spin | 11.11% |  |
+| Snowdrop | Seal Pup (`seal-pup`) | uncommon | water | turtle | little | come, stay, speak, hide, spin, wave | 11.11% |  |
+| Sleet | Frost Wolf Pup (`frost-wolf-pup`) | rare | ground | beast | simple | come, stay, speak, hide, shake, roll, bow | 4.44% |  |
+| Mitten | Snowshoe Hare (`snowshoe-hare`) | rare | ground | critter | simple | come, stay, speak, hide, jump, spin, roll | 4.44% |  |
+| Shiver | Frost Jelly (`frost-jelly`) | epic | water | jellyfish | simple | come, stay, speak, hide, pulse, spin, dance, jump | 1.78% |  |
+| Boreal | Glacier Owl (`glacier-owl`) | legendary | air | bird | thoughtful | come, stay, speak, hide, headturn, spin, bow, dance, **snow** | 0.44% |  |
 
-Visiting from other biomes: Bog (tundra, 15.00%).
+Visiting from other biomes: Bog (tundra, 13.33%).
 
 ## Open Water (`water`, WorldCover 80: Permanent water bodies)
 
@@ -170,16 +173,17 @@ Reedbeds, fens and flooded grass.
 
 | creature | species | rarity | habitat | archetype | speaks | tricks | chance here | also found in |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Puddle | Pond Frog (`pond-frog`) | common | ground | frog | little | come, stay, speak, hide, jump, flip | 20.34% | mangrove |
-| Dart | Pond Skimmer (`pond-skimmer`) | common | air | dragonfly | little | come, stay, speak, hide, spin, flip | 20.34% | water, meadow |
-| Noodle | Marsh Eel (`marsh-eel`) | uncommon | water | eel | little | come, stay, speak, hide, spin, dance | 8.47% | water |
-| Fern | Marsh Newt (`marsh-newt`) | uncommon | ground | lizard | little | come, stay, speak, hide, spin, pushup | 8.47% |  |
-| Slick | River Otter (`river-otter`) | uncommon | ground | beast | little | come, stay, speak, hide, shake, roll | 8.47% | water |
-| Zephyr | Ruby Darter (`ruby-darter`) | rare | air | dragonfly | simple | come, stay, speak, hide, spin, flip, dance | 3.39% |  |
-| Marble | Glowspot Frog (`glowspot-frog`) | epic | ground | frog | clear | come, stay, speak, hide, jump, flip, puff, spin | 1.36% |  |
-| Lotus | Jade Turtle (`jade-turtle`) | legendary | water | turtle | thoughtful | come, stay, speak, hide, spin, wave, dance, **bloom** | 0.34% |  |
+| Puddle | Pond Frog (`pond-frog`) | common | ground | frog | little | come, stay, speak, hide, jump, flip | 20.07% | mangrove |
+| Dart | Pond Skimmer (`pond-skimmer`) | common | air | dragonfly | little | come, stay, speak, hide, spin, flip | 20.07% | water, meadow |
+| Noodle | Marsh Eel (`marsh-eel`) | uncommon | water | eel | little | come, stay, speak, hide, spin, dance | 8.36% | water |
+| Fern | Marsh Newt (`marsh-newt`) | uncommon | ground | lizard | little | come, stay, speak, hide, spin, pushup | 8.36% |  |
+| Slick | River Otter (`river-otter`) | uncommon | ground | beast | little | come, stay, speak, hide, shake, roll | 8.36% | water |
+| Zephyr | Ruby Darter (`ruby-darter`) | rare | air | dragonfly | simple | come, stay, speak, hide, spin, flip, dance | 3.34% |  |
+| Byte | Bitfrog (`bitfrog`) | epic | ground | frog | clear | come, stay, speak, hide, jump, flip, puff, spin | 1.34% |  |
+| Marble | Glowspot Frog (`glowspot-frog`) | epic | ground | frog | clear | come, stay, speak, hide, jump, flip, puff, spin | 1.34% |  |
+| Lotus | Jade Turtle (`jade-turtle`) | legendary | water | turtle | thoughtful | come, stay, speak, hide, spin, wave, dance, **bloom** | 0.33% |  |
 
-Visiting from other biomes: Skitter (mangrove, 10.17%), Pebble (water, 10.17%), Mellow (mangrove, 4.24%), Tumble (water, 4.24%).
+Visiting from other biomes: Skitter (mangrove, 10.03%), Pebble (water, 10.03%), Mellow (mangrove, 4.18%), Tumble (water, 4.18%).
 
 ## Mangrove (`mangrove`, WorldCover 95: Mangroves)
 
@@ -187,15 +191,16 @@ Tidal forest: roots, mud and brackish water.
 
 | creature | species | rarity | habitat | archetype | speaks | tricks | chance here | also found in |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Silt | Mangrove Goby (`mangrove-goby`) | common | water | fish | little | come, stay, speak, hide, jump, spin | 21.82% |  |
-| Skitter | Mud Crab (`mud-crab`) | common | ground | crab | little | come, stay, speak, hide, wave, spin | 21.82% | wetland |
-| Mellow | Marsh Capybara (`marsh-capybara`) | uncommon | ground | beast | little | come, stay, speak, hide, shake, roll | 9.09% | wetland |
-| Murk | Mud Ray (`mud-ray`) | uncommon | water | ray | little | come, stay, speak, hide, spin, flip | 9.09% |  |
-| Fiddle | One-Claw Crab (`one-claw-crab`) | rare | ground | crab | simple | come, stay, speak, hide, wave, spin, dance | 3.64% |  |
-| Lumen | Lantern Jelly (`lantern-jelly`) | epic | water | jellyfish | simple | come, stay, speak, hide, pulse, spin, dance, jump | 1.45% |  |
-| Halcyon | Mangrove Kingfisher (`mangrove-kingfisher`) | legendary | air | bird | thoughtful | come, stay, speak, hide, jump, spin, flip, bow, **dive** | 0.36% |  |
+| Silt | Mangrove Goby (`mangrove-goby`) | common | water | fish | little | come, stay, speak, hide, jump, spin | 20.00% |  |
+| Skitter | Mud Crab (`mud-crab`) | common | ground | crab | little | come, stay, speak, hide, wave, spin | 20.00% | wetland |
+| Mellow | Marsh Capybara (`marsh-capybara`) | uncommon | ground | beast | little | come, stay, speak, hide, shake, roll | 8.33% | wetland |
+| Murk | Mud Ray (`mud-ray`) | uncommon | water | ray | little | come, stay, speak, hide, spin, flip | 8.33% |  |
+| Goggles | Mudskipper (`mudskipper`) | uncommon | ground | frog | little | come, stay, speak, hide, jump, flip | 8.33% |  |
+| Fiddle | One-Claw Crab (`one-claw-crab`) | rare | ground | crab | simple | come, stay, speak, hide, wave, spin, dance | 3.33% |  |
+| Lumen | Lantern Jelly (`lantern-jelly`) | epic | water | jellyfish | simple | come, stay, speak, hide, pulse, spin, dance, jump | 1.33% |  |
+| Halcyon | Mangrove Kingfisher (`mangrove-kingfisher`) | legendary | air | bird | thoughtful | come, stay, speak, hide, jump, spin, flip, bow, **dive** | 0.33% |  |
 
-Visiting from other biomes: Bloop (water, 10.91%), Puddle (wetland, 10.91%), Nib (water, 10.91%).
+Visiting from other biomes: Bloop (water, 10.00%), Puddle (wetland, 10.00%), Nib (water, 10.00%).
 
 ## Tundra (`tundra`, WorldCover 100: Moss and lichen)
 
@@ -203,14 +208,15 @@ Moss, lichen and bog pools on cold open ground.
 
 | creature | species | rarity | habitat | archetype | speaks | tricks | chance here | also found in |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Lichen | Moss Beetle (`moss-beetle`) | common | ground | beetle | little | come, stay, speak, hide, spin, dead | 31.58% |  |
-| Bog | Tundra Lemming (`tundra-lemming`) | common | ground | critter | little | come, stay, speak, hide, jump, spin | 31.58% | snow |
-| Sedge | Arctic Skipper (`arctic-skipper`) | uncommon | air | butterfly | little | come, stay, speak, hide, spin, dance | 13.16% |  |
-| Tarn | Arctic Char (`arctic-char`) | rare | water | fish | simple | come, stay, speak, hide, jump, spin, flip | 5.26% |  |
-| Verdigris | Boreal Emerald (`boreal-emerald`) | epic | air | dragonfly | clear | come, stay, speak, hide, spin, flip, dance | 2.11% |  |
-| Nimbus | Northlight Fox (`northlight-fox`) | legendary | ground | critter | clear | come, stay, speak, hide, jump, spin, roll, dance, **lights** | 0.53% |  |
+| Lichen | Moss Beetle (`moss-beetle`) | common | ground | beetle | little | come, stay, speak, hide, spin, dead | 27.91% |  |
+| Bog | Tundra Lemming (`tundra-lemming`) | common | ground | critter | little | come, stay, speak, hide, jump, spin | 27.91% | snow |
+| Sedge | Arctic Skipper (`arctic-skipper`) | uncommon | air | butterfly | little | come, stay, speak, hide, spin, dance | 11.63% |  |
+| Tufty | Musk Ox Calf (`musk-ox-calf`) | uncommon | ground | beast | little | come, stay, speak, hide, shake, roll | 11.63% |  |
+| Tarn | Arctic Char (`arctic-char`) | rare | water | fish | simple | come, stay, speak, hide, jump, spin, flip | 4.65% |  |
+| Verdigris | Boreal Emerald (`boreal-emerald`) | epic | air | dragonfly | clear | come, stay, speak, hide, spin, flip, dance | 1.86% |  |
+| Nimbus | Northlight Fox (`northlight-fox`) | legendary | ground | critter | clear | come, stay, speak, hide, jump, spin, roll, dance, **lights** | 0.47% |  |
 
-Visiting from other biomes: Flurry (snow, 15.79%).
+Visiting from other biomes: Flurry (snow, 13.95%).
 
 ## What to say
 
