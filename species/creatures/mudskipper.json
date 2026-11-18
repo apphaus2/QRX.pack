@@ -976,7 +976,7 @@
             "play": "jump"
           },
           {
-            "wait": 1
+            "wait": 1.2
           },
           {
             "behave": "none"
@@ -996,7 +996,7 @@
             "play": "flip"
           },
           {
-            "wait": 1.2
+            "wait": 1.6
           },
           {
             "behave": "none"

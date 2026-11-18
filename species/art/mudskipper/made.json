@@ -2,12 +2,12 @@
   "files": {
     "mesh.glb": {
       "from": "mesh.glb",
-      "sha256": "c441822eae7b75d6aa02497eb71d6d3a005504b0988e3700abe14fc97b8118aa",
+      "sha256": "9361b03b5728966b12965ae5d7b74e3014b6b3b7f96e1a140692444ba8668180",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1037648,
+        "bytes": 1016040,
         "extensionsUsed": [
           "KHR_mesh_quantization",
           "EXT_meshopt_compression",
@@ -46,7 +46,7 @@
           }
         ],
         "skinned": true,
-        "joints": 22,
+        "joints": 9,
         "clips": [
           "flip",
           "idle",
@@ -57,12 +57,12 @@
     },
     "mesh.quest.glb": {
       "from": "mesh.quest.glb",
-      "sha256": "beda00444b9d07e1b71e7faf407748c15e00fa03b9cc6a3944caab4ea6eb3708",
+      "sha256": "a3680572285302b4533453077baf610c04a4e1fe42ba47f00d8218044053e8fc",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1282880,
+        "bytes": 1269384,
         "extensionsUsed": [
           "KHR_texture_basisu"
         ],
@@ -98,7 +98,7 @@
           }
         ],
         "skinned": true,
-        "joints": 22,
+        "joints": 9,
         "clips": [
           "flip",
           "idle",

@@ -1473,11 +1473,11 @@
       "model": "models/boreal-emerald.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/boreal-emerald.glb",
       "size": [
-        0.15,
-        0.0286,
-        0.103
+        0.1502,
+        0.026,
+        0.1022
       ],
-      "bytes": 852220,
+      "bytes": 1280924,
       "triangles": 9500,
       "speech": "clear",
       "sounds": {
@@ -1487,7 +1487,7 @@
         "curious": "sounds/dragonfly-call.wav"
       },
       "quest": "models/boreal-emerald.quest.glb",
-      "questBytes": 1142632,
+      "questBytes": 1605212,
       "art": true,
       "low": "models/boreal-emerald.low.glb",
       "lowBytes": 57228
@@ -3474,7 +3474,7 @@
         0.0383,
         0.12
       ],
-      "bytes": 1037648,
+      "bytes": 1016040,
       "triangles": 9500,
       "speech": "little",
       "sounds": {
@@ -3484,7 +3484,7 @@
         "curious": "sounds/frog-curious.wav"
       },
       "quest": "models/mudskipper.quest.glb",
-      "questBytes": 1282880,
+      "questBytes": 1269384,
       "art": true,
       "low": "models/mudskipper.low.glb",
       "lowBytes": 58000
