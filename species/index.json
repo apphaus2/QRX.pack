@@ -3687,11 +3687,11 @@
       "model": "models/pond-frog.glb",
       "modelRef": "https://qrx-pack.apphaus.us/species/models/pond-frog.glb",
       "size": [
-        0.0808,
-        0.0417,
+        0.077,
+        0.0387,
         0.085
       ],
-      "bytes": 1230296,
+      "bytes": 1160540,
       "triangles": 9500,
       "speech": "little",
       "sounds": {
@@ -3701,7 +3701,7 @@
         "curious": "sounds/frog-curious.wav"
       },
       "quest": "models/pond-frog.quest.glb",
-      "questBytes": 1506284,
+      "questBytes": 1434164,
       "art": true,
       "low": "models/pond-frog.low.glb",
       "lowBytes": 56828
