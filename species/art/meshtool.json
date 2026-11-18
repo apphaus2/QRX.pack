@@ -1,5 +1,5 @@
 {
- "_": "MeshTool's project file (third_party/MeshTool): this folder's archetype, each creature's body shape, the creatures whose origin is at mid-body (those that swim or fly: their habitat's origin is the centre), and the creatures the clean step's guess turned the wrong way round, with the turn that brings each one's head to +Z (\"turns\", degrees about the vertical); under \"seeds\" the mesher's seed when another than the first was kept, and under \"cuts\" boxes (glTF metres of the cleaned mesh, for that seed) of pieces the mesher made up, cut away in the clean step.",
+ "_": "MeshTool's project file (third_party/MeshTool): this folder's archetype, each creature's body shape, the creatures whose origin is at mid-body (those that swim or fly: their habitat's origin is the centre), and the creatures the clean step's guess turned the wrong way round, with the turn that brings each one's head to +Z (\"turns\", degrees about the vertical); under \"seeds\" the mesher's seed when another than the first was kept, and under \"cuts\" boxes (glTF metres of the cleaned mesh, for that seed) of pieces the mesher made up, cut away in the clean step; under \"shrinks\" parts made smaller (a box, the base point they shrink toward, the axis along them, the factor, and the ramp over which the shrinking across eases in).",
  "archetype": "terra",
  "creatures": {
   "alley-cat": "quadruped",
@@ -195,6 +195,49 @@
      -0.083
     ]
    ]
+  ],
+  "pond-frog": [
+   [
+    [
+     -0.024,
+     -1,
+     -0.045
+    ],
+    [
+     0.024,
+     0.004,
+     0.018
+    ]
+   ]
+  ]
+ },
+ "shrinks": {
+  "tilehop": [
+   {
+    "box": [
+     [
+      -0.012,
+      0.018,
+      0.016
+     ],
+     [
+      0.016,
+      0.045,
+      0.04
+     ]
+    ],
+    "base": [
+     0.0024,
+     0.0308,
+     0.016
+    ],
+    "axis": 2,
+    "factor": 0.75,
+    "ramp": [
+     0.019,
+     0.024
+    ]
+   }
   ]
  }
 }
