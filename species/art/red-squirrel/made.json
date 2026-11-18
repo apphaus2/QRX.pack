@@ -2,20 +2,20 @@
   "files": {
     "mesh.glb": {
       "from": "mesh.glb",
-      "sha256": "bb6c6801b8a6505222b96ea63db332a5d08da0943c82f18bdb77cbb8ae507055",
+      "sha256": "f3dba80270a6457f3dd4b0b0ec38004a5dbd6908c9a51948d1081cadf329ad5f",
       "tool": "make.py trellis-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1201576,
+        "bytes": 1200808,
         "extensionsUsed": [
           "KHR_mesh_quantization",
           "EXT_meshopt_compression",
           "KHR_texture_transform",
           "KHR_texture_basisu"
         ],
-        "triangles": 9601,
-        "vertices": 8555,
+        "triangles": 9589,
+        "vertices": 8548,
         "box": [
           [
             -0.0188,
@@ -57,17 +57,17 @@
     },
     "mesh.quest.glb": {
       "from": "mesh.quest.glb",
-      "sha256": "bfb38bc5c86ea4f8c97faf9cd20db2a9858ef4e04ebeb9ab47205f1e87c53974",
+      "sha256": "330b325c65bb57d202e1fef196f9603e04930538e2908ace1b6c5d218d4c1114",
       "tool": "make.py trellis-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1489664,
+        "bytes": 1489312,
         "extensionsUsed": [
           "KHR_texture_basisu"
         ],
-        "triangles": 9601,
-        "vertices": 8555,
+        "triangles": 9589,
+        "vertices": 8548,
         "box": [
           [
             -0.0188,

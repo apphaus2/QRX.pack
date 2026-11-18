@@ -3839,8 +3839,8 @@
         0.0812,
         0.15
       ],
-      "bytes": 1201576,
-      "triangles": 9601,
+      "bytes": 1200808,
+      "triangles": 9589,
       "speech": "little",
       "sounds": {
         "call": "sounds/squirrel-call.wav",
@@ -3849,7 +3849,7 @@
         "curious": "sounds/squirrel-curious.wav"
       },
       "quest": "models/red-squirrel.quest.glb",
-      "questBytes": 1489664,
+      "questBytes": 1489312,
       "art": true,
       "low": "models/red-squirrel.low.glb",
       "lowBytes": 49156
