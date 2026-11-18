@@ -1765,7 +1765,7 @@
         0.1634,
         0.2449
       ],
-      "bytes": 1007616,
+      "bytes": 1008208,
       "triangles": 9500,
       "speech": "little",
       "sounds": {
@@ -1775,7 +1775,7 @@
         "curious": "sounds/cow-curious.wav"
       },
       "quest": "models/dapple-calf.quest.glb",
-      "questBytes": 1282008,
+      "questBytes": 1282272,
       "art": true,
       "low": "models/dapple-calf.low.glb",
       "lowBytes": 205124
@@ -1801,7 +1801,7 @@
         0.1795,
         0.1951
       ],
-      "bytes": 1109984,
+      "bytes": 1112340,
       "triangles": 9500,
       "speech": "simple",
       "sounds": {
@@ -1811,7 +1811,7 @@
         "curious": "sounds/deer-curious.wav"
       },
       "quest": "models/dapple-fawn.quest.glb",
-      "questBytes": 1425884,
+      "questBytes": 1427072,
       "art": true,
       "low": "models/dapple-fawn.low.glb",
       "lowBytes": 246784
@@ -2127,7 +2127,7 @@
         0.0634,
         0.15
       ],
-      "bytes": 870056,
+      "bytes": 876204,
       "triangles": 9500,
       "speech": "clear",
       "sounds": {
@@ -2137,7 +2137,7 @@
         "curious": "sounds/fish-curious.wav"
       },
       "quest": "models/fountain-koi.quest.glb",
-      "questBytes": 1152420,
+      "questBytes": 1158424,
       "art": true,
       "low": "models/fountain-koi.low.glb",
       "lowBytes": 39812
@@ -2924,7 +2924,7 @@
         0.1504,
         0.2699
       ],
-      "bytes": 1242444,
+      "bytes": 1242596,
       "triangles": 9500,
       "speech": "little",
       "sounds": {
@@ -2934,7 +2934,7 @@
         "curious": "sounds/beast-curious.wav"
       },
       "quest": "models/marsh-capybara.quest.glb",
-      "questBytes": 1585920,
+      "questBytes": 1584892,
       "art": true,
       "low": "models/marsh-capybara.low.glb",
       "lowBytes": 259624
@@ -3510,7 +3510,7 @@
         0.1607,
         0.2497
       ],
-      "bytes": 1409080,
+      "bytes": 1411236,
       "triangles": 9500,
       "speech": "little",
       "sounds": {
@@ -3520,7 +3520,7 @@
         "curious": "sounds/cow-curious.wav"
       },
       "quest": "models/musk-ox-calf.quest.glb",
-      "questBytes": 1806588,
+      "questBytes": 1808316,
       "art": true,
       "low": "models/musk-ox-calf.low.glb",
       "lowBytes": 354824
@@ -4604,7 +4604,7 @@
         0.0728,
         0.1299
       ],
-      "bytes": 1489792,
+      "bytes": 1486644,
       "triangles": 9500,
       "speech": "simple",
       "sounds": {
@@ -4614,7 +4614,7 @@
         "curious": "sounds/hedgehog-curious.wav"
       },
       "quest": "models/thornback-hedgehog.quest.glb",
-      "questBytes": 1871600,
+      "questBytes": 1870048,
       "art": true,
       "low": "models/thornback-hedgehog.low.glb",
       "lowBytes": 63808
@@ -4676,7 +4676,7 @@
         0.0507,
         0.07
       ],
-      "bytes": 883416,
+      "bytes": 881884,
       "triangles": 9500,
       "speech": "simple",
       "sounds": {
@@ -4686,7 +4686,7 @@
         "curious": "sounds/frog-curious.wav"
       },
       "quest": "models/tilehop.quest.glb",
-      "questBytes": 1121320,
+      "questBytes": 1121536,
       "art": true,
       "low": "models/tilehop.low.glb",
       "lowBytes": 61924

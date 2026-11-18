@@ -2,12 +2,12 @@
   "files": {
     "mesh.glb": {
       "from": "mesh.glb",
-      "sha256": "55415d19c5d36f776a50cb0e8182faa0f86df1fdae419fab6afaacf8daac3450",
+      "sha256": "610ffe2a314002317c33594082905fb0acf487c43db5ef1ca4737e777ea6b094",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 870056,
+        "bytes": 876204,
         "extensionsUsed": [
           "KHR_mesh_quantization",
           "EXT_meshopt_compression",
@@ -42,11 +42,11 @@
             ],
             "levels": 11,
             "supercompression": "Zstandard",
-            "bytes": 763248
+            "bytes": 763080
           }
         ],
         "skinned": true,
-        "joints": 7,
+        "joints": 9,
         "clips": [
           "flip",
           "idle",
@@ -58,12 +58,12 @@
     },
     "mesh.quest.glb": {
       "from": "mesh.quest.glb",
-      "sha256": "3381168305d21ee9d0136454124ca06f30bb76c269a1ed96cbb157a8a4e1c010",
+      "sha256": "94c5b5b72ebdbe5a57d51aafa05108d7f61a8a497c01781a2d675558d5df72c5",
       "tool": "make.py hunyuan-template",
       "date": "2026-11-17",
       "notes": [],
       "facts": {
-        "bytes": 1152420,
+        "bytes": 1158424,
         "extensionsUsed": [
           "KHR_texture_basisu"
         ],
@@ -95,11 +95,11 @@
             ],
             "levels": 11,
             "supercompression": "Zstandard",
-            "bytes": 763248
+            "bytes": 763080
           }
         ],
         "skinned": true,
-        "joints": 7,
+        "joints": 9,
         "clips": [
           "flip",
           "idle",

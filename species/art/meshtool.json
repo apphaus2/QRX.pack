@@ -1,5 +1,5 @@
 {
- "_": "MeshTool's project file (third_party/MeshTool): this folder's archetype, each creature's body shape, and the creatures whose origin is at mid-body (those that swim or fly: their habitat's origin is the centre).",
+ "_": "MeshTool's project file (third_party/MeshTool): this folder's archetype, each creature's body shape, the creatures whose origin is at mid-body (those that swim or fly: their habitat's origin is the centre), and the creatures the clean step's guess turned the wrong way round, with the turn that brings each one's head to +Z (\"turns\", degrees about the vertical).",
  "archetype": "terra",
  "creatures": {
   "alley-cat": "quadruped",
@@ -151,5 +151,14 @@
   "street-pigeon",
   "thorny-seahorse",
   "violet-fantail"
- ]
+ ],
+ "turns": {
+  "dapple-calf": 90,
+  "dapple-fawn": 90,
+  "fountain-koi": 90,
+  "marsh-capybara": 90,
+  "musk-ox-calf": 90,
+  "thornback-hedgehog": 90,
+  "tilehop": 0
+ }
 }
