@@ -211,7 +211,7 @@
       "colour": "#006400",
       "home": "the woods nearby",
       "description": "Woods and plantations: bark, leaf litter and the dark under the canopy.",
-      "weight": 306.5,
+      "weight": 366.5,
       "spawns": [
         {
           "species": "bark-skink",
@@ -268,6 +268,18 @@
           "home": true
         },
         {
+          "species": "amber-eyespot",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "green-spotted-lizard",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
           "species": "hedge-finch",
           "rarity": "common",
           "weight": 30,
@@ -295,7 +307,7 @@
       "colour": "#FFBB22",
       "home": "the thickets nearby",
       "description": "Thickets, heath and thorn: dry, tangled and sunlit.",
-      "weight": 305,
+      "weight": 335,
       "spawns": [
         {
           "species": "banded-gecko",
@@ -346,6 +358,12 @@
           "home": false
         },
         {
+          "species": "green-spotted-lizard",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
           "species": "meadow-cottontail",
           "rarity": "common",
           "weight": 30,
@@ -373,8 +391,20 @@
       "colour": "#D9C84A",
       "home": "the meadow nearby",
       "description": "Open grass, pasture and wildflowers.",
-      "weight": 375,
+      "weight": 495,
       "spawns": [
+        {
+          "species": "amber-eyespot",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
+        {
+          "species": "green-spotted-lizard",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
         {
           "species": "meadow-cottontail",
           "rarity": "common",
@@ -469,7 +499,7 @@
       "colour": "#F096FF",
       "home": "the fields nearby",
       "description": "Fields, orchards, barns and hedgerows.",
-      "weight": 487.5,
+      "weight": 517.5,
       "spawns": [
         {
           "species": "farmyard-piglet",
@@ -533,6 +563,12 @@
         },
         {
           "species": "alley-cat",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
+        },
+        {
+          "species": "amber-eyespot",
           "rarity": "common",
           "weight": 30,
           "home": false
@@ -859,8 +895,14 @@
       "colour": "#0064C8",
       "home": "the water nearby",
       "description": "Lakes, rivers, reservoirs and the sea.",
-      "weight": 310,
+      "weight": 382.5,
       "spawns": [
+        {
+          "species": "blue-reef-fish",
+          "rarity": "common",
+          "weight": 60,
+          "home": true
+        },
         {
           "species": "moon-jelly",
           "rarity": "common",
@@ -923,6 +965,12 @@
         },
         {
           "species": "marsh-eel",
+          "rarity": "uncommon",
+          "weight": 12.5,
+          "home": false
+        },
+        {
+          "species": "orange-reef-fish",
           "rarity": "uncommon",
           "weight": 12.5,
           "home": false
@@ -1033,7 +1081,7 @@
       "colour": "#00CF75",
       "home": "the mangroves nearby",
       "description": "Tidal forest: roots, mud and brackish water.",
-      "weight": 300,
+      "weight": 355,
       "spawns": [
         {
           "species": "mangrove-goby",
@@ -1066,6 +1114,12 @@
           "home": true
         },
         {
+          "species": "orange-reef-fish",
+          "rarity": "uncommon",
+          "weight": 25,
+          "home": true
+        },
+        {
           "species": "one-claw-crab",
           "rarity": "rare",
           "weight": 10,
@@ -1082,6 +1136,12 @@
           "rarity": "legendary",
           "weight": 1,
           "home": true
+        },
+        {
+          "species": "blue-reef-fish",
+          "rarity": "common",
+          "weight": 30,
+          "home": false
         },
         {
           "species": "moon-jelly",
@@ -1201,6 +1261,46 @@
       "art": true,
       "low": "models/alley-cat.low.glb",
       "lowBytes": 331208
+    },
+    {
+      "id": "amber-eyespot",
+      "name": "Clover",
+      "species": "Amber Eyespot",
+      "description": "An orange and gold butterfly with a dark eyespot on each wing, out among the flowers on sunny days.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow",
+        "forest",
+        "farm"
+      ],
+      "habitat": "air",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "butterfly",
+      "document": "creatures/amber-eyespot.json",
+      "model": "models/amber-eyespot.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/amber-eyespot.glb",
+      "size": [
+        0.148,
+        0.0321,
+        0.1003
+      ],
+      "bytes": 34076,
+      "triangles": 740,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/butterfly-call.wav",
+        "content": "sounds/butterfly-content.wav",
+        "alarm": "sounds/butterfly-alarm.wav",
+        "curious": "sounds/butterfly-call.wav"
+      },
+      "quest": "models/amber-eyespot.quest.glb",
+      "questBytes": 34076,
+      "low": "models/amber-eyespot.low.glb",
+      "lowBytes": 34076,
+      "aliases": [
+        "glyphs/creature-butterfly.json"
+      ]
     },
     {
       "id": "arctic-char",
@@ -1419,6 +1519,45 @@
       "art": true,
       "low": "models/bitfrog.low.glb",
       "lowBytes": 66212
+    },
+    {
+      "id": "blue-reef-fish",
+      "name": "Indigo",
+      "species": "Blue Reef Fish",
+      "description": "A small bright blue fish with dark bands and yellow fins that swims the same loop all day.",
+      "biome": "water",
+      "biomes": [
+        "water",
+        "mangrove"
+      ],
+      "habitat": "water",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "fish",
+      "document": "creatures/blue-reef-fish.json",
+      "model": "models/blue-reef-fish.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/blue-reef-fish.glb",
+      "size": [
+        0.0537,
+        0.0739,
+        0.119
+      ],
+      "bytes": 37328,
+      "triangles": 910,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/fish-call.wav",
+        "content": "sounds/fish-content.wav",
+        "alarm": "sounds/fish-alarm.wav",
+        "curious": "sounds/fish-curious.wav"
+      },
+      "quest": "models/blue-reef-fish.quest.glb",
+      "questBytes": 37328,
+      "low": "models/blue-reef-fish.low.glb",
+      "lowBytes": 37328,
+      "aliases": [
+        "glyphs/creature-fish-blue.json"
+      ]
     },
     {
       "id": "blue-skylark",
@@ -2430,6 +2569,46 @@
       "art": true,
       "low": "models/granary-owl.low.glb",
       "lowBytes": 66292
+    },
+    {
+      "id": "green-spotted-lizard",
+      "name": "Biscuit",
+      "species": "Green Spotted Lizard",
+      "description": "A small grass-green lizard with a row of dark green spots, basking in warm grass.",
+      "biome": "meadow",
+      "biomes": [
+        "meadow",
+        "forest",
+        "shrub"
+      ],
+      "habitat": "ground",
+      "rarity": "common",
+      "weight": 60,
+      "archetype": "lizard",
+      "document": "creatures/green-spotted-lizard.json",
+      "model": "models/green-spotted-lizard.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/green-spotted-lizard.glb",
+      "size": [
+        0.1136,
+        0.0372,
+        0.2722
+      ],
+      "bytes": 40204,
+      "triangles": 624,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/lizard-call.wav",
+        "content": "sounds/lizard-content.wav",
+        "alarm": "sounds/lizard-alarm.wav",
+        "curious": "sounds/lizard-curious.wav"
+      },
+      "quest": "models/green-spotted-lizard.quest.glb",
+      "questBytes": 40204,
+      "low": "models/green-spotted-lizard.low.glb",
+      "lowBytes": 40204,
+      "aliases": [
+        "glyphs/creature-lizard.json"
+      ]
     },
     {
       "id": "harvest-moon-moth",
@@ -3668,6 +3847,45 @@
       "art": true,
       "low": "models/one-claw-crab.low.glb",
       "lowBytes": 53148
+    },
+    {
+      "id": "orange-reef-fish",
+      "name": "Sunny",
+      "species": "Orange Reef Fish",
+      "description": "A small orange fish with three white bands edged in black, darting in and out of the roots.",
+      "biome": "mangrove",
+      "biomes": [
+        "mangrove",
+        "water"
+      ],
+      "habitat": "water",
+      "rarity": "uncommon",
+      "weight": 25,
+      "archetype": "fish",
+      "document": "creatures/orange-reef-fish.json",
+      "model": "models/orange-reef-fish.glb",
+      "modelRef": "https://qrx-pack.apphaus.us/species/models/orange-reef-fish.glb",
+      "size": [
+        0.0537,
+        0.0739,
+        0.119
+      ],
+      "bytes": 40484,
+      "triangles": 910,
+      "speech": "little",
+      "sounds": {
+        "call": "sounds/fish-call.wav",
+        "content": "sounds/fish-content.wav",
+        "alarm": "sounds/fish-alarm.wav",
+        "curious": "sounds/fish-curious.wav"
+      },
+      "quest": "models/orange-reef-fish.quest.glb",
+      "questBytes": 40484,
+      "low": "models/orange-reef-fish.low.glb",
+      "lowBytes": 40484,
+      "aliases": [
+        "glyphs/creature-fish.json"
+      ]
     },
     {
       "id": "pond-frog",

@@ -1,0 +1,18 @@
+{
+  "id": "blue-reef-fish",
+  "name": "Indigo",
+  "species": "Blue Reef Fish",
+  "description": "A small bright blue fish with dark bands and yellow fins that swims the same loop all day.",
+  "prompt": "I am {name}, a blue reef fish with dark bands and yellow fins. I am {age} and I live in {home}, swimming the same loop again and again because I like to know where everything is. I am busy and a little nervous, and a tap sends me off in a blue flash before I circle back. Others of my kind say I am {temperament}, and they are right. My voice is quick and chattery, and I talk about my loop, shiny pebbles and the colour blue.",
+  "temperament": "curious",
+  "biomes": ["water", "mangrove"],
+  "habitat": "water",
+  "rarity": "common",
+  "archetype": "fish",
+  "size": 0.12,
+  "shape": {"tail": "round"},
+  "colours": {"body": "#1452EB", "belly": "#1452EB", "pattern": "#080D40", "trim": "#080D40", "fin": "#FAD11F", "accent": "#FAD11F"},
+  "pattern": {"type": "bands", "count": 3, "width": 0.3},
+  "behaviour": {"temper": "shy", "distance": 1.6, "watch": true},
+  "aliases": ["glyphs/creature-fish-blue.json"]
+}

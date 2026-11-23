@@ -41,7 +41,11 @@ LOW_SUFFIX = ".low"
 QUEST_EXTENSIONS = {"KHR_texture_basisu", "KHR_texture_transform", "KHR_materials_unlit"}
 ID = re.compile(r"^[a-z][a-z0-9]*(-[a-z0-9]+)*$")
 HEX = re.compile(r"^#[0-9A-Fa-f]{6}$")
-DEFINITION_KEYS = {"id", "name", "species", "description", "biomes", "habitat", "rarity", "archetype", "size", "shape", "colours", "pattern", "movement", "behaviour", "prompt", "speech", "temperament", "voice", "tricks", "signature", "mind"}
+DEFINITION_KEYS = {"id", "name", "species", "description", "biomes", "habitat", "rarity", "archetype", "size", "shape", "colours", "pattern", "movement", "behaviour", "prompt", "speech", "temperament", "voice", "tricks", "signature", "mind", "aliases"}
+# `aliases`: other addresses in this repository where the species' document is also written, byte for byte. The four
+# creature glyphs QRX.pack had before species (glyphs/creature-*.json) became species on 2026-11-23; creatures caught
+# from them point at those addresses, so the build keeps them answering with the species' own document.
+ALIAS = re.compile(r"^glyphs/creature-[a-z0-9]+(-[a-z0-9]+)*\.json$")
 REQUIRED_KEYS = {"id", "name", "species", "description", "biomes", "habitat", "rarity", "archetype", "size", "prompt"}
 LIFE_NAME = re.compile(r"^[A-Z][A-Za-z' -]*$")
 
@@ -206,6 +210,13 @@ class Data:
             if not isinstance(d[key], str) or not d[key].strip() or "\n" in d[key]: bad("%s must be one line of text" % key)
         if isinstance(d["name"], str) and d["name"] in self.reserved["names"]: bad("the name %s belongs to a QRX.pack creature" % d["name"])
         if isinstance(d["description"], str) and len(d["description"]) > 160: bad("description is over 160 characters")
+        if "aliases" in d:
+            aliases = d["aliases"]
+            if not isinstance(aliases, list) or not aliases or any(not isinstance(a, str) or not ALIAS.match(a) for a in aliases): bad("aliases is a list of glyphs/creature-<name>.json paths")
+            elif len(set(aliases)) != len(aliases): bad("an alias is listed twice")
+            else:
+                for other in self.definitions.values():
+                    if other is not d and isinstance(other.get("aliases"), list) and set(other["aliases"]) & set(aliases): bad("an alias is also %s's" % other.get("id"))
         prompt, limits = d["prompt"], self.mind.get("prompt", {})
         if not isinstance(prompt, str) or not prompt.strip() or "\n" in prompt or prompt != prompt.strip(): bad("prompt must be one line of text")
         else:
@@ -427,7 +438,14 @@ def build_all(data, model_base, sound_base):
             if os.path.exists(kept):
                 with open(kept, "rb") as f: low = f.read()
             outputs[low_path("models/%s.glb" % d["id"])] = low
+        else:
+            # No art yet: the drawn model is plain glTF (float positions, no meshopt, no Draco), so it is also the
+            # Quest's copy and the low copy. All three names answer, so neither the Quest nor "Hi-res creatures" off
+            # depends on a 404 to fall back; art filed later replaces the plain and Quest copies and keeps this as .low.
+            outputs[quest_path("models/%s.glb" % d["id"])] = glb
+            outputs[low_path("models/%s.glb" % d["id"])] = glb
         outputs["creatures/%s.json" % d["id"]] = dump(document)
+        for alias in d.get("aliases", []): outputs["../" + alias] = outputs["creatures/%s.json" % d["id"]]
         box = facts["box"]
         good.append(d)
         entries.append({
@@ -442,6 +460,9 @@ def build_all(data, model_base, sound_base):
         # The model build.py draws for it stays too, as <id>.low.glb: plain colours, far smaller.
         if art: entries[-1].update(quest=quest_path("models/%s.glb" % d["id"]), questBytes=len(art[1]), art=True,
                                    low=low_path("models/%s.glb" % d["id"]), lowBytes=len(low))
+        else: entries[-1].update(quest=quest_path("models/%s.glb" % d["id"]), questBytes=len(glb),
+                                 low=low_path("models/%s.glb" % d["id"]), lowBytes=len(glb))
+        if d.get("aliases"): entries[-1]["aliases"] = list(d["aliases"])
     tables = spawn_tables(data, good)
     index = {
         "version": 1,
@@ -659,13 +680,21 @@ def check_outputs(data, outputs, model_base, sound_base):
         # The model, read back from disk by the reader; and, when the disk is stale, the one the definition builds now.
         # A creature with art has its two meshes, read by the art reader.
         glb = on_disk[where]
-        if quest_path(where) in outputs:
+        if art_meshes(sid):
             model_faults, facts = check_art(data, d, glb, on_disk.get(quest_path(where)), where)
             faults += model_faults
             if low_path(where) in on_disk: faults += check_model(data, d, on_disk[low_path(where)], low_path(where))[0]
         else:
             model_faults, facts = check_model(data, d, glb, where)
             faults += model_faults
+            # The drawn model is the Quest's copy too, so it must be what Meta's reader takes: plain glTF.
+            for copy in (quest_path(where), low_path(where)):
+                if on_disk.get(copy) != glb: faults.append("%s: is not the drawn model %s" % (copy, where))
+            try:
+                length = int.from_bytes(glb[12:16], "little")
+                used = set(json.loads(glb[20:20 + length]).get("extensionsUsed", []))
+            except ValueError: used = {"(unreadable)"}
+            if used - QUEST_EXTENSIONS: faults.append("%s: uses %s, which the Quest does not read" % (where, ", ".join(sorted(used - QUEST_EXTENSIONS))))
             if glb != outputs[where]: faults += check_model(data, d, outputs[where], "%s: the model it builds now" % d["_where"])[0]
         if not facts: continue
 

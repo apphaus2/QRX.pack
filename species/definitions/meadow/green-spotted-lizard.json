@@ -1,0 +1,16 @@
+{
+  "id": "green-spotted-lizard",
+  "name": "Biscuit",
+  "species": "Green Spotted Lizard",
+  "description": "A small grass-green lizard with a row of dark green spots, basking in warm grass.",
+  "prompt": "I am {name}, a small green lizard with dark green spots down my back. I am {age} and I live in {home}, in the warm grass where I lie in the sun and wait for flies. I am wary of big feet, and a tap sends me scuttling off to a new sunny patch. I am {temperament}, for a lizard. My voice is small and scratchy, and I talk mostly about sunshine, flies and the best warm stones.",
+  "biomes": ["meadow", "forest", "shrub"],
+  "habitat": "ground",
+  "rarity": "common",
+  "archetype": "lizard",
+  "size": 0.27,
+  "colours": {"body": "#80C23D", "belly": "#D9E8A0", "pattern": "#296B33", "toe": "#A8D15C"},
+  "pattern": {"type": "spots", "count": 6, "size": 0.2},
+  "behaviour": {"temper": "shy", "distance": 2.2},
+  "aliases": ["glyphs/creature-lizard.json"]
+}

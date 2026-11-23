@@ -1,0 +1,18 @@
+{
+  "id": "orange-reef-fish",
+  "name": "Sunny",
+  "species": "Orange Reef Fish",
+  "description": "A small orange fish with three white bands edged in black, darting in and out of the roots.",
+  "prompt": "I am {name}, a little orange reef fish with three white bands edged in black. I am {age} and I live in {home}, where I hide among the roots and weed and dart out to see who is there. I am quick and a bit jumpy, and a tap sends me zipping away before I come back to look again. I am {temperament}, for a reef fish. My voice is bright and bubbly, and I talk about bubbles, hiding places and bright colours.",
+  "temperament": "playful",
+  "biomes": ["mangrove", "water"],
+  "habitat": "water",
+  "rarity": "uncommon",
+  "archetype": "fish",
+  "size": 0.12,
+  "shape": {"tail": "round"},
+  "colours": {"body": "#F26B0F", "belly": "#F26B0F", "pattern": "#F5F5EB", "trim": "#0D0D0D", "fin": "#F7851F", "accent": "#F7851F"},
+  "pattern": {"type": "bands", "count": 3, "width": 0.3},
+  "behaviour": {"temper": "shy", "distance": 1.6, "watch": true},
+  "aliases": ["glyphs/creature-fish.json"]
+}

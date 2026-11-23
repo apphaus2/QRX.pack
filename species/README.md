@@ -117,6 +117,7 @@ preview/index.html       every model in a browser
 | `tricks` | optional: exactly the tricks it knows, by id; otherwise the basics and the first of its archetype's. See "Tricks" |
 | `signature` | a legendary's own trick: `{"id", "phrases", "move"}` (an old `motes` key is read and ignored). Required for a rarity with `signature`, refused for any other |
 | `mind` | optional and rarely needed: an object whose keys (`senses`, `tools`, `budget`, `triggers`, `canned`) replace the shared ones from `mind.json` for this species |
+| `aliases` | optional: older addresses in this repository (`glyphs/creature-<name>.json`) where the build also writes its document, byte for byte, for creatures caught from them. See "Rules" |
 | `biomes` | where it is found, the home biome first. The file lives in `definitions/<home>/`. A common species may list three, an uncommon one two; rare and above have one, so they are a reason to go somewhere (`maxBiomes` in `rarity.json`) |
 | `habitat` | `water`, `ground` or `air` |
 | `rarity` | a level from `rarity.json` |
@@ -693,6 +694,13 @@ species that wander in from other biomes. three.js 0.160.0 from jsDelivr; the mo
 
 - Names and designs are original: no names, likenesses or signature looks from any game, show or brand. Plain
   animals with friendly names.
-- The four creatures in QRX.pack (`creature-fish`, `creature-fish-blue`, `creature-lizard`, `creature-butterfly`)
-  stay where they are; `reserved.json` keeps their ids and names out of here.
+- The four creatures QRX.pack had before species (`glyphs/creature-fish`, `creature-fish-blue`, `creature-lizard`,
+  `creature-butterfly`) are species since 2026-11-23: `orange-reef-fish` (Sunny), `blue-reef-fish` (Indigo),
+  `green-spotted-lizard` (Biscuit) and `amber-eyespot` (Clover), drawn by the archetypes that were made after them.
+  Each definition's `aliases` names its old address, and the build writes the species' document there byte for byte
+  (`--check` holds it to that), because creatures caught from a printed code point at it. Never remove an alias.
+  `reserved.json` still keeps the old model ids (`fish`, `lizard`...) and the scene actors' names out of here.
+- A species with no art filed ships its drawn model under all three names (`<id>.glb`, `<id>.low.glb`,
+  `<id>.quest.glb`): it is plain glTF, which the Quest reads, and `--check` refuses one that uses an extension the
+  Quest does not. Art filed later replaces the plain and Quest copies and keeps the drawn one as `.low`.
 - Everything here is generated from these scripts, so nothing is sampled from anyone else's work.

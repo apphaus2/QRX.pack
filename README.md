@@ -21,9 +21,9 @@ in QRX describes the format).
 | [scene-pet.json](glyphs/scene-pet.json) | Rusty as a house pet: he wanders the floor, gets hungry, sleepy and bored as the minutes pass, eats from his bowl, sleeps on his bed (or by the couch, where a headset knows one), and comes when tapped or spoken to | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/scene-pet.json` |
 | [scene-aquarium.json](glyphs/scene-aquarium.json) | an aquarium: five reef fish in a glass tank with sand and plants; tap a fish and it darts away, tap the tank and they come up to feed. On a TV the tank fills the screen | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/scene-aquarium.json` |
 | [scene-tank.json](glyphs/scene-tank.json) | the aquarium's tank with nobody in it: tap it to feed whatever a TV drops in. A TV looks it up once and puts every creature its phones captured in it | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/scene-tank.json` |
-| [creature-fish.json](glyphs/creature-fish.json), [creature-fish-blue.json](glyphs/creature-fish-blue.json) | one reef fish on its own, swimming in the tank's volume by the code: a creature to find out in the world and keep. Its header says `"habitat": "water"`, so a QRX phone that scans it keeps it in its storage and a paired TV drops it into the tank (`scene-tank.json`) it keeps rather than onto its shelf | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/creature-fish.json` |
-| [creature-lizard.json](glyphs/creature-lizard.json) | Biscuit the lizard, walking about by the code; tap and it runs from you. A creature: `"habitat": "ground"`, so a TV puts it in its terrarium | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/creature-lizard.json` |
-| [creature-butterfly.json](glyphs/creature-butterfly.json) | Clover the butterfly, fluttering over the code; tap and she flies off. A creature: `"habitat": "air"`, so a TV puts her in its aviary | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/creature-butterfly.json` |
+| [creature-fish.json](glyphs/creature-fish.json), [creature-fish-blue.json](glyphs/creature-fish-blue.json) | Sunny the Orange Reef Fish and Indigo the Blue Reef Fish, swimming by the code. Since 2026-11-23 these are species like any other (`orange-reef-fish`, `blue-reef-fish`): `species/build.py` writes the species' own document here too, so a creature caught from this address can be talked to and does its cues. `"habitat": "water"`: a TV keeps it in the tank | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/creature-fish.json` |
+| [creature-lizard.json](glyphs/creature-lizard.json) | Biscuit the Green Spotted Lizard (`green-spotted-lizard`), written here by `species/build.py`; tap and it runs from you. `"habitat": "ground"`: a TV puts it in its terrarium | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/creature-lizard.json` |
+| [creature-butterfly.json](glyphs/creature-butterfly.json) | Clover the Amber Eyespot (`amber-eyespot`), written here by `species/build.py`; tap and she flies off. `"habitat": "air"`: a TV puts her in its aviary | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/creature-butterfly.json` |
 | [scene-trout.json](glyphs/scene-trout.json) | Speckle the trout, half a metre long, swimming slowly through the room at head height; tap and she swims over | `size: *4`<br>`https://qrx-pack.apphaus.us/glyphs/scene-trout.json` |
 
 The scenes are [JsonScene](https://github.com/apphaus2/JsonScene) documents; their minds are
@@ -58,7 +58,8 @@ images/, sounds/ media the documents use by URL
 models/          our own glTF models (CC0), written by the scripts
 species/         the creatures found out in the world, with no code: one small definition per species, the pipeline
                  that builds them (`python3 species/build.py`), and what it builds (creatures/, models/, sounds/, index.json).
-                 77 species on the 11 ESA WorldCover land-cover classes, five rarities; see species/README.md
+                 105 species on the 11 ESA WorldCover land-cover classes, five rarities; see species/README.md.
+                 The four glyphs/creature-*.json are four of them (species/build.py writes them; do not edit)
 soundscapes/     the sound of each of the 11 land-cover classes: a day and a night bed (30 s seamless loops, Ogg Opus)
                  and short cues to scatter over them, synthesized by `python3 -I soundscapes/build.py` from one
                  recipe per biome; index.json is the catalog; see soundscapes/README.md.

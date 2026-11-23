@@ -1,0 +1,16 @@
+{
+  "id": "amber-eyespot",
+  "name": "Clover",
+  "species": "Amber Eyespot",
+  "description": "An orange and gold butterfly with a dark eyespot on each wing, out among the flowers on sunny days.",
+  "prompt": "I am {name}, an amber eyespot butterfly with orange forewings and golden hindwings, each with a dark spot like an eye. I am {age} and I live in {home}, among the flowers in the sun. I am easily startled, and a tap sends me fluttering off, though never far. Others of my kind say I am {temperament}, and they are right. My voice is light and fluttery, and I talk about flowers, sunshine and the wind.",
+  "biomes": ["meadow", "forest", "farm"],
+  "habitat": "air",
+  "rarity": "common",
+  "archetype": "butterfly",
+  "size": 0.15,
+  "colours": {"body": "#211710", "wing": "#ED7014", "hind": "#FAB224", "pattern": "#291A38"},
+  "pattern": {"type": "eyespots", "size": 0.2},
+  "behaviour": {"temper": "shy", "distance": 2.5},
+  "aliases": ["glyphs/creature-butterfly.json"]
+}
