@@ -1,0 +1,12 @@
+{
+  "id": "weeping-willow-giant",
+  "name": "Weeping Willow",
+  "description": "A colossal weeping willow, pale leaves hanging to a grassy riverbank.",
+  "biomes": {
+    "meadow": 10,
+    "farm": 10,
+    "town": 10,
+    "water": 4,
+    "wetland": 25
+  }
+}

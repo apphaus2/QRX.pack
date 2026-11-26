@@ -1,0 +1,9 @@
+{
+  "id": "lone-cypress",
+  "name": "Lone Cypress",
+  "description": "A windswept Monterey cypress leaning over a grassy clifftop.",
+  "biomes": {
+    "shrub": 25,
+    "barren": 10
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "giraffe",
+  "name": "Giraffe",
+  "description": "A tall reticulated giraffe on dry savanna, a single acacia far behind.",
+  "biomes": {
+    "shrub": 60,
+    "meadow": 25
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "id": "giant-rhododendron",
+  "name": "Giant Rhododendron",
+  "description": "A house-tall rhododendron, dark leaves and magenta flowers, on a mountain slope.",
+  "biomes": {
+    "forest": 10,
+    "shrub": 25,
+    "meadow": 10
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "id": "moa",
+  "name": "Moa",
+  "description": "A giant flightless moa, shaggy and wingless, on open tussock grass.",
+  "biomes": {
+    "forest": 10,
+    "meadow": 25
+  }
+}

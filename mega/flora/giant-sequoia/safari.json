@@ -1,0 +1,9 @@
+{
+  "id": "giant-sequoia",
+  "name": "Giant Sequoia",
+  "description": "A giant sequoia, red trunk flaring at the base, crown high and narrow.",
+  "biomes": {
+    "forest": 25,
+    "meadow": 4
+  }
+}

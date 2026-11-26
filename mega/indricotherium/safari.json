@@ -1,0 +1,10 @@
+{
+  "id": "indricotherium",
+  "name": "Indricotherium",
+  "description": "An enormous hornless rhinoceros relative on a dusty plain, neck held forward.",
+  "biomes": {
+    "shrub": 4,
+    "meadow": 4,
+    "barren": 10
+  }
+}

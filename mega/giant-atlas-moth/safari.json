@@ -1,0 +1,9 @@
+{
+  "id": "giant-atlas-moth",
+  "name": "Giant Atlas Moth",
+  "description": "An atlas moth the size of a small aircraft, wings spread on a bare tree.",
+  "biomes": {
+    "forest": 10,
+    "meadow": 4
+  }
+}

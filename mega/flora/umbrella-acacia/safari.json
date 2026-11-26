@@ -1,0 +1,9 @@
+{
+  "id": "umbrella-acacia",
+  "name": "Umbrella Acacia",
+  "description": "A huge umbrella thorn, flat green crown over golden savanna grass.",
+  "biomes": {
+    "shrub": 60,
+    "meadow": 25
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "skyspire-bloom",
+  "name": "Skyspire Bloom",
+  "description": "A tower-tall pale stalk with a violet bell flower, on a flat salt plain.",
+  "biomes": {
+    "barren": 10
+  }
+}

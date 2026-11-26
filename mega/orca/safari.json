@@ -1,0 +1,8 @@
+{
+  "id": "orca",
+  "name": "Orca",
+  "description": "A black and white orca clear of a calm grey sea, dorsal fin tall.",
+  "biomes": {
+    "water": 25
+  }
+}

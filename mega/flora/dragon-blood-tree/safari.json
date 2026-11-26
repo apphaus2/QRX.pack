@@ -1,0 +1,9 @@
+{
+  "id": "dragon-blood-tree",
+  "name": "Dragon's Blood Tree",
+  "description": "A dragon's blood tree, umbrella crown of stiff leaves, on rocky arid ground.",
+  "biomes": {
+    "shrub": 10,
+    "barren": 25
+  }
+}

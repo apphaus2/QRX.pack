@@ -1,0 +1,10 @@
+{
+  "id": "woolly-mammoth",
+  "name": "Woolly Mammoth",
+  "description": "A shaggy woolly mammoth with long tusks, on snowy steppe grass.",
+  "biomes": {
+    "meadow": 10,
+    "snow": 25,
+    "tundra": 60
+  }
+}

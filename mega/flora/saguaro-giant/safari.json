@@ -1,0 +1,9 @@
+{
+  "id": "saguaro-giant",
+  "name": "Saguaro",
+  "description": "An ancient saguaro with three upcurved arms, on open desert gravel.",
+  "biomes": {
+    "shrub": 10,
+    "barren": 60
+  }
+}
