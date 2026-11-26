@@ -15,6 +15,8 @@
  },
  "centre": [],
  "turns": {
-  "african-elephant": 90
+  "african-elephant": 90,
+  "dromedary-camel": 90,
+  "grizzly-bear": 90
  }
 }

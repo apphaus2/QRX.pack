@@ -1,0 +1,24 @@
+{
+  "title": "Roadside",
+  "groups": [
+    {
+      "name": "Animals",
+      "items": [
+        { "id": "african-elephant", "name": "African elephant", "model": "../fauna/african-elephant/mesh.glb", "shape": "quadruped" },
+        { "id": "american-bison", "name": "American bison", "model": "../fauna/american-bison/mesh.glb", "shape": "quadruped" },
+        { "id": "bull-elk", "name": "Bull elk", "model": "../fauna/bull-elk/mesh.glb", "shape": "quadruped" },
+        { "id": "caribou", "name": "Caribou", "model": "../fauna/caribou/mesh.glb", "shape": "quadruped" },
+        { "id": "dromedary-camel", "name": "Dromedary camel", "model": "../fauna/dromedary-camel/mesh.glb", "shape": "quadruped" },
+        { "id": "grizzly-bear", "name": "Grizzly bear", "model": "../fauna/grizzly-bear/mesh.glb", "shape": "quadruped" },
+        { "id": "moose", "name": "Moose", "model": "../fauna/moose/mesh.glb", "shape": "quadruped" },
+        { "id": "water-buffalo", "name": "Water buffalo", "model": "../fauna/water-buffalo/mesh.glb", "shape": "quadruped" },
+        { "id": "white-rhino", "name": "White rhino", "model": "../fauna/white-rhino/mesh.glb", "shape": "quadruped" },
+        { "id": "ostrich", "name": "Ostrich", "model": "../fauna/ostrich/mesh.glb", "shape": "bird" }
+      ]
+    },
+    {
+      "name": "Plants",
+      "items": []
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
- "_": "MeshTool project for the megafauna in this folder. Each creature is real size (the longest side in its prompt.md). Flora stays as concept renders. blue-whale-surfacing and sauropod-herd are not one animal, so they are not in this list.",
+ "_": "MeshTool project for the megafauna in this folder. Each creature is real size (the longest side in its prompt.md). Flora are not in this list. blue-whale-surfacing and sauropod-herd are not one animal, so they are not in this list either.",
  "archetype": "mega",
  "creatures": {
   "giraffe": "quadruped",

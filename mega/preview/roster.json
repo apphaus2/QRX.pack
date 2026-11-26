@@ -1,0 +1,43 @@
+{
+  "title": "Mega",
+  "groups": [
+    {
+      "name": "Animals",
+      "items": [
+        { "id": "giraffe", "name": "Giraffe", "model": "../giraffe/mesh.glb", "shape": "quadruped" },
+        { "id": "polar-bear", "name": "Polar bear", "model": "../polar-bear/mesh.glb", "shape": "quadruped" },
+        { "id": "woolly-mammoth", "name": "Woolly mammoth", "model": "../woolly-mammoth/mesh.glb", "shape": "quadruped" },
+        { "id": "steppe-mammoth", "name": "Steppe mammoth", "model": "../steppe-mammoth/mesh.glb", "shape": "quadruped" },
+        { "id": "andrewsarchus", "name": "Andrewsarchus", "model": "../andrewsarchus/mesh.glb", "shape": "quadruped" },
+        { "id": "elephant-seal", "name": "Elephant seal", "model": "../elephant-seal/mesh.glb", "shape": "quadruped" },
+        { "id": "giant-ground-sloth", "name": "Giant ground sloth", "model": "../giant-ground-sloth/mesh.glb", "shape": "quadruped" },
+        { "id": "indricotherium", "name": "Indricotherium", "model": "../indricotherium/mesh.glb", "shape": "quadruped" },
+        { "id": "paraceratherium", "name": "Paraceratherium", "model": "../paraceratherium/mesh.glb", "shape": "quadruped" },
+        { "id": "brachiosaur", "name": "Brachiosaur", "model": "../brachiosaur/mesh.glb", "shape": "quadruped" },
+        { "id": "skyreed-strider", "name": "Skyreed strider", "model": "../skyreed-strider/mesh.glb", "shape": "quadruped" },
+        { "id": "quetzalcoatlus", "name": "Quetzalcoatlus", "model": "../quetzalcoatlus/mesh.glb", "shape": "quadruped" },
+        { "id": "giganotosaurus", "name": "Giganotosaurus", "model": "../giganotosaurus/mesh.glb", "shape": "biped" },
+        { "id": "moa", "name": "Moa", "model": "../moa/mesh.glb", "shape": "biped" },
+        { "id": "terror-bird", "name": "Terror bird", "model": "../terror-bird/mesh.glb", "shape": "bird" },
+        { "id": "terror-crane", "name": "Terror crane", "model": "../terror-crane/mesh.glb", "shape": "bird" },
+        { "id": "orca", "name": "Orca", "model": "../orca/mesh.glb", "shape": "fish" },
+        { "id": "giant-atlas-moth", "name": "Giant atlas moth", "model": "../giant-atlas-moth/mesh.glb", "shape": "flyer" }
+      ]
+    },
+    {
+      "name": "Plants",
+      "items": [
+        { "id": "baobab", "name": "Baobab", "model": "../flora/baobab/mesh.glb", "shape": "plant" },
+        { "id": "dragon-blood-tree", "name": "Dragon blood tree", "model": "../flora/dragon-blood-tree/mesh.glb", "shape": "plant" },
+        { "id": "giant-rhododendron", "name": "Giant rhododendron", "model": "../flora/giant-rhododendron/mesh.glb", "shape": "plant" },
+        { "id": "giant-sequoia", "name": "Giant sequoia", "model": "../flora/giant-sequoia/mesh.glb", "shape": "plant" },
+        { "id": "giant-tree-fern", "name": "Giant tree fern", "model": "../flora/giant-tree-fern/mesh.glb", "shape": "plant" },
+        { "id": "lone-cypress", "name": "Lone cypress", "model": "../flora/lone-cypress/mesh.glb", "shape": "plant" },
+        { "id": "saguaro-giant", "name": "Saguaro", "model": "../flora/saguaro-giant/mesh.glb", "shape": "plant" },
+        { "id": "skyspire-bloom", "name": "Skyspire bloom", "model": "../flora/skyspire-bloom/mesh.glb", "shape": "plant" },
+        { "id": "umbrella-acacia", "name": "Umbrella acacia", "model": "../flora/umbrella-acacia/mesh.glb", "shape": "plant" },
+        { "id": "weeping-willow-giant", "name": "Weeping willow", "model": "../flora/weeping-willow-giant/mesh.glb", "shape": "plant" }
+      ]
+    }
+  ]
+}
