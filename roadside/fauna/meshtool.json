@@ -13,5 +13,8 @@
   "white-rhino": "quadruped",
   "ostrich": "bird"
  },
- "centre": []
+ "centre": [],
+ "turns": {
+  "african-elephant": 90
+ }
 }
