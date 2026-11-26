@@ -1,0 +1,17 @@
+{
+ "_": "MeshTool project for the roadside fauna. Each creature is real size (the longest side in its prompt.md).",
+ "archetype": "roadside",
+ "creatures": {
+  "african-elephant": "quadruped",
+  "american-bison": "quadruped",
+  "bull-elk": "quadruped",
+  "caribou": "quadruped",
+  "dromedary-camel": "quadruped",
+  "grizzly-bear": "quadruped",
+  "moose": "quadruped",
+  "water-buffalo": "quadruped",
+  "white-rhino": "quadruped",
+  "ostrich": "bird"
+ },
+ "centre": []
+}

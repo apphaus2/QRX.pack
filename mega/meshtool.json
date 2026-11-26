@@ -1,0 +1,33 @@
+{
+ "_": "MeshTool project for the megafauna in this folder. Each creature is real size (the longest side in its prompt.md). Flora stays as concept renders. blue-whale-surfacing and sauropod-herd are not one animal, so they are not in this list.",
+ "archetype": "mega",
+ "creatures": {
+  "giraffe": "quadruped",
+  "polar-bear": "quadruped",
+  "woolly-mammoth": "quadruped",
+  "steppe-mammoth": "quadruped",
+  "andrewsarchus": "quadruped",
+  "elephant-seal": "quadruped",
+  "giant-ground-sloth": "quadruped",
+  "indricotherium": "quadruped",
+  "paraceratherium": "quadruped",
+  "brachiosaur": "quadruped",
+  "skyreed-strider": "quadruped",
+  "quetzalcoatlus": "quadruped",
+  "giganotosaurus": "biped",
+  "moa": "biped",
+  "terror-bird": "bird",
+  "terror-crane": "bird",
+  "orca": "fish",
+  "giant-atlas-moth": "flyer"
+ },
+ "centre": [
+  "orca",
+  "giant-atlas-moth"
+ ],
+ "turns": {
+  "polar-bear": 90,
+  "woolly-mammoth": 90,
+  "steppe-mammoth": 90
+ }
+}
