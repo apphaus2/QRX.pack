@@ -1,5 +1,5 @@
 {
-  "_": "MeshTool project for the safari creatures in this folder. Pass --project species/safari (the default project is species/art). Class and kind are in each safari.json, not in this file. Each creature is real size (the longest side in its prompt.md). Flora are not in this list. blue-whale-surfacing and sauropod-herd are not one animal, so they are not in this list either.",
+  "_": "MeshTool project for the safari creatures in this folder. Pass --project species/safari (the default project is species/art). Class and kind are in each safari.json, not in this file. Each creature is real size (the longest side in its prompt.md). Flora are not in this list.",
   "archetype": "safari",
   "creatures": {
     "african-elephant": "quadruped",

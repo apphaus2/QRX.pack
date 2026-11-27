@@ -14,9 +14,7 @@ Biome ids are the species catalog's (species/biomes.json).
 
 Layout. Every creature is species/safari/<id>/. The model path in the index is species/safari/<id>/mesh.glb.
 species/index.json is the wild catalog. This script never reads or writes it.
-
-Not sightings: blue-whale-surfacing (a back and a spout) and sauropod-herd (five animals).
-They are not one creature. species/ is not read except for the biome ids and the rarity weights.
+species/ is not read except for the biome ids and the rarity weights.
 
 Size. The app draws each sighting at the index size, at every distance, with no further scaling.
 A definition may give "size": [width, height, length] in metres, y up. That is the drawn size.
@@ -32,8 +30,6 @@ ROOT = os.path.dirname(HERE)
 PACK = "https://qrx-pack.apphaus.us/"
 INDEX = os.path.join(ROOT, "species", "safari.json")
 SIGHTINGS = os.path.join(ROOT, "species", "safari")
-# A picture that is not one creature.
-SKIP = {"blue-whale-surfacing", "sauropod-herd"}
 KEYS = {"id", "name", "description", "biomes", "class", "kind", "size"}
 CLASSES = ("roadside", "mega")
 KINDS = ("fauna", "flora")
@@ -123,7 +119,7 @@ class Build:
         seen = {}
         for name in sorted(os.listdir(SIGHTINGS)):
             folder = os.path.join(SIGHTINGS, name)
-            if not os.path.isdir(folder) or name in SKIP:
+            if not os.path.isdir(folder):
                 continue
             where = rel("species", "safari", name)
             if name in seen:
