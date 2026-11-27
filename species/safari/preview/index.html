@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safari preview</title>
+<!--
+  Every safari sighting, turning and playing its clip.
+  Serve the pack, or the species folder:
+
+      cd QRX.pack && python3 -m http.server 8000
+          then http://localhost:8000/species/safari/preview/
+      cd species && python3 -m http.server 8000
+          then http://localhost:8000/safari/preview/
+
+  The list is species/safari.json, read as ../../safari.json from this page.
+  Each card loads ../<id>/mesh.glb and nothing else. A model that is not
+  built yet fails on the card.
+  The cards frame each creature. The enlarged view can draw it at the index
+  size, with a 2 m figure on the same ground.
+  three.js 0.160.0 from jsDelivr. The packed meshes need the KTX2 and meshopt decoders.
+-->
+<style>
+  :root { --ink: #1c2330; --soft: #5b6676; --line: #dfe4ea; --page: #f4f6f8; --card: #ffffff; }
+  @media (prefers-color-scheme: dark) { :root { --ink: #e8ecf1; --soft: #9aa6b5; --line: #2c3442; --page: #12161d; --card: #1a202a; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.4 -apple-system, "Segoe UI", Roboto, sans-serif; }
+  header { position: sticky; top: 0; z-index: 3; background: var(--page); border-bottom: 1px solid var(--line); padding: 10px 16px; }
+  h1 { font-size: 17px; margin: 0 0 4px; }
+  h1 small { font-weight: 400; color: var(--soft); margin-left: 8px; }
+  .row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 6px; }
+  .row > span.label { color: var(--soft); width: 58px; font-size: 12px; }
+  button { font: inherit; font-size: 12px; color: var(--ink); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; cursor: pointer; }
+  button[aria-pressed="true"] { background: var(--ink); color: var(--page); border-color: var(--ink); }
+  #status { color: var(--soft); font-size: 12px; margin-left: auto; }
+  main { padding: 4px 16px 48px; }
+  section h2 { font-size: 16px; margin: 22px 0 8px; }
+  section h2 small { font-weight: 400; color: var(--soft); margin-left: 8px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .view { position: relative; aspect-ratio: 4 / 3; background: linear-gradient(#c98a4b, #7a4a2a); cursor: pointer; }
+  .view .load { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: rgba(255,255,255,.18); pointer-events: none; }
+  .view .load i { display: block; height: 100%; width: 0; background: #F5B301; }
+  .view .load.done i { width: 100%; background: #3FB950; }
+  .view .load.failed { background: transparent; }
+  .view .load.failed i { width: 100%; background: #E5534B; }
+  .miss { position: absolute; left: 10px; right: 10px; top: 12px; margin: 0; color: #fff; font-size: 13px; text-shadow: 0 1px 2px rgba(0,0,0,.6); }
+  .text { padding: 8px 10px 12px; }
+  .name { font-weight: 600; }
+  .name small { font-weight: 400; color: var(--soft); }
+  .meta { color: var(--soft); font-size: 12px; margin-top: 4px; }
+  .empty { color: var(--soft); margin: 28px 0; }
+  canvas#stage { position: fixed; inset: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 2; }
+  #big { width: min(1100px, calc(100vw - 32px)); padding: 0; border: 0; background: var(--card); color: var(--ink); }
+  #big .bigview { width: 100%; aspect-ratio: 16 / 10; display: block; background: #1a202a; }
+  #big .bar { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; padding: 8px 12px; }
+  #big .bar b { margin-right: auto; }
+  #bigNote { flex-basis: 100%; font-size: 12px; color: var(--soft); }
+</style>
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<header>
+  <h1>Safari <small id="count"></small></h1>
+  <div class="row"><span class="label">Kind</span>
+    <button data-kind="all" aria-pressed="true">All</button>
+    <button data-kind="fauna" aria-pressed="false">Animals</button>
+    <button data-kind="flora" aria-pressed="false">Plants</button>
+  </div>
+  <div class="row"><span class="label">Class</span>
+    <button data-cls="all" aria-pressed="true">All</button>
+    <button data-cls="roadside" aria-pressed="false">Roadside</button>
+    <button data-cls="mega" aria-pressed="false">Mega</button>
+  </div>
+  <div class="row"><span class="label">Land</span>
+    <button data-land="all" aria-pressed="true">All</button>
+    <button data-land="forest" aria-pressed="false">Forest</button>
+    <button data-land="shrub" aria-pressed="false">Scrub</button>
+    <button data-land="meadow" aria-pressed="false">Meadow</button>
+    <button data-land="farm" aria-pressed="false">Farmland</button>
+    <button data-land="town" aria-pressed="false">Town</button>
+    <button data-land="barren" aria-pressed="false">Barrens</button>
+    <button data-land="snow" aria-pressed="false">Snowfield</button>
+    <button data-land="water" aria-pressed="false">Open Water</button>
+    <button data-land="wetland" aria-pressed="false">Marsh</button>
+    <button data-land="mangrove" aria-pressed="false">Mangrove</button>
+    <button data-land="tundra" aria-pressed="false">Tundra</button>
+  </div>
+  <div class="row"><span class="label">View</span>
+    <button data-angle="turn" aria-pressed="true">Turning</button>
+    <button data-angle="side" aria-pressed="false">Side</button>
+    <button data-angle="three" aria-pressed="false">Three-quarter</button>
+    <button data-angle="front" aria-pressed="false">Front</button>
+    <button data-angle="top" aria-pressed="false">Above</button>
+    <button data-clip="move" aria-pressed="true">Moving</button>
+    <button data-clip="idle" aria-pressed="false">Idle</button>
+    <button data-clip="still" aria-pressed="false">Still</button>
+    <button id="reload">Reload</button>
+    <span id="status"></span>
+  </div>
+</header>
+<main id="main"></main>
+<canvas id="stage"></canvas>
+<dialog id="big">
+  <canvas class="bigview"></canvas>
+  <div class="bar"><b id="bigName"></b>
+    <button data-bigclip="move" aria-pressed="true">Moving</button>
+    <button data-bigclip="idle" aria-pressed="false">Idle</button>
+    <button data-bigclip="still" aria-pressed="false">Still</button>
+    <button id="trueSize" aria-pressed="false">True size</button>
+    <span style="font-size:12px;color:var(--soft)">Drag to turn, scroll to zoom</span>
+    <button id="bigClose">Close</button>
+    <span id="bigNote"></span>
+  </div>
+</dialog>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { KTX2Loader } from "three/addons/loaders/KTX2Loader.js";
+import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const LANDS = {
+  forest: "Forest", shrub: "Scrub", meadow: "Meadow", farm: "Farmland", town: "Town",
+  barren: "Barrens", snow: "Snowfield", water: "Open Water", wetland: "Marsh",
+  mangrove: "Mangrove", tundra: "Tundra"
+};
+const CLASSES = [["roadside", "Roadside"], ["mega", "Mega"]];
+const KINDS = [["fauna", "animals"], ["flora", "plants"]];
+
+const state = { angle: "turn", clip: "move" };
+const filters = { kind: "all", cls: "all", land: "all" };
+let catalog = null, stamp = Date.now();
+const views = [];
+const probe = new THREE.WebGLRenderer();
+const ktx2 = new KTX2Loader().setTranscoderPath("https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/basis/").detectSupport(probe);
+probe.dispose(); probe.forceContextLoss();
+const loader = new GLTFLoader().setKTX2Loader(ktx2).setMeshoptDecoder(MeshoptDecoder);
+const status = document.getElementById("status");
+let loaded = 0, failed = 0;
+
+function group(attr, apply) {
+  const buttons = document.querySelectorAll(`[data-${attr}]`);
+  for (const b of buttons) b.onclick = () => {
+    for (const o of buttons) o.setAttribute("aria-pressed", String(o === b));
+    apply(b.dataset[attr]);
+  };
+}
+group("angle", value => { state.angle = value; for (const view of views) aim(view); });
+group("clip", value => { state.clip = value; for (const view of views) play(view); });
+group("kind", value => { filters.kind = value; layout(); });
+group("cls", value => { filters.cls = value; layout(); });
+group("land", value => { filters.land = value; layout(); });
+document.getElementById("reload").onclick = () => start();
+
+function play(view, clip = state.clip) {
+  if (!view.mixer) return;
+  const wanted = clip === "idle" ? "idle" : clip === "move" ? (view.move || "idle") : null;
+  for (const [name, action] of Object.entries(view.actions)) {
+    if (name === wanted) action.reset().play();
+    else action.stop();
+  }
+  if (!wanted) view.mixer.setTime(0);
+}
+
+const ANGLES = { side: -Math.PI / 2, three: -Math.PI / 4, front: 0 };
+function aim(view) {
+  const reach = view.reach;
+  if (!reach) return;
+  if (state.angle === "top") view.camera.position.set(0, reach * 1.05, reach * 0.35);
+  else view.camera.position.set(0, reach * 0.28, reach);
+  view.camera.lookAt(0, 0, 0);
+  if (state.angle in ANGLES) view.pivot.rotation.y = ANGLES[state.angle];
+  else if (state.angle === "top") view.pivot.rotation.y = -Math.PI / 4;
+}
+
+function shadow(width) {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 64;
+  const paint = canvas.getContext("2d");
+  const grad = paint.createRadialGradient(32, 32, 0, 32, 32, 32);
+  grad.addColorStop(0, "rgba(0,0,0,0.35)");
+  grad.addColorStop(1, "rgba(0,0,0,0)");
+  paint.fillStyle = grad;
+  paint.fillRect(0, 0, 64, 64);
+  const mesh = new THREE.Mesh(new THREE.PlaneGeometry(width, width), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(canvas), transparent: true, depthWrite: false }));
+  mesh.rotation.x = -Math.PI / 2;
+  return mesh;
+}
+
+function stage(item) {
+  const scene = new THREE.Scene();
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x51483f, 1.4));
+  const sun = new THREE.DirectionalLight(0xffffff, 2.2);
+  sun.position.set(1.5, 3, 2.5);
+  scene.add(sun);
+  const camera = new THREE.PerspectiveCamera(30, 4 / 3, 0.01, 200);
+  const pivot = new THREE.Group();
+  scene.add(pivot);
+  return { scene, camera, pivot, mixer: null, actions: {}, id: item.id, move: null, reach: 0, item };
+}
+
+function frameOf(gltf, facts) {
+  if (facts && facts.box) {
+    const min = new THREE.Vector3().fromArray(facts.box[0]);
+    const max = new THREE.Vector3().fromArray(facts.box[1]);
+    const box = new THREE.Box3(min, max);
+    return { centre: box.getCenter(new THREE.Vector3()), size: box.getSize(new THREE.Vector3()), minY: min.y };
+  }
+  const box = new THREE.Box3().setFromObject(gltf.scene);
+  return { centre: box.getCenter(new THREE.Vector3()), size: box.getSize(new THREE.Vector3()), minY: box.min.y };
+}
+
+function measureText(n) {
+  const rounded = Math.round(n * 100) / 100;
+  return String(rounded);
+}
+
+function sizeText(size) {
+  if (!size) return "No size in the index";
+  return `${measureText(size[0])} m wide, ${measureText(size[1])} m tall, ${measureText(size[2])} m long`;
+}
+
+function landsText(biomes) {
+  return Object.keys(biomes || {}).map(id => LANDS[id] || id).join(", ");
+}
+
+function meta(item, facts) {
+  const bits = [sizeText(item.size)];
+  const homes = landsText(item.biomes);
+  if (homes) bits.push(homes);
+  const triangles = item.triangles || (facts && facts.triangles);
+  const bytes = item.bytes || (facts && facts.bytes);
+  if (triangles) bits.push(triangles + " triangles");
+  if (bytes) bits.push(Math.round(bytes / 1024) + " KB");
+  return bits.join(" · ");
+}
+
+function show(view, gltf, facts) {
+  const { centre, size, minY } = frameOf(gltf, facts);
+  gltf.scene.position.sub(centre);
+  view.pivot.add(gltf.scene);
+  const grounded = minY > -Math.max(0.05, size.y * 0.05);
+  if (grounded) {
+    const disc = shadow(Math.max(size.x, size.z) * 1.6);
+    disc.position.y = -size.y / 2 + 0.001;
+    view.pivot.add(disc);
+  }
+  view.reach = Math.max(size.x, size.y, size.z) * 2.2 + 0.05;
+  view.camera.near = Math.max(view.reach / 2000, 0.001);
+  view.camera.far = view.reach * 12;
+  view.mixer = new THREE.AnimationMixer(gltf.scene);
+  for (const clip of gltf.animations) {
+    view.actions[clip.name] = view.mixer.clipAction(clip);
+    if (clip.name === "swim" || clip.name === "walk" || clip.name === "fly") view.move = clip.name;
+  }
+  aim(view);
+  play(view);
+}
+
+const queue = [];
+let running = 0;
+function enqueue(job) { queue.push(job); pump(); }
+function pump() { while (running < 4 && queue.length) { running++; queue.shift()().then(() => { running--; pump(); }); } }
+function report() {
+  status.textContent = `${loaded} of ${views.length} models loaded` + (failed ? `, ${failed} failed` : "");
+}
+const fresh = path => `${path}?v=${stamp}`;
+
+function loadModel(path, done) {
+  const attempt = left => loader.load(fresh(path), gltf => done(gltf), undefined, error => {
+    if (left > 0) return setTimeout(() => attempt(left - 1), 400);
+    done(null, error);
+  });
+  attempt(2);
+}
+
+async function factsFor(id) {
+  try {
+    const answer = await fetch(fresh(`../${id}/made.json`), { cache: "no-store" });
+    if (!answer.ok) return null;
+    const body = await answer.json();
+    return body.files && body.files["mesh.glb"] ? body.files["mesh.glb"].facts : null;
+  } catch (error) { return null; }
+}
+
+function card(item) {
+  const element = document.createElement("div");
+  element.className = "card";
+  element.innerHTML = `<div class="view"><div class="load"><i></i></div></div><div class="text">
+    <div class="name">${item.name} <small>${item.id}</small></div>
+    <div class="meta">${meta(item)}</div></div>`;
+  const box = element.querySelector(".view");
+  const bar = element.querySelector(".load");
+  const view = stage(item);
+  view.element = box;
+  views.push(view);
+  box.onclick = () => enlarge(item);
+  enqueue(() => new Promise(done => loadModel(item.model, async (gltf, error) => {
+    if (!views.includes(view)) return done();
+    if (!gltf) {
+      failed++;
+      bar.classList.add("failed");
+      box.insertAdjacentHTML("beforeend", `<p class="miss">could not load ${item.model}</p>`);
+      console.error(item.model, error);
+      report();
+      return done();
+    }
+    const facts = await factsFor(item.id);
+    if (!views.includes(view)) return done();
+    show(view, gltf, facts);
+    element.querySelector(".meta").textContent = meta(item, facts);
+    bar.classList.add("done");
+    loaded++;
+    report();
+    done();
+  })));
+  return element;
+}
+
+function matches(item) {
+  if (filters.kind !== "all" && item.kind !== filters.kind) return false;
+  if (filters.cls !== "all" && item.class !== filters.cls) return false;
+  if (filters.land !== "all" && !(item.biomes && Object.prototype.hasOwnProperty.call(item.biomes, filters.land))) return false;
+  return true;
+}
+
+function layout() {
+  const main = document.getElementById("main");
+  main.textContent = "";
+  views.length = 0;
+  queue.length = 0;
+  loaded = failed = 0;
+  let count = 0;
+  for (const [cls, clsName] of CLASSES) {
+    for (const [kind, kindName] of KINDS) {
+      const items = catalog.filter(item => item.class === cls && item.kind === kind && matches(item));
+      if (!items.length) continue;
+      const section = document.createElement("section");
+      section.innerHTML = `<h2>${clsName} ${kindName} <small>${items.length}</small></h2>`;
+      const grid = document.createElement("div");
+      grid.className = "grid";
+      for (const item of items) { grid.appendChild(card(item)); count++; }
+      section.appendChild(grid);
+      main.appendChild(section);
+    }
+  }
+  if (!count) {
+    const empty = document.createElement("p");
+    empty.className = "empty";
+    empty.textContent = "No sightings match these filters.";
+    main.appendChild(empty);
+  }
+  document.getElementById("count").textContent = count + (count === 1 ? " sighting" : " sightings");
+  report();
+}
+
+const big = document.getElementById("big");
+const bigCanvas = big.querySelector("canvas");
+const bigNote = document.getElementById("bigNote");
+const trueSize = document.getElementById("trueSize");
+const bigRenderer = new THREE.WebGLRenderer({ canvas: bigCanvas, antialias: true, alpha: true });
+bigRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+let bigView = null, bigControls = null, bigClip = "move", bigToken = 0, bigTrue = false;
+
+function figure() {
+  const group = new THREE.Group();
+  const skin = new THREE.MeshLambertMaterial({ color: 0xe8a317 });
+  const leg = new THREE.Mesh(new THREE.BoxGeometry(0.36, 0.9, 0.18), skin);
+  leg.position.y = 0.45;
+  const torso = new THREE.Mesh(new THREE.BoxGeometry(0.42, 0.62, 0.22), skin);
+  torso.position.y = 1.21;
+  const head = new THREE.Mesh(new THREE.SphereGeometry(0.14, 16, 12), skin);
+  head.position.y = 1.86;
+  const canvas = document.createElement("canvas");
+  canvas.width = 128;
+  canvas.height = 64;
+  const paint = canvas.getContext("2d");
+  paint.fillStyle = "rgba(0,0,0,0.55)";
+  paint.fillRect(8, 10, 112, 44);
+  paint.fillStyle = "#fff";
+  paint.font = "bold 28px sans-serif";
+  paint.textAlign = "center";
+  paint.fillText("2 m", 64, 42);
+  const tag = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(canvas), transparent: true, depthTest: false }));
+  tag.position.y = 2.45;
+  tag.scale.set(1.6, 0.8, 1);
+  group.add(leg, torso, head, tag);
+  return group;
+}
+
+function dropProps(view) {
+  for (const child of view.scene.children.filter(child => child.name === "scale-prop")) view.scene.remove(child);
+}
+
+function clearPivot(view) {
+  while (view.pivot.children.length) view.pivot.remove(view.pivot.children[0]);
+}
+
+function resetModel(view) {
+  if (!view.gltf) return;
+  view.gltf.scene.removeFromParent();
+  view.gltf.scene.position.set(0, 0, 0);
+  view.gltf.scene.scale.set(1, 1, 1);
+  view.gltf.scene.rotation.set(0, 0, 0);
+}
+
+function fit(camera, box) {
+  const centre = box.getCenter(new THREE.Vector3());
+  const sphere = box.getBoundingSphere(new THREE.Sphere());
+  const fov = camera.fov * Math.PI / 180;
+  const dist = sphere.radius / Math.sin(fov / 2) * 0.85;
+  camera.position.set(centre.x + dist * 0.45, centre.y + sphere.radius * 0.15, centre.z + dist);
+  camera.near = Math.max(dist / 4000, 0.02);
+  camera.far = dist * 12;
+  camera.lookAt(centre);
+  camera.updateProjectionMatrix();
+  return centre;
+}
+
+function bindControls(camera, target) {
+  if (bigControls) bigControls.dispose();
+  bigControls = new OrbitControls(camera, bigCanvas);
+  bigControls.target.copy(target);
+  bigControls.update();
+}
+
+function applyFramed() {
+  const view = bigView;
+  resetModel(view);
+  clearPivot(view);
+  dropProps(view);
+  const frame = frameOf(view.gltf, view.facts);
+  view.gltf.scene.position.sub(frame.centre);
+  view.pivot.add(view.gltf.scene);
+  const grounded = frame.minY > -Math.max(0.05, frame.size.y * 0.05);
+  if (grounded) {
+    const disc = shadow(Math.max(frame.size.x, frame.size.z) * 1.6);
+    disc.position.y = -frame.size.y / 2 + 0.001;
+    view.pivot.add(disc);
+  }
+  view.reach = Math.max(frame.size.x, frame.size.y, frame.size.z) * 2.2 + 0.05;
+  view.camera.near = Math.max(view.reach / 2000, 0.001);
+  view.camera.far = view.reach * 12;
+  view.camera.position.set(view.reach * 0.62, view.reach * 0.28, view.reach * 0.62);
+  view.camera.lookAt(0, 0, 0);
+  view.pivot.rotation.y = 0;
+  bindControls(view.camera, new THREE.Vector3());
+  bigNote.textContent = sizeText(view.item.size);
+}
+
+function applyTrue() {
+  const view = bigView;
+  const drawn = view.item.size;
+  if (!drawn) {
+    bigTrue = false;
+    trueSize.setAttribute("aria-pressed", "false");
+    applyFramed();
+    bigNote.textContent = "No size in the index.";
+    return;
+  }
+  resetModel(view);
+  clearPivot(view);
+  dropProps(view);
+  const frame = frameOf(view.gltf, view.facts);
+  const scale = new THREE.Vector3(1, 1, 1);
+  const mesh = [frame.size.x, frame.size.y, frame.size.z];
+  for (let i = 0; i < 3; i++) if (mesh[i] > 1e-6 && drawn[i] > 0) scale.setComponent(i, drawn[i] / mesh[i]);
+  view.gltf.scene.scale.copy(scale);
+  view.gltf.scene.position.set(-frame.centre.x * scale.x, -frame.centre.y * scale.y, -frame.centre.z * scale.z);
+  const bottom = frame.minY * scale.y + view.gltf.scene.position.y;
+  view.gltf.scene.position.y -= bottom;
+  view.scene.add(view.gltf.scene);
+  const marker = figure();
+  marker.name = "scale-prop";
+  marker.position.set(drawn[0] / 2 + 1.2, 0, 0);
+  view.scene.add(marker);
+  const span = Math.max(drawn[0], drawn[1], drawn[2], 4);
+  const groundSize = Math.max(24, span * 4);
+  const ground = new THREE.Mesh(new THREE.PlaneGeometry(groundSize, groundSize), new THREE.MeshLambertMaterial({ color: 0x9aa58a }));
+  ground.name = "scale-prop";
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = -0.02;
+  view.scene.add(ground);
+  const divisions = Math.min(80, Math.max(8, Math.round(groundSize / Math.max(span / 8, 1))));
+  const grid = new THREE.GridHelper(groundSize, divisions, 0x5c6654, 0x5c6654);
+  grid.name = "scale-prop";
+  view.scene.add(grid);
+  const box = new THREE.Box3();
+  box.expandByPoint(new THREE.Vector3(-drawn[0] / 2, 0, -drawn[2] / 2));
+  box.expandByPoint(new THREE.Vector3(drawn[0] / 2, drawn[1], drawn[2] / 2));
+  box.expandByPoint(new THREE.Vector3(marker.position.x - 0.8, 0, -0.8));
+  box.expandByPoint(new THREE.Vector3(marker.position.x + 0.8, 2.6, 0.8));
+  const centre = fit(view.camera, box);
+  bindControls(view.camera, centre);
+  bigNote.textContent = sizeText(drawn) + ". The figure is 2 m.";
+}
+
+function placeBig() {
+  if (!bigView || !bigView.gltf) return;
+  if (bigTrue) applyTrue();
+  else applyFramed();
+}
+
+function enlarge(item) {
+  const token = ++bigToken;
+  bigTrue = false;
+  trueSize.setAttribute("aria-pressed", "false");
+  bigClip = state.clip;
+  for (const button of document.querySelectorAll("[data-bigclip]")) {
+    button.setAttribute("aria-pressed", String(button.dataset.bigclip === bigClip));
+  }
+  document.getElementById("bigName").textContent = `${item.name} (${item.id})`;
+  bigNote.textContent = sizeText(item.size);
+  bigView = stage(item);
+  big.showModal();
+  loadModel(item.model, async (gltf, error) => {
+    if (token !== bigToken || !bigView) return;
+    if (!gltf) {
+      bigNote.textContent = `could not load ${item.model}`;
+      console.error(item.model, error);
+      return;
+    }
+    bigView.gltf = gltf;
+    bigView.facts = await factsFor(item.id);
+    if (token !== bigToken || !bigView) return;
+    bigView.mixer = new THREE.AnimationMixer(gltf.scene);
+    for (const clip of gltf.animations) {
+      bigView.actions[clip.name] = bigView.mixer.clipAction(clip);
+      if (clip.name === "swim" || clip.name === "walk" || clip.name === "fly") bigView.move = clip.name;
+    }
+    placeBig();
+    play(bigView, bigClip);
+  });
+}
+
+trueSize.onclick = () => {
+  if (!bigView || !bigView.gltf) return;
+  bigTrue = !bigTrue;
+  trueSize.setAttribute("aria-pressed", String(bigTrue));
+  placeBig();
+};
+for (const button of document.querySelectorAll("[data-bigclip]")) {
+  button.onclick = () => {
+    bigClip = button.dataset.bigclip;
+    for (const other of document.querySelectorAll("[data-bigclip]")) other.setAttribute("aria-pressed", String(other === button));
+    if (bigView) play(bigView, bigClip);
+  };
+}
+document.getElementById("bigClose").onclick = () => big.close();
+big.addEventListener("close", () => {
+  bigToken++;
+  bigView = null;
+  if (bigControls) { bigControls.dispose(); bigControls = null; }
+});
+
+const canvas = document.getElementById("stage");
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const clock = new THREE.Clock();
+function frame() {
+  const dt = Math.min(clock.getDelta(), 0.1);
+  const width = canvas.clientWidth, height = canvas.clientHeight;
+  if (canvas.width !== Math.floor(width * renderer.getPixelRatio()) || canvas.height !== Math.floor(height * renderer.getPixelRatio())) renderer.setSize(width, height, false);
+  renderer.setScissorTest(false);
+  renderer.clear();
+  renderer.setScissorTest(true);
+  const top = document.querySelector("header").getBoundingClientRect().bottom;
+  for (const view of views) {
+    const rect = view.element.getBoundingClientRect();
+    if (rect.bottom < top || rect.top > height || rect.right < 0 || rect.left > width || !rect.width) continue;
+    if (view.mixer && state.clip !== "still") view.mixer.update(dt);
+    if (state.angle === "turn") view.pivot.rotation.y += dt * 0.45;
+    const y0 = Math.max(rect.top, top);
+    renderer.setViewport(rect.left, height - rect.bottom, rect.width, rect.height);
+    renderer.setScissor(rect.left, height - rect.bottom, rect.width, rect.bottom - y0);
+    view.camera.aspect = rect.width / rect.height;
+    view.camera.updateProjectionMatrix();
+    renderer.render(view.scene, view.camera);
+  }
+  if (bigView && big.open) {
+    const w = bigCanvas.clientWidth, h = bigCanvas.clientHeight;
+    if (bigCanvas.width !== Math.floor(w * bigRenderer.getPixelRatio())) bigRenderer.setSize(w, h, false);
+    if (bigView.mixer && bigClip !== "still") bigView.mixer.update(dt);
+    bigView.camera.aspect = w / Math.max(h, 1);
+    bigView.camera.updateProjectionMatrix();
+    bigRenderer.render(bigView.scene, bigView.camera);
+  }
+  requestAnimationFrame(frame);
+}
+
+function sighting(entry) {
+  return {
+    id: entry.id,
+    name: entry.name,
+    class: entry.class,
+    kind: entry.kind,
+    biomes: entry.biomes || {},
+    size: entry.size,
+    bytes: entry.bytes,
+    triangles: entry.triangles,
+    model: `../${entry.id}/mesh.glb`
+  };
+}
+
+async function start() {
+  stamp = Date.now();
+  status.textContent = "reading safari.json";
+  try {
+    const answer = await fetch(fresh("../../safari.json"), { cache: "no-store" });
+    if (!answer.ok) throw new Error(String(answer.status));
+    const body = await answer.json();
+    catalog = (body.sightings || []).map(sighting);
+  } catch (error) {
+    status.textContent = "could not read safari.json (" + error.message + ")";
+    return;
+  }
+  document.title = "Safari preview";
+  layout();
+}
+start();
+frame();
+</script>
+</body>
+</html>
