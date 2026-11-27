@@ -1,9 +1,0 @@
-{
-  "id": "american-bison",
-  "name": "American Bison",
-  "description": "A shaggy bull bison on short-grass prairie, shoulder hump high.",
-  "biomes": {
-    "meadow": 60,
-    "farm": 25
-  }
-}

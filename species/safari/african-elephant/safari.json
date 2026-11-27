@@ -1,0 +1,12 @@
+{
+  "id": "african-elephant",
+  "name": "African Elephant",
+  "description": "An African bush elephant on dry savanna grass, ears wide and tusks curved.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "shrub": 60,
+    "meadow": 25,
+    "mangrove": 1
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "id": "ostrich",
+  "name": "Ostrich",
+  "description": "A long-legged ostrich on dry savanna grass, black plumage and white plumes.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "shrub": 60,
+    "meadow": 25,
+    "farm": 10,
+    "barren": 10
+  }
+}

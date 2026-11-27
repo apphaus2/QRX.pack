@@ -1,0 +1,15 @@
+{
+  "id": "skyspire-bloom",
+  "name": "Skyspire Bloom",
+  "description": "A tower-tall pale stalk with a violet bell flower, on a flat salt plain.",
+  "class": "roadside",
+  "kind": "flora",
+  "biomes": {
+    "barren": 10
+  },
+  "size": [
+    12.0,
+    75.0,
+    12.0
+  ]
+}

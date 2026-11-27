@@ -1,9 +1,0 @@
-{
-  "id": "terror-bird",
-  "name": "Terror Bird",
-  "description": "A huge flightless predator bird with an axe-like beak, on dry grassland.",
-  "biomes": {
-    "shrub": 10,
-    "meadow": 10
-  }
-}

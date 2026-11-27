@@ -1,9 +1,0 @@
-{
-  "id": "paraceratherium",
-  "name": "Paraceratherium",
-  "description": "A gigantic hornless rhinoceros relative in arid scrub, long head and pillar legs.",
-  "biomes": {
-    "shrub": 25,
-    "barren": 10
-  }
-}

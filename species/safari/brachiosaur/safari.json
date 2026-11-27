@@ -1,0 +1,16 @@
+{
+  "id": "brachiosaur",
+  "name": "Brachiosaur",
+  "description": "A towering brachiosaur, neck raised, on an open fern plain.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "forest": 4,
+    "meadow": 10
+  },
+  "size": [
+    3.42,
+    12.0,
+    22.0
+  ]
+}

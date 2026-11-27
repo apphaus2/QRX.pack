@@ -1,9 +1,0 @@
-{
-  "id": "white-rhino",
-  "name": "White Rhino",
-  "description": "A broad-lipped white rhino on short savanna grass, head low and front horn long.",
-  "biomes": {
-    "shrub": 60,
-    "meadow": 25
-  }
-}

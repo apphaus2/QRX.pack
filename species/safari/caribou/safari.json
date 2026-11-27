@@ -1,0 +1,12 @@
+{
+  "id": "caribou",
+  "name": "Caribou",
+  "description": "A bull caribou on open tundra, pale mane and sweeping antlers.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "barren": 10,
+    "snow": 25,
+    "tundra": 60
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "andrewsarchus",
+  "name": "Andrewsarchus",
+  "description": "A huge hoofed predator with a long skull, on a dry sandy plain.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "shrub": 4,
+    "barren": 10
+  }
+}

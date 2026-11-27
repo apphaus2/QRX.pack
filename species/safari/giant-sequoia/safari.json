@@ -1,0 +1,16 @@
+{
+  "id": "giant-sequoia",
+  "name": "Giant Sequoia",
+  "description": "A giant sequoia, red trunk flaring at the base, crown high and narrow.",
+  "class": "roadside",
+  "kind": "flora",
+  "biomes": {
+    "forest": 25,
+    "meadow": 4
+  },
+  "size": [
+    32.5,
+    83.8,
+    32.5
+  ]
+}

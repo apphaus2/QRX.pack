@@ -1,0 +1,16 @@
+{
+  "id": "giant-tree-fern",
+  "name": "Giant Tree Fern",
+  "description": "A tall tree fern, shaggy trunk and a crown of bright fronds.",
+  "class": "roadside",
+  "kind": "flora",
+  "biomes": {
+    "forest": 25,
+    "meadow": 10
+  },
+  "size": [
+    10.0,
+    18.0,
+    10.0
+  ]
+}

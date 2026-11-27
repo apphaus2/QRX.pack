@@ -1,0 +1,11 @@
+{
+  "id": "quetzalcoatlus",
+  "name": "Quetzalcoatlus",
+  "description": "A giraffe-tall pterosaur on short grassland, long beak and folded wings.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "meadow": 10,
+    "barren": 4
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "id": "indricotherium",
+  "name": "Indricotherium",
+  "description": "An enormous hornless rhinoceros relative on a dusty plain, neck held forward.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "shrub": 4,
+    "meadow": 4,
+    "barren": 10
+  },
+  "size": [
+    2.14,
+    5.1,
+    8.0
+  ]
+}

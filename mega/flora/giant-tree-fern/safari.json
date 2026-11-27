@@ -1,9 +1,0 @@
-{
-  "id": "giant-tree-fern",
-  "name": "Giant Tree Fern",
-  "description": "A house-tall tree fern, shaggy trunk and a crown of bright fronds.",
-  "biomes": {
-    "forest": 25,
-    "meadow": 10
-  }
-}

@@ -1,0 +1,11 @@
+{
+  "id": "giant-ground-sloth",
+  "name": "Giant Ground Sloth",
+  "description": "An elephant-sized ground sloth, shaggy and clawed, on open grassland.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "shrub": 4,
+    "meadow": 10
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "lone-cypress",
+  "name": "Lone Cypress",
+  "description": "A windswept Monterey cypress leaning over a grassy clifftop.",
+  "class": "roadside",
+  "kind": "flora",
+  "biomes": {
+    "shrub": 25,
+    "barren": 10
+  },
+  "size": [
+    14.0,
+    12.0,
+    14.0
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "id": "dromedary-camel",
+  "name": "Dromedary Camel",
+  "description": "A one-humped camel on flat desert sand, long legs and a sandy coat.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "shrub": 10,
+    "town": 25,
+    "barren": 60
+  }
+}

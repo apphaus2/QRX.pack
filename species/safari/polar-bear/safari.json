@@ -1,0 +1,12 @@
+{
+  "id": "polar-bear",
+  "name": "Polar Bear",
+  "description": "A cream-white polar bear on flat sea ice, black nose and broad paws.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "snow": 60,
+    "water": 10,
+    "tundra": 25
+  }
+}

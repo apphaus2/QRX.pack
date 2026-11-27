@@ -1,0 +1,11 @@
+{
+  "id": "elephant-seal",
+  "name": "Elephant Seal",
+  "description": "A massive southern elephant seal hauled out on a wide grey beach.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "barren": 10,
+    "water": 25
+  }
+}

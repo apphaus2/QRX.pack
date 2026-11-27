@@ -1,0 +1,16 @@
+{
+  "id": "umbrella-acacia",
+  "name": "Umbrella Acacia",
+  "description": "A huge umbrella thorn, flat green crown over golden savanna grass.",
+  "class": "roadside",
+  "kind": "flora",
+  "biomes": {
+    "shrub": 60,
+    "meadow": 25
+  },
+  "size": [
+    20.0,
+    8.0,
+    20.0
+  ]
+}

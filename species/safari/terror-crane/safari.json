@@ -1,0 +1,12 @@
+{
+  "id": "terror-crane",
+  "name": "Terror Crane",
+  "description": "A giant crane-like hunter on stilt legs, wading a flat of short reeds.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "water": 4,
+    "wetland": 25,
+    "mangrove": 4
+  }
+}

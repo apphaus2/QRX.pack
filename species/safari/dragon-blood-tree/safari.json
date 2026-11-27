@@ -1,0 +1,16 @@
+{
+  "id": "dragon-blood-tree",
+  "name": "Dragon's Blood Tree",
+  "description": "A dragon's blood tree, umbrella crown of stiff leaves, on rocky arid ground.",
+  "class": "roadside",
+  "kind": "flora",
+  "biomes": {
+    "shrub": 10,
+    "barren": 25
+  },
+  "size": [
+    12.0,
+    10.0,
+    12.0
+  ]
+}

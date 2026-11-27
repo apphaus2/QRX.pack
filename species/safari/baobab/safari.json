@@ -1,0 +1,17 @@
+{
+  "id": "baobab",
+  "name": "Baobab",
+  "description": "An ancient baobab, bottle trunk and a short twisted crown, on dry savanna.",
+  "class": "roadside",
+  "kind": "flora",
+  "biomes": {
+    "shrub": 25,
+    "meadow": 10,
+    "barren": 10
+  },
+  "size": [
+    15.0,
+    22.0,
+    15.0
+  ]
+}

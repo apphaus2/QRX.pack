@@ -1,0 +1,13 @@
+{
+  "id": "grizzly-bear",
+  "name": "Grizzly Bear",
+  "description": "A silver-tipped grizzly on an alpine meadow, forested slopes behind it.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "forest": 25,
+    "meadow": 60,
+    "snow": 10,
+    "tundra": 10
+  }
+}

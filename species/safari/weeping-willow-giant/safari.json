@@ -1,0 +1,19 @@
+{
+  "id": "weeping-willow-giant",
+  "name": "Weeping Willow",
+  "description": "A colossal weeping willow, pale leaves hanging to a grassy riverbank.",
+  "class": "roadside",
+  "kind": "flora",
+  "biomes": {
+    "meadow": 10,
+    "farm": 10,
+    "town": 10,
+    "water": 4,
+    "wetland": 25
+  },
+  "size": [
+    26.0,
+    22.0,
+    26.0
+  ]
+}

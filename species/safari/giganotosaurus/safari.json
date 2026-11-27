@@ -1,0 +1,16 @@
+{
+  "id": "giganotosaurus",
+  "name": "Giganotosaurus",
+  "description": "A huge two-legged predator on a floodplain, long head low and tail held out.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "meadow": 10,
+    "barren": 4
+  },
+  "size": [
+    2.4,
+    4.2,
+    13.0
+  ]
+}

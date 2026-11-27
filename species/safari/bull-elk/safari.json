@@ -1,0 +1,12 @@
+{
+  "id": "bull-elk",
+  "name": "Bull Elk",
+  "description": "A bull elk with a tall rack, where the mountain meadow meets the pines.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "forest": 25,
+    "meadow": 60,
+    "town": 10
+  }
+}

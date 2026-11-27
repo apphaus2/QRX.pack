@@ -1,0 +1,47 @@
+{
+  "_": "MeshTool project for the safari creatures in this folder. Pass --project species/safari (the default project is species/art). Class and kind are in each safari.json, not in this file. Each creature is real size (the longest side in its prompt.md). Flora are not in this list. blue-whale-surfacing and sauropod-herd are not one animal, so they are not in this list either.",
+  "archetype": "safari",
+  "creatures": {
+    "african-elephant": "quadruped",
+    "american-bison": "quadruped",
+    "bull-elk": "quadruped",
+    "caribou": "quadruped",
+    "dromedary-camel": "quadruped",
+    "grizzly-bear": "biped",
+    "moose": "quadruped",
+    "water-buffalo": "quadruped",
+    "white-rhino": "quadruped",
+    "ostrich": "bird",
+    "giraffe": "quadruped",
+    "polar-bear": "quadruped",
+    "woolly-mammoth": "quadruped",
+    "steppe-mammoth": "quadruped",
+    "andrewsarchus": "quadruped",
+    "elephant-seal": "quadruped",
+    "giant-ground-sloth": "biped",
+    "indricotherium": "quadruped",
+    "paraceratherium": "quadruped",
+    "brachiosaur": "quadruped",
+    "skyreed-strider": "quadruped",
+    "quetzalcoatlus": "quadruped",
+    "giganotosaurus": "biped",
+    "moa": "biped",
+    "terror-bird": "bird",
+    "terror-crane": "bird",
+    "orca": "fish",
+    "giant-atlas-moth": "flyer"
+  },
+  "centre": [
+    "orca",
+    "giant-atlas-moth"
+  ],
+  "turns": {
+    "polar-bear": 90,
+    "woolly-mammoth": 90,
+    "steppe-mammoth": 90,
+    "african-elephant": 90,
+    "dromedary-camel": 90,
+    "grizzly-bear": 90,
+    "white-rhino": 90
+  }
+}

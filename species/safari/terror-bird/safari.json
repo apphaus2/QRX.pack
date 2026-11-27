@@ -1,0 +1,11 @@
+{
+  "id": "terror-bird",
+  "name": "Terror Bird",
+  "description": "A huge flightless predator bird with an axe-like beak, on dry grassland.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "shrub": 10,
+    "meadow": 10
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": "saguaro-giant",
+  "name": "Saguaro",
+  "description": "An ancient saguaro with three upcurved arms, on open desert gravel.",
+  "class": "roadside",
+  "kind": "flora",
+  "biomes": {
+    "shrub": 10,
+    "barren": 60
+  },
+  "size": [
+    6.0,
+    15.0,
+    6.0
+  ]
+}

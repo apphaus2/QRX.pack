@@ -1,0 +1,18 @@
+{
+  "id": "water-buffalo",
+  "name": "Water Buffalo",
+  "description": "A dark water buffalo with huge curved horns, standing in shallow reeds.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "farm": 25,
+    "water": 10,
+    "wetland": 60,
+    "mangrove": 10
+  },
+  "size": [
+    1.36,
+    1.85,
+    3.0
+  ]
+}

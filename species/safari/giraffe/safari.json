@@ -1,0 +1,11 @@
+{
+  "id": "giraffe",
+  "name": "Giraffe",
+  "description": "A tall reticulated giraffe on dry savanna, a single acacia far behind.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "shrub": 60,
+    "meadow": 25
+  }
+}

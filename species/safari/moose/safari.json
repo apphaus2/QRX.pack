@@ -1,0 +1,13 @@
+{
+  "id": "moose",
+  "name": "Moose",
+  "description": "A tall dark moose at the marshy edge of a northern forest.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "forest": 60,
+    "town": 10,
+    "water": 10,
+    "wetland": 25
+  }
+}

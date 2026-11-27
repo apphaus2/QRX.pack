@@ -1,8 +1,0 @@
-{
-  "id": "skyreed-strider",
-  "name": "Skyreed Strider",
-  "description": "A gentle giant on stilt legs, small body high over a flat salt plain.",
-  "biomes": {
-    "barren": 4
-  }
-}
