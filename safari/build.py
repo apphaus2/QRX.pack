@@ -30,6 +30,8 @@ ROOT = os.path.dirname(HERE)
 PACK = "https://qrx-pack.apphaus.us/"
 INDEX = os.path.join(ROOT, "species", "safari.json")
 SIGHTINGS = os.path.join(ROOT, "species", "safari")
+# The preview page lives beside the creatures. It is not a sighting.
+SKIP = {"preview"}
 KEYS = {"id", "name", "description", "biomes", "class", "kind", "size"}
 CLASSES = ("roadside", "mega")
 KINDS = ("fauna", "flora")
@@ -119,7 +121,7 @@ class Build:
         seen = {}
         for name in sorted(os.listdir(SIGHTINGS)):
             folder = os.path.join(SIGHTINGS, name)
-            if not os.path.isdir(folder):
+            if not os.path.isdir(folder) or name in SKIP:
                 continue
             where = rel("species", "safari", name)
             if name in seen:

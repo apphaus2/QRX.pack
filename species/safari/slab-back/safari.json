@@ -1,0 +1,16 @@
+{
+  "id": "slab-back",
+  "name": "Slab Back",
+  "description": "A heavy upright walker, three pale slabs on a dark back, seen over the roofs.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "town": 60,
+    "water": 10
+  },
+  "size": [
+    35.0,
+    110.0,
+    150.0
+  ]
+}

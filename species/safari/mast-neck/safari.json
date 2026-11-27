@@ -1,0 +1,15 @@
+{
+  "id": "mast-neck",
+  "name": "Mast Neck",
+  "description": "A long neck and a small head rising out of the sea.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "water": 60
+  },
+  "size": [
+    15.0,
+    110.0,
+    40.0
+  ]
+}

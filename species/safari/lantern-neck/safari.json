@@ -1,0 +1,16 @@
+{
+  "id": "lantern-neck",
+  "name": "Lantern Neck",
+  "description": "A heavy body on the ground and a neck that rises almost straight up.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "meadow": 60,
+    "farm": 4
+  },
+  "size": [
+    18.0,
+    85.0,
+    40.0
+  ]
+}

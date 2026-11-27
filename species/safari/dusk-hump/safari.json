@@ -1,0 +1,16 @@
+{
+  "id": "dusk-hump",
+  "name": "Dusk Hump",
+  "description": "A pale long-haired quadruped with a high shoulder and a dark face.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "snow": 60,
+    "tundra": 10
+  },
+  "size": [
+    30.0,
+    80.0,
+    50.0
+  ]
+}

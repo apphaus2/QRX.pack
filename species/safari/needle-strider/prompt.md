@@ -1,0 +1,23 @@
+# Needle Strider (`needle-strider`)
+
+Real size, not a tabletop species. The clean step scales the longest side of the mesh to the size below.
+
+| | |
+| --- | --- |
+| size | **120.0 m** longest side |
+| clips | `idle`, `walk` |
+| status | new |
+
+## Render prompt (`full.jpg`)
+
+Kept word for word in `prompt.txt`:
+
+> An original very tall narrow biped, a thin body and one plain triangular sail down the back, pale grey against the sky, on bare rocky ground. Natural wildlife photograph, realistic proportions. Camera at eye level and very far away, as if spotted from a road across open country, a near-orthographic side view with a long lens: no wide angle, no low angle, no looking down. The animal stands still, side-on, facing left: it stands upright on two feet, the sail fully in view, the head small at the top. It fills about two thirds of the frame's height, with room above its highest point and below its feet, with a low horizon, a pale plain sky behind it and generous empty space on every side, so its whole outline reads as a clean, high-contrast silhouette at a glance; nothing overlaps it and nothing in front of it. A little atmospheric haze between the camera and the animal shows the distance and its huge size. Soft, even daylight from an overcast sky, no hard shadows, no rim light. Sharp focus on the animal. Landscape frame, 16:9, 1280x720. No people, no vehicles, no roads, no other animals, no text, no logos, no frame, no watermark.
+
+## Cutout (`cutout.png`)
+
+The animal alone from `full.jpg`, on transparency: no shadow, no ground, at least 16 pixels of margin, nothing touching the edge.
+
+## Rigged mesh (`mesh.glb`)
+
+Made from the cutout and the render. Longest side 120.0 m. Clips `idle`, `walk`, in place.

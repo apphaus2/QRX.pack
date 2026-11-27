@@ -1,0 +1,16 @@
+{
+  "id": "needle-strider",
+  "name": "Needle Strider",
+  "description": "A narrow biped with one sail down its back, a blade on the skyline.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "barren": 60,
+    "shrub": 4
+  },
+  "size": [
+    15.0,
+    120.0,
+    25.0
+  ]
+}

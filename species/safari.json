@@ -73,6 +73,29 @@
       ]
     },
     {
+      "id": "anvil-head",
+      "name": "Anvil Head",
+      "class": "roadside",
+      "kind": "fauna",
+      "description": "A two-legged hunter with a deep pale head held up, on open ground.",
+      "biomes": {
+        "meadow": 60,
+        "barren": 10
+      },
+      "model": "species/safari/anvil-head/mesh.glb",
+      "size": [
+        2.2,
+        4.6,
+        12.3
+      ],
+      "bytes": 695320,
+      "triangles": 9500,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
       "id": "brachiosaur",
       "name": "Brachiosaur",
       "class": "roadside",
@@ -301,6 +324,29 @@
         1.2031
       ],
       "bytes": 1199264,
+      "triangles": 9500,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "high-frill",
+      "name": "High Frill",
+      "class": "roadside",
+      "kind": "fauna",
+      "description": "A four-legged plant-eater with a tall bony shield behind its head.",
+      "biomes": {
+        "forest": 10,
+        "meadow": 60
+      },
+      "model": "species/safari/high-frill/mesh.glb",
+      "size": [
+        2.5,
+        3.0,
+        9.0
+      ],
+      "bytes": 1105804,
       "triangles": 9500,
       "clips": [
         "idle",
@@ -864,6 +910,280 @@
       "bytes": null,
       "triangles": null,
       "clips": []
+    },
+    {
+      "id": "beam-crown",
+      "name": "Beam Crown",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "A low heavy body and a few huge flat beams rising from the head.",
+      "biomes": {
+        "snow": 10,
+        "tundra": 60
+      },
+      "model": null,
+      "size": [
+        90.0,
+        75.0,
+        50.0
+      ],
+      "bytes": null,
+      "triangles": null,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "dome-walker",
+      "name": "Dome Walker",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "A wide hill of a shell on four thick legs.",
+      "biomes": {
+        "shrub": 60,
+        "barren": 4
+      },
+      "model": "species/safari/dome-walker/mesh.glb",
+      "size": [
+        100.0,
+        60.0,
+        90.0
+      ],
+      "bytes": 952032,
+      "triangles": 9500,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "dusk-hump",
+      "name": "Dusk Hump",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "A pale long-haired quadruped with a high shoulder and a dark face.",
+      "biomes": {
+        "snow": 60,
+        "tundra": 10
+      },
+      "model": null,
+      "size": [
+        30.0,
+        80.0,
+        50.0
+      ],
+      "bytes": null,
+      "triangles": null,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "eave-walker",
+      "name": "Eave Walker",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "Four very long legs and a small body held above the roofs.",
+      "biomes": {
+        "town": 60
+      },
+      "model": null,
+      "size": [
+        20.0,
+        80.0,
+        30.0
+      ],
+      "bytes": null,
+      "triangles": null,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "harvest-strider",
+      "name": "Harvest Strider",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "A long-necked bird on legs taller than a barn.",
+      "biomes": {
+        "meadow": 10,
+        "farm": 60
+      },
+      "model": "species/safari/harvest-strider/mesh.glb",
+      "size": [
+        12.0,
+        70.0,
+        25.0
+      ],
+      "bytes": 832636,
+      "triangles": 9500,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "lantern-neck",
+      "name": "Lantern Neck",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "A heavy body on the ground and a neck that rises almost straight up.",
+      "biomes": {
+        "meadow": 60,
+        "farm": 4
+      },
+      "model": "species/safari/lantern-neck/mesh.glb",
+      "size": [
+        18.0,
+        85.0,
+        40.0
+      ],
+      "bytes": 762084,
+      "triangles": 9500,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "mast-neck",
+      "name": "Mast Neck",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "A long neck and a small head rising out of the sea.",
+      "biomes": {
+        "water": 60
+      },
+      "model": null,
+      "size": [
+        15.0,
+        110.0,
+        40.0
+      ],
+      "bytes": null,
+      "triangles": null,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "needle-strider",
+      "name": "Needle Strider",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "A narrow biped with one sail down its back, a blade on the skyline.",
+      "biomes": {
+        "shrub": 4,
+        "barren": 60
+      },
+      "model": "species/safari/needle-strider/mesh.glb",
+      "size": [
+        15.0,
+        120.0,
+        25.0
+      ],
+      "bytes": 648764,
+      "triangles": 9500,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "root-hall",
+      "name": "Root Hall",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "Four huge root-like legs and a dark body above the canopy.",
+      "biomes": {
+        "wetland": 10,
+        "mangrove": 60
+      },
+      "model": null,
+      "size": [
+        40.0,
+        90.0,
+        50.0
+      ],
+      "bytes": null,
+      "triangles": null,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "shutter-bill",
+      "name": "Shutter Bill",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "Tall legs, a spear bill, and two folded wings like shut doors.",
+      "biomes": {
+        "wetland": 60,
+        "mangrove": 10
+      },
+      "model": null,
+      "size": [
+        25.0,
+        70.0,
+        30.0
+      ],
+      "bytes": null,
+      "triangles": null,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "slab-back",
+      "name": "Slab Back",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "A heavy upright walker, three pale slabs on a dark back, seen over the roofs.",
+      "biomes": {
+        "town": 60,
+        "water": 10
+      },
+      "model": "species/safari/slab-back/mesh.glb",
+      "size": [
+        35.0,
+        110.0,
+        150.0
+      ],
+      "bytes": 763448,
+      "triangles": 9500,
+      "clips": [
+        "idle",
+        "walk"
+      ]
+    },
+    {
+      "id": "timber-colossus",
+      "name": "Timber Colossus",
+      "class": "mega",
+      "kind": "fauna",
+      "description": "Four pillar legs and a long low body, taller than the canopy.",
+      "biomes": {
+        "forest": 60,
+        "meadow": 4
+      },
+      "model": "species/safari/timber-colossus/mesh.glb",
+      "size": [
+        40.0,
+        100.0,
+        70.0
+      ],
+      "bytes": 1094992,
+      "triangles": 9500,
+      "clips": [
+        "idle",
+        "walk"
+      ]
     }
   ]
 }

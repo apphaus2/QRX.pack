@@ -1,0 +1,16 @@
+{
+  "id": "anvil-head",
+  "name": "Anvil Head",
+  "description": "A two-legged hunter with a deep pale head held up, on open ground.",
+  "class": "roadside",
+  "kind": "fauna",
+  "biomes": {
+    "meadow": 60,
+    "barren": 10
+  },
+  "size": [
+    2.2,
+    4.6,
+    12.3
+  ]
+}

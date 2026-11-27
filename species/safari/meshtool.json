@@ -29,12 +29,29 @@
     "terror-bird": "bird",
     "terror-crane": "bird",
     "orca": "fish",
-    "giant-atlas-moth": "flyer"
+    "giant-atlas-moth": "flyer",
+    "slab-back": "biped",
+    "anvil-head": "biped",
+    "high-frill": "quadruped",
+    "timber-colossus": "quadruped",
+    "lantern-neck": "quadruped",
+    "dome-walker": "quadruped",
+    "needle-strider": "biped",
+    "harvest-strider": "biped",
+    "eave-walker": "quadruped",
+    "mast-neck": "quadruped",
+    "shutter-bill": "biped",
+    "dusk-hump": "quadruped",
+    "beam-crown": "quadruped",
+    "root-hall": "quadruped"
   },
   "centre": [
     "orca",
     "giant-atlas-moth"
   ],
+  "seeds": {
+    "dome-walker": 2345
+  },
   "turns": {
     "polar-bear": 90,
     "woolly-mammoth": 90,
@@ -42,6 +59,9 @@
     "african-elephant": 90,
     "dromedary-camel": 90,
     "grizzly-bear": 90,
-    "white-rhino": 90
+    "white-rhino": 90,
+    "timber-colossus": 90,
+    "dome-walker": 90,
+    "needle-strider": 90
   }
 }

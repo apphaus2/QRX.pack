@@ -1,0 +1,16 @@
+{
+  "id": "beam-crown",
+  "name": "Beam Crown",
+  "description": "A low heavy body and a few huge flat beams rising from the head.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "tundra": 60,
+    "snow": 10
+  },
+  "size": [
+    90.0,
+    75.0,
+    50.0
+  ]
+}

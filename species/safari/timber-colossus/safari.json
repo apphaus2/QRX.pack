@@ -1,0 +1,16 @@
+{
+  "id": "timber-colossus",
+  "name": "Timber Colossus",
+  "description": "Four pillar legs and a long low body, taller than the canopy.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "forest": 60,
+    "meadow": 4
+  },
+  "size": [
+    40.0,
+    100.0,
+    70.0
+  ]
+}

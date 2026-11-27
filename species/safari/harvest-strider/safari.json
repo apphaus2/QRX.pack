@@ -1,0 +1,16 @@
+{
+  "id": "harvest-strider",
+  "name": "Harvest Strider",
+  "description": "A long-necked bird on legs taller than a barn.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "farm": 60,
+    "meadow": 10
+  },
+  "size": [
+    12.0,
+    70.0,
+    25.0
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "id": "shutter-bill",
+  "name": "Shutter Bill",
+  "description": "Tall legs, a spear bill, and two folded wings like shut doors.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "wetland": 60,
+    "mangrove": 10
+  },
+  "size": [
+    25.0,
+    70.0,
+    30.0
+  ]
+}

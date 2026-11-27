@@ -1,0 +1,16 @@
+{
+  "id": "root-hall",
+  "name": "Root Hall",
+  "description": "Four huge root-like legs and a dark body above the canopy.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "mangrove": 60,
+    "wetland": 10
+  },
+  "size": [
+    40.0,
+    90.0,
+    50.0
+  ]
+}

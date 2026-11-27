@@ -1,0 +1,15 @@
+{
+  "id": "eave-walker",
+  "name": "Eave Walker",
+  "description": "Four very long legs and a small body held above the roofs.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "town": 60
+  },
+  "size": [
+    20.0,
+    80.0,
+    30.0
+  ]
+}

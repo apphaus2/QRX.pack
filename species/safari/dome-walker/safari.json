@@ -1,0 +1,16 @@
+{
+  "id": "dome-walker",
+  "name": "Dome Walker",
+  "description": "A wide hill of a shell on four thick legs.",
+  "class": "mega",
+  "kind": "fauna",
+  "biomes": {
+    "shrub": 60,
+    "barren": 4
+  },
+  "size": [
+    100.0,
+    60.0,
+    90.0
+  ]
+}
