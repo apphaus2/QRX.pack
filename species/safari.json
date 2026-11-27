@@ -269,14 +269,14 @@
         "meadow": 10,
         "barren": 4
       },
-      "model": null,
+      "model": "species/safari/giganotosaurus/mesh.glb",
       "size": [
         2.4,
         4.2,
         13.0
       ],
-      "bytes": null,
-      "triangles": null,
+      "bytes": 718380,
+      "triangles": 9500,
       "clips": [
         "idle",
         "walk"
@@ -921,14 +921,14 @@
         "snow": 10,
         "tundra": 60
       },
-      "model": null,
+      "model": "species/safari/beam-crown/mesh.glb",
       "size": [
         90.0,
         75.0,
         50.0
       ],
-      "bytes": null,
-      "triangles": null,
+      "bytes": 632760,
+      "triangles": 9462,
       "clips": [
         "idle",
         "walk"
@@ -967,14 +967,14 @@
         "snow": 60,
         "tundra": 10
       },
-      "model": null,
+      "model": "species/safari/dusk-hump/mesh.glb",
       "size": [
         30.0,
         80.0,
         50.0
       ],
-      "bytes": null,
-      "triangles": null,
+      "bytes": 1348012,
+      "triangles": 9500,
       "clips": [
         "idle",
         "walk"
@@ -989,14 +989,14 @@
       "biomes": {
         "town": 60
       },
-      "model": null,
+      "model": "species/safari/eave-walker/mesh.glb",
       "size": [
         20.0,
         80.0,
         30.0
       ],
-      "bytes": null,
-      "triangles": null,
+      "bytes": 375744,
+      "triangles": 9546,
       "clips": [
         "idle",
         "walk"
@@ -1057,14 +1057,14 @@
       "biomes": {
         "water": 60
       },
-      "model": null,
+      "model": "species/safari/mast-neck/mesh.glb",
       "size": [
         15.0,
         110.0,
         40.0
       ],
-      "bytes": null,
-      "triangles": null,
+      "bytes": 135776,
+      "triangles": 9500,
       "clips": [
         "idle",
         "walk"
@@ -1103,14 +1103,14 @@
         "wetland": 10,
         "mangrove": 60
       },
-      "model": null,
+      "model": "species/safari/root-hall/mesh.glb",
       "size": [
         40.0,
         90.0,
         50.0
       ],
-      "bytes": null,
-      "triangles": null,
+      "bytes": 400812,
+      "triangles": 9500,
       "clips": [
         "idle",
         "walk"
@@ -1126,14 +1126,14 @@
         "wetland": 60,
         "mangrove": 10
       },
-      "model": null,
+      "model": "species/safari/shutter-bill/mesh.glb",
       "size": [
         25.0,
         70.0,
         30.0
       ],
-      "bytes": null,
-      "triangles": null,
+      "bytes": 1039600,
+      "triangles": 9500,
       "clips": [
         "idle",
         "walk"
