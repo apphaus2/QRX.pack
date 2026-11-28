@@ -1,5 +1,5 @@
 {
-  "_": "MeshTool project for the safari creatures in this folder. Pass --project species/safari (the default project is species/art). Class and kind are in each safari.json, not in this file. Each creature is real size (the longest side in its prompt.md). Flora are not in this list.",
+  "_": "MeshTool project for the safari creatures in this folder. Pass --project species/safari (the default project is species/art). Class and kind are in each safari.json, not in this file. Each creature is real size (the longest side in its prompt.md). Flora use the plant shape: a trunk and a crown, an idle sway, no walk.",
   "archetype": "safari",
   "creatures": {
     "african-elephant": "quadruped",
@@ -43,7 +43,17 @@
     "shutter-bill": "biped",
     "dusk-hump": "quadruped",
     "beam-crown": "quadruped",
-    "root-hall": "quadruped"
+    "root-hall": "quadruped",
+    "baobab": "plant",
+    "dragon-blood-tree": "plant",
+    "giant-rhododendron": "plant",
+    "giant-sequoia": "plant",
+    "giant-tree-fern": "plant",
+    "lone-cypress": "plant",
+    "saguaro-giant": "plant",
+    "skyspire-bloom": "plant",
+    "umbrella-acacia": "plant",
+    "weeping-willow-giant": "plant"
   },
   "centre": [
     "orca",
@@ -51,6 +61,13 @@
   ],
   "seeds": {
     "dome-walker": 2345
+  },
+  "triangles": {
+    "bands": [
+      {"under": 10, "count": 10000},
+      {"under": 40, "count": 25000},
+      {"count": 50000}
+    ]
   },
   "turns": {
     "polar-bear": 90,

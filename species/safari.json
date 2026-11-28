@@ -718,15 +718,17 @@
         "meadow": 10,
         "barren": 10
       },
-      "model": null,
+      "model": "species/safari/baobab/mesh.glb",
       "size": [
         15.0,
         22.0,
         15.0
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 1474652,
+      "triangles": 39910,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "dragon-blood-tree",
@@ -738,15 +740,17 @@
         "shrub": 10,
         "barren": 25
       },
-      "model": null,
+      "model": "species/safari/dragon-blood-tree/mesh.glb",
       "size": [
         12.0,
         10.0,
         12.0
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 980152,
+      "triangles": 25000,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "giant-rhododendron",
@@ -759,15 +763,17 @@
         "shrub": 25,
         "meadow": 10
       },
-      "model": null,
+      "model": "species/safari/giant-rhododendron/mesh.glb",
       "size": [
         16.0,
         30.0,
         16.0
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 1564356,
+      "triangles": 31858,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "giant-sequoia",
@@ -779,15 +785,17 @@
         "forest": 25,
         "meadow": 4
       },
-      "model": null,
+      "model": "species/safari/giant-sequoia/mesh.glb",
       "size": [
         32.5,
         83.8,
         32.5
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 1222028,
+      "triangles": 39958,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "giant-tree-fern",
@@ -799,15 +807,17 @@
         "forest": 25,
         "meadow": 10
       },
-      "model": null,
+      "model": "species/safari/giant-tree-fern/mesh.glb",
       "size": [
         10.0,
         18.0,
         10.0
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 1518172,
+      "triangles": 25000,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "lone-cypress",
@@ -819,15 +829,17 @@
         "shrub": 25,
         "barren": 10
       },
-      "model": null,
+      "model": "species/safari/lone-cypress/mesh.glb",
       "size": [
         14.0,
         12.0,
         14.0
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 1221140,
+      "triangles": 25000,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "saguaro-giant",
@@ -839,15 +851,17 @@
         "shrub": 10,
         "barren": 60
       },
-      "model": null,
+      "model": "species/safari/saguaro-giant/mesh.glb",
       "size": [
         6.0,
         15.0,
         6.0
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 1291428,
+      "triangles": 25000,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "skyspire-bloom",
@@ -858,15 +872,17 @@
       "biomes": {
         "barren": 10
       },
-      "model": null,
+      "model": "species/safari/skyspire-bloom/mesh.glb",
       "size": [
         12.0,
         75.0,
         12.0
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 1505716,
+      "triangles": 39602,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "umbrella-acacia",
@@ -878,15 +894,17 @@
         "shrub": 60,
         "meadow": 25
       },
-      "model": null,
+      "model": "species/safari/umbrella-acacia/mesh.glb",
       "size": [
         20.0,
         8.0,
         20.0
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 1597460,
+      "triangles": 25000,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "weeping-willow-giant",
@@ -901,15 +919,17 @@
         "water": 4,
         "wetland": 25
       },
-      "model": null,
+      "model": "species/safari/weeping-willow-giant/mesh.glb",
       "size": [
         26.0,
         22.0,
         26.0
       ],
-      "bytes": null,
-      "triangles": null,
-      "clips": []
+      "bytes": 1438216,
+      "triangles": 25000,
+      "clips": [
+        "idle"
+      ]
     },
     {
       "id": "beam-crown",
